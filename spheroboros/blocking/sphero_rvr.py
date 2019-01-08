@@ -5,9 +5,9 @@ import requests
 
 
 class SpheroRvr:
-    def __init__(self):
-        self.host = 'localhost'
-        self.port = 8080
+    def __init__(self, *, host='localhost', port=8008):
+        self.host = host
+        self.port = port
         self.session = requests.Session()
 
     def get_main_app(self):

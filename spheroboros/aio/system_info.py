@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import aiohttp
-from .. import exceptions
+from ..common import exceptions
 import time
 
 path = '/system_info/'

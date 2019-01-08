@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
-from . import exceptions
+from ..common import exceptions
 
 path = '/system_info/'
 

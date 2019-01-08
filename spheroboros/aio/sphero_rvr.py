@@ -5,9 +5,9 @@ import aiohttp
 
 
 class SpheroRvr:
-    def __init__(self):
-        self.host = 'localhost'
-        self.port = 8080
+    def __init__(self, *, host='localhost', port=8080):
+        self.host = host
+        self.port = port
         self.session = aiohttp.ClientSession()
 
     async def get_main_app(self):

@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
-from spher_io import SpheroRvr
+from spheroboros import AsyncSpheroRvr
 import asyncio
 
-rvr = SpheroRvr()
+rvr = AsyncSpheroRvr()
 loop = asyncio.get_event_loop()
 
 
