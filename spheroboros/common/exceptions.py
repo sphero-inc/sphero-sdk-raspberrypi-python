@@ -1,19 +1,14 @@
 #! /usr/bin/env python3
 
-class Error(Exception):
+class BaseError(Exception):
     pass
 
-class BadConnection(Error):
+class BadConnection(BaseError):
+    pass
+
+class BadResponse(BaseError):
     def __init__(self):
         pass
 
     def __str__(self):
-        return "Could not connect to the Sphero Service"
-
-class BadResponse(Error):
-    def __init__(self, helper=None):
-        self.helper = helper
-        pass
-
-    def __str__(self):
-        return "There was a mismatch between this Library and the Sphero Service: {}".format(self.helper)
+        return '''The Response returned from the Server suggests a mismatch between library versions'''

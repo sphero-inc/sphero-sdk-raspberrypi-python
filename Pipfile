@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 aiohttp = "*"
 requests = "*"
+websocket-client = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.5"
