@@ -13,6 +13,7 @@ cache:
 
 before_script:
     - python -V
+    - pip install twine
     - pip install pipenv
     - pipenv install --dev --skip-lock
 
