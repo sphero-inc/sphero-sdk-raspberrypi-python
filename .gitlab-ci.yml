@@ -9,8 +9,7 @@ variables:
 cache:
   paths:
     - .cache/pip
-    - ~/.local/share/virtualenvs/raspberry-pi-kwz-7fxL/
-
+    - /root/.local/share/virtualenvs/raspberry-pi-kwz_7fxL
 before_script:
     - python -V
     - pip install twine
@@ -37,6 +36,8 @@ setup:
         - ls -al /root/.local
         - ls -al /root/.local/share
         - ls -al /root/.local/share/virtualenvs
+        - ls -al /root/.local/share/virtualenvs/raspberry-pi-kwz_7fxL
+
     artifacts:
         paths:
             - dist/
