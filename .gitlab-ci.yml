@@ -41,6 +41,8 @@ staging:
 production:
     dependencies:
         - build
-    # TODO upload to PyPI
+    script:
+        - python -V
+        # TODO upload to PyPI
     only:
         - web
