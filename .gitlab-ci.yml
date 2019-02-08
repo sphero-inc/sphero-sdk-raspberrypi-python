@@ -8,7 +8,7 @@ variables:
 before_script:
     - python -V
     - pip install pipenv
-    - pipenv install --dev
+    - pipenv install --dev --skip-lock
 
 stages:
     - build

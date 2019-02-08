@@ -10,6 +10,7 @@ aiohttp = "*"
 requests = "*"
 websocket-client = "*"
 pytest-asyncio = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.5"
