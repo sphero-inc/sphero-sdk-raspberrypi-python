@@ -9,7 +9,14 @@ before_script:
     - pip install pipenv
     - pipenv install --dev
 
-build:
+stages:
+    - build
+    - test
+    - deploy
+    - release
+
+setup:
+    stage: build
     script:
         - python setup.py sdist
     artifacts:
@@ -18,11 +25,13 @@ build:
     only:
         - master
 
-test:
+pytest:
+    stage: test
     script:
         - python -m pytest --ignore=autogen-api-commands -vvv
 
 staging:
+    stage: deploy
     dependencies:
         - build
     script:
@@ -33,6 +42,7 @@ staging:
         - master
 
 production:
+    stage: release
     dependencies:
         - build
     script:
