@@ -9,7 +9,7 @@ variables:
 cache:
   paths:
     - .cache/pip
-    - /root/.local/share/virtualenvs/raspberry-pi-kwz-7fxL/
+    - ~/.local/share/virtualenvs/raspberry-pi-kwz-7fxL/
 
 before_script:
     - python -V
