@@ -11,6 +11,7 @@ requests = "*"
 websocket-client = "*"
 pytest-asyncio = "*"
 pytest = "*"
+twine = "*"
 
 [requires]
 python_version = "3.5"
