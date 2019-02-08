@@ -3,7 +3,7 @@
 # Source File:        0x12-system_modes.json
 # Device ID:          0x12
 # Device Name:        system_mode
-# Timestamp:          01/23/2019 @ 18:37:41.337784 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.173588 (UTC)
 
 from spheroboros.common.commands.system_mode import CommandsEnum
 from spheroboros.common.devices import DevicesEnum

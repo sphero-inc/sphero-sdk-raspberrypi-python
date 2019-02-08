@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          01/23/2019 @ 18:37:41.340585 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.176438 (UTC)
 
 from enum import IntEnum
 
@@ -39,18 +39,21 @@ class CommandsEnum(IntEnum):
 
 
 class ConfigBlockWriteCodesEnum(IntEnum):
-    CB_SUCCESS = 0
-    CB_BUSY = 1
-    CB_FS_ERROR = 2
+    ''' '''
+    CB_SUCCESS = 0  #: 
+    CB_BUSY = 1  #: 
+    CB_FS_ERROR = 2  #: 
 
 
 class DeviceModesEnum(IntEnum):
-    factory_mode = 0
-    user_play_test_mode = 1
-    user_out_of_box_mode = 2
-    user_full_mode = 3
+    ''' '''
+    factory_mode = 0  #: 
+    user_play_test_mode = 1  #: 
+    user_out_of_box_mode = 2  #: 
+    user_full_mode = 3  #: 
 
 
 class ApplicationIndexesEnum(IntEnum):
-    bootloader = 0
-    main_application = 1
+    ''' '''
+    bootloader = 0  #: 
+    main_application = 1  #: 

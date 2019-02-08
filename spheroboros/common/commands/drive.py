@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          01/23/2019 @ 18:37:41.332323 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.168047 (UTC)
 
 from enum import IntEnum
 
@@ -14,36 +14,35 @@ __all__ = ['RawMotorModesEnum',
 
 
 class CommandsEnum(IntEnum):
-    raw_motors = 0x01  #:
-    reset_yaw = 0x06  #:
-    drive_with_heading = 0x07  #:
-    tank_drive = 0x08  #:
-    rc_drive = 0x09  #:
-    set_stabilization = 0x0C  #:
+    raw_motors = 0x01
+    reset_yaw = 0x06
+    drive_with_heading = 0x07
+    tank_drive = 0x08
+    rc_drive = 0x09
+    set_stabilization = 0x0C
 
 
 class RawMotorModesEnum(IntEnum):
-    '''
-    A Description for RawMotorModesEnum
-    '''
-    off = 0  #:Motors off
-    forward = 1  #:
-    reverse = 2  #:
+    ''' '''
+    off = 0  #: 
+    forward = 1  #: 
+    reverse = 2  #: 
 
 
 class StabilizationIndexesEnum(IntEnum):
-    no_control_system = 0  #:
-    full_control_system = 1  #:
-    pitch_control_system = 2  #:
-    roll_control_system = 3  #:
-    yaw_control_system = 4  #:
-    speed_and_yaw_control_system = 5  #:
+    ''' '''
+    no_control_system = 0  #: 
+    full_control_system = 1  #: 
+    pitch_control_system = 2  #: 
+    roll_control_system = 3  #: 
+    yaw_control_system = 4  #: 
+    speed_and_yaw_control_system = 5  #: 
 
 
 class DriveFlagsBitMask(IntEnum):
-    drive_reverse = 1  #:
-    boost = 2  #:
-    fast_turn = 4  #:
-    left_direction = 8  #:
-    right_direction = 16  #:
-    enable_drift = 32  #:
+    drive_reverse = 1 #: 
+    boost = 2 #: 
+    fast_turn = 4 #: 
+    left_direction = 8 #: 
+    right_direction = 16 #: 
+    enable_drift = 32 #: 

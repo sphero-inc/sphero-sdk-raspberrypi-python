@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          01/23/2019 @ 18:37:41.334051 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.169792 (UTC)
 
 from enum import IntEnum
 
@@ -41,31 +41,31 @@ class CommandsEnum(IntEnum):
 
 
 class CliffDetectionSensorLocationsBitMask(IntEnum):
-    front_left = 1
-    front_right = 2
-    back_left = 4
-    back_right = 8
+    front_left = 1 #: 
+    front_right = 2 #: 
+    back_left = 4 #: 
+    back_right = 8 #: 
 
 
 class GyroMaxFlagsBitMask(IntEnum):
-    max_plus_x = 1
-    max_minus_x = 2
-    max_plus_y = 4
-    max_minus_y = 8
-    max_plus_z = 16
-    max_minus_z = 32
+    max_plus_x = 1 #: 
+    max_minus_x = 2 #: 
+    max_plus_y = 4 #: 
+    max_minus_y = 8 #: 
+    max_plus_z = 16 #: 
+    max_minus_z = 32 #: 
 
 
 class InfraredSensorLocationsBitMask(IntEnum):
-    front_left = 1
-    front_right = 2
-    back_right = 4
-    back_left = 8
+    front_left = 1 #: 
+    front_right = 2 #: 
+    back_right = 4 #: 
+    back_left = 8 #: 
 
 
 class InfraredSensorTestDetailsFlagsBitMask(IntEnum):
-    success = 1
-    front_left_receiver_emitter_failed = 2
-    front_right_receiver_emitter_failed = 4
-    back_right_receiver_emitter_failed = 8
-    back_left_receiver_emitter_failed = 16
+    success = 1 #: 
+    front_left_receiver_emitter_failed = 2 #: 
+    front_right_receiver_emitter_failed = 4 #: 
+    back_right_receiver_emitter_failed = 8 #: 
+    back_left_receiver_emitter_failed = 16 #: 

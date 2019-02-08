@@ -3,7 +3,7 @@
 # Source File:        0x1F-factory_testing.json
 # Device ID:          0x1F
 # Device Name:        factory_test
-# Timestamp:          01/23/2019 @ 18:37:41.330949 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.166664 (UTC)
 
 from enum import IntEnum
 

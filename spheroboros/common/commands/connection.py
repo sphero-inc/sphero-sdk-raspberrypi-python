@@ -3,7 +3,7 @@
 # Source File:        0x19-peer_connection.json
 # Device ID:          0x19
 # Device Name:        connection
-# Timestamp:          01/23/2019 @ 18:37:41.340079 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.175898 (UTC)
 
 from enum import IntEnum
 
@@ -17,11 +17,12 @@ class CommandsEnum(IntEnum):
 
 
 class BleCentralStatesEnum(IntEnum):
-    not_yet_initialized = 0
-    disconnected = 1
-    scanning = 2
-    connecting = 3
-    reconnecting = 4
-    connected = 5
-    disconnecting = 6
-    configuring = 7
+    ''' '''
+    not_yet_initialized = 0  #: 
+    disconnected = 1  #: 
+    scanning = 2  #: 
+    connecting = 3  #: 
+    reconnecting = 4  #: 
+    connected = 5  #: 
+    disconnecting = 6  #: 
+    configuring = 7  #: 

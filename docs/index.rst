@@ -6,9 +6,9 @@
 Welcome to spheroboros's documentation!
 =======================================
 
-spheroboros is a library for python 3.5.3 that is intended to run on a Raspberry Pi.
+spheroboros is a library for making calls to a running Sphero Service to control Sphero Robots.
 
-Use it to make calls to a running Sphero Service to control Sphero Robots.
+It requires python 3.5.3 and is intended to run on a Raspberry Pi.
 
 Currently Supported Sphero Robots:
     - Sphero RVR

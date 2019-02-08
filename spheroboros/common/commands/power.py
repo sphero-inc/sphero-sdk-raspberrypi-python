@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          01/23/2019 @ 18:37:41.338502 (UTC)
+# Timestamp:          02/08/2019 @ 00:55:35.174312 (UTC)
 
 from enum import IntEnum
 
@@ -30,30 +30,33 @@ class CommandsEnum(IntEnum):
 
 
 class BatteryVoltageAndStateStatesEnum(IntEnum):
-    charged = 0
-    charging = 1
-    not_charging = 2
-    ok = 3
-    low = 4
-    critical = 5
-    reserved = 6
-    unused = 7
+    ''' '''
+    charged = 0  #: 
+    charging = 1  #: 
+    not_charging = 2  #: 
+    ok = 3  #: 
+    low = 4  #: 
+    critical = 5  #: 
+    reserved = 6  #: 
+    unused = 7  #: 
 
 
 class BatteryVoltageStatesEnum(IntEnum):
-    unknown = 0
-    ok = 1
-    low = 2
-    critical = 3
+    ''' '''
+    unknown = 0  #: 
+    ok = 1  #: 
+    low = 2  #: 
+    critical = 3  #: 
 
 
 class ChargerStatesEnum(IntEnum):
-    unknown = 0
-    not_charging = 1
-    charging = 2
-    charged = 3
+    ''' '''
+    unknown = 0  #: 
+    not_charging = 1  #: 
+    charging = 2  #: 
+    charged = 3  #: 
 
 
 class PowerOptionsBitMask(IntEnum):
-    sleep_while_charging = 1
-    double_tap_to_wake = 2
+    sleep_while_charging = 1 #: 
+    double_tap_to_wake = 2 #: 
