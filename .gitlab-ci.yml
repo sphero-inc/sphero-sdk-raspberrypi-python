@@ -27,6 +27,8 @@ setup:
     script:
         - python setup.py sdist
         - ls -al
+        - ls -al ..
+        - ls -al ~
     artifacts:
         paths:
             - dist/
