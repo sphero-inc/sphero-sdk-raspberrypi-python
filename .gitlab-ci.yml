@@ -27,11 +27,16 @@ setup:
     stage: build
     script:
         - python setup.py sdist
+        - echo $CI_PROJECT_DIR
         - ls -al
         - ls -al ..
         - ls -al ~
         - ls -al ~/.local
+        - ls -al ~/.local/share
         - ls -al /
+        - ls -al /root/.local
+        - ls -al /root/.local/share
+        - ls -al /root/.local/virtualenvs
     artifacts:
         paths:
             - dist/
