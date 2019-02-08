@@ -30,7 +30,7 @@ test:
 
 staging:
     dependencies:
-        - build
+        - :build
     script:
         # TODO update version
         - twine upload --repository-url https://push.fury.io/sphero -u TOKEN -p "" dist/*
@@ -40,7 +40,7 @@ staging:
 
 production:
     dependencies:
-        - build
+        - :build
     script:
         - python -V
         # TODO upload to PyPI
