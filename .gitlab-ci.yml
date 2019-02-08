@@ -19,7 +19,7 @@ build:
     script:
         - python setup.py sdist
     artifacts:
-        - dist/
+        - ./dist/
     only:
         - master
 
