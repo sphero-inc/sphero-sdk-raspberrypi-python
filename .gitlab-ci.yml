@@ -4,6 +4,12 @@ image: python:3.5
 variables: 
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - /root/.local/share/virtualenvs/raspberry-pi-kwz-7fxL
 
 before_script:
     - python -V
@@ -29,7 +35,7 @@ setup:
 pytest:
     stage: test
     script:
-        - python -m pytest --ignore=autogen-api-commands -vvv
+        - pipenv run python -m pytest --ignore=autogen-api-commands -vvv
 
 staging:
     stage: deploy
