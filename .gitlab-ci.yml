@@ -4,7 +4,7 @@ image: python:3.5
 variables: 
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PIP_CACHE_DIR: "~/.cache/pip"
 
 cache:
   paths:
@@ -36,7 +36,7 @@ setup:
         - ls -al /
         - ls -al /root/.local
         - ls -al /root/.local/share
-        - ls -al /root/.local/virtualenvs
+        - ls -al /root/.local/share/virtualenvs
     artifacts:
         paths:
             - dist/
