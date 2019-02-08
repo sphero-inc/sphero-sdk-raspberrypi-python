@@ -54,7 +54,7 @@ staging:
         - setup
     script:
         # TODO update version
-        - twine upload --repository-url https://push.fury.io/sphero -u TOKEN -p "" dist/*
+        - twine upload --repository-url https://push.fury.io/sphero -p "" dist/*
     when: manual
     only:
         - web
