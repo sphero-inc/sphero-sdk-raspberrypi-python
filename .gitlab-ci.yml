@@ -30,6 +30,8 @@ setup:
         - ls -al
         - ls -al ..
         - ls -al ~
+        - ls -al ~/.local
+        - ls -al /
     artifacts:
         paths:
             - dist/
