@@ -1,0 +1,45 @@
+image: python:3.5
+
+variables: 
+    GIT_STRATEGY: fetch
+    GIT_SUBMODULE_STRATEGY: none
+
+before_script:
+    - python -V
+    - pip install pipenv
+    - pipenv install --dev
+
+stages:
+    - build
+    - test
+    - staging
+    - production
+
+build:
+    script:
+        - python setup.py sdist
+    artifacts:
+        - dist/*
+    only:
+        - master
+
+test:
+    script:
+        - python -m pytest --ignore=autogen-api-commands -vvv
+
+staging:
+    dependencies:
+        - build
+    script:
+        # TODO update version
+        - twine upload --repository-url https://push.fury.io/sphero -u TOKEN -p "" dist/*
+    only:
+        - web
+        - master
+
+production:
+    dependencies:
+        - build
+    # TODO upload to PyPI
+    only:
+        - web
