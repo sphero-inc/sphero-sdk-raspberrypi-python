@@ -172,3 +172,7 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+# Autodoc will document in order that it finds in the provided source.
+# Default behavior is to alphabetize, which looks weird, especially enums
+autodoc_member_order = 'bysource'

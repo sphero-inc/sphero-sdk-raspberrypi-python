@@ -3,7 +3,7 @@
 # Source File:        0x1D-secondary_mcu_firmware_update.json
 # Device ID:          0x1D
 # Device Name:        firmware
-# Timestamp:          02/08/2019 @ 01:01:54.898039 (UTC)
+# Timestamp:          02/08/2019 @ 17:14:09.067341 (UTC)
 
 from enum import IntEnum
 

@@ -52,3 +52,32 @@ Power
 
 .. autoclass:: spheroboros.PowerOptionsBitMask
     :members:
+
+------
+Sensor
+------
+
+.. autoclass:: spheroboros.CliffDetectionSensorLocationsBitMask
+    :members:
+
+.. autoclass:: spheroboros.GyroMaxFlagsBitMask
+    :members:
+
+.. autoclass:: spheroboros.InfraredSensorLocationsBitMask
+    :members:
+
+.. autoclass:: spheroboros.InfraredSensorTestDetailsFlagsBitMask
+    :members:
+
+-----------
+System Info
+-----------
+
+.. autoclass:: spheroboros.ConfigBlockWriteCodesEnum
+    :members:
+
+.. autoclass:: spheroboros.DeviceModesEnum
+    :members:
+
+.. autoclass:: spheroboros.ApplicationIndexesEnum
+    :members:

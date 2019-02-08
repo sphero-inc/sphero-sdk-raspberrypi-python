@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/08/2019 @ 01:01:54.898320 (UTC)
+# Timestamp:          02/08/2019 @ 17:14:09.067654 (UTC)
 
 from enum import IntEnum
 
