@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          02/08/2019 @ 00:55:35.174182 (UTC)
+# Timestamp:          02/08/2019 @ 01:01:54.902868 (UTC)
 
 from spheroboros.common.commands.power import CommandsEnum
 from spheroboros.common.devices import DevicesEnum

@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/08/2019 @ 00:55:35.169792 (UTC)
+# Timestamp:          02/08/2019 @ 01:01:54.898320 (UTC)
 
 from enum import IntEnum
 
@@ -41,6 +41,7 @@ class CommandsEnum(IntEnum):
 
 
 class CliffDetectionSensorLocationsBitMask(IntEnum):
+    ''' '''
     front_left = 1 #: 
     front_right = 2 #: 
     back_left = 4 #: 
@@ -48,6 +49,7 @@ class CliffDetectionSensorLocationsBitMask(IntEnum):
 
 
 class GyroMaxFlagsBitMask(IntEnum):
+    ''' '''
     max_plus_x = 1 #: 
     max_minus_x = 2 #: 
     max_plus_y = 4 #: 
@@ -57,6 +59,7 @@ class GyroMaxFlagsBitMask(IntEnum):
 
 
 class InfraredSensorLocationsBitMask(IntEnum):
+    ''' '''
     front_left = 1 #: 
     front_right = 2 #: 
     back_right = 4 #: 
@@ -64,6 +67,7 @@ class InfraredSensorLocationsBitMask(IntEnum):
 
 
 class InfraredSensorTestDetailsFlagsBitMask(IntEnum):
+    ''' '''
     success = 1 #: 
     front_left_receiver_emitter_failed = 2 #: 
     front_right_receiver_emitter_failed = 4 #: 

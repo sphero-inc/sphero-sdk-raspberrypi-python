@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          02/08/2019 @ 00:55:35.164089 (UTC)
+# Timestamp:          02/08/2019 @ 01:01:54.892365 (UTC)
 
 from spheroboros.common.commands.api_and_shell import CommandsEnum
 from spheroboros.common.devices import DevicesEnum

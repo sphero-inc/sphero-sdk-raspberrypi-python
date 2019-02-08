@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          02/08/2019 @ 00:55:35.174312 (UTC)
+# Timestamp:          02/08/2019 @ 01:01:54.903003 (UTC)
 
 from enum import IntEnum
 
@@ -58,5 +58,6 @@ class ChargerStatesEnum(IntEnum):
 
 
 class PowerOptionsBitMask(IntEnum):
+    ''' '''
     sleep_while_charging = 1 #: 
     double_tap_to_wake = 2 #: 

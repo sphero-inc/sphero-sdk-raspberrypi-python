@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          02/08/2019 @ 00:55:35.168047 (UTC)
+# Timestamp:          02/08/2019 @ 01:01:54.896517 (UTC)
 
 from enum import IntEnum
 
@@ -40,6 +40,7 @@ class StabilizationIndexesEnum(IntEnum):
 
 
 class DriveFlagsBitMask(IntEnum):
+    ''' '''
     drive_reverse = 1 #: 
     boost = 2 #: 
     fast_turn = 4 #: 
