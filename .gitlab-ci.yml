@@ -4,7 +4,7 @@ image: python:3.5
 variables: 
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
-    PIP_CACHE_DIR: "~/.cache/pip"
+    PIP_CACHE_DIR: ".cache/pip"
     PIPENV_VENV_IN_PROJECT: "true"
 
 cache:
