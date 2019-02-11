@@ -11,9 +11,9 @@ cache:
   paths:
     - .cache/pip
     - .venv
+
 before_script:
     - python -V
-    - pip install twine
     - pip install pipenv
     - pipenv install --dev --skip-lock
 
@@ -46,7 +46,7 @@ staging:
         - setup
     script:
         # TODO update version
-        - twine upload --repository-url https://push.fury.io/sphero -p "" dist/*
+        - pipenv run twine upload --repository-url https://push.fury.io/sphero -p "" dist/*
     when: manual
     only:
         - web
