@@ -5,7 +5,7 @@ variables:
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
     PIP_CACHE_DIR: "~/.cache/pip"
-    PIPENV_VENV_IN_PROJECT: true
+    PIPENV_VENV_IN_PROJECT: yes
 
 cache:
   paths:
