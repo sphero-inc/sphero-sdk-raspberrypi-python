@@ -15,5 +15,5 @@ class SpheroApiUrl(SpheroUrlBase):
             scheme,
             domain,
             port,
-            ('api', 'v1', toy, device_name, command_name, str(target))
+            ('api', 'v1.0', device_name, command_name, str(target))
         )

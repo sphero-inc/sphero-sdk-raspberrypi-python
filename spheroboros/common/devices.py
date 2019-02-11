@@ -4,6 +4,7 @@
 
 from enum import IntEnum
 from spheroboros.common import commands
+from spheroboros.common.helpers import text_to_pascal_case
 
 
 class DevicesEnum(IntEnum):
@@ -21,7 +22,7 @@ class DevicesEnum(IntEnum):
 
 def get_device_path_by_did(did):
     device_name = DevicesEnum(did).name
-    return device_name
+    return text_to_pascal_case(device_name)
 
 
 def get_command_path_by_cid(did, cid):
@@ -34,4 +35,4 @@ def get_command_path_by_cid(did, cid):
         )
     )
 
-    return command_name
+    return text_to_pascal_case(command_name)
