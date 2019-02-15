@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          02/08/2019 @ 17:14:09.062055 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.722033 (UTC)
 
 from enum import IntEnum
 
@@ -11,7 +11,5 @@ from enum import IntEnum
 class CommandsEnum(IntEnum):
     echo = 0x00
     get_api_protocol_version = 0x01
-    send_command_to_shell = 0x02
-    send_string_to_console = 0x03
     get_supported_dids = 0x05
     get_supported_cids = 0x06

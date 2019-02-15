@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          02/08/2019 @ 17:14:09.061563 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.721739 (UTC)
 
 from spheroboros.common.commands.api_and_shell import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -54,42 +54,6 @@ async def get_api_protocol_version(self, target, timeout=None):
                 data_type='uint8_t',
                 index=1,
                 size=1,
-            ),
-        ],
-    )
-
-
-async def send_command_to_shell(self, shell_command_string, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.api_and_shell,
-        CommandsEnum.send_command_to_shell,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='shell_command_string',
-                data_type='std::string',
-                index=0,
-                value=shell_command_string,
-                size=1
-            ),
-        ],
-    )
-
-
-async def on_send_string_to_console(self, target, handler=None, timeout=None):
-    await self._dal.on_command(
-        DevicesEnum.api_and_shell,
-        CommandsEnum.send_string_to_console,
-        target,
-        handler,
-        timeout,
-        outputs=[
-            Parameter(
-                name='console_string',
-                data_type='std::string',
-                index=0,
-                size=1
             ),
         ],
     )

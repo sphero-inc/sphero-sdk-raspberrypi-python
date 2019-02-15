@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          02/08/2019 @ 17:14:09.074728 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.736791 (UTC)
 
 from enum import IntEnum
 
@@ -19,22 +19,11 @@ class CommandsEnum(IntEnum):
     get_board_revision = 0x03
     get_mac_address = 0x06
     get_nordic_temperature = 0x0E
-    application_ready_notify = 0x10
     get_stats_id = 0x13
-    application_alive_notify = 0x1E
     get_processor_name = 0x1F
     get_boot_reason = 0x20
     get_last_error_info = 0x21
-    request_l1_diagnostics = 0x26
-    write_config_block = 0x2B
-    get_config_block = 0x2C
-    set_config_block = 0x2D
-    erase_config_block = 0x2E
-    get_swd_locking_status = 0x30
-    set_swd_locking = 0x31
     get_manufacturing_date = 0x33
-    set_manufacturing_date = 0x34
-    set_sku = 0x37
     get_sku = 0x38
 
 

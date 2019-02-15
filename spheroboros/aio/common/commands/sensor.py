@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/08/2019 @ 17:14:09.067516 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.727015 (UTC)
 
 from spheroboros.common.commands.sensor import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -205,23 +205,6 @@ async def get_extended_sensor_streaming_mask(self, target, timeout=None):
     )
 
 
-async def get_rightsideupness(self, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.sensor,
-        CommandsEnum.get_rightsideupness,
-        target,
-        timeout,
-        outputs=[
-            Parameter(
-                name='rightsideupness',
-                data_type='int8_t',
-                index=0,
-                size=1,
-            ),
-        ],
-    )
-
-
 async def enable_gyro_max_notify(self, is_enabled, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.sensor,
@@ -258,6 +241,119 @@ async def on_gyro_max_notify(self, target, handler=None, timeout=None):
     )
 
 
+async def configure_collision_detection(self, method, x_threshold, x_speed, y_threshold, y_speed, dead_time, target, timeout=None):
+    return await self._dal.send_command(
+        DevicesEnum.sensor,
+        CommandsEnum.configure_collision_detection,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='method',
+                data_type='uint8_t',
+                index=0,
+                value=method,
+                size=1
+            ),
+            Parameter(
+                name='x_threshold',
+                data_type='uint8_t',
+                index=1,
+                value=x_threshold,
+                size=1
+            ),
+            Parameter(
+                name='x_speed',
+                data_type='uint8_t',
+                index=2,
+                value=x_speed,
+                size=1
+            ),
+            Parameter(
+                name='y_threshold',
+                data_type='uint8_t',
+                index=3,
+                value=y_threshold,
+                size=1
+            ),
+            Parameter(
+                name='y_speed',
+                data_type='uint8_t',
+                index=4,
+                value=y_speed,
+                size=1
+            ),
+            Parameter(
+                name='dead_time',
+                data_type='uint8_t',
+                index=5,
+                value=dead_time,
+                size=1
+            ),
+        ],
+    )
+
+
+async def on_collision_detected_notify(self, target, handler=None, timeout=None):
+    await self._dal.on_command(
+        DevicesEnum.sensor,
+        CommandsEnum.collision_detected_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='acceleration_x',
+                data_type='uint16_t',
+                index=0,
+                size=1
+            ),
+            Parameter(
+                name='acceleration_y',
+                data_type='uint16_t',
+                index=1,
+                size=1
+            ),
+            Parameter(
+                name='acceleration_z',
+                data_type='uint16_t',
+                index=2,
+                size=1
+            ),
+            Parameter(
+                name='axis',
+                data_type='uint8_t',
+                index=3,
+                size=1
+            ),
+            Parameter(
+                name='power_x',
+                data_type='uint16_t',
+                index=4,
+                size=1
+            ),
+            Parameter(
+                name='power_y',
+                data_type='uint16_t',
+                index=5,
+                size=1
+            ),
+            Parameter(
+                name='speed',
+                data_type='uint8_t',
+                index=6,
+                size=1
+            ),
+            Parameter(
+                name='time',
+                data_type='uint32_t',
+                index=7,
+                size=1
+            ),
+        ],
+    )
+
+
 async def get_bot_to_bot_infrared_readings(self, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.sensor,
@@ -275,62 +371,10 @@ async def get_bot_to_bot_infrared_readings(self, target, timeout=None):
     )
 
 
-async def magnetometer_calibrate_to_north(self, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.sensor,
-        CommandsEnum.magnetometer_calibrate_to_north,
-        target,
-        timeout,
-    )
-
-
-async def on_magnetometer_north_yaw_notify(self, target, handler=None, timeout=None):
-    await self._dal.on_command(
-        DevicesEnum.sensor,
-        CommandsEnum.magnetometer_north_yaw_notify,
-        target,
-        handler,
-        timeout,
-        outputs=[
-            Parameter(
-                name='yaw_direction',
-                data_type='uint16_t',
-                index=0,
-                size=1
-            ),
-        ],
-    )
-
-
 async def start_robot_to_robot_infrared_broadcasting(self, far_code, near_code, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.sensor,
         CommandsEnum.start_robot_to_robot_infrared_broadcasting,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='far_code',
-                data_type='uint8_t',
-                index=0,
-                value=far_code,
-                size=1
-            ),
-            Parameter(
-                name='near_code',
-                data_type='uint8_t',
-                index=1,
-                value=near_code,
-                size=1
-            ),
-        ],
-    )
-
-
-async def start_robot_to_robot_infrared_following(self, far_code, near_code, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.sensor,
-        CommandsEnum.start_robot_to_robot_infrared_following,
         target,
         timeout,
         inputs=[
@@ -450,16 +494,16 @@ async def on_robot_to_robot_infrared_message_received_notify(self, target, handl
     )
 
 
-async def get_magnetometer_chip_id(self, target, timeout=None):
+async def get_ambient_light_sensor_value(self, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.sensor,
-        CommandsEnum.get_magnetometer_chip_id,
+        CommandsEnum.get_ambient_light_sensor_value,
         target,
         timeout,
         outputs=[
             Parameter(
-                name='chip_id',
-                data_type='uint8_t',
+                name='ambient_light_white_channel_value',
+                data_type='float',
                 index=0,
                 size=1,
             ),
@@ -467,33 +511,69 @@ async def get_magnetometer_chip_id(self, target, timeout=None):
     )
 
 
-async def run_infrared_self_test(self, target, timeout=None):
+async def enable_color_detection_notification(self, enable, interval, minimum_confidence_threshold, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.sensor,
-        CommandsEnum.run_infrared_self_test,
+        CommandsEnum.enable_color_detection_notification,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='enable',
+                data_type='bool',
+                index=0,
+                value=enable,
+                size=1
+            ),
+            Parameter(
+                name='interval',
+                data_type='uint16_t',
+                index=1,
+                value=interval,
+                size=1
+            ),
+            Parameter(
+                name='minimum_confidence_threshold',
+                data_type='uint8_t',
+                index=2,
+                value=minimum_confidence_threshold,
+                size=1
+            ),
+        ],
+    )
+
+
+async def on_color_detection_notify(self, target, handler=None, timeout=None):
+    await self._dal.on_command(
+        DevicesEnum.sensor,
+        CommandsEnum.color_detection_notify,
+        target,
+        handler,
+        timeout,
+    )
+
+
+async def get_current_detected_color_reading(self, target, timeout=None):
+    return await self._dal.send_command(
+        DevicesEnum.sensor,
+        CommandsEnum.get_current_detected_color_reading,
         target,
         timeout,
     )
 
 
-async def on_infrared_self_test_results_notify(self, target, handler=None, timeout=None):
-    await self._dal.on_command(
+async def enable_color_detection(self, enable, target, timeout=None):
+    return await self._dal.send_command(
         DevicesEnum.sensor,
-        CommandsEnum.infrared_self_test_results_notify,
+        CommandsEnum.enable_color_detection,
         target,
-        handler,
         timeout,
-        outputs=[
+        inputs=[
             Parameter(
-                name='is_successful',
+                name='enable',
                 data_type='bool',
                 index=0,
-                size=1
-            ),
-            Parameter(
-                name='infrared_sensor_test_details_mask',
-                data_type='uint32_t',
-                index=1,
+                value=enable,
                 size=1
             ),
         ],

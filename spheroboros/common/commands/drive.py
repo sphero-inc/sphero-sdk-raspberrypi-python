@@ -3,13 +3,12 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          02/08/2019 @ 17:14:09.065615 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.725562 (UTC)
 
 from enum import IntEnum
 
 
 __all__ = ['RawMotorModesEnum',
-           'StabilizationIndexesEnum',
            'DriveFlagsBitMask']
 
 
@@ -17,9 +16,6 @@ class CommandsEnum(IntEnum):
     raw_motors = 0x01
     reset_yaw = 0x06
     drive_with_heading = 0x07
-    tank_drive = 0x08
-    rc_drive = 0x09
-    set_stabilization = 0x0C
 
 
 class RawMotorModesEnum(IntEnum):
@@ -27,16 +23,6 @@ class RawMotorModesEnum(IntEnum):
     off = 0  #: 
     forward = 1  #: 
     reverse = 2  #: 
-
-
-class StabilizationIndexesEnum(IntEnum):
-    ''' '''
-    no_control_system = 0  #: 
-    full_control_system = 1  #: 
-    pitch_control_system = 2  #: 
-    roll_control_system = 3  #: 
-    yaw_control_system = 4  #: 
-    speed_and_yaw_control_system = 5  #: 
 
 
 class DriveFlagsBitMask(IntEnum):

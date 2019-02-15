@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          02/08/2019 @ 17:14:09.072086 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.732643 (UTC)
 
 from spheroboros.common.commands.power import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -32,34 +32,6 @@ async def enter_soft_sleep(self, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.power,
         CommandsEnum.enter_soft_sleep,
-        target,
-        timeout,
-    )
-
-
-async def prepare_for_shutdown(self, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.power,
-        CommandsEnum.prepare_for_shutdown,
-        target,
-        timeout,
-    )
-
-
-async def on_ready_for_shutdown_notify(self, target, handler=None, timeout=None):
-    await self._dal.on_command(
-        DevicesEnum.power,
-        CommandsEnum.ready_for_shutdown_notify,
-        target,
-        handler,
-        timeout,
-    )
-
-
-async def force_battery_refresh(self, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.power,
-        CommandsEnum.force_battery_refresh,
         target,
         timeout,
     )

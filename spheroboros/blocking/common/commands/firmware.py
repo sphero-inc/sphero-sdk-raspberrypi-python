@@ -3,7 +3,7 @@
 # Source File:        0x1D-secondary_mcu_firmware_update.json
 # Device ID:          0x1D
 # Device Name:        firmware
-# Timestamp:          02/08/2019 @ 17:14:09.067271 (UTC)
+# Timestamp:          02/14/2019 @ 19:49:45.075456 (UTC)
 
 from spheroboros.common.commands.firmware import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -16,4 +16,382 @@ def jump_to_bootloader(self, target, timeout=None):
         CommandsEnum.jump_to_bootloader,
         target,
         timeout,
+    )
+
+
+def get_current_application_id(self, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_current_application_id,
+        target,
+        timeout,
+        outputs=[
+            Parameter(
+                name='application_id',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ],
+    )
+
+
+def get_all_updatable_targets(self, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_all_updatable_targets,
+        target,
+        timeout,
+    )
+
+
+def on_updatable_targets_notify(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.updatable_targets_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='id_type_array',
+                data_type='tuple',
+                index=0,
+                size=255
+            ),
+        ],
+    )
+
+
+def get_versions_for_all_updatable_processors(self, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_versions_for_all_updatable_processors,
+        target,
+        timeout,
+    )
+
+
+def on_version_for_all_updatable_processors_notify(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.version_for_all_updatable_processors_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='version_info_array',
+                data_type='tuple',
+                index=0,
+                size=255
+            ),
+        ],
+    )
+
+
+def set_pending_update_targets(self, target_ids, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.set_pending_update_targets,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='target_ids',
+                data_type='uint8_t',
+                index=0,
+                value=target_ids,
+                size=255
+            ),
+        ],
+        outputs=[
+            Parameter(
+                name='reset_strategy',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ],
+    )
+
+
+def get_pending_update_targets(self, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_pending_update_targets,
+        target,
+        timeout,
+        outputs=[
+            Parameter(
+                name='target_ids',
+                data_type='uint8_t',
+                index=0,
+                size=255,
+            ),
+        ],
+    )
+
+
+def reset_with_parameters(self, reset_strategy, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.reset_with_parameters,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='reset_strategy',
+                data_type='uint8_t',
+                index=0,
+                value=reset_strategy,
+                size=1
+            ),
+        ],
+    )
+
+
+def prepare_for_update(self, processor_id, offset, per_device_keys, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.prepare_for_update,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                value=processor_id,
+                size=1
+            ),
+            Parameter(
+                name='offset',
+                data_type='uint32_t',
+                index=1,
+                value=offset,
+                size=1
+            ),
+            Parameter(
+                name='per_device_keys',
+                data_type='uint32_t',
+                index=2,
+                value=per_device_keys,
+                size=4
+            ),
+        ],
+        outputs=[
+            Parameter(
+                name='chunk_size',
+                data_type='uint32_t',
+                index=0,
+                size=1,
+            ),
+            Parameter(
+                name='fifo_depth',
+                data_type='uint8_t',
+                index=1,
+                size=1,
+            ),
+        ],
+    )
+
+
+def get_update_settings(self, processor_id, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_update_settings,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                value=processor_id,
+                size=1
+            ),
+        ],
+        outputs=[
+            Parameter(
+                name='chunk_size',
+                data_type='uint32_t',
+                index=0,
+                size=1,
+            ),
+            Parameter(
+                name='fifo_depth',
+                data_type='uint8_t',
+                index=1,
+                size=1,
+            ),
+        ],
+    )
+
+
+def on_ready_for_update_notify(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.ready_for_update_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                size=1
+            ),
+            Parameter(
+                name='success',
+                data_type='bool',
+                index=1,
+                size=1
+            ),
+        ],
+    )
+
+
+def on_chunk_write_complete_notify(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.chunk_write_complete_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                size=1
+            ),
+            Parameter(
+                name='success',
+                data_type='bool',
+                index=1,
+                size=1
+            ),
+        ],
+    )
+
+
+def on_get_chunk_write_completion_state(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_chunk_write_completion_state,
+        target,
+        handler,
+        timeout,
+    )
+
+
+def complete_update(self, processor_id, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.complete_update,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                value=processor_id,
+                size=1
+            ),
+        ],
+    )
+
+
+def on_update_completion_result_notify(self, target, handler=None, timeout=None):
+    self._dal.on_command(
+        DevicesEnum.firmware,
+        CommandsEnum.update_completion_result_notify,
+        target,
+        handler,
+        timeout,
+        outputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                size=1
+            ),
+            Parameter(
+                name='success',
+                data_type='bool',
+                index=1,
+                size=1
+            ),
+        ],
+    )
+
+
+def get_update_completion_result(self, processor_id, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.get_update_completion_result,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                value=processor_id,
+                size=1
+            ),
+        ],
+    )
+
+
+def here_is_variable_sized_chunk(self, processor_id, chunk_index, chunk_data, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.here_is_variable_sized_chunk,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_id',
+                data_type='uint8_t',
+                index=0,
+                value=processor_id,
+                size=1
+            ),
+            Parameter(
+                name='chunk_index',
+                data_type='uint16_t',
+                index=1,
+                value=chunk_index,
+                size=1
+            ),
+            Parameter(
+                name='chunk_data',
+                data_type='uint8_t',
+                index=2,
+                value=chunk_data,
+                size=65535
+            ),
+        ],
+    )
+
+
+def clear_pending_update_targets(self, processor_ids, target, timeout=None):
+    return self._dal.send_command(
+        DevicesEnum.firmware,
+        CommandsEnum.clear_pending_update_targets,
+        target,
+        timeout,
+        inputs=[
+            Parameter(
+                name='processor_ids',
+                data_type='uint8_t',
+                index=0,
+                value=processor_ids,
+                size=255
+            ),
+        ],
     )

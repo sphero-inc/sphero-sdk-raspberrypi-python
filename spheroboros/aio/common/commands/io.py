@@ -3,36 +3,11 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          02/08/2019 @ 17:14:09.063119 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.723496 (UTC)
 
 from spheroboros.common.commands.io import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
 from spheroboros.common.parameter import Parameter
-
-
-async def set_all_leds(self, led_group, led_brightness_values, target, timeout=None):
-    return await self._dal.send_command(
-        DevicesEnum.io,
-        CommandsEnum.set_all_leds,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='led_group',
-                data_type='uint16_t',
-                index=0,
-                value=led_group,
-                size=1
-            ),
-            Parameter(
-                name='led_brightness_values',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=16
-            ),
-        ],
-    )
 
 
 async def set_all_leds_with_32_bit_mask(self, led_group, led_brightness_values, target, timeout=None):
@@ -60,51 +35,46 @@ async def set_all_leds_with_32_bit_mask(self, led_group, led_brightness_values, 
     )
 
 
-async def set_all_leds_with_64_bit_mask(self, led_group, led_brightness_values, target, timeout=None):
+async def enable_usb_status_async(self, enable, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.io,
-        CommandsEnum.set_all_leds_with_64_bit_mask,
+        CommandsEnum.enable_usb_status_async,
         target,
         timeout,
         inputs=[
             Parameter(
-                name='led_group',
-                data_type='uint64_t',
+                name='enable',
+                data_type='bool',
                 index=0,
-                value=led_group,
+                value=enable,
                 size=1
-            ),
-            Parameter(
-                name='led_brightness_values',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=64
             ),
         ],
     )
 
 
-async def set_all_leds_with_8_bit_mask(self, led_group, led_brightness_values, target, timeout=None):
+async def on_usb_connection_status_notify(self, target, handler=None, timeout=None):
+    await self._dal.on_command(
+        DevicesEnum.io,
+        CommandsEnum.usb_connection_status_notify,
+        target,
+        handler,
+        timeout,
+    )
+
+
+async def get_usb_connection_status(self, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.io,
-        CommandsEnum.set_all_leds_with_8_bit_mask,
+        CommandsEnum.get_usb_connection_status,
         target,
         timeout,
-        inputs=[
+        outputs=[
             Parameter(
-                name='led_group',
+                name='usb_connection_status',
                 data_type='uint8_t',
                 index=0,
-                value=led_group,
-                size=1
-            ),
-            Parameter(
-                name='led_brightness_values',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=8
+                size=1,
             ),
         ],
     )

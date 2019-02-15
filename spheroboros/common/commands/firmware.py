@@ -3,10 +3,37 @@
 # Source File:        0x1D-secondary_mcu_firmware_update.json
 # Device ID:          0x1D
 # Device Name:        firmware
-# Timestamp:          02/08/2019 @ 17:14:09.067341 (UTC)
+# Timestamp:          02/14/2019 @ 19:49:45.075535 (UTC)
 
 from enum import IntEnum
 
 
+__all__ = ['ResetStrategiesEnum']
+
+
 class CommandsEnum(IntEnum):
     jump_to_bootloader = 0x05
+    get_current_application_id = 0x15
+    get_all_updatable_targets = 0x16
+    updatable_targets_notify = 0x17
+    get_versions_for_all_updatable_processors = 0x18
+    version_for_all_updatable_processors_notify = 0x19
+    set_pending_update_targets = 0x1A
+    get_pending_update_targets = 0x1B
+    reset_with_parameters = 0x1C
+    prepare_for_update = 0x1D
+    get_update_settings = 0x1E
+    ready_for_update_notify = 0x1F
+    chunk_write_complete_notify = 0x20
+    get_chunk_write_completion_state = 0x21
+    complete_update = 0x22
+    update_completion_result_notify = 0x23
+    get_update_completion_result = 0x24
+    here_is_variable_sized_chunk = 0x25
+    clear_pending_update_targets = 0x26
+
+
+class ResetStrategiesEnum(IntEnum):
+    ''' '''
+    reset_to_main = 1  #: Reset into, or jump to, Main Firmware Application
+    remain_in_bootloader = 2  #: Remain in Bootloader for Firmware Update

@@ -21,9 +21,6 @@ Drive
 .. autoclass:: spheroboros.RawMotorModesEnum
     :members:
 
-.. autoclass:: spheroboros.StabilizationIndexesEnum
-    :members:
-
 .. autoclass:: spheroboros.DriveFlagsBitMask
     :members:
 
@@ -64,9 +61,6 @@ Sensor
     :members:
 
 .. autoclass:: spheroboros.InfraredSensorLocationsBitMask
-    :members:
-
-.. autoclass:: spheroboros.InfraredSensorTestDetailsFlagsBitMask
     :members:
 
 -----------

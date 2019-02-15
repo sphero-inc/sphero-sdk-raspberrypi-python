@@ -3,20 +3,29 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          02/08/2019 @ 17:14:09.063277 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.723768 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['AudioPlaybackModesEnum',
+__all__ = ['UsbConnectionStatusEnum',
+           'AudioPlaybackModesEnum',
            'SpecdrumsColorPaletteIndiciesEnum']
 
 
 class CommandsEnum(IntEnum):
-    set_all_leds = 0x0E
     set_all_leds_with_32_bit_mask = 0x1A
-    set_all_leds_with_64_bit_mask = 0x1B
-    set_all_leds_with_8_bit_mask = 0x1C
+    enable_usb_status_async = 0x49
+    usb_connection_status_notify = 0x4A
+    get_usb_connection_status = 0x4B
+
+
+class UsbConnectionStatusEnum(IntEnum):
+    ''' '''
+    unknown = 0  #: USB Connection Status is unknown.
+    connected_but_not_ready = 1  #: USB is connected to a Device, but not ready for communication.
+    connected_and_ready = 2  #: USB is connected and ready for communication!
+    disconnected = 3  #: USB is disconnected!
 
 
 class AudioPlaybackModesEnum(IntEnum):

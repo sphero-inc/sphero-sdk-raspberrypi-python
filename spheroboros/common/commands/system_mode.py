@@ -3,7 +3,7 @@
 # Source File:        0x12-system_modes.json
 # Device ID:          0x12
 # Device Name:        system_mode
-# Timestamp:          02/08/2019 @ 17:14:09.071612 (UTC)
+# Timestamp:          02/14/2019 @ 19:49:45.083984 (UTC)
 
 from enum import IntEnum
 

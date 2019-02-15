@@ -8,6 +8,7 @@ Toys used here must use an asyncio event loop!
 
     All commands have a ``timeout`` parameter.  If set to ``None``, the commands will block until a response is received.  This means that they will block for-eve-r if no server can be reached.
 
+-----------------------
 :class:`AsyncSpheroRvr`
 -----------------------
 

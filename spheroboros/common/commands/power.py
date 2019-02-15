@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          02/08/2019 @ 17:14:09.072230 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.732822 (UTC)
 
 from enum import IntEnum
 
@@ -17,9 +17,6 @@ __all__ = ['BatteryVoltageAndStateStatesEnum',
 class CommandsEnum(IntEnum):
     enter_deep_sleep = 0x00
     enter_soft_sleep = 0x01
-    prepare_for_shutdown = 0x0A
-    ready_for_shutdown_notify = 0x0B
-    force_battery_refresh = 0x0C
     wake = 0x0D
     get_battery_percentage = 0x10
     get_battery_voltage_state = 0x17

@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          02/08/2019 @ 17:14:09.065557 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.725434 (UTC)
 
 from spheroboros.common.commands.drive import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -84,88 +84,6 @@ def drive_with_heading(self, speed, heading, flags, target, timeout=None):
                 data_type='uint8_t',
                 index=2,
                 value=flags,
-                size=1
-            ),
-        ],
-    )
-
-
-def tank_drive(self, left_speed, right_speed, flags, target, timeout=None):
-    return self._dal.send_command(
-        DevicesEnum.drive,
-        CommandsEnum.tank_drive,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='left_speed',
-                data_type='uint8_t',
-                index=0,
-                value=left_speed,
-                size=1
-            ),
-            Parameter(
-                name='right_speed',
-                data_type='uint8_t',
-                index=1,
-                value=right_speed,
-                size=1
-            ),
-            Parameter(
-                name='flags',
-                data_type='uint8_t',
-                index=2,
-                value=flags,
-                size=1
-            ),
-        ],
-    )
-
-
-def rc_drive(self, speed, turn_rate, flags, target, timeout=None):
-    return self._dal.send_command(
-        DevicesEnum.drive,
-        CommandsEnum.rc_drive,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='speed',
-                data_type='uint8_t',
-                index=0,
-                value=speed,
-                size=1
-            ),
-            Parameter(
-                name='turn_rate',
-                data_type='uint8_t',
-                index=1,
-                value=turn_rate,
-                size=1
-            ),
-            Parameter(
-                name='flags',
-                data_type='uint8_t',
-                index=2,
-                value=flags,
-                size=1
-            ),
-        ],
-    )
-
-
-def set_stabilization(self, index, target, timeout=None):
-    return self._dal.send_command(
-        DevicesEnum.drive,
-        CommandsEnum.set_stabilization,
-        target,
-        timeout,
-        inputs=[
-            Parameter(
-                name='index',
-                data_type='uint8_t',
-                index=0,
-                value=index,
                 size=1
             ),
         ],

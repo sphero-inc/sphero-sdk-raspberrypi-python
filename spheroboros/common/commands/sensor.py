@@ -3,15 +3,16 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/08/2019 @ 17:14:09.067654 (UTC)
+# Timestamp:          02/15/2019 @ 18:08:12.727237 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['CliffDetectionSensorLocationsBitMask',
+__all__ = ['CollisionDetectionMethodsEnum',
+           'CliffDetectionSensorLocationsBitMask',
            'GyroMaxFlagsBitMask',
-           'InfraredSensorLocationsBitMask',
-           'InfraredSensorTestDetailsFlagsBitMask']
+           'CollisionDetectedAxisBitMask',
+           'InfraredSensorLocationsBitMask']
 
 
 class CommandsEnum(IntEnum):
@@ -23,21 +24,29 @@ class CommandsEnum(IntEnum):
     get_gyro_degrees_per_second = 0x0B
     set_extended_sensor_streaming_mask = 0x0C
     get_extended_sensor_streaming_mask = 0x0D
-    get_rightsideupness = 0x0E
     enable_gyro_max_notify = 0x0F
     gyro_max_notify = 0x10
+    configure_collision_detection = 0x11
+    collision_detected_notify = 0x12
     get_bot_to_bot_infrared_readings = 0x22
-    magnetometer_calibrate_to_north = 0x25
-    magnetometer_north_yaw_notify = 0x26
     start_robot_to_robot_infrared_broadcasting = 0x27
-    start_robot_to_robot_infrared_following = 0x28
     stop_robot_to_robot_infrared_broadcasting = 0x29
     send_robot_to_robot_infrared_message = 0x2A
     listen_for_robot_to_robot_infrared_message = 0x2B
     robot_to_robot_infrared_message_received_notify = 0x2C
-    get_magnetometer_chip_id = 0x2D
-    run_infrared_self_test = 0x2E
-    infrared_self_test_results_notify = 0x2F
+    get_ambient_light_sensor_value = 0x30
+    enable_color_detection_notification = 0x35
+    color_detection_notify = 0x36
+    get_current_detected_color_reading = 0x37
+    enable_color_detection = 0x38
+
+
+class CollisionDetectionMethodsEnum(IntEnum):
+    ''' '''
+    no_collision_detection = 0  #: 
+    accelerometer_based_detection = 1  #: 
+    accelerometer_based_with_extra_filtering = 2  #: 
+    hybrid_accelerometer_and_control_system_detection = 3  #: 
 
 
 class CliffDetectionSensorLocationsBitMask(IntEnum):
@@ -58,18 +67,15 @@ class GyroMaxFlagsBitMask(IntEnum):
     max_minus_z = 32 #: 
 
 
+class CollisionDetectedAxisBitMask(IntEnum):
+    ''' '''
+    x_axis = 1 #: 
+    y_axis = 2 #: 
+
+
 class InfraredSensorLocationsBitMask(IntEnum):
     ''' '''
     front_left = 1 #: 
     front_right = 2 #: 
     back_right = 4 #: 
     back_left = 8 #: 
-
-
-class InfraredSensorTestDetailsFlagsBitMask(IntEnum):
-    ''' '''
-    success = 1 #: 
-    front_left_receiver_emitter_failed = 2 #: 
-    front_right_receiver_emitter_failed = 4 #: 
-    back_right_receiver_emitter_failed = 8 #: 
-    back_left_receiver_emitter_failed = 16 #: 
