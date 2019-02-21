@@ -40,7 +40,7 @@ class RestfulAsyncDal(AsyncDalBase):
 
             print('URL: {}'.format(str(url)))
             response = await self._session.request(
-                method='GET' if len(outputs) > 0 else 'PUT',
+                method='GET' if len(outputs) > 0 and len(inputs) == 0 else 'PUT',
                 url=str(url),
                 timeout=timeout,
                 ssl=self._ssl,

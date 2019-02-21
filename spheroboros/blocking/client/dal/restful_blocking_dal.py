@@ -42,7 +42,7 @@ class RestfulBlockingDal(BlockingDalBase, Session):
 
             # TODO MJC Investigate SSL
             response = self.request(
-                method='GET' if len(outputs) > 0 else 'PUT',
+                method='GET' if len(outputs) > 0 and len(inputs) == 0 else 'PUT',
                 url=str(url),
                 timeout=timeout,
                 json=input_dict if input_dict is not {} else None
