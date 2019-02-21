@@ -33,7 +33,7 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             msg.requests_response = True
 
         for param in inputs:
-            msg.pack(param.data_type, param.value, param.size)
+            msg.pack(param.data_type, param.value)
 
         def response_handler(msg):
             response_list = []
