@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      56
-# Timestamp:          02/21/2019 @ 00:09:09.879498 (UTC)
+# Timestamp:          02/21/2019 @ 19:10:34.505335 (UTC)
 
 from threading import Thread
 from spheroboros.blocking.common.commands import api_and_shell
@@ -350,7 +350,7 @@ class BlockingSpheroRvr(BlockingSpheroToy):
         thread = Thread(
             target=sensor.on_sensor_streaming_data_notify,
             args=(self),
-            kwargs={'target': 1, 'handler': handler, 'timeout': timeout},
+            kwargs={'target': 2, 'handler': handler, 'timeout': timeout},
         )
 
         thread.start()

@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      56
-# Timestamp:          02/21/2019 @ 00:09:09.873821 (UTC)
+# Timestamp:          02/21/2019 @ 19:10:34.501886 (UTC)
 
 import asyncio
 from spheroboros.aio.common.commands import api_and_shell
@@ -333,7 +333,7 @@ class AsyncSpheroRvr(AsyncSpheroToy):
         :returns: Task (Future) from which `handler` will be called
         '''
         return asyncio.ensure_future(
-            sensor.on_sensor_streaming_data_notify(self, target=1, handler=handler, timeout=timeout)
+            sensor.on_sensor_streaming_data_notify(self, target=2, handler=handler, timeout=timeout)
         )
 
     async def get_encoder_counts(self, timeout=None):

@@ -230,6 +230,9 @@ class Message(SpheroMessageBase):
         for value in buf:
             packer(value)
 
+    def pack_bool(self, value):
+        self._pack(Pack.bool8, value)
+
     def pack_string(self, string):
         string += '\0'
         self._body += string.encode('ascii')
@@ -239,6 +242,50 @@ class Message(SpheroMessageBase):
             self._body += packer(value.pop(0))
         else:
             self._body += packer(value)
+
+    def unpack(self, type_string, count=1):
+        if type_string == "uint8_t":
+            unpacker = Unpack.uint8
+            size = 1
+        elif type_string == "uint16_t":
+            unpacker = Unpack.uint16
+            size = 2
+        elif type_string == "uint32_t":
+            unpacker = Unpack.uint32
+            size = 4
+        elif type_string == "uint64_t":
+            unpacker = Unpack.uint64
+            size = 8
+        elif type_string == "int8_t":
+            unpacker = Unpack.int8
+            size = 1
+        elif type_string == "int16_t":
+            unpacker = Unpack.int16
+            size = 2
+        elif type_string == "int32_t":
+            unpacker = Unpack.int32
+            size = 4
+        elif type_string == "int64_t":
+            unpacker = Unpack.int64
+            size = 8
+        elif type_string == "float":
+            unpacker = Unpack.float32
+            size = 4
+        elif type_string == "double":
+            unpacker = Unpack.float64
+            size = 8
+        elif type_string == "bool":
+            unpacker = Unpack.bool8
+            size = 1
+        elif type_string == "std::string":
+            unpacker = Unpack.string
+        else:
+            raise AttributeError
+
+        if count == 1:
+            return self._unpack(unpacker, size)
+
+        return self.unpack_array(unpacker, size, count)
 
     def unpack_uint8(self):
         return self._unpack(Unpack.uint8, 1)
@@ -266,15 +313,12 @@ class Message(SpheroMessageBase):
         self._body.clear()
         return buf
 
-    def unpack_array(self, unpacker, count=None):
-        if count is None:
-            output = []
-            while len(self._body):
-                unpacked = unpacker()
-                output.append(unpacked)
-            return output
+    def unpack_array(self, unpacker, size, count=None):
+        array = []
+        for x in range(int(min(len(self._body)/size, count))):
+            array.append(self._unpack(unpacker, size))
 
-        return [unpacker() for x in range(min(len(self._body), count))]
+        return array
 
     def _unpack(self, unpacker, size):
         buf = self._body[:size]

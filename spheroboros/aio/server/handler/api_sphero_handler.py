@@ -188,7 +188,7 @@ class Handler(SpheroHandlerBase):
         try:
             await asyncio.shield(asyncio.wait_for(future, timeout=timeout))
             return future.result()
-        except Exception as e:
+        except Exception:
             raise
         finally:
             self.__sequences.append(msg.seq)
@@ -214,7 +214,7 @@ class Handler(SpheroHandlerBase):
             pass
 
     async def _handle_command(self, msg):
-        key = (msg.did, msg.cid, msg.target_node)
+        key = (msg.did, msg.cid, msg.source_node)
         if key not in self.__command_workers:
             key = (msg.did, msg.cid, None)
         if key not in self.__command_workers:
