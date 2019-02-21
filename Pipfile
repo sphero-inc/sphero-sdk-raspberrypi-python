@@ -12,6 +12,8 @@ websocket-client = "*"
 pytest-asyncio = "*"
 pytest = "*"
 twine = "*"
+pyserial = "*"
+pyserial-asyncio = "*"
 
 [requires]
 python_version = "3.5"
