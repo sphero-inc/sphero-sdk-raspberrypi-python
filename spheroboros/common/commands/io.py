@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          02/21/2019 @ 19:10:34.490862 (UTC)
+# Timestamp:          02/21/2019 @ 22:23:44.198913 (UTC)
 
 from enum import IntEnum
 
@@ -15,7 +15,7 @@ __all__ = ['UsbConnectionStatusEnum',
 
 class CommandsEnum(IntEnum):
     set_all_leds_with_32_bit_mask = 0x1A
-    enable_usb_status_async = 0x49
+    enable_usb_connection_notification = 0x49
     usb_connection_status_notify = 0x4A
     get_usb_connection_status = 0x4B
 

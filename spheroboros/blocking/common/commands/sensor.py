@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/21/2019 @ 19:10:34.492735 (UTC)
+# Timestamp:          02/21/2019 @ 22:23:44.200779 (UTC)
 
 from spheroboros.common.commands.sensor import CommandsEnum
 from spheroboros.common.devices import DevicesEnum

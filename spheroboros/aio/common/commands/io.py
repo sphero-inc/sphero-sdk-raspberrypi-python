@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          02/21/2019 @ 19:10:34.490731 (UTC)
+# Timestamp:          02/21/2019 @ 22:23:44.198773 (UTC)
 
 from spheroboros.common.commands.io import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -35,10 +35,10 @@ async def set_all_leds_with_32_bit_mask(self, led_group, led_brightness_values, 
     )
 
 
-async def enable_usb_status_async(self, enable, target, timeout=None):
+async def enable_usb_connection_notification(self, enable, target, timeout=None):
     return await self._dal.send_command(
         DevicesEnum.io,
-        CommandsEnum.enable_usb_status_async,
+        CommandsEnum.enable_usb_connection_notification,
         target,
         timeout,
         inputs=[

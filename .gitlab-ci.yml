@@ -38,7 +38,7 @@ setup:
 pytest:
     stage: test
     script:
-        - pipenv run python -m pytest --ignore=autogen-api-commands -vvv
+        - pipenv run python -m pytest --ignore=autogen-api-generators -vvv
 
 staging:
     stage: deploy

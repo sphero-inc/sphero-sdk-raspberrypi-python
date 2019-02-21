@@ -26,11 +26,14 @@ class MockAsyncDal(AsyncDalBase):
     async def on_command(self, did, cid, target, handler,
                          timeout=None, outputs=[]):
         async def coro(timeout):
+            print("in coro")
             await asyncio.sleep(timeout)
+            print("leaving coro")
 
         task = asyncio.ensure_future(coro(timeout))
 
         while not task.done():
+            print("in on_command")
             json = {}
             for param in outputs:
                 if param.size == 1:
@@ -41,7 +44,9 @@ class MockAsyncDal(AsyncDalBase):
                         param.size
                     )
             try:
+                print("before handler")
                 await handler(**json)
+                print("after handler")
             except Exception as e:
                 pass
 
