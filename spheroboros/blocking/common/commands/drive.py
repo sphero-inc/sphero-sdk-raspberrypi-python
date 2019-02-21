@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          02/15/2019 @ 18:08:12.725434 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.860015 (UTC)
 
 from spheroboros.common.commands.drive import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -18,28 +18,28 @@ def raw_motors(self, left_mode, left_speed, right_mode, right_speed, target, tim
         timeout,
         inputs=[
             Parameter(
-                name='left_mode',
+                name='leftMode',
                 data_type='uint8_t',
                 index=0,
                 value=left_mode,
                 size=1
             ),
             Parameter(
-                name='left_speed',
+                name='leftSpeed',
                 data_type='uint8_t',
                 index=1,
                 value=left_speed,
                 size=1
             ),
             Parameter(
-                name='right_mode',
+                name='rightMode',
                 data_type='uint8_t',
                 index=2,
                 value=right_mode,
                 size=1
             ),
             Parameter(
-                name='right_speed',
+                name='rightSpeed',
                 data_type='uint8_t',
                 index=3,
                 value=right_speed,

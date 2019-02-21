@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      56
-# Timestamp:          02/15/2019 @ 18:08:12.742895 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.879498 (UTC)
 
 from threading import Thread
 from spheroboros.blocking.common.commands import api_and_shell
@@ -449,7 +449,7 @@ class BlockingSpheroRvr(BlockingSpheroToy):
     def on_collision_detected_notify(self, handler=None, timeout=None):
         '''collision_detected_notify
 
-        :param coroutine handler: called asynchronously, takes form handler(acceleration_xacceleration_yacceleration_zaxispower_xpower_yspeedtime)
+        :param coroutine handler: called asynchronously, takes form handler(acceleration_x, acceleration_y, acceleration_z, axis, power_x, power_y, speed, time)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
@@ -555,22 +555,17 @@ class BlockingSpheroRvr(BlockingSpheroToy):
         '''
         return sensor.enable_color_detection_notification(self, enable, interval, minimum_confidence_threshold, target=1, timeout=timeout)
 
-    def on_color_detection_notify(self, red, green, blue, confidence, color_classification, handler=None, timeout=None):
+    def on_color_detection_notify(self, handler=None, timeout=None):
         '''color_detection_notify
 
-        :param uint8_t red:  
-        :param uint8_t green:  
-        :param uint8_t blue:  
-        :param uint8_t confidence:  
-        :param uint8_t color_classification:  
-        :param coroutine handler: called asynchronously, takes form handler()
+        :param coroutine handler: called asynchronously, takes form handler(red, green, blue, confidence, color_classification)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
         '''
         thread = Thread(
             target=sensor.on_color_detection_notify,
-            args=(self, red, green, blue, confidence, color_classification),
+            args=(self),
             kwargs={'target': 1, 'handler': handler, 'timeout': timeout},
         )
 
@@ -639,18 +634,17 @@ class BlockingSpheroRvr(BlockingSpheroToy):
         '''
         return io.enable_usb_status_async(self, enable, target=2, timeout=timeout)
 
-    def on_usb_connection_status_notify(self, usb_connection_status, handler=None, timeout=None):
+    def on_usb_connection_status_notify(self, handler=None, timeout=None):
         '''usb_connection_status_notify
 
-        :param uint8_t usb_connection_status:  
-        :param coroutine handler: called asynchronously, takes form handler()
+        :param coroutine handler: called asynchronously, takes form handler(usb_connection_status)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
         '''
         thread = Thread(
             target=io.on_usb_connection_status_notify,
-            args=(self, usb_connection_status),
+            args=(self),
             kwargs={'target': 2, 'handler': handler, 'timeout': timeout},
         )
 

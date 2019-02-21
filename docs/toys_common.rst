@@ -75,3 +75,17 @@ System Info
 
 .. autoclass:: spheroboros.ApplicationIndexesEnum
     :members:
+
+-------
+Targets
+-------
+
+.. autoclass:: spheroboros.common.toys.sphero_rvr.SpheroRvrTargets
+    :members:
+
+------------
+LED Bitmasks
+------------
+
+.. autoclass:: spheroboros.common.toys.sphero_rvr.SpheroRvrLedBitMasks
+    :members:

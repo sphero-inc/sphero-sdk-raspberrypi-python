@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      56
-# Timestamp:          02/15/2019 @ 18:08:12.739286 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.873821 (UTC)
 
 import asyncio
 from spheroboros.aio.common.commands import api_and_shell
@@ -424,7 +424,7 @@ class AsyncSpheroRvr(AsyncSpheroToy):
     async def on_collision_detected_notify(self, handler=None, timeout=None):
         '''collision_detected_notify
 
-        :param coroutine handler: called asynchronously, takes form handler(acceleration_xacceleration_yacceleration_zaxispower_xpower_yspeedtime)
+        :param coroutine handler: called asynchronously, takes form handler(acceleration_x, acceleration_y, acceleration_z, axis, power_x, power_y, speed, time)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
@@ -520,21 +520,16 @@ class AsyncSpheroRvr(AsyncSpheroToy):
         '''
         return await sensor.enable_color_detection_notification(self, enable, interval, minimum_confidence_threshold, target=1, timeout=timeout)
 
-    async def on_color_detection_notify(self, red, green, blue, confidence, color_classification, handler=None, timeout=None):
+    async def on_color_detection_notify(self, handler=None, timeout=None):
         '''color_detection_notify
 
-        :param uint8_t red:  
-        :param uint8_t green:  
-        :param uint8_t blue:  
-        :param uint8_t confidence:  
-        :param uint8_t color_classification:  
-        :param coroutine handler: called asynchronously, takes form handler()
+        :param coroutine handler: called asynchronously, takes form handler(red, green, blue, confidence, color_classification)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
         '''
         return asyncio.ensure_future(
-            sensor.on_color_detection_notify(self, red, green, blue, confidence, color_classification, target=1, handler=handler, timeout=timeout)
+            sensor.on_color_detection_notify(self, target=1, handler=handler, timeout=timeout)
         )
 
     async def get_current_detected_color_reading(self, timeout=None):
@@ -599,17 +594,16 @@ class AsyncSpheroRvr(AsyncSpheroToy):
         '''
         return await io.enable_usb_status_async(self, enable, target=2, timeout=timeout)
 
-    async def on_usb_connection_status_notify(self, usb_connection_status, handler=None, timeout=None):
+    async def on_usb_connection_status_notify(self, handler=None, timeout=None):
         '''usb_connection_status_notify
 
-        :param uint8_t usb_connection_status:  
-        :param coroutine handler: called asynchronously, takes form handler()
+        :param coroutine handler: called asynchronously, takes form handler(usb_connection_status)
         :param float timeout: maximum time to await a response
 
         :returns: Task (Future) from which `handler` will be called
         '''
         return asyncio.ensure_future(
-            io.on_usb_connection_status_notify(self, usb_connection_status, target=2, handler=handler, timeout=timeout)
+            io.on_usb_connection_status_notify(self, target=2, handler=handler, timeout=timeout)
         )
 
     async def get_usb_connection_status(self, timeout=None):

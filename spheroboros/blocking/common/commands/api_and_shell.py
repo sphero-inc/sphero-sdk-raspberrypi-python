@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          02/15/2019 @ 18:08:12.721895 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.858119 (UTC)
 
 from spheroboros.common.commands.api_and_shell import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -44,13 +44,13 @@ def get_api_protocol_version(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='major_version',
+                name='majorVersion',
                 data_type='uint8_t',
                 index=0,
                 size=1,
             ),
             Parameter(
-                name='minor_version',
+                name='minorVersion',
                 data_type='uint8_t',
                 index=1,
                 size=1,

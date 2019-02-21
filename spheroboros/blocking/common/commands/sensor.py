@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          02/15/2019 @ 18:08:12.727115 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.860918 (UTC)
 
 from spheroboros.common.commands.sensor import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -25,14 +25,14 @@ def set_sensor_streaming_mask(self, interval, packet_count, data_mask, target, t
                 size=1
             ),
             Parameter(
-                name='packet_count',
+                name='packetCount',
                 data_type='uint8_t',
                 index=1,
                 value=packet_count,
                 size=1
             ),
             Parameter(
-                name='data_mask',
+                name='dataMask',
                 data_type='uint32_t',
                 index=2,
                 value=data_mask,
@@ -56,13 +56,13 @@ def get_sensor_streaming_mask(self, target, timeout=None):
                 size=1,
             ),
             Parameter(
-                name='packet_count',
+                name='packetCount',
                 data_type='uint8_t',
                 index=1,
                 size=1,
             ),
             Parameter(
-                name='data_mask',
+                name='dataMask',
                 data_type='uint32_t',
                 index=2,
                 size=1,
@@ -80,7 +80,7 @@ def on_sensor_streaming_data_notify(self, target, handler=None, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='sensor_data',
+                name='sensorData',
                 data_type='float',
                 index=0,
                 size=255
@@ -97,7 +97,7 @@ def get_encoder_counts(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='encoder_counts',
+                name='encoderCounts',
                 data_type='int16_t',
                 index=0,
                 size=2,
@@ -126,7 +126,7 @@ def get_euler_angles(self, target, timeout=None):
                 size=1,
             ),
             Parameter(
-                name='extended_roll',
+                name='extendedRoll',
                 data_type='float',
                 index=2,
                 size=1,
@@ -178,7 +178,7 @@ def set_extended_sensor_streaming_mask(self, data_mask, target, timeout=None):
         timeout,
         inputs=[
             Parameter(
-                name='data_mask',
+                name='dataMask',
                 data_type='uint32_t',
                 index=0,
                 value=data_mask,
@@ -196,7 +196,7 @@ def get_extended_sensor_streaming_mask(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='data_mask',
+                name='dataMask',
                 data_type='uint32_t',
                 index=0,
                 size=1,
@@ -213,7 +213,7 @@ def enable_gyro_max_notify(self, is_enabled, target, timeout=None):
         timeout,
         inputs=[
             Parameter(
-                name='is_enabled',
+                name='isEnabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -256,35 +256,35 @@ def configure_collision_detection(self, method, x_threshold, x_speed, y_threshol
                 size=1
             ),
             Parameter(
-                name='x_threshold',
+                name='xThreshold',
                 data_type='uint8_t',
                 index=1,
                 value=x_threshold,
                 size=1
             ),
             Parameter(
-                name='x_speed',
+                name='xSpeed',
                 data_type='uint8_t',
                 index=2,
                 value=x_speed,
                 size=1
             ),
             Parameter(
-                name='y_threshold',
+                name='yThreshold',
                 data_type='uint8_t',
                 index=3,
                 value=y_threshold,
                 size=1
             ),
             Parameter(
-                name='y_speed',
+                name='ySpeed',
                 data_type='uint8_t',
                 index=4,
                 value=y_speed,
                 size=1
             ),
             Parameter(
-                name='dead_time',
+                name='deadTime',
                 data_type='uint8_t',
                 index=5,
                 value=dead_time,
@@ -303,19 +303,19 @@ def on_collision_detected_notify(self, target, handler=None, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='acceleration_x',
+                name='accelerationX',
                 data_type='uint16_t',
                 index=0,
                 size=1
             ),
             Parameter(
-                name='acceleration_y',
+                name='accelerationY',
                 data_type='uint16_t',
                 index=1,
                 size=1
             ),
             Parameter(
-                name='acceleration_z',
+                name='accelerationZ',
                 data_type='uint16_t',
                 index=2,
                 size=1
@@ -327,13 +327,13 @@ def on_collision_detected_notify(self, target, handler=None, timeout=None):
                 size=1
             ),
             Parameter(
-                name='power_x',
+                name='powerX',
                 data_type='uint16_t',
                 index=4,
                 size=1
             ),
             Parameter(
-                name='power_y',
+                name='powerY',
                 data_type='uint16_t',
                 index=5,
                 size=1
@@ -362,7 +362,7 @@ def get_bot_to_bot_infrared_readings(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='sensor_data',
+                name='sensorData',
                 data_type='uint32_t',
                 index=0,
                 size=1,
@@ -379,14 +379,14 @@ def start_robot_to_robot_infrared_broadcasting(self, far_code, near_code, target
         timeout,
         inputs=[
             Parameter(
-                name='far_code',
+                name='farCode',
                 data_type='uint8_t',
                 index=0,
                 value=far_code,
                 size=1
             ),
             Parameter(
-                name='near_code',
+                name='nearCode',
                 data_type='uint8_t',
                 index=1,
                 value=near_code,
@@ -413,35 +413,35 @@ def send_robot_to_robot_infrared_message(self, infrared_code, front_left_strengt
         timeout,
         inputs=[
             Parameter(
-                name='infrared_code',
+                name='infraredCode',
                 data_type='uint8_t',
                 index=0,
                 value=infrared_code,
                 size=1
             ),
             Parameter(
-                name='front_left_strength',
+                name='frontLeftStrength',
                 data_type='uint8_t',
                 index=1,
                 value=front_left_strength,
                 size=1
             ),
             Parameter(
-                name='front_right_strength',
+                name='frontRightStrength',
                 data_type='uint8_t',
                 index=2,
                 value=front_right_strength,
                 size=1
             ),
             Parameter(
-                name='back_right_strength',
+                name='backRightStrength',
                 data_type='uint8_t',
                 index=3,
                 value=back_right_strength,
                 size=1
             ),
             Parameter(
-                name='back_left_strength',
+                name='backLeftStrength',
                 data_type='uint8_t',
                 index=4,
                 value=back_left_strength,
@@ -459,14 +459,14 @@ def listen_for_robot_to_robot_infrared_message(self, infrared_code, listen_durat
         timeout,
         inputs=[
             Parameter(
-                name='infrared_code',
+                name='infraredCode',
                 data_type='uint8_t',
                 index=0,
                 value=infrared_code,
                 size=1
             ),
             Parameter(
-                name='listen_duration',
+                name='listenDuration',
                 data_type='uint32_t',
                 index=1,
                 value=listen_duration,
@@ -485,7 +485,7 @@ def on_robot_to_robot_infrared_message_received_notify(self, target, handler=Non
         timeout,
         outputs=[
             Parameter(
-                name='infrared_code',
+                name='infraredCode',
                 data_type='uint8_t',
                 index=0,
                 size=1
@@ -502,7 +502,7 @@ def get_ambient_light_sensor_value(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='ambient_light_white_channel_value',
+                name='ambientLightWhiteChannelValue',
                 data_type='float',
                 index=0,
                 size=1,
@@ -533,7 +533,7 @@ def enable_color_detection_notification(self, enable, interval, minimum_confiden
                 size=1
             ),
             Parameter(
-                name='minimum_confidence_threshold',
+                name='minimumConfidenceThreshold',
                 data_type='uint8_t',
                 index=2,
                 value=minimum_confidence_threshold,
@@ -550,6 +550,38 @@ def on_color_detection_notify(self, target, handler=None, timeout=None):
         target,
         handler,
         timeout,
+        outputs=[
+            Parameter(
+                name='red',
+                data_type='uint8_t',
+                index=0,
+                size=1
+            ),
+            Parameter(
+                name='green',
+                data_type='uint8_t',
+                index=1,
+                size=1
+            ),
+            Parameter(
+                name='blue',
+                data_type='uint8_t',
+                index=2,
+                size=1
+            ),
+            Parameter(
+                name='confidence',
+                data_type='uint8_t',
+                index=3,
+                size=1
+            ),
+            Parameter(
+                name='colorClassification',
+                data_type='uint8_t',
+                index=4,
+                size=1
+            ),
+        ],
     )
 
 

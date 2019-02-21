@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          02/15/2019 @ 18:08:12.736477 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.869475 (UTC)
 
 from spheroboros.common.commands.system_info import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -93,7 +93,7 @@ async def get_mac_address(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='mac_address',
+                name='macAddress',
                 data_type='std::string',
                 index=0,
                 size=1,
@@ -127,7 +127,7 @@ async def get_stats_id(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='stats_id',
+                name='statsId',
                 data_type='uint16_t',
                 index=0,
                 size=1,
@@ -178,13 +178,13 @@ async def get_last_error_info(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='file_name',
+                name='fileName',
                 data_type='uint8_t',
                 index=0,
                 size=32,
             ),
             Parameter(
-                name='line_number',
+                name='lineNumber',
                 data_type='uint16_t',
                 index=1,
                 size=1,

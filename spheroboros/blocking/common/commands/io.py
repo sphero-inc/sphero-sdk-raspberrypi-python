@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          02/15/2019 @ 18:08:12.723642 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.859072 (UTC)
 
 from spheroboros.common.commands.io import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -18,14 +18,14 @@ def set_all_leds_with_32_bit_mask(self, led_group, led_brightness_values, target
         timeout,
         inputs=[
             Parameter(
-                name='led_group',
+                name='ledGroup',
                 data_type='uint32_t',
                 index=0,
                 value=led_group,
                 size=1
             ),
             Parameter(
-                name='led_brightness_values',
+                name='ledBrightnessValues',
                 data_type='uint8_t',
                 index=1,
                 value=led_brightness_values,
@@ -60,6 +60,14 @@ def on_usb_connection_status_notify(self, target, handler=None, timeout=None):
         target,
         handler,
         timeout,
+        outputs=[
+            Parameter(
+                name='usbConnectionStatus',
+                data_type='uint8_t',
+                index=0,
+                size=1
+            ),
+        ],
     )
 
 
@@ -71,7 +79,7 @@ def get_usb_connection_status(self, target, timeout=None):
         timeout,
         outputs=[
             Parameter(
-                name='usb_connection_status',
+                name='usbConnectionStatus',
                 data_type='uint8_t',
                 index=0,
                 size=1,

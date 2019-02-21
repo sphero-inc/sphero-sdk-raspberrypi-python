@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          02/15/2019 @ 18:08:12.732740 (UTC)
+# Timestamp:          02/21/2019 @ 00:09:09.866006 (UTC)
 
 from spheroboros.common.commands.power import CommandsEnum
 from spheroboros.common.devices import DevicesEnum
@@ -18,7 +18,7 @@ def enter_deep_sleep(self, seconds_until_deep_sleep, target, timeout=None):
         timeout,
         inputs=[
             Parameter(
-                name='seconds_until_deep_sleep',
+                name='secondsUntilDeepSleep',
                 data_type='uint8_t',
                 index=0,
                 value=seconds_until_deep_sleep,
@@ -108,7 +108,7 @@ def enable_battery_voltage_state_change_notify(self, is_enabled, target, timeout
         timeout,
         inputs=[
             Parameter(
-                name='is_enabled',
+                name='isEnabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,

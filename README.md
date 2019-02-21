@@ -2,7 +2,7 @@
 
 This package provides two ways with interacting with the Sphero API Service
 
-## Simple: Blocking (using requests)
+## Simple: Blocking (uses requests)
 The first is a simpler, blocking style that uses requests library
 ```python
 #!/usr/bin/env python3
@@ -16,7 +16,7 @@ major, minor, build = rvr.get_main_app()
 print('{}.{}.{}'.format(major, minor, build))
 ```
 
-## Slightly More Complex: Coroutines (using asyncio + aiohttp)
+## Slightly More Complex: Coroutines (uses asyncio + aiohttp)
 Do A bunch of stuff in coroutines!
 ```python
 #! /usr/bin/env python3
