@@ -1,1 +1,4 @@
 include README.md
+graft docs
+graft tests
+prune docs/_build
