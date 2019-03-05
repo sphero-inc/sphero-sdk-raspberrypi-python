@@ -239,7 +239,8 @@ class Message(SpheroMessageBase):
 
     def _pack(self, packer, value):
         if isinstance(value, list):
-            self._body += packer(value.pop(0))
+            for i in range(len(value)):
+                self._body += packer(value.pop(0))
         else:
             self._body += packer(value)
 
