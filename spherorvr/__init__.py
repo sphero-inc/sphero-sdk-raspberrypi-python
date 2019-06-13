@@ -1,0 +1,1 @@
+from spherorvr.observer.client.toys.observer_sphero_rvr import SpheroRvr
