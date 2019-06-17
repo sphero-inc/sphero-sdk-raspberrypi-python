@@ -3,7 +3,7 @@ from spheroboros.common.devices import DevicesEnum
 from spheroboros.common.parameter import Parameter
 
 
-async def set_sensor_streaming_mask(interval, packet_count, data_mask):
+def set_sensor_streaming_mask(interval, packet_count, data_mask):
     did = DevicesEnum.sensor
     cid = CommandsEnum.set_sensor_streaming_mask
     inputs = [
@@ -29,9 +29,10 @@ async def set_sensor_streaming_mask(interval, packet_count, data_mask):
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def get_sensor_streaming_mask():
+def get_sensor_streaming_mask():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_sensor_streaming_mask
     outputs = [
@@ -54,9 +55,10 @@ async def get_sensor_streaming_mask():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def on_sensor_streaming_data_notify():
+def on_sensor_streaming_data_notify():
     did = DevicesEnum.sensor
     cid = CommandsEnum.sensor_streaming_data_notify
     outputs = [
@@ -67,9 +69,10 @@ async def on_sensor_streaming_data_notify():
             size=255
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_encoder_counts():
+def get_encoder_counts():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_encoder_counts
     outputs = [
@@ -80,9 +83,10 @@ async def get_encoder_counts():
             size=2,
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_euler_angles():
+def get_euler_angles():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_euler_angles
     outputs = [
@@ -111,9 +115,10 @@ async def get_euler_angles():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_gyro_degrees_per_second():
+def get_gyro_degrees_per_second():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_gyro_degrees_per_second
     outputs = [
@@ -136,9 +141,10 @@ async def get_gyro_degrees_per_second():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def set_extended_sensor_streaming_mask(data_mask):
+def set_extended_sensor_streaming_mask(data_mask):
     did = DevicesEnum.sensor
     cid = CommandsEnum.set_extended_sensor_streaming_mask
     inputs = [
@@ -152,7 +158,7 @@ async def set_extended_sensor_streaming_mask(data_mask):
     ]
 
 
-async def get_extended_sensor_streaming_mask():
+def get_extended_sensor_streaming_mask():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_extended_sensor_streaming_mask
     outputs = [
@@ -163,9 +169,10 @@ async def get_extended_sensor_streaming_mask():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def enable_gyro_max_notify(is_enabled):
+def enable_gyro_max_notify(is_enabled):
     did = DevicesEnum.sensor
     cid = CommandsEnum.enable_gyro_max_notify
     inputs = [
@@ -177,9 +184,10 @@ async def enable_gyro_max_notify(is_enabled):
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def on_gyro_max_notify():
+def on_gyro_max_notify():
     did = DevicesEnum.sensor
     cid = CommandsEnum.gyro_max_notify
     outputs = [
@@ -190,9 +198,10 @@ async def on_gyro_max_notify():
             size=1
         ),
     ]
+    return did, cid, outputs
 
 
-async def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_speed, dead_time):
+def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_speed, dead_time):
     did = DevicesEnum.sensor
     cid = CommandsEnum.configure_collision_detection
     inputs = [
@@ -239,9 +248,10 @@ async def configure_collision_detection(method, x_threshold, x_speed, y_threshol
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def on_collision_detected_notify():
+def on_collision_detected_notify():
     did = DevicesEnum.sensor
     cid = CommandsEnum.collision_detected_notify
     outputs = [
@@ -294,9 +304,10 @@ async def on_collision_detected_notify():
             size=1
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_bot_to_bot_infrared_readings():
+def get_bot_to_bot_infrared_readings():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_bot_to_bot_infrared_readings
     outputs = [
@@ -307,9 +318,10 @@ async def get_bot_to_bot_infrared_readings():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def start_robot_to_robot_infrared_broadcasting(far_code, near_code):
+def start_robot_to_robot_infrared_broadcasting(far_code, near_code):
     did = DevicesEnum.sensor
     cid = CommandsEnum.start_robot_to_robot_infrared_broadcasting
     inputs = [
@@ -328,14 +340,16 @@ async def start_robot_to_robot_infrared_broadcasting(far_code, near_code):
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def stop_robot_to_robot_infrared_broadcasting():
+def stop_robot_to_robot_infrared_broadcasting():
     did = DevicesEnum.sensor
     cid = CommandsEnum.stop_robot_to_robot_infrared_broadcasting
+    return did, cid
 
 
-async def send_robot_to_robot_infrared_message(infrared_code, front_left_strength, front_right_strength, back_right_strength, back_left_strength):
+def send_robot_to_robot_infrared_message(infrared_code, front_left_strength, front_right_strength, back_right_strength, back_left_strength):
     did = DevicesEnum.sensor
     cid = CommandsEnum.send_robot_to_robot_infrared_message
     inputs = [
@@ -375,9 +389,10 @@ async def send_robot_to_robot_infrared_message(infrared_code, front_left_strengt
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration):
+def listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration):
     did = DevicesEnum.sensor
     cid = CommandsEnum.listen_for_robot_to_robot_infrared_message
     inputs = [
@@ -396,9 +411,10 @@ async def listen_for_robot_to_robot_infrared_message(infrared_code, listen_durat
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def on_robot_to_robot_infrared_message_received_notify():
+def on_robot_to_robot_infrared_message_received_notify():
     did = DevicesEnum.sensor
     cid = CommandsEnum.robot_to_robot_infrared_message_received_notify
     outputs = [
@@ -409,9 +425,10 @@ async def on_robot_to_robot_infrared_message_received_notify():
             size=1
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_ambient_light_sensor_value():
+def get_ambient_light_sensor_value():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_ambient_light_sensor_value
     outputs = [
@@ -422,9 +439,10 @@ async def get_ambient_light_sensor_value():
             size=1,
         ),
     ]
+    return did, cid, outputs
 
 
-async def enable_color_detection_notification(enable, interval, minimum_confidence_threshold):
+def enable_color_detection_notification(enable, interval, minimum_confidence_threshold):
     did = DevicesEnum.sensor
     cid = CommandsEnum.enable_color_detection_notification
     inputs = [
@@ -450,9 +468,10 @@ async def enable_color_detection_notification(enable, interval, minimum_confiden
             size=1
         ),
     ]
+    return did, cid, inputs
 
 
-async def on_color_detection_notify():
+def on_color_detection_notify():
     did = DevicesEnum.sensor
     cid = CommandsEnum.color_detection_notify
     outputs = [
@@ -487,14 +506,16 @@ async def on_color_detection_notify():
             size=1
         ),
     ]
+    return did, cid, outputs
 
 
-async def get_current_detected_color_reading():
+def get_current_detected_color_reading():
     did = DevicesEnum.sensor
     cid = CommandsEnum.get_current_detected_color_reading
+    return did, cid
 
 
-async def enable_color_detection(enable):
+def enable_color_detection(enable):
     did = DevicesEnum.sensor
     cid = CommandsEnum.enable_color_detection
     inputs = [
@@ -506,3 +527,4 @@ async def enable_color_detection(enable):
             size=1
         ),
     ]
+    return did, cid, inputs
