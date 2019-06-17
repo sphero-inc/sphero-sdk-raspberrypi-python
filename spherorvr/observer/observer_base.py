@@ -5,5 +5,5 @@ class Observer():
         self._observers.append(self)
         self._callbacks = {}
 
-    def _register_callback(self, did, cid, callback, outputs):
+    def _register_callback(self, did, cid, callback, outputs=[]):
         self._callbacks[(did, cid)] = (callback, outputs)

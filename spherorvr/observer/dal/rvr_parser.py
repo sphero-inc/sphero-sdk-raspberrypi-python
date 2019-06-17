@@ -39,7 +39,7 @@ class RvrParser:
             self._handle_error(error_buf)
         else:
             skip_future_reads = True
-            self._dispatcher.handle_response(msg)
+            self._dispatcher.handle_message(msg)
         finally:
             # Regardless of outcome, we should rerun _read until no SOP or EOP
             if not skip_future_reads:
