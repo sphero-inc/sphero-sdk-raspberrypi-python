@@ -10,7 +10,7 @@ class RvrEventDispatcher:
         # TODO AC - Do we need 'source node' for async responses
         # TODO AC - Implement error handling
         for observer in Observer._observers:
-            key = (message.did, message.did)
+            key = (message.did, message.cid)
             if key in observer._callbacks:
                 callback, outputs = observer._callbacks[key]
                 self._dispatch_event(callback, outputs, message)
@@ -27,3 +27,4 @@ class RvrEventDispatcher:
             callback(**response)
         else:
             callback()
+
