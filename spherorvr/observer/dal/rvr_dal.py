@@ -23,6 +23,9 @@ class RvrDal:
 
         self._port.send(message)
 
+    def close(self):
+        self._port.close()
+
     def on_command(self, did, cid, target, handler,
                    timeout=None, outputs=None):
         '''Provide a Handler Function for Data Coming Asynchronously from the Bot

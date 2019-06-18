@@ -20,6 +20,9 @@ class SpheroRvr(Observer):
         parser = RvrParser(dispatcher)
         port = RvrSerialPort(parser)
         self._dal = RvrDal(port)
+
+    def close(self):
+        self._dal.close()
     
     def echo(self, data, target, callback, timeout=None):
         did, \
