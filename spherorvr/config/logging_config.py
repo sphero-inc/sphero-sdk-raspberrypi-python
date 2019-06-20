@@ -11,5 +11,26 @@ ERRORS = {
     }
 }
 
+
 DEBUG_VERBOSE = {
+    'version': 1,
+    'handlers': {
+        'debug_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler'
+        }
+    },
+    'loggers': {
+        'spherorvr.observer.dal.rvr_parser': {
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'spherorvr.observer.dal.rvr_port': {
+            'level': 'DEBUG',
+            'propagate': True
+        }
+    },
+    'root': {
+        'handlers': ['debug_handler']
+    }
 }
