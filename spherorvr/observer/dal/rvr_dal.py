@@ -1,4 +1,8 @@
+import logging
 from spheroboros.aio.server import Message
+
+logger = logging.getLogger(__name__)
+
 
 class RvrDal:
     def __init__(self, port):
@@ -6,8 +10,7 @@ class RvrDal:
         self._sequences = list(range(1, 256))
         pass
 
-    def send_command(self, did, cid, target,
-                     timeout=None, inputs=[], outputs=[]):
+    def send_command(self, did, cid, target, timeout=None, inputs=[], outputs=[]):
 
         message = Message()
         message.did = did
@@ -20,6 +23,8 @@ class RvrDal:
 
         for param in inputs:
             message.pack(param.data_type, param.value)
+
+        logger.info("sending message: %s", message)
 
         self._port.send(message)
 

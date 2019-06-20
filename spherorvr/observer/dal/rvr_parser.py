@@ -5,54 +5,57 @@ logger = logging.getLogger(__name__)
 
 
 class RvrParser:
-    __slots__ = ['_buf', '_dispatcher']
+    __slots__ = ['__buf', '__dispatcher']
 
     def __init__(self, dispatcher):
-        self._buf = bytearray()
-        self._dispatcher = dispatcher
+        self.__buf = bytearray()
+        self.__dispatcher = dispatcher
 
     def feed(self, data):
-        self._buf += data
-        self._read()
+        self.__buf += data
+        logger.debug("appending bytes: %s", self.__buf)
+        self.__read()
 
-    def _read(self):
+    def __read(self):
         # Discard Any bytes received before a SOP is received
         try:
-            start_index = self._buf.index(Message.START_OF_PACKET)
-            self._buf = self._buf[start_index:]
+            start_index = self.__buf.index(Message.START_OF_PACKET)
+            self.__buf = self.__buf[start_index:]
         except Exception as e:
-            self._buf.clear()
+            self.__buf.clear()
             return
 
         # Try to Parse a Message
         msg = None
         skip_future_reads = False
         try:
-            msg = Message.from_buffer(self._buf)
+            msg = Message.from_buffer(self.__buf)
         except ValueError:  # Missing SOP, EOP
+            logger.debug('packet missing SOP/EOP!')
             skip_future_reads = True
             return
         except AttributeError:  # Bad Packet
-            logger.warning('Invalid Packet Received!')
-            error_buf = (self._buf[self._buf.index(Message.START_OF_PACKET):
-                                   self._buf.index(Message.END_OF_PACKET) + 1])
-            self._handle_error(error_buf)
+            logger.error('invalid packet received!')
+            error_buf = (self.__buf[self.__buf.index(Message.START_OF_PACKET):
+                                   self.__buf.index(Message.END_OF_PACKET) + 1])
+            self.__handle_error(error_buf)
         else:
             skip_future_reads = True
-            self._dispatcher.handle_message(msg)
+            logger.info('parsing packet complete: %s', msg)
+            self.__dispatcher.handle_message(msg)
         finally:
             # Regardless of outcome, we should rerun _read until no SOP or EOP
             if not skip_future_reads:
-                self._read()
+                self.__read()
 
         # Consume the bytes from the buffer
         try:
-            self._buf = self._buf[self._buf.index(Message.END_OF_PACKET)+1:]
-            logger.info(msg)
+            logger.debug('consuming bytes in packet.')
+            self.__buf = self.__buf[self.__buf.index(Message.END_OF_PACKET) + 1:]
         except Exception:
-            self._buf.clear()
+            self.__buf.clear()
 
-    def _handle_error(self, buf):
+    def __handle_error(self, buf):
         '''
         try:
             asyncio.ensure_future(self._error_handler(buf))

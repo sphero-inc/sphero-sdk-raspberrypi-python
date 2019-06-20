@@ -1,42 +1,44 @@
+import logging
 from threading import Thread
 from queue import Queue
 from serial import Serial
 
+logger = logging.getLogger(__name__)
+
 
 class RvrSerialPort:
     def __init__(self, parser, port='/dev/ttyS0', baud=115200):
-        self._parser = parser
-        self._ser = Serial(port, baud)
-        self._running = True
-        self._write_queue = Queue()
-        self._serial_thread = Thread(name="serial_thread", target=self._serial_rw)
-        self._serial_thread.start()
+        self.__parser = parser
+        self.__ser = Serial(port, baud)
+        self.__running = True
+        self.__write_queue = Queue()
+        self.__serial_thread = Thread(name="serial_thread", target=self.__serial_rw)
+        self.__serial_thread.start()
 
     def close(self):
-        self._running = False
-        self._serial_thread.join()
-        self._ser.close()
+        logger.info("read/write thread joining.")
+        self.__running = False
+        self.__serial_thread.join()
+        logger.info("closing serial port.")
+        self.__ser.close()
 
     def send(self, message):
-        self._write_queue.put(message.serialise())
+        self.__write_queue.put(message.serialise())
 
-    def _serial_rw(self):
-        while self._running:
-            self._write_bytes()
-            self._read_bytes()
+    def __serial_rw(self):
+        while self.__running:
+            self.__write_bytes()
+            self.__read_bytes()
 
-    def _read_bytes(self):
-        bytes_in_waiting = self._ser.in_waiting
+    def __read_bytes(self):
+        bytes_in_waiting = self.__ser.in_waiting
         if bytes_in_waiting > 0:
-            data = self._ser.read(bytes_in_waiting)
-            self._parser.feed(data)
+            data = self.__ser.read(bytes_in_waiting)
+            logger.debug('read %s bytes: %s', bytes_in_waiting, data)
+            self.__parser.feed(data)
 
-    def _write_bytes(self):
-        if not self._write_queue.empty():
-            self._ser.write(self._write_queue.get())
-
-
-
-
-
-
+    def __write_bytes(self):
+        if not self.__write_queue.empty():
+            data = self.__write_queue.get()
+            logger.debug('writing bytes: %s', data)
+            self.__ser.write(data)

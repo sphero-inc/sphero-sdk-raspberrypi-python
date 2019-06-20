@@ -1,3 +1,5 @@
+import logging.config
+from spherorvr.config import logging_config
 from spherorvr.observer.observer_base import Observer
 from spherorvr.observer.dal.rvr_dal import RvrDal
 from spherorvr.observer.dal.rvr_parser import RvrParser
@@ -11,18 +13,18 @@ from spherorvr.observer.commands import sensor
 from spherorvr.observer.commands import connection
 from spherorvr.observer.commands import io
 
-
 class SpheroRvr(Observer):
 
-    def __init__(self):
+    def __init__(self, logging_config_dict=logging_config.ERRORS):
+        logging.config.dictConfig(logging_config_dict)
         Observer.__init__(self)
         dispatcher = RvrEventDispatcher()
         parser = RvrParser(dispatcher)
         port = RvrSerialPort(parser)
-        self._dal = RvrDal(port)
+        self.__dal = RvrDal(port)
 
     def close(self):
-        self._dal.close()
+        self.__dal.close()
     
     def echo(self, data, target, callback, timeout=None):
         did, \
@@ -30,135 +32,135 @@ class SpheroRvr(Observer):
         inputs, \
         outputs = api_and_shell.echo(data)
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, inputs=inputs, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, inputs=inputs, outputs=outputs)
 
     def get_api_protocol_version(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = api_and_shell.get_api_protocol_version()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_supported_dids(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = api_and_shell.get_supported_dids()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_supported_cids(self, did, target, callback, timeout=None):
         did, \
         cid, \
         outputs = api_and_shell.get_supported_cids(did)
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_main_application_version(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_main_application_version()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_bootloader_version(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_bootloader_version()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_board_revision(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_board_revision()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_mac_address(self, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_mac_address()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def get_nordic_temperature(self, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_nordic_temperature()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def get_stats_id(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_stats_id()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_processor_name(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_processor_name()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_boot_reason(self, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_boot_reason()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def get_last_error_info(self, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_last_error_info()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def get_manufacturing_date(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_manufacturing_date()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def get_sku(self, target, callback, timeout=None):
         did, \
         cid, \
         outputs = system_info.get_sku()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=target, timeout=timeout, outputs=outputs)
 
     def enter_deep_sleep(self, seconds_until_deep_sleep, timeout=None):
         did, \
         cid, \
         inputs = power.enter_deep_sleep(seconds_until_deep_sleep)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, inputs=inputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, inputs=inputs)
 
     def enter_soft_sleep(self, timeout=None):
         did, \
         cid = power.enter_soft_sleep()
-        self._dal.send_command(did, cid, target=1, timeout=timeout)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout)
 
     def wake(self, timeout=None):
         did, \
         cid = power.wake()
-        self._dal.send_command(did, cid, target=1, timeout=timeout)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout)
 
     def get_battery_percentage(self, callback, timeout=None):
         did, \
         cid, \
         outputs = power.get_battery_percentage()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def get_battery_voltage_state(self, callback, timeout=None):
         did, \
         cid, \
         outputs = power.get_battery_voltage_state()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, outputs=outputs)
 
     def on_will_sleep_notify(self, callback):
         did, \
@@ -174,7 +176,7 @@ class SpheroRvr(Observer):
         did, \
         cid, \
         inputs = power.enable_battery_voltage_state_change_notify(is_enabled)
-        self._dal.send_command(did, cid, target=1, timeout=timeout, inputs=inputs)
+        self.__dal.send_command(did, cid, target=1, timeout=timeout, inputs=inputs)
 
     def on_battery_voltage_state_change_notify(self, callback):
         did, \
@@ -186,31 +188,31 @@ class SpheroRvr(Observer):
         did, \
         cid, \
         inputs = drive.raw_motors(left_mode, left_speed, right_mode, right_speed)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
 
     def reset_yaw(self, timeout=None):
         did, \
         cid = drive.reset_yaw()
-        self._dal.send_command(did, cid, target=2, timeout=timeout)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout)
 
     def drive_with_heading(self, speed, heading, flags, timeout=None):
         did, \
         cid, \
         inputs = drive.drive_with_heading(speed, heading, flags)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
 
     def set_sensor_streaming_mask(self, interval, packet_count, data_mask, timeout=None):
         did, \
         cid, \
         inputs = sensor.set_sensor_streaming_mask(interval, packet_count, data_mask)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, inputs=inputs)
 
     def get_sensor_streaming_mask(self, callback, timeout=None):
         did, \
         cid, \
         outputs = sensor.get_sensor_streaming_mask()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
 
     def on_sensor_streaming_data_notify(self, callback):
         did, \
@@ -223,14 +225,14 @@ class SpheroRvr(Observer):
         cid, \
         outputs = sensor.get_encoder_counts()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
 
     def get_euler_angles(self, callback, timeout=None):
         did, \
         cid, \
         outputs = sensor.get_euler_angles()
         self._register_callback(did, cid, callback, outputs)
-        self._dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
+        self.__dal.send_command(did, cid, target=2, timeout=timeout, outputs=outputs)
 
 
     '''def get_gyro_degrees_per_second(self, timeout=None):
