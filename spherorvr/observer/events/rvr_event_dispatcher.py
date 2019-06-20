@@ -15,8 +15,8 @@ class RvrEventDispatcher:
         for observer in Observer.observers:
             key = (message.did, message.cid)
             logger.debug("looking for entries with key %s.", key)
-            if key in observer._callbacks:
-                callback, outputs = observer._callbacks[key]
+            if key in observer.callbacks:
+                callback, outputs = observer.callbacks[key]
                 logger.debug("entry found, dispatching!")
                 self.__dispatch_event(callback, outputs, message)
                 break
