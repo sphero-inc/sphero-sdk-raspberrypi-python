@@ -2,7 +2,9 @@ from spherorvr.config.log_level import LogLevel
 
 
 def get_dict(log_level):
-    if log_level == LogLevel.Errors:
+    if log_level == LogLevel.Silent:
+        return silent
+    elif log_level == LogLevel.Errors:
         return errors
     elif log_level == LogLevel.Debug_Verbose:
         return debug_verbose
@@ -12,7 +14,7 @@ silent = {
     'version': 1,
     'handlers': {
         'null_handler': {
-            'level': 'WARNING',
+            'level': 'NOTSET',
             'class': 'logging.NullHandler',
         }
     },
