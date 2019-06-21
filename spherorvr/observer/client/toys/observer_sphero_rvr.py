@@ -1,5 +1,5 @@
 import logging.config
-from spherorvr.config import logging_config
+from spherorvr.config import LogLevel
 from spherorvr.observer.observer_base import Observer
 from spherorvr.observer.dal.rvr_dal import RvrDal
 from spherorvr.observer.dal.rvr_parser import RvrParser
@@ -15,8 +15,8 @@ from spherorvr.observer.commands import io
 
 class SpheroRvr(Observer):
 
-    def __init__(self, logging_config_dict=logging_config.ERRORS):
-        logging.config.dictConfig(logging_config_dict)
+    def __init__(self, log_level = LogLevel.Silent):
+        logging.config.dictConfig(logging_config.get_dict(log_level))
         Observer.__init__(self)
         dispatcher = RvrEventDispatcher()
         parser = RvrParser(dispatcher)

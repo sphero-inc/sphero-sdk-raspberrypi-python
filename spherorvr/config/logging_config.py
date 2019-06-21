@@ -1,4 +1,27 @@
-ERRORS = {
+from log_level import LogLevel
+
+
+def get_config(log_level):
+    if log_level == LogLevel.Errors:
+        return errors
+    elif log_level == LogLevel.Debug_Verbose:
+        return debug_verbose
+
+
+silent = {
+    'version': 1,
+    'handlers': {
+        'null_handler': {
+            'level': 'WARNING',
+            'class': 'logging.NullHandler',
+        }
+    },
+    'root': {
+        'handlers': ['null_handler']
+    }
+}
+
+errors = {
     'version': 1,
     'handlers': {
         'error_handler': {
@@ -12,7 +35,7 @@ ERRORS = {
 }
 
 
-DEBUG_VERBOSE = {
+debug_verbose = {
     'version': 1,
     'handlers': {
         'debug_handler': {
