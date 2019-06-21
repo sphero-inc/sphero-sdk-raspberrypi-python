@@ -1,4 +1,5 @@
 import logging.config
+from spherorvr.config import logging_config
 from spherorvr.config import LogLevel
 from spherorvr.observer.observer_base import Observer
 from spherorvr.observer.dal.rvr_dal import RvrDal

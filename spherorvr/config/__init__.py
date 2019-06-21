@@ -1,2 +1,1 @@
-import logging_config
-from log_level import LogLevel
+from spherorvr.config.log_level import LogLevel

@@ -1,7 +1,7 @@
-from log_level import LogLevel
+from spherorvr.config.log_level import LogLevel
 
 
-def get_config(log_level):
+def get_dict(log_level):
     if log_level == LogLevel.Errors:
         return errors
     elif log_level == LogLevel.Debug_Verbose:
