@@ -40,7 +40,7 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed):
 
 
 def reset_yaw():
-    did = DevicesEnum.drive,
+    did = DevicesEnum.drive
     cid = CommandsEnum.reset_yaw
     return did, cid
 
