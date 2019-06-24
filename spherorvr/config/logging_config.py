@@ -19,6 +19,7 @@ silent = {
         }
     },
     'root': {
+        'level': 'NOTSET',
         'handlers': ['null_handler']
     }
 }
@@ -31,11 +32,25 @@ errors = {
             'class': 'logging.StreamHandler',
         }
     },
+    'loggers': {
+        'spherorvr.observer.dal.rvr_dal': {
+            'propagate': True
+        },
+        'spherorvr.observer.dal.rvr_parser': {
+            'propagate': True
+        },
+        'spherorvr.observer.dal.rvr_port': {
+            'propagate': True
+        },
+        'spherorvr.observer.events.rvr_event_dispatcher': {
+            'propagate': True
+        }
+    },
     'root': {
+        'level': 'ERROR',
         'handlers': ['error_handler']
     }
 }
-
 
 debug_verbose = {
     'version': 1,
@@ -46,16 +61,21 @@ debug_verbose = {
         }
     },
     'loggers': {
+        'spherorvr.observer.dal.rvr_dal': {
+            'propagate': True
+        },
         'spherorvr.observer.dal.rvr_parser': {
-            'level': 'DEBUG',
             'propagate': True
         },
         'spherorvr.observer.dal.rvr_port': {
-            'level': 'DEBUG',
+            'propagate': True
+        },
+        'spherorvr.observer.events.rvr_event_dispatcher': {
             'propagate': True
         }
     },
     'root': {
+        'level': 'DEBUG',
         'handlers': ['debug_handler']
     }
 }
