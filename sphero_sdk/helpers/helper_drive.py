@@ -1,9 +1,9 @@
 import asyncio
 from datetime import datetime
 from sphero_sdk import AsyncSpheroRvr
-from sphero_sdk.helpers import HelperLEDs
-from sphero_sdk.helpers import LedColors
-from sphero_sdk.helpers import RvrLeds
+from sphero_sdk import HelperLeds
+from sphero_sdk import RgbColors
+from sphero_sdk import RvrLeds
 
 
 class DriveHelper:
@@ -24,7 +24,7 @@ class DriveHelper:
         self.__is_boosting = False
         self.__drive_reverse = 1
         self.__drive_boost = 2
-        self.__light_manager = HelperLEDs(self.__rvr)
+        self.__light_manager = HelperLeds(self.__rvr)
         return
 
     @property
@@ -173,7 +173,7 @@ class DriveHelper:
 
         """
         await self.__light_manager.turn_lights_off()
-        await self.__light_manager.set_multiple_lights_enum([RvrLeds.rear_1, RvrLeds.rear_2], [LedColors.blue, LedColors.blue])
+        await self.__light_manager.set_multiple_lights_enum([RvrLeds.rear_1, RvrLeds.rear_2], [RgbColors.blue, RgbColors.blue])
         return
 
     async def aim_stop(self):

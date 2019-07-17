@@ -3,6 +3,8 @@ from sphero_sdk.aio.client.dal.serial_async_dal import SerialAsyncDal
 from sphero_sdk.observer.client.toys.observer_sphero_rvr import ObserverSpheroRvr
 from sphero_sdk.observer.client.dal.serial_observer_dal import SerialObserverDal
 
+from sphero_sdk.helpers import *
+
 from sphero_sdk.common.commands.api_and_shell import *
 from sphero_sdk.common.commands.connection import *
 from sphero_sdk.common.commands.drive import *

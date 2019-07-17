@@ -3,10 +3,10 @@ import sys
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
-from sphero_sdk.helpers import LedColors
+from sphero_sdk import RgbColors
 
 
-class HelperLEDs:
+class HelperLeds:
     """HelperLEDs is a class that abstracts the process of manipulating RVR's lights so that the user doesn't have to
         use the raw sdk commands.
 
@@ -34,7 +34,7 @@ class HelperLEDs:
         """
         await self.__rvr.set_all_leds_with_32_bit_mask(
             0x3FFFFFFF,
-            [color for i in range(10) for color in LedColors.off.value]
+            [color for i in range(10) for color in RgbColors.black.value]
         )
         await asyncio.sleep(1)
         return
@@ -62,7 +62,7 @@ class HelperLEDs:
 
         Args:
             light (RvrLeds): element from the enumeration RvrLeds
-            color (LedColors): element from the enumeration Color
+            color (RgbColors): element from the enumeration Color
 
         Returns:
 
@@ -95,7 +95,7 @@ class HelperLEDs:
         """set_all_lights_enum sets all of the lights on the RVR to a specified color from the enumeration Color
 
         Args:
-            color (LedColors): element from the enumeration Color
+            color (RgbColors): element from the enumeration Color
 
         Returns:
 
