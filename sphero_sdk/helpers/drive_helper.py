@@ -57,7 +57,7 @@ class DriveHelper:
         Returns:
 
         """
-        await self.__rvr.raw_motors(left_mode, left_speed, right_mode, right_speed)
+        await self.__rvr.raw_motors(left_mode.value, left_speed, right_mode.value, right_speed)
         return
 
     async def stop_raw_motors(self):
