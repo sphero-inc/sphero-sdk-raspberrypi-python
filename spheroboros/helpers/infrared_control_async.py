@@ -26,17 +26,25 @@ class InfraredControlAsync:
 
     async def start_infrared_broadcasting(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code
-            Default case broadcasts on all channels
 
         :param far_codes: List of InfraredCodes for far code
         :param near_codes: List of InfraredCodes for near code
         :return:
         """
 
-        # TODO: split these two parameter validation checks and log appropriate message
-        if far_codes is None or near_codes is None or len(far_codes) == 0 or len(near_codes) == 0:
+        if far_codes is None:
+            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
+            
+            return
+        
+        if near_codes is None:
+            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+        
+            return
+            
+        if len(far_codes) == 0  or len(near_codes) == 0:
             print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
+            
             return
 
         if len(far_codes) != len(near_codes):
@@ -63,17 +71,22 @@ class InfraredControlAsync:
 
     async def start_infrared_following(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code for following
-            Default case follows all channels
 
         :param far_codes: List of InfraredCodes for far code
         :param near_codes: List of InfraredCodes for near code
         :return:
         """
 
-        # TODO: split these two parameter validation checks and log appropriate message
-        if far_codes is None or len(far_codes) == 0 or near_codes is None or len(near_codes) == 0:
+        
+        if far_codes is None:
+            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
+            return
+        
+        if near_codes is None:
+            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+        
+        if len(far_codes) == 0  or len(near_codes) == 0:
             print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
             return
 
         if len(far_codes) != len(near_codes):
@@ -106,10 +119,19 @@ class InfraredControlAsync:
         :return:
         """
 
-        # TODO: split these two parameter validation checks and log appropriate message
-        if messages is None or len(messages) == 0 or strength < 0 or strength > 64:
-            print('ERROR: NO MESSAGE SENT')
-
+        if messages is None:
+            print('ERROR: MESSAGES PARAMETER REQUIRES INPUT')
+            
+            return
+        
+        if len(messages) == 0:
+            print('ERROR: LIST MUST BE OF LENGTH > 0')
+            
+            return
+        
+        if strength < 0 or strength > 64:
+            print('ERROR: STRENGTH MUST BE > 0 AND < 64')
+            
             return
 
         for message in messages:
@@ -134,8 +156,17 @@ class InfraredControlAsync:
         :return:
         """
 
-        # TODO: validate channels parameter
-
+        
+        if channels is None:
+            print('ERROR: CHANNELS PARAMETER REQUIRES INPUT')
+            
+            return
+        
+        if len(channels) <= 0:
+            print('ERROR: LIST MUST BE OF LENGTH > 0')
+            
+            return
+        
         for channel in channels:
             await self.__rvr.listen_for_robot_to_robot_infrared_message(channel.value, enable)
 
