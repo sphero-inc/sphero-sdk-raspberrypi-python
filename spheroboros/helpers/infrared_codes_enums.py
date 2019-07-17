@@ -3,10 +3,9 @@
 from enum import Enum
 
 
-
 class InfraredCodes(Enum):
-    '''InfraredCodes are the enums for the InfraredHelpers class
-    '''
+    """InfraredCodes are the enums for the InfraredHelpers class
+    """
 
     alpha = 0
     bravo = 1
@@ -16,4 +15,3 @@ class InfraredCodes(Enum):
     foxtrot = 5
     golf = 6
     hotel = 7
-

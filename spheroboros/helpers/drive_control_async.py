@@ -1,18 +1,16 @@
-import sys
-
-sys.path.append('/home/pi/raspberry-pi')
+#!/usr/bin/env python
 
 import asyncio
-from spheroboros import AsyncSpheroRvr
-from spheroboros import SerialAsyncDal
-from spheroboros.helpers.helper_leds import HelperLEDs
-from spheroboros.helpers.helper_colors_enum import Color
-from spheroboros.helpers.helper_lights_enum import RvrLeds
 from datetime import datetime
 
+from spheroboros import AsyncSpheroRvr
+from spheroboros.helpers.led_control_async import LedControlAsync
+from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
+from spheroboros.helpers.helper_colors_enum import Color    # TODO: this file is missing
 
-class DriveHelper:
-    """DriveHelper is a class that abstracts the driving process so that the user doesn't have to
+
+class DriveControlAsync:
+    """DriveControlAsync is a class that abstracts the driving process so that the user doesn't have to
         use the run_raw_motors command to drive RVR.
 
         Args:
@@ -24,21 +22,19 @@ class DriveHelper:
 
         """
 
+    __drive_no_flag = 0x00
+    __drive_reverse_flag = 0x01
+
     def __init__(self, rvr):
+        if rvr is None:
+            print('ERROR: PASS IN A RVR OBJECT')    # TODO: raise StandardError
+
+            return
+
         self.__rvr = rvr
-        self.__is_boosting = False
-        self.__drive_reverse = 1
-        self.__drive_boost = 2
-        self.__light_manager = HelperLEDs(self.__rvr)
-        return
 
-    @property
-    def is_boosting(self):
-        return self.__is_boosting
+        self.__led_control = LedControlAsync(self.__rvr)    # TODO: eventually call self.__rvr.led_control
 
-    @is_boosting.setter
-    def is_boosting(self, set_boost):
-        self.__is_boosting = set_boost
         return
 
     async def reset_heading(self):
@@ -47,16 +43,9 @@ class DriveHelper:
         Returns:
 
         """
+
         await self.__rvr.reset_yaw()
-        return
 
-    async def stop_raw_motors(self):
-        """stop_raw_motors stops the RVR
-
-        Returns:
-
-        """
-        await self.__rvr.drive_with_heading(0, 0, 0)
         return
 
     async def drive_backward_seconds(self, speed=0, heading=0, time_to_drive=1):
@@ -70,7 +59,9 @@ class DriveHelper:
         Returns:
 
         """
-        await self.__timed_drive(heading, speed, 1, time_to_drive)
+
+        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_reverse_flag, time_to_drive)
+
         return
 
     async def drive_forward_seconds(self, speed=0, heading=0, time_to_drive=1):
@@ -84,7 +75,9 @@ class DriveHelper:
         Returns:
 
         """
-        await self.__timed_drive(heading, speed, 0, time_to_drive)
+
+        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_no_flag, time_to_drive)
+
         return
 
     async def turn_left_degrees(self, heading, amount=90):
@@ -99,8 +92,9 @@ class DriveHelper:
 
         """
 
-        await self.__rvr.drive_with_heading(0, heading-amount, 0)
+        await self.__rvr.drive_with_heading(0, heading - amount, DriveControlAsync.__drive_no_flag)
         await asyncio.sleep(0.1)
+
         return
 
     async def turn_right_degrees(self, heading, amount=90):
@@ -115,8 +109,9 @@ class DriveHelper:
 
         """
 
-        await self.__rvr.drive_with_heading(0, heading+amount, 0)
+        await self.__rvr.drive_with_heading(0, heading + amount, DriveControlAsync.__drive_no_flag)
         await asyncio.sleep(0.1)
+
         return
 
     async def roll_start(self, speed, heading):
@@ -129,22 +124,23 @@ class DriveHelper:
         Returns:
 
         """
-        flag = 0
-        if self.is_boosting:
-            flag = flag | self.__drive_boost
+
+        flags = 0
 
         while heading < 0:
             heading += 360
 
         if speed < 0:
-            flag = flag | self.__drive_reverse
+            flags = flags | DriveControlAsync.__drive_reverse_flag
             heading += 180
 
         speed = abs(speed)
         if speed > 255:
             speed = 255
 
-        await self.__rvr.drive_with_heading(speed, heading % 360, flag)
+        # TODO: pull out the heading mod operation and perform outside of method call
+        await self.__rvr.drive_with_heading(speed, heading % 360, flags)
+
         return
 
     async def roll_stop(self, heading):
@@ -156,7 +152,9 @@ class DriveHelper:
         Returns:
 
         """
+
         await self.roll_start(heading, 0)
+
         return
 
     async def set_heading(self, heading):
@@ -168,7 +166,9 @@ class DriveHelper:
         Returns:
 
         """
+
         await self.roll_stop(heading)
+
         return
 
     async def aim_start(self):
@@ -177,8 +177,12 @@ class DriveHelper:
         Returns:
 
         """
-        await self.__light_manager.turn_lights_off()
-        await self.__light_manager.set_multiple_lights_enum([RvrLeds.rear_1, RvrLeds.rear_2], [Color.blue, Color.blue])
+
+        await self.__led_control.set_multiple_leds_color(
+            [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
+            [Color.blue, Color.blue]
+        )
+
         return
 
     async def aim_stop(self):
@@ -187,24 +191,38 @@ class DriveHelper:
         Returns:
 
         """
+
         # TODO: Add function to idling lights in the SDK
         await self.reset_heading()
-        await self.__light_manager.turn_lights_off()
+
+        await self.__led_control.turn_leds_off()  # TODO: only turn bracelights (left, right) off
+
+        return
+
+    async def __timed_drive(self, speed, heading, flags, time_to_drive):
+        timer_start = DriveControlAsync.__get_timer_seconds()
+
+        while DriveControlAsync.__get_timer_seconds() <= timer_start + time_to_drive:
+            await self.__rvr.drive_with_heading(speed, heading, flags)
+            await asyncio.sleep(0.1)
+
+        await self.__rvr.drive_with_heading(0, heading, flags)
+
         return
 
     @staticmethod
-    def __update_timer(timer_start, timer):
+    def __get_timer_seconds():
         # isolate characters 6 through 9 to obtain seconds down to tenth of second ([6:10] is exclusive on upper bound)
         seconds = float(str(datetime.now().time())[6:10])
+
+        return seconds
+
+    @staticmethod
+    def __update_timer(timer_start, timer):
+        seconds = DriveControlAsync.__get_timer_seconds()
+
         if seconds < timer_start:
             seconds = seconds + 60
-        return seconds - timer_start >= timer
 
-    async def __timed_drive(self, speed, heading, direction, time_to_drive):
-        # isolate characters 6 through 9 to obtain seconds down to tenth of second ([6:10] is exclusive on upper bound)
-        timer_start = float(str(datetime.now().time())[6:10])
-        while float(str(datetime.now().time())[6:10]) <= timer_start + time_to_drive:
-            await self.__rvr.drive_with_heading(speed, heading, direction)
-            await asyncio.sleep(0.1)
-        await self.stop_raw_motors()
-        return
+        # TODO: let's talk about this function. what is it's responsibility? is it named appropriately?
+        return seconds - timer_start >= timer
