@@ -4,7 +4,7 @@ from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import RgbColors
 
 
-class LedsHelper:
+class AsyncLedsHelper:
     """HelperLEDs is a class that abstracts the process of manipulating RVR's lights so that the user doesn't have to
         use the raw sdk commands.
 

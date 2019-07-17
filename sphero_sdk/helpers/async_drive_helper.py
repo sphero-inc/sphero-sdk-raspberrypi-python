@@ -1,12 +1,12 @@
 import asyncio
 from datetime import datetime
 from sphero_sdk import AsyncSpheroRvr
-from sphero_sdk import LedsHelper
+from sphero_sdk import AsyncLedsHelper
 from sphero_sdk import RgbColors
 from sphero_sdk import RvrLedGroups
 
 
-class DriveHelper:
+class AsyncDriveHelper:
     """DriveHelper is a class that abstracts the driving process so that the user doesn't have to
         use the run_raw_motors command to drive RVR.
 
@@ -24,7 +24,7 @@ class DriveHelper:
         self.__is_boosting = False
         self.__drive_reverse = 1
         self.__drive_boost = 2
-        self.__light_manager = LedsHelper(self.__rvr)
+        self.__light_manager = AsyncLedsHelper(self.__rvr)
         return
 
     @property

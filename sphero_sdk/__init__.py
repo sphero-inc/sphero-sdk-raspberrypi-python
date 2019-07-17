@@ -15,6 +15,6 @@ from sphero_sdk.helpers.rgb_colors_enum import RgbColors
 from sphero_sdk.helpers.ir_helper_enum import IrCodes
 from sphero_sdk.helpers.leds_helper_enum import RvrLedGroups
 from sphero_sdk.helpers.drive_helper_enum import RawMotorModes
-from sphero_sdk.helpers.leds_helper import LedsHelper
-from sphero_sdk.helpers.drive_helper import DriveHelper
-from sphero_sdk.helpers.ir_helper import IrHelper
+from sphero_sdk.helpers.async_leds_helper import AsyncLedsHelper
+from sphero_sdk.helpers.async_drive_helper import AsyncDriveHelper
+from sphero_sdk.helpers.async_ir_helper import AsyncIrHelper
