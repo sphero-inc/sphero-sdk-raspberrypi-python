@@ -45,13 +45,28 @@ class DriveHelper:
         await self.__rvr.reset_yaw()
         return
 
+    async def drive_raw_motors(self, left_mode, left_speed, right_mode, right_speed):
+        """drive_raw_motors drives RVR with raw motor values
+
+        Args:
+            left_mode (RawMotorMode): left tread mode (0=stop, 1=forward, 2=reverse)
+            left_speed (uint8): left tread speed value (0 - 255)
+            right_mode (RawMotorMode): right tread mode (0=stop, 1=forward, 2=reverse)
+            right_speed (uint8): right tread speed value (0-255)
+
+        Returns:
+
+        """
+        await self.__rvr.raw_motors(left_mode, left_speed, right_mode, right_speed)
+        return
+
     async def stop_raw_motors(self):
         """stop_raw_motors stops the RVR
 
         Returns:
 
         """
-        await self.__rvr.drive_with_heading(0, 0, 0)
+        await self.__rvr.raw_motors(0, 0, 0, 0)
         return
 
     async def drive_backward_seconds(self, speed=0, heading=0, time_to_drive=1):
