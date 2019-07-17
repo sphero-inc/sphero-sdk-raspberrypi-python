@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import logging
-from spheroboros.aio.server.protocol.api_sphero_message import Message
+from sphero_sdk.common.protocol.api_sphero_message import Message
 
 logger = logging.getLogger(__name__)
 
