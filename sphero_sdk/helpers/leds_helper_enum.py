@@ -3,7 +3,7 @@ from enum import Enum
 from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitMasks as lbm
 
 
-class RvrLeds(Enum):
+class RvrLedGroups(Enum):
     left_status_indication = lbm.left_status_indication_red |\
                              lbm.left_status_indication_green |\
                              lbm.left_status_indication_blue

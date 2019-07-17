@@ -1,3 +1,3 @@
-from sphero_sdk.helpers.helper_leds import HelperLeds
-from sphero_sdk.helpers.helper_colors_enum import RgbColors
-from sphero_sdk.helpers.helper_leds_enum import RvrLeds
+from sphero_sdk.helpers.leds_helper import LedsHelper
+from sphero_sdk.helpers.rgb_colors_enum import RgbColors
+from sphero_sdk.helpers.leds_helper_enum import RvrLedGroups

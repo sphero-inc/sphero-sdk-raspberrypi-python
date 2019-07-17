@@ -4,7 +4,7 @@ import asyncio
 
 
 # TODO: ONCE COMMAND QUEUE IS IMPLEMENTED, REMOVE ALL ASYNCIO.SLEEP(.5) CALLS AFTER IR MESSAGES ARE SENT
-class InfraredControl:
+class IrHelper:
     '''InfraredControl is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
 
