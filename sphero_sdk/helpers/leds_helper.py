@@ -41,7 +41,7 @@ class LedsHelper:
         """set_light_rgb sets a single led on the RVR to a specified RGB value
 
         Args:
-            light (RvrLeds): element from the enumeration RvrLeds
+            light (RvrLedGroups): element from the enumeration RvrLedGroups
             r (int): integer between 0 and 255
             g (int): integer between 0 and 255
             b (int): integer between 0 and 255
@@ -59,7 +59,7 @@ class LedsHelper:
         """set_light_enum sets a single light on the RVR to a specified color from the enumeration Color
 
         Args:
-            light (RvrLeds): element from the enumeration RvrLeds
+            light (RvrLedGroups): element from the enumeration RvrLedGroups
             color (RgbColors): element from the enumeration Color
 
         Returns:
@@ -106,7 +106,7 @@ class LedsHelper:
         """set_multiple_lights_enum sets multiple lights on the RVR to specified colors from the enumeration Color
 
         Args:
-            lights [RvrLeds]: array of elements from RvrLeds enumeration
+            lights [RvrLedGroups]: array of elements from RvrLedGroups enumeration
             colors [Color]: array of elements from Color enumeration
 
         Returns:
@@ -125,11 +125,11 @@ class LedsHelper:
         """set_multiple_lights_enum sets multiple lights on the RVR to specified rgb values.
         The array of colors should be an array of integers whose size is a multiple of three.
 
-        For example: set_multiple_lights_rgb([RvrLeds.door_1,RvrLeds.door_2],[255,0,0,255,0,0])
+        For example: set_multiple_lights_rgb([RvrLedGroups.door_1,RvrLedGroups.door_2],[255,0,0,255,0,0])
         will set both door lights to red
 
         Args:
-            lights [RvrLeds]: array of elements from RvrLeds enumeration
+            lights [RvrLedGroups]: array of elements from RvrLedGroups enumeration
             colors [int]: array of integers representing rgb triples
 
         Returns:
