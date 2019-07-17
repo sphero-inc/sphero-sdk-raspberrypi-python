@@ -1,5 +1,3 @@
-import sys
-
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
