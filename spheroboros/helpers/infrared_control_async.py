@@ -80,13 +80,17 @@ class InfraredControlAsync:
         
         if far_codes is None:
             print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
+            
             return
         
         if near_codes is None:
             print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            
+            return
         
         if len(far_codes) == 0  or len(near_codes) == 0:
             print('ERROR: LISTS MUST BE OF LENGTH > 0')
+            
             return
 
         if len(far_codes) != len(near_codes):
