@@ -158,12 +158,8 @@ class AsyncIrHelper:
         :return:
         """
 
-        if callable(handler):
-
-            pass
-        else:
+        if not callable(handler):
             print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
-
             return
 
         if enable:
