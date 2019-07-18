@@ -19,6 +19,7 @@ before_script:
 
 stages:
     - build
+#    - static analysis
     - test
     - deploy
     - release
@@ -34,6 +35,13 @@ setup:
             - dist/
     only:
         - master
+
+
+# TODO: figure out where linter belongs in CI build process 
+#pylint:
+#    stage: static analysis
+#    allow_failure: true
+#    script: pylint # filename
 
 pytest:
     stage: test
