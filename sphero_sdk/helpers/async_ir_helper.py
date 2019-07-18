@@ -147,7 +147,7 @@ class AsyncIrHelper:
 
         return
 
-    async def listen_for_infrared_message(self, channels, handler, enable=True):
+    async def listen_for_infrared_message(self, handler, enable=True):
         """Listens for infrared messages on a list of channels
 
         :param channels: List of InfraredCodes to listen for
@@ -158,27 +158,20 @@ class AsyncIrHelper:
         :return:
         """
 
+        if callable(handler):
 
-        if channels is None:
-            print('ERROR: CHANNELS PARAMETER REQUIRES INPUT')
-
-            return
-
-        if len(channels) <= 0:
-            print('ERROR: LIST MUST BE OF LENGTH > 0')
+            pass
+        else:
+            print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
 
             return
-
-        for channel in channels:
-            await self.__rvr.listen_for_robot_to_robot_infrared_message(channel.value, enable)
 
         if enable:
-            if handler is not None:
-                asyncio.ensure_future(
-                    await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
-                        handler=handler
-                    )
+            asyncio.ensure_future(
+                await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
+                    handler=handler
                 )
+            )
         else:
             pass    # TODO: remove existing future / handler?
 
