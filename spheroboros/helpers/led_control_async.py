@@ -3,7 +3,7 @@
 import asyncio
 
 from spheroboros import AsyncSpheroRvr
-from spheroboros.helpers.helper_colors_enum import Color    # TODO: this file is missing
+from spheroboros.helpers.colors_enums import Colors
 from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
 
 
@@ -41,7 +41,7 @@ class LedControlAsync:
 
         await self.__rvr.set_all_leds_with_64_bit_mask(
             RvrLedGroups.all_lights.value,
-            [color for i in range(10) for color in Color.off.value]
+            [color for i in range(10) for color in Colors.off.value]
         )
 
         await asyncio.sleep(1)

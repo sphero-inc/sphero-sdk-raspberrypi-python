@@ -6,7 +6,7 @@ from datetime import datetime
 from spheroboros import AsyncSpheroRvr
 from spheroboros.helpers.led_control_async import LedControlAsync
 from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
-from spheroboros.helpers.helper_colors_enum import Color    # TODO: this file is missing
+from spheroboros.helpers.colors_enums import Colors
 
 
 class DriveControlAsync:
