@@ -38,4 +38,14 @@ class RvrLedGroups(Enum):
     brakelight_right = SpheroRvrLedBitMasks.rear_2_red | \
                        SpheroRvrLedBitMasks.rear_2_green | \
                        SpheroRvrLedBitMasks.rear_2_blue
+    all_lights = status_indication_left | \
+                 status_indication_right | \
+                 headlight_left | \
+                 headlight_right | \
+                 battery_door_front | \
+                 battery_door_rear | \
+                 power_button_front | \
+                 power_button_rear | \
+                 brakelight_left | \
+                 brakelight_right
     undercarriage_white = SpheroRvrLedBitMasks.undercarriage_white

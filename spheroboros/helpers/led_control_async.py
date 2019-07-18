@@ -4,31 +4,27 @@ import asyncio
 
 from spheroboros import AsyncSpheroRvr
 from spheroboros.helpers.helper_colors_enum import Color    # TODO: this file is missing
+from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
 
 
 # TODO: ONCE COMMAND QUEUE IS IMPLEMENTED, REMOVE ALL ASYNCIO.SLEEP CALLS AFTER IR MESSAGES ARE SENT
 # TODO: replace print statements with logging, unless specified otherwise
-# TODO: instead of using r, g, b use red, green, blue (spell things out)
-# TODO: validate red, green, blue parameter values are not None, and clamp the value to 0-255
 
 class LedControlAsync:
     """LedControlAsync is a class that abstracts the process of manipulating RVR's lights so that the user doesn't have to
-        use the raw sdk commands.
+    use the raw sdk commands.
 
-        Args:
-            rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr containing an event loop
-
-
-        Returns:
+    Args:
+        rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr containing an event loop
 
 
-        """
+    Returns:
+
+    """
 
     def __init__(self, rvr):
         if rvr is None:
-            print('ERROR: PASS IN A RVR OBJECT')    # TODO: raise StandardError
-
-            return
+            raise TypeError('ERROR: PASS IN A RVR OBJECT')
 
         self.__rvr = rvr
 
@@ -41,11 +37,10 @@ class LedControlAsync:
 
         Returns:
 
-
         """
 
         await self.__rvr.set_all_leds_with_64_bit_mask(
-            0x3FFFFFFF, # TODO: this needs to reference the enum(s), and not be hardcoded
+            RvrLedGroups.all_lights.value,
             [color for i in range(10) for color in Color.off.value]
         )
 
@@ -53,22 +48,22 @@ class LedControlAsync:
 
         return
 
-    async def set_led_rgb(self, led, r, g, b):
+    async def set_led_rgb(self, led, red, green, blue):
         """set_led_rgb sets a single led on the RVR to a specified RGB value
 
         Args:
             led (RvrLeds): element from the enumeration RvrLeds
-            r (int): integer between 0 and 255
-            g (int): integer between 0 and 255
-            b (int): integer between 0 and 255
+            red (int): integer between 0 and 255
+            green (int): integer between 0 and 255
+            blue (int): integer between 0 and 255
 
         Returns:
 
         """
-
+        self.__validate_color(red, green, blue)
         await self.__rvr.set_all_leds_with_64_bit_mask(
             led.value,
-            [r, g, b]
+            [red, green, blue]
         )
 
         return
@@ -84,30 +79,30 @@ class LedControlAsync:
 
         """
 
-        r, g, b = color.value
-
+        red, green, blue = color.value
+        self.__validate_color(red, green, blue)
         await self.__rvr.set_all_leds_with_64_bit_mask(
             led.value,
-            [r, g, b]
+            [red, green, blue]
         )
 
         return
 
-    async def set_all_leds_rgb(self, r, g, b):
+    async def set_all_leds_rgb(self, red, green, blue):
         """set_all_leds_rgb sets all of the lights on the RVR to a specified RGB value
 
         Args:
-            r (int): integer between 0 and 255
-            g (int): integer between 0 and 255
-            b (int): integer between 0 and 255
+            red (int): integer between 0 and 255
+            green (int): integer between 0 and 255
+            blue (int): integer between 0 and 255
 
         Returns:
 
         """
-
+        self.__validate_color(red, green, blue)
         await self.__rvr.set_all_leds_with_64_bit_mask(
-            0x3FFFFFFF, # TODO: this needs to reference the enum(s), and not be hardcoded
-            [color for x in range(0, 10) for color in [r, g, b]]
+            RvrLedGroups.all_lights.value,
+            [color for x in range(0, 10) for color in [red, green, blue]]
         )
 
         return
@@ -122,9 +117,9 @@ class LedControlAsync:
 
         """
 
-        r, g, b = color.value
+        red, green, blue = color.value
 
-        await self.set_all_leds_rgb(r, g, b)
+        await self.set_all_leds_rgb(red, green, blue)
 
         return
 
@@ -141,7 +136,7 @@ class LedControlAsync:
 
         for i in range(len(led)):
             await self.set_led_rgb(
-                led[i],
+                led[i].value,
                 colors[i].value[0],
                 colors[i].value[1],
                 colors[i].value[2]
@@ -163,13 +158,30 @@ class LedControlAsync:
         Returns:
 
         """
-
         for i in range(len(leds)):
             await self.set_led_rgb(
-                leds[i],
+                leds[i].value,
                 colors[i * 3],
                 colors[i * 3 + 1],
                 colors[i * 3 + 2]
             )
 
         return
+
+    def __validate_color(self, red, green, blue):
+        if self.__is_none(red) or self.__is_none(green) or self.__is_none(blue):
+            raise TypeError('RGB values cannot be of type None')
+        if not self.__check_valid_rgb_values(red, green, blue):
+            raise ValueError('RGB values must be between 0 and 255')
+
+    @staticmethod
+    def __check_valid_rgb_values(red, green, blue):
+        red_valid = 0 <= red <= 255
+        green_valid = 0 <= green <= 255
+        blue_valid = 0 <= blue <= 255
+
+        return red_valid and green_valid and blue_valid
+
+    @staticmethod
+    def __is_none(value):
+        return value is None

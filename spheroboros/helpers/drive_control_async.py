@@ -27,9 +27,7 @@ class DriveControlAsync:
 
     def __init__(self, rvr):
         if rvr is None:
-            print('ERROR: PASS IN A RVR OBJECT')    # TODO: raise StandardError
-
-            return
+            raise TypeError('ERROR: PASS IN A RVR OBJECT')
 
         self.__rvr = rvr
 
@@ -138,8 +136,9 @@ class DriveControlAsync:
         if speed > 255:
             speed = 255
 
-        # TODO: pull out the heading mod operation and perform outside of method call
-        await self.__rvr.drive_with_heading(speed, heading % 360, flags)
+        heading = heading % 360
+
+        await self.__rvr.drive_with_heading(speed, heading, flags)
 
         return
 
@@ -195,7 +194,10 @@ class DriveControlAsync:
         # TODO: Add function to idling lights in the SDK
         await self.reset_heading()
 
-        await self.__led_control.turn_leds_off()  # TODO: only turn bracelights (left, right) off
+        await self.__led_control.set_multiple_leds_color(
+            [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
+            [Color.off, Color.off]
+        )  # TODO: only turn bracelights (left, right) off (I'm assuming you meant brakelights?)
 
         return
 
@@ -216,13 +218,3 @@ class DriveControlAsync:
         seconds = float(str(datetime.now().time())[6:10])
 
         return seconds
-
-    @staticmethod
-    def __update_timer(timer_start, timer):
-        seconds = DriveControlAsync.__get_timer_seconds()
-
-        if seconds < timer_start:
-            seconds = seconds + 60
-
-        # TODO: let's talk about this function. what is it's responsibility? is it named appropriately?
-        return seconds - timer_start >= timer
