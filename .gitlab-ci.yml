@@ -15,14 +15,20 @@ cache:
 before_script:
     - python -V
     - pip install pipenv
+    - pip install pylint
     - pipenv install --dev --skip-lock
 
 stages:
     - build
-#    - static analysis
+    - linting
     - test
     - deploy
     - release
+
+pylint:
+    stage: static analysis
+    allow_failure: true
+    script: pylint spheroboros/
 
 setup:
     stage: build
@@ -36,12 +42,6 @@ setup:
     only:
         - master
 
-
-# TODO: figure out where linter belongs in CI build process 
-#pylint:
-#    stage: static analysis
-#    allow_failure: true
-#    script: pylint # filename
 
 pytest:
     stage: test
