@@ -19,16 +19,16 @@ before_script:
     - pipenv install --dev --skip-lock
 
 stages:
-    - build
     - linting
+    - build
     - test
     - deploy
     - release
 
 pylint:
-    stage: static analysis
+    stage: linting
     allow_failure: true
-    script: pylint spheroboros/
+    script: pylint spheroboros/*.py
 
 setup:
     stage: build
