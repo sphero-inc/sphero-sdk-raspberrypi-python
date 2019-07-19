@@ -179,7 +179,7 @@ class DriveControlAsync:
 
         await self.__led_control.set_multiple_leds_color(
             [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
-            [Color.blue, Color.blue]
+            [Colors.blue, Colors.blue]
         )
 
         return
@@ -196,7 +196,7 @@ class DriveControlAsync:
 
         await self.__led_control.set_multiple_leds_color(
             [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
-            [Color.off, Color.off]
+            [Colors.off, Colors.off]
         )  # TODO: only turn bracelights (left, right) off (I'm assuming you meant brakelights?)
 
         return
