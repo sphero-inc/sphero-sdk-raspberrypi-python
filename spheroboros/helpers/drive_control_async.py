@@ -191,7 +191,6 @@ class DriveControlAsync:
 
         """
 
-        # TODO: Add function to idling lights in the SDK
         await self.reset_heading()
 
         await self.__led_control.set_multiple_leds_color(

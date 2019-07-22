@@ -39,7 +39,7 @@ class LedControlAsync:
 
         """
 
-        await self.__rvr.set_all_leds_with_64_bit_mask(
+        await self.__rvr.set_all_leds_with_32_bit_mask(
             RvrLedGroups.all_lights.value,
             [color for i in range(10) for color in Colors.off.value]
         )
@@ -60,8 +60,11 @@ class LedControlAsync:
         Returns:
 
         """
-        self.__validate_color(red, green, blue)
-        await self.__rvr.set_all_leds_with_64_bit_mask(
+
+        if not self.__is_color_valid(red, green, blue):
+            raise ValueError('ERROR: RGB VALUES ARE INVALID')
+
+        await self.__rvr.set_all_leds_with_32_bit_mask(
             led.value,
             [red, green, blue]
         )
@@ -80,8 +83,11 @@ class LedControlAsync:
         """
 
         red, green, blue = color.value
-        self.__validate_color(red, green, blue)
-        await self.__rvr.set_all_leds_with_64_bit_mask(
+
+        if not self.__is_color_valid(red, green, blue):
+            raise ValueError('ERROR: RGB VALUES ARE INVALID')
+
+        await self.__rvr.set_all_leds_with_32_bit_mask(
             led.value,
             [red, green, blue]
         )
@@ -99,8 +105,11 @@ class LedControlAsync:
         Returns:
 
         """
-        self.__validate_color(red, green, blue)
-        await self.__rvr.set_all_leds_with_64_bit_mask(
+
+        if not self.__is_color_valid(red, green, blue):
+            raise ValueError('ERROR: RGB VALUES ARE INVALID')
+
+        await self.__rvr.set_all_leds_with_32_bit_mask(
             RvrLedGroups.all_lights.value,
             [color for x in range(0, 10) for color in [red, green, blue]]
         )
@@ -158,6 +167,7 @@ class LedControlAsync:
         Returns:
 
         """
+
         for i in range(len(leds)):
             await self.set_led_rgb(
                 leds[i].value,
@@ -168,19 +178,21 @@ class LedControlAsync:
 
         return
 
-    def __validate_color(self, red, green, blue):
+    def __is_color_valid(self, red, green, blue):
         if self.__is_none(red) or self.__is_none(green) or self.__is_none(blue):
-            raise TypeError('RGB values cannot be of type None')
-        if not self.__check_valid_rgb_values(red, green, blue):
-            raise ValueError('RGB values must be between 0 and 255')
+            return False
+        if not self.__is_valid_rgb_values(red, green, blue):
+            return False
+
+        return True
 
     @staticmethod
-    def __check_valid_rgb_values(red, green, blue):
-        red_valid = 0 <= red <= 255
-        green_valid = 0 <= green <= 255
-        blue_valid = 0 <= blue <= 255
+    def __is_valid_rgb_values(red, green, blue):
+        is_red_valid = 0 <= red <= 255
+        is_green_valid = 0 <= green <= 255
+        is_blue_valid = 0 <= blue <= 255
 
-        return red_valid and green_valid and blue_valid
+        return is_red_valid and is_green_valid and is_blue_valid
 
     @staticmethod
     def __is_none(value):
