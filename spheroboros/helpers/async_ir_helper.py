@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import asyncio
+from spheroboros.helpers.infrared_codes_enums import InfraredCodes
 
 
 # todo: once command queue is implemented, remove all asyncio.sleep(.5) calls after ir messages are sent
@@ -14,7 +15,7 @@ class AsyncIrHelper:
 
     def __init__(self, rvr):
         if rvr is None:
-            raise TypeError
+            raise TypeError("ERROR: A RVR OBJECT MUST BE PASSED IN AS A PARAMETER")
 
         self.__rvr = rvr
 
@@ -72,7 +73,6 @@ class AsyncIrHelper:
         :param near_codes: List of InfraredCodes for near code
         :return:
         """
-
 
         if far_codes is None:
             print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
