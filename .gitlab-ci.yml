@@ -27,7 +27,7 @@ stages:
 pylint:
     stage: linting
     allow_failure: false
-    script: pylint --disable=R,C,W sphero.py
+    script: pylint --disable=R,C,W spheroboros/*.py
 
 pytest:
     stage: test
