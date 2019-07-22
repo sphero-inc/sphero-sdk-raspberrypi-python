@@ -1,4 +1,4 @@
-from sphero_sdk.observer.config import LogLevel
+from sphero_sdk.common.log_level import LogLevel
 
 
 def get_dict(log_level):
