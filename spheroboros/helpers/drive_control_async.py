@@ -190,13 +190,13 @@ class DriveControlAsync:
         Returns:
 
         """
-
+        # TODO: Add function for idling lights in the SDK
         await self.reset_heading()
 
         await self.__led_control.set_multiple_leds_color(
             [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
             [Colors.off, Colors.off]
-        )  # TODO: only turn bracelights (left, right) off (I'm assuming you meant brakelights?)
+        )
 
         return
 
