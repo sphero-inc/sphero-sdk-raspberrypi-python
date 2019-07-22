@@ -1,4 +1,3 @@
-# Adding a comment cuz
 image: python:3.5
 
 variables: 
@@ -15,58 +14,23 @@ cache:
 before_script:
     - python -V
     - pip install pipenv
+    - pip install pytest
     - pip install pylint
     - pipenv install --dev --skip-lock
 
 stages:
     - linting
-    - build
     - test
-    - deploy
-    - release
+#    - deploy
+#    - release
 
 pylint:
     stage: linting
     allow_failure: false
-    script: pylint --disable=R,C,W spheroboros/*.py
-
-setup:
-    stage: build
-    script:
-        - python setup.py sdist
-        - ls -al
-
-    artifacts:
-        paths:
-            - dist/
-    only:
-        - master
-
+    script: pylint --disable=R,C,W sphero.py
 
 pytest:
     stage: test
     script:
         - pipenv run python -m pytest --ignore=autogen-api-generators -vvv
 
-staging:
-    stage: deploy
-    dependencies:
-        - setup
-    script:
-        # TODO update version
-        - pipenv run twine upload --repository-url https://push.fury.io/sphero -p "" dist/*
-    when: manual
-    only:
-        - web
-        - master
-
-production:
-    stage: release
-    dependencies:
-        - setup
-    script:
-        - python -V
-        # TODO upload to PyPI
-    when: manual
-    only:
-        - web
