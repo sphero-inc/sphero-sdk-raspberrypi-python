@@ -5,7 +5,7 @@ from spheroboros.helpers.infrared_codes_enums import InfraredCodes
 
 
 # todo: once command queue is implemented, remove all asyncio.sleep(.5) calls after ir messages are sent
-class AsyncIrHelper:
+class InfraredControlAsync:
     """InfraredControlAsync is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
 
