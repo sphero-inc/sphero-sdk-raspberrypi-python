@@ -22,11 +22,14 @@ class AsyncIrHelper:
         return
 
     async def start_infrared_broadcasting(self, far_codes, near_codes):
-        """Loops through lists of enums and broadcasts each IR code
+        """Begins infrared broadcasting on specified channels
 
-        :param far_codes: List of InfraredCodes for far code
-        :param near_codes: List of InfraredCodes for near code
-        :return:
+        Args:
+            far_codes (List<InfraredCodes>):
+            near_codes (List<InfraredCodes>):
+
+        Returns:
+
         """
 
         if far_codes is None:
