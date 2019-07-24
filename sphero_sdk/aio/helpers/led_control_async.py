@@ -141,13 +141,9 @@ class LedControlAsync:
         Returns:
 
         """
-
         for i in range(len(led)):
-            await self.set_led_rgb(
-                led[i].value,
-                colors[i].value[0],
-                colors[i].value[1],
-                colors[i].value[2]
+            await self.set_led_color(
+                led[i], colors[i]
             )
 
         return
@@ -169,7 +165,7 @@ class LedControlAsync:
 
         for i in range(len(leds)):
             await self.set_led_rgb(
-                leds[i].value,
+                leds[i],
                 colors[i * 3],
                 colors[i * 3 + 1],
                 colors[i * 3 + 2]
