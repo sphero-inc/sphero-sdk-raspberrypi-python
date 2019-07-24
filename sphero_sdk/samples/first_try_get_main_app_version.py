@@ -1,4 +1,6 @@
 import sys
+sys.path.append('/home/pi/raspberry-pi-python')
+
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
