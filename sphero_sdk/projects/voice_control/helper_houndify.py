@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-sys.path.append("/home/pi/SDKs/houndify_python3_sdk_1.2.5/")
+sys.path.append('/home/pi/SDKs/houndify_python3_sdk_1.2.5/')
 import time
 import wave
 import houndify
@@ -12,9 +12,9 @@ except ImportError:
   pass
 
 transcription = None
-CLIENT_ID = "enFSW0SlrKhwiRW3-XnJig=="
-CLIENT_KEY = "gUWcqbLfSq0u9qjmGIikYEL-aAOmgXtbSKptR24UGvTMbX2esiYJ1JOeRTScXutMRqc0yKxoG3zv45n3F-uINg=="
-AUDIO_FILE = "/home/pi/.rvr_recordings/0.wav"
+CLIENT_ID = 's0fwMut-ItwNUdXVcyPIfQ=='
+CLIENT_KEY = 'mqr_zxTQg4mApdj0vlKWkFSQa6XV3WXppGECvcP6ro9j1WuPLQuPgWXmiu9EirAPbrgn52oNS_3zSoa8U2MJ-Q=='
+AUDIO_FILE = '/home/pi/.rvr_recordings/0.wav'
 BUFFER_SIZE_FILE = 256
 BUFFER_SIZE_STREAM = 512
 
