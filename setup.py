@@ -15,7 +15,7 @@ with open(path.join(here, 'sphero_sdk', '__version__.py')) as f:
 
 
 setup(
-    name='spheroboros',
+    name='sphero_sdk',
     author='Sphero',
     author_email='rvr_hackathon_external_user@sphero.com',
     url='www.sphero.com',
