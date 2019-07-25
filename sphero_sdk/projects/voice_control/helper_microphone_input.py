@@ -6,7 +6,7 @@ import wave
 import time
 import os
 sys.path.append('/home/pi/raspberry-pi')
-from spheroboros.helpers.helper_houndify import HoundifyHelper
+from sphero_sdk.projects.voice_control.helper_houndify import HoundifyHelper
 
 
 Threshold = 10
