@@ -115,19 +115,14 @@ class DriveControlAsync:
         """roll_start rolls the RVR forward at a specified heading and speed
 
         Args:
-            speed (int): integer between 0 and 255
-            heading (int): integer between 0 and 359
+            speed (int): driving speed (if negative, RVR drives backward)
+            heading (int): direction to drive in
 
         Returns:
 
         """
 
         flags = 0
-
-        while heading < 0:
-            heading += 360
-
-        heading = heading % 360
 
         if speed < 0:
             flags = flags | DriveControlAsync.__drive_reverse_flag
@@ -136,7 +131,11 @@ class DriveControlAsync:
         if speed > 255:
             speed = 255
 
-        print(speed, heading)
+        while heading < 0:
+            heading += 360
+
+        heading = heading % 360
+
         await self.__rvr.drive_with_heading(speed, heading, flags)
 
         return
