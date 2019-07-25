@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import asyncio
-from spheroboros.helpers.infrared_codes_enums import InfraredCodes
+from sphero_sdk.helpers.infrared_codes_enums import InfraredCodes
 
 
 # todo: once command queue is implemented, remove all asyncio.sleep(.5) calls after ir messages are sent

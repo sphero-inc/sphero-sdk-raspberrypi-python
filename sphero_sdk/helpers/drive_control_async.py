@@ -3,10 +3,10 @@
 import asyncio
 from datetime import datetime
 
-from spheroboros import AsyncSpheroRvr
-from spheroboros.helpers.led_control_async import LedControlAsync
-from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
-from spheroboros.helpers.colors_enums import Colors
+from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk.helpers.led_control_async import LedControlAsync
+from sphero_sdk.helpers.rvr_led_groups_enum import RvrLedGroups
+from sphero_sdk.helpers.colors_enums import Colors
 
 
 class DriveControlAsync:
