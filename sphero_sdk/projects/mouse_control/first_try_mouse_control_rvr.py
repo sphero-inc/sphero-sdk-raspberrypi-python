@@ -6,7 +6,6 @@ locally (I used XQuartz on Mac). Connect to the Pi using the -X flag: ssh -X pi@
 
 from __future__ import absolute_import, division, unicode_literals, print_function
 import sys
-import tty, termios
 import asyncio
 import pygame
 import math
@@ -14,8 +13,8 @@ import os
 
 sys.path.append('/home/pi/raspberry-pi')
 
-from spheroboros import AsyncSpheroRvr
-from spheroboros import SerialAsyncDal
+from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SerialAsyncDal
 
 # initialize event loops and constants
 pygame.init()
