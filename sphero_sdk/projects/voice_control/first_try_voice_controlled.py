@@ -45,7 +45,7 @@ async def move_forward(instruction):
     distance = search_for_int_in_string(instruction)
     print("MOVING FORWARD " + str(distance))
     await driver.reset_heading()
-    await driver.drive_forward_seconds(128, 0, distance)
+    await driver.drive_forward_seconds(0, 128, distance)
     print("DONE")
 
 
@@ -54,7 +54,7 @@ async def move_backward(instruction):
     distance = search_for_int_in_string(instruction)
     print("MOVING BACKWARD " + str(distance))
     await driver.reset_heading()
-    await driver.drive_backward(128, 0, distance)
+    await driver.drive_backward(0, 128, distance)
     print("DONE")
 
 
