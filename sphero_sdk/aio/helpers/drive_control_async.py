@@ -88,9 +88,8 @@ class DriveControlAsync:
         Returns:
 
         """
-        print("HERE")
-        await self.__rvr.drive_with_heading(0, amount, DriveControlAsync.__drive_no_flag)
-        await asyncio.sleep(0.1)
+        await self.__rvr.drive_with_heading(0, (heading - amount) % 360, DriveControlAsync.__drive_no_flag)
+        await asyncio.sleep(0.5)
 
         return
 
@@ -105,9 +104,8 @@ class DriveControlAsync:
         Returns:
 
         """
-
-        await self.__rvr.drive_with_heading(0, amount, DriveControlAsync.__drive_no_flag)
-        await asyncio.sleep(0.1)
+        await self.__rvr.drive_with_heading(0, (heading + amount) % 360, DriveControlAsync.__drive_no_flag)
+        await asyncio.sleep(0.5)
 
         return
 
