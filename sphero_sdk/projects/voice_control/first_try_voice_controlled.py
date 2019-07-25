@@ -44,7 +44,8 @@ async def move_forward(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("MOVING FORWARD " + str(distance))
-    await driver.drive_forward(128,distance)
+    await driver.reset_heading()
+    await driver.drive_forward_seconds(128, 0, distance)
     print("DONE")
 
 
@@ -52,7 +53,8 @@ async def move_backward(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("MOVING BACKWARD " + str(distance))
-    await driver.drive_backward(128,distance)
+    await driver.reset_heading()
+    await driver.drive_backward(128, 0, distance)
     print("DONE")
 
 
@@ -60,7 +62,8 @@ async def turn_left(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("TURNING LEFT " + str(distance))
-    await driver.turn_left(distance)
+    await driver.reset_heading()
+    await driver.turn_left_degrees(0, distance)
     print("DONE")
 
 
@@ -68,7 +71,8 @@ async def turn_right(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("TURNING RIGHT " + str(distance))
-    await driver.turn_right(distance)
+    await driver.reset_heading()
+    await driver.turn_right_degrees(0, distance)
     print("DONE")
 
 
@@ -76,15 +80,15 @@ async def turn_on_lights(instruction):
     global light_manager
     words = instruction.split(" ")
     color = words[len(words)-1].upper()
-    print("TURNING LIGHTS",color)
-    await light_manager.set_all_lights_enum(Colors[color])
+    print("TURNING LIGHTS", color)
+    await light_manager.set_all_leds_color(Colors[color])
     print("DONE")
 
 
 async def turn_off_lights():
     global light_manager
     print("TURNING LIGHTS OFF")
-    await light_manager.turn_lights_off()
+    await light_manager.turn_leds_off()
     print("DONE")
 
 
