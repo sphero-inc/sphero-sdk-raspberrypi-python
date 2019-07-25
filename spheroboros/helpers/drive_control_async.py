@@ -130,7 +130,6 @@ class DriveControlAsync:
 
         if speed < 0:
             flags = flags | DriveControlAsync.__drive_reverse_flag
-            heading += 180
 
         speed = abs(speed)
         if speed > 255:
