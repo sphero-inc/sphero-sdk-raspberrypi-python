@@ -2,7 +2,7 @@
 
 from enum import Enum
 
-from spheroboros.common.toys.sphero_rvr import SpheroRvrLedBitMasks
+from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitMasks
 
 # TODO: autogen this file along with SpheroRvrLedBitMasks
 
