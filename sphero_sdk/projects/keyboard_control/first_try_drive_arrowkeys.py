@@ -5,7 +5,7 @@ sys.path.append('/home/pi/raspberry-pi')
 
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk.samples.keyboard_control.helper_keyboard_input import KeyboardHelper
+from sphero_sdk.projects.keyboard_control.helper_keyboard_input import KeyboardHelper
 
 # initialize global variables
 key_helper = KeyboardHelper()
