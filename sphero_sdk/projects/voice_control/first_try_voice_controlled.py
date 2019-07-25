@@ -79,7 +79,7 @@ async def turn_right(instruction):
 async def turn_on_lights(instruction):
     global light_manager
     words = instruction.split(" ")
-    color = words[len(words)-1].upper()
+    color = words[len(words)-1].lower()
     print("TURNING LIGHTS", color)
     await light_manager.set_all_leds_color(Colors[color])
     print("DONE")
