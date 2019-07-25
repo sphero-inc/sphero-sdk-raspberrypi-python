@@ -3,8 +3,8 @@ import asyncio
 
 sys.path.append('/home/pi/raspberry-pi')
 
-from sphero_sdk import AsyncSpheroRvr
-from sphero_sdk import SerialAsyncDal
+from spheroboros import AsyncSpheroRvr
+from spheroboros import SerialAsyncDal
 from sphero_sdk.projects.keyboard_control.helper_keyboard_input import KeyboardHelper
 
 # initialize global variables
