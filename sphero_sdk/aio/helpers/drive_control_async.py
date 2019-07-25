@@ -57,7 +57,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_reverse_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_reverse_flag, time_to_drive)
 
         return
 
@@ -73,7 +73,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_no_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_no_flag, time_to_drive)
 
         return
 
@@ -88,8 +88,8 @@ class DriveControlAsync:
         Returns:
 
         """
-
-        await self.__rvr.drive_with_heading(0, heading - amount, DriveControlAsync.__drive_no_flag)
+        print("HERE")
+        await self.__rvr.drive_with_heading(0, amount, DriveControlAsync.__drive_no_flag)
         await asyncio.sleep(0.1)
 
         return
@@ -106,7 +106,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__rvr.drive_with_heading(0, heading + amount, DriveControlAsync.__drive_no_flag)
+        await self.__rvr.drive_with_heading(0, amount, DriveControlAsync.__drive_no_flag)
         await asyncio.sleep(0.1)
 
         return
@@ -127,16 +127,16 @@ class DriveControlAsync:
         while heading < 0:
             heading += 360
 
+        heading = heading % 360
+
         if speed < 0:
             flags = flags | DriveControlAsync.__drive_reverse_flag
-            heading += 180
 
         speed = abs(speed)
         if speed > 255:
             speed = 255
 
-        heading = heading % 360
-
+        print(speed, heading)
         await self.__rvr.drive_with_heading(speed, heading, flags)
 
         return
@@ -151,7 +151,7 @@ class DriveControlAsync:
 
         """
 
-        await self.roll_start(heading, 0)
+        await self.roll_start(0, heading) # REVERSE ARGS?
 
         return
 
