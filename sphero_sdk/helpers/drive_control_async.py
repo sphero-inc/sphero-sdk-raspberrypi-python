@@ -89,8 +89,8 @@ class DriveControlAsync:
         Returns:
 
         """
-
-        await self.__rvr.drive_with_heading(0, heading - amount, DriveControlAsync.__drive_no_flag)
+        new_heading = (heading - amount) % 360
+        await self.__rvr.drive_with_heading(0, new_heading, DriveControlAsync.__drive_no_flag)
         await asyncio.sleep(0.1)
 
         return
