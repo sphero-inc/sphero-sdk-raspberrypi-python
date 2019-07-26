@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+text2digits = "*"
+pyaudio = "*"
+
+
+
+[dev-packages]
+
+
+[requires]
+python_full_version = "3.5.3"
