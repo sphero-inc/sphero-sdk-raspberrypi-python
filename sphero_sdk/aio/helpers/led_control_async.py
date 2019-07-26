@@ -2,9 +2,8 @@
 
 import asyncio
 
-from spheroboros import AsyncSpheroRvr
-from spheroboros.helpers.colors_enums import Colors
-from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
+from sphero_sdk import Colors
+from sphero_sdk import RvrLedGroups
 
 
 # TODO: ONCE COMMAND QUEUE IS IMPLEMENTED, REMOVE ALL ASYNCIO.SLEEP CALLS AFTER IR MESSAGES ARE SENT
@@ -142,13 +141,9 @@ class LedControlAsync:
         Returns:
 
         """
-
         for i in range(len(led)):
-            await self.set_led_rgb(
-                led[i].value,
-                colors[i].value[0],
-                colors[i].value[1],
-                colors[i].value[2]
+            await self.set_led_color(
+                led[i], colors[i]
             )
 
         return
@@ -170,7 +165,7 @@ class LedControlAsync:
 
         for i in range(len(leds)):
             await self.set_led_rgb(
-                leds[i].value,
+                leds[i],
                 colors[i * 3],
                 colors[i * 3 + 1],
                 colors[i * 3 + 2]

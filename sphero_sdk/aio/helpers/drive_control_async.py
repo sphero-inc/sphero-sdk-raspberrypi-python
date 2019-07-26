@@ -3,10 +3,9 @@
 import asyncio
 from datetime import datetime
 
-from spheroboros import AsyncSpheroRvr
-from spheroboros.helpers.led_control_async import LedControlAsync
-from spheroboros.helpers.rvr_led_groups_enum import RvrLedGroups
-from spheroboros.helpers.colors_enums import Colors
+from sphero_sdk import LedControlAsync
+from sphero_sdk import RvrLedGroups
+from sphero_sdk import Colors
 
 
 class DriveControlAsync:
@@ -58,7 +57,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_reverse_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_reverse_flag, time_to_drive)
 
         return
 
@@ -74,7 +73,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_no_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_no_flag, time_to_drive)
 
         return
 
@@ -89,9 +88,8 @@ class DriveControlAsync:
         Returns:
 
         """
-
-        await self.__rvr.drive_with_heading(0, heading - amount, DriveControlAsync.__drive_no_flag)
-        await asyncio.sleep(0.1)
+        await self.__rvr.drive_with_heading(0, (heading - amount) % 360, DriveControlAsync.__drive_no_flag)
+        await asyncio.sleep(0.5)
 
         return
 
@@ -106,9 +104,8 @@ class DriveControlAsync:
         Returns:
 
         """
-
-        await self.__rvr.drive_with_heading(0, heading + amount, DriveControlAsync.__drive_no_flag)
-        await asyncio.sleep(0.1)
+        await self.__rvr.drive_with_heading(0, (heading + amount) % 360, DriveControlAsync.__drive_no_flag)
+        await asyncio.sleep(0.5)
 
         return
 
@@ -116,8 +113,8 @@ class DriveControlAsync:
         """roll_start rolls the RVR forward at a specified heading and speed
 
         Args:
-            speed (int): integer between 0 and 255
-            heading (int): integer between 0 and 359
+            speed (int): driving speed (if negative, RVR drives backward)
+            heading (int): direction to drive in
 
         Returns:
 
@@ -125,15 +122,15 @@ class DriveControlAsync:
 
         flags = 0
 
-        while heading < 0:
-            heading += 360
-
         if speed < 0:
             flags = flags | DriveControlAsync.__drive_reverse_flag
 
         speed = abs(speed)
         if speed > 255:
             speed = 255
+
+        while heading < 0:
+            heading += 360
 
         heading = heading % 360
 
@@ -151,7 +148,7 @@ class DriveControlAsync:
 
         """
 
-        await self.roll_start(heading, 0)
+        await self.roll_start(0, heading) # REVERSE ARGS?
 
         return
 
