@@ -11,6 +11,10 @@ def on_color_detected(red, green, blue, confidence, colorClassification):
 
 
 def main():
+    """ This program enables color detection on RVR, using its built-in sensor located on the
+        down side of RVR, facing the floor.
+
+    """
     # Wake up RVR
     rvr.wake()
 
@@ -25,4 +29,8 @@ def main():
     rvr.enable_color_detection_notification(enable=True, interval=100, minimum_confidence_threshold=0)
 
 
-main()
+try:
+    main()
+except KeyboardInterrupt:
+    rvr.close()
+    sys.exit()

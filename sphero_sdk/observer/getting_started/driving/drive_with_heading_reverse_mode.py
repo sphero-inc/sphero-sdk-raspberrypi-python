@@ -8,6 +8,10 @@ rvr = ObserverSpheroRvr()
 
 def main():
     """
+    This program has RVR drive using the function drive_with_heading with the reverse_drive flag set.
+    It aims to demostrate how the heading (passed in as the second argument to the function) affects
+    the driving direction when in reverse mode.
+
     Note:
         To have RVR drive, we call time.sleep(...); if we did not have these calls, the program would
         go on and execute all statements and exit without the driving ever taking place.

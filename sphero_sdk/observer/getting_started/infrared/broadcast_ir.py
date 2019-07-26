@@ -8,11 +8,12 @@ rvr = ObserverSpheroRvr()
 
 def main():
     """
-    Place your BOLT or other robot that has a support for infrared following. Make sure to set your other robot
-    to follow the channels specified below. Upon running this program RVR should drive forward and the other robot
-    follow it.
-    Returns:
+        This program has another robot capable of infrared communication, e.g. BOLT, follow RVR.
 
+        To try this out, write a script for your other robot that has it follow on the corresponding channel
+        that RVR broadcasts on [in this case channel 0 and 1].
+        Place your other robot behind RVR and run its script.
+        Upon running this program RVR drives forward and the other robot follows it.
     """
     rvr.wake()
 

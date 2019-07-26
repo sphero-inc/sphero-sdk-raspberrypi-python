@@ -22,7 +22,12 @@ rvr = AsyncSpheroRvr(
 driver = DriveControlAsync(rvr)
 
 async def main():
+    """ This program has RVR drive with roll, using the helper functions defined in DriveControlAsync.
 
+        Note:
+            To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
+            go on and execute all statements and exit without the driving ever taking place.
+    """
     await rvr.wake()
 
     # Reset yaw such that the heading will be set compared to the direction RVR is currently facing

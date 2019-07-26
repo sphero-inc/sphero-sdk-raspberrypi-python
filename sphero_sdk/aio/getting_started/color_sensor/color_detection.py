@@ -23,6 +23,10 @@ async def on_color_detected(red, green, blue, confidence, colorClassification):
 
 
 async def main():
+    """ This program enables color detection on RVR, using its built-in sensor located on the
+    down side of RVR, facing the floor.
+
+    """
     # Wake up RVR
     await rvr.wake()
 
@@ -40,6 +44,7 @@ async def main():
 try:
     asyncio.ensure_future(main())
     loop.run_forever()
+
 except KeyboardInterrupt:
     loop.stop()
 

@@ -18,7 +18,8 @@ rvr = AsyncSpheroRvr(
 )
 
 async def main():
-    """
+    """ This program has RVR drive around in different directions using the function drive_with_heading.
+
     Note:
         To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
         go on and execute all statements and exit without the driving ever taking place.
@@ -45,7 +46,7 @@ async def main():
     await rvr.drive_with_heading(128, 270, 0)
     await asyncio.sleep(1)
 
-    # Go back to original position
+    # Turn facing the original direction
     await rvr.drive_with_heading(0, 0, 0)
     await asyncio.sleep(1)
 

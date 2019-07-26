@@ -10,11 +10,11 @@ def on_ir_message_received(infraredCode):
     print("received code: {}".format(infraredCode))
 
 def main():
-    """
-    This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
-    RVR listens for messages and performs the action as defined by on_ir_message_received when a message is
-    received.
-    At the same time, RVR sends out IR messages of code 0x03 continuously.
+    """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
+
+        To try this out, write a script for your other robot that a) broadcasts on the corresponding
+        channel that RVR is set to listen to [in this case channel 0] and b) listens on the channel which
+        RVR sends messages on [in this case channel 3]
     """
     rvr.wake()
 
@@ -28,7 +28,7 @@ def main():
 
     # Send IR msg with code 0x03 at maximum strength from the front, rear, left and right sensor respectively
     while True:
-        rvr.send_robot_to_robot_infrared_message(0x03, 255, 255, 255, 255)
+        rvr.send_robot_to_robot_infrared_message(0x03, 64, 64, 64, 64)
         print("Message sent")
         time.sleep(0.2)
 

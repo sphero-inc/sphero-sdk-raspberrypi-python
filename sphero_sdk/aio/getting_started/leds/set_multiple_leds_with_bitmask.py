@@ -14,15 +14,14 @@ loop = asyncio.get_event_loop()
 # Create an AsyncSpheroRvr object, and pass in a SerialAsyncDal object, which in turn takes a reference
 # to the asynchronous program loop
 rvr = AsyncSpheroRvr(
-    dal = SerialAsyncDal(
+    dal=SerialAsyncDal(
         loop
     )
 )
 
-
 async def main():
-    """ This program demonstrates how to set the all the LEDs of RVR with one function call
-    to set_all_leds_with_32_bit_mask.
+    """ This program demonstrates how to set multiple LEDs on RVR with one function call
+        to set_all_leds_with_32_bit_mask.
 
     """
     await rvr.wake()
@@ -34,18 +33,22 @@ async def main():
     )
     await asyncio.sleep(1)
 
-    led_group_bitmask = 0x3fffffff # This is the bit mask corresponding to all lights on RVR
-    rgb_values = [0, 255, 0]
+
+    # Set both front and rear power buttons to blue
+    led_group_bitmask = RvrLedGroups.power_button_front.value | RvrLedGroups.power_button_rear.value
+    print(hex(led_group_bitmask)) # 0x1c0000
 
     await rvr.set_all_leds_with_32_bit_mask(
-       led_group_bitmask, [color for x in range(10) for color in rgb_values]
+        led_group_bitmask, [0, 0, 255, 255, 0,0]
     )
+    await asyncio.sleep(1)
+
 
 
 # Run event loop until the main function has completed
 loop.run_until_complete(
-        main()
-    )
+    main()
+)
 
 # Stop the event loop
 loop.stop()

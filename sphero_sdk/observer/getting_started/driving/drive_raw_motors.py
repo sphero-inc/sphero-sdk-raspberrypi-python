@@ -9,8 +9,10 @@ rvr = ObserverSpheroRvr()
 
 def main():
     """
+    This program has RVR drive around in different directions using raw_motors.
+
     Note:
-        To give RVR time to drive, we call asyncio.sleep(...); if we did not have these calls, the program would 
+        To give RVR time to drive, we call time.sleep(...); if we did not have these calls, the program would
         go on and execute all the statements and exit without the driving ever taking place. 
     """
     rvr.wake()
@@ -34,7 +36,10 @@ def main():
     # Stop RVR
     rvr.raw_motors(0, 0, 0, 0)
 
+    rvr.close()
+
 try:
     main()
 except KeyboardInterrupt:
+    rvr.close()
     sys.exit()

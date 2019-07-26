@@ -1,5 +1,4 @@
 import sys
-
 sys.path.append('/home/pi/raspberry-pi-python')
 
 import asyncio
@@ -21,6 +20,10 @@ rvr = AsyncSpheroRvr(
 )
 
 async def main():
+    """ This program demonstrates how to set a single LEDs of RVR with one function call
+        to set_all_leds_with_32_bit_mask.
+
+    """
     await rvr.wake()
 
     # Turn off all lights
@@ -47,16 +50,6 @@ async def main():
 
     await rvr.set_all_leds_with_32_bit_mask(
         led_group_bitmask, [0, 255, 0]
-    )
-    await asyncio.sleep(1)
-
-
-    # Set power buttons to blue
-    led_group_bitmask = RvrLedGroups.power_button_front.value | RvrLedGroups.power_button_rear.value
-    print(hex(led_group_bitmask)) # 0x1c0000
-
-    await rvr.set_all_leds_with_32_bit_mask(
-        led_group_bitmask, [0, 0, 255, 255, 0,0]
     )
     await asyncio.sleep(1)
 
