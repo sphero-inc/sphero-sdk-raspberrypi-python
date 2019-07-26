@@ -103,7 +103,7 @@ async def process_instructions(message):
             await turn_left(instruction)
         elif "right" in instruction:
             await turn_right(instruction)
-        elif "lights" in instruction and "on" in instruction:
+        elif "lights" in instruction and "set" in instruction:
             await turn_on_lights(instruction)
         elif "lights" in instruction and "off" in instruction:
             await turn_off_lights()
