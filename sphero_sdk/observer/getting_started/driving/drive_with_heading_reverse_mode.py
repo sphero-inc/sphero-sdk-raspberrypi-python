@@ -28,4 +28,6 @@ def main():
     # Stop RVR
     rvr.raw_motors(0, 0, 0, 0)
 
+    rvr.close()
+
 main()

@@ -21,5 +21,7 @@ def main():
         led_group_bitmask, [color for i in range(10) for color in [255, 0, 0]]
     )
 
+    rvr.close()
+
 
 main()

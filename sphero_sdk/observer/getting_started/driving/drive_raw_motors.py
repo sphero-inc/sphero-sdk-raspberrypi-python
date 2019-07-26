@@ -38,8 +38,4 @@ def main():
 
     rvr.close()
 
-try:
-    main()
-except KeyboardInterrupt:
-    rvr.close()
-    sys.exit()
+main()

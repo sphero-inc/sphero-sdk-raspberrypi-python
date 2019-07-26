@@ -17,7 +17,7 @@ def main():
     """
     # Wake up RVR
     rvr.wake()
-
+    
     # Decide upon handler to be called upon color detection
     rvr.on_color_detection_notify(handler=on_color_detected)
 
@@ -28,9 +28,8 @@ def main():
     # confidence 0 or above
     rvr.enable_color_detection_notification(enable=True, interval=100, minimum_confidence_threshold=0)
 
+    time.sleep(5)
 
-try:
-    main()
-except KeyboardInterrupt:
     rvr.close()
-    sys.exit()
+
+main()

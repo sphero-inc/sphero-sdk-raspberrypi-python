@@ -32,4 +32,6 @@ def main():
         print("Message sent")
         time.sleep(0.2)
 
+    rvr.close()
+
 main()

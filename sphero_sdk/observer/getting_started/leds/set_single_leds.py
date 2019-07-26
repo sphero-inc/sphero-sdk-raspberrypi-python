@@ -36,6 +36,8 @@ def main():
         led_group_bitmask, [0, 255, 0]
     )
 
-    time.sleep(1)
+    rvr.close()
+
+
 
 main()

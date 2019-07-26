@@ -28,5 +28,7 @@ def main():
         led_group_bitmask, [0, 0, 255, 255, 0,0]
     )
 
+    rvr.close()
+
 
 main()

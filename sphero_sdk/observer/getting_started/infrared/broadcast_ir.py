@@ -24,4 +24,6 @@ def main():
 
     rvr.stop_robot_to_robot_infrared_broadcasting()
 
+    rvr.close()
+
 main()
