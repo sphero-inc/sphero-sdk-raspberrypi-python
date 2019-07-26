@@ -9,6 +9,13 @@ class EventDispatcher:
         pass
 
     def handle_message(self, message):
+        """Uses the message did and cid properties as keys to check if a handler exists in the master dictionary of
+        registered handlers.  If an entry is found, an event is raised.
+
+        Args:
+            message (Message): Used to look for registered handlers for this message.
+
+        """
         # TODO AC - Do we need 'sequence numbers' for command responses?
         # TODO AC - Do we need 'source node' for async responses
         # TODO AC - Implement error handling

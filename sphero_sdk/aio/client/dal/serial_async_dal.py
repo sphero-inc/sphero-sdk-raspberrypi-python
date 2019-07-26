@@ -29,9 +29,9 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             did (uint8): Device ID
             cid (uint8): Command ID
             target (uint8): 1 - Nordic; 2 - ST
-            timeout (uint8): Timeout in seconds
-            inputs (List): Inputs for command that is being sent
-            outputs (List): Expected outputs for command that is being sent
+            timeout (uint8): Time in seconds to wait for a response, if one is requested. Otherwise, ignored.
+            inputs (list(Parameter)): Inputs for command that is being sent
+            outputs (list(Parameter)): Expected outputs for command that is being sent
 
         Returns:
             The result of the response_handler, or None if a response_handler
@@ -73,7 +73,7 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             cid (uint8): Command ID
             target (uint8): 1 - Nordic; 2 - ST
             timeout (uint8): Timeout in seconds
-            outputs (List): Expected outputs for command that is being sent
+            outputs (list): Expected outputs for command that is being sent
 
         Returns:
 

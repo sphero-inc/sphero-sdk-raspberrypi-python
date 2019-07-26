@@ -41,8 +41,6 @@ class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
         Args:
             msg: Message to be sent to port
 
-        Returns:
-
         """
         self.__transport.write(msg.serialise())
 
@@ -55,8 +53,6 @@ class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
 
     def resume_writing(self):
         """Not implemented
-
-        Returns:
 
         """
         pass
