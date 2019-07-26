@@ -21,6 +21,10 @@ rvr = AsyncSpheroRvr(
 
 
 async def main():
+    """ This program demonstrates how to set the all the LEDs of RVR with one function call
+    to set_all_leds_with_32_bit_mask.
+
+    """
     await rvr.wake()
 
     # Turn off all lights
@@ -30,7 +34,7 @@ async def main():
     )
     await asyncio.sleep(1)
 
-    led_group_bitmask = 0x3fffffff
+    led_group_bitmask = 0x3fffffff # This is the bit mask corresponding to all lights on RVR
     rgb_values = [0, 255, 0]
 
     await rvr.set_all_leds_with_32_bit_mask(

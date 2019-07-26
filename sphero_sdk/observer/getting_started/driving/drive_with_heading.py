@@ -7,9 +7,10 @@ from sphero_sdk import ObserverSpheroRvr
 rvr = ObserverSpheroRvr()
 
 def main():
-    """
+    """ This program has RVR drive around in different directions using drive_with_heading.
+
     Note:
-        To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
+        To have RVR drive, we call time.sleep(...); if we did not have these calls, the program would
         go on and execute all statements and exit without the driving ever taking place.
     """
     rvr.wake()

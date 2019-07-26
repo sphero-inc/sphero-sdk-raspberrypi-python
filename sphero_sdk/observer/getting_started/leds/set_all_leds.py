@@ -8,6 +8,10 @@ from sphero_sdk import RvrLedGroups
 rvr = ObserverSpheroRvr()
 
 def main():
+    """ This program demonstrates how to set the all the LEDs of RVR with one function call
+        to set_all_leds_with_32_bit_mask.
+
+    """
     rvr.wake()
 
     # Set power buttons to blue

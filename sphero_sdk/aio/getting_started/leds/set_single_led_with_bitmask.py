@@ -20,6 +20,10 @@ rvr = AsyncSpheroRvr(
 )
 
 async def main():
+    """ This program demonstrates how to set a single LEDs of RVR with one function call
+        to set_all_leds_with_32_bit_mask.
+
+    """
     await rvr.wake()
 
     # Turn off all lights

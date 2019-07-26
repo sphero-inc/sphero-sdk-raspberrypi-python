@@ -26,6 +26,10 @@ leds_helper = LedControlAsync(rvr)
 
 
 async def main():
+    """ This program demonstrates how to set multiple LEDs on RVR using the helper function
+        defined in LedControlAsync.
+
+    """
     await rvr.wake()
 
     await leds_helper.turn_leds_off()
