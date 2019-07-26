@@ -1,7 +1,6 @@
 import sys
 sys.path.append('/home/pi/raspberry-pi-python')
 
-import time
 from sphero_sdk import ObserverSpheroRvr
 
 rvr = ObserverSpheroRvr()
