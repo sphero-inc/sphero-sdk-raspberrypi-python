@@ -7,7 +7,7 @@
 
 import logging.config
 from sphero_sdk.observer.config import logging_config
-from sphero_sdk.observer.config import LogLevel
+from sphero_sdk.common.log_level import LogLevel
 from sphero_sdk.observer.observer_base import Observer
 from sphero_sdk.observer.client.dal.serial_observer_dal import SerialObserverDal
 from sphero_sdk.observer.client.dal.observer_parser import ObserverParser
@@ -30,6 +30,7 @@ class ObserverSpheroRvr(Observer):
         parser = ObserverParser(dispatcher)
         port = SerialObserverPort(parser)
         self._dal = SerialObserverDal(port)
+        print("here")
 
     def close(self):
         self._dal.close()
@@ -246,6 +247,7 @@ class ObserverSpheroRvr(Observer):
 
         :returns: (None)
         '''
+        print("here")
         command_dict = power.wake(target=1, timeout=timeout)
         self._dal.send_command(**command_dict)
 
