@@ -14,7 +14,7 @@ class SerialObserverPort:
 
         Args:
             parser (ObserverParser): Used to parse bytes read from the port.
-            port (string): Port address.
+            port (str): Port address.
             baud (int): Baud rate.
         """
         self.__parser = parser
