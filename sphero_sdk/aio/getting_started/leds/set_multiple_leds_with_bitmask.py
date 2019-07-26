@@ -30,22 +30,12 @@ async def main():
     await asyncio.sleep(1)
 
 
-    # Set right headlight to red
-    led_group_bitmask = RvrLedGroups.headlight_right.value
-    print(hex(led_group_bitmask)) # 0xe00
+    # Set both front and rear power buttons to blue
+    led_group_bitmask = RvrLedGroups.power_button_front.value | RvrLedGroups.power_button_rear.value
+    print(hex(led_group_bitmask)) # 0x1c0000
 
     await rvr.set_all_leds_with_32_bit_mask(
-       led_group_bitmask, [255, 0, 0]
-    )
-    await asyncio.sleep(1)
-
-
-    # Set left headlight to green
-    led_group_bitmask = RvrLedGroups.headlight_left.value
-    print(hex(led_group_bitmask)) # 0x1c0
-
-    await rvr.set_all_leds_with_32_bit_mask(
-        led_group_bitmask, [0, 255, 0]
+        led_group_bitmask, [0, 0, 255, 255, 0,0]
     )
     await asyncio.sleep(1)
 
