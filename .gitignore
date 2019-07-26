@@ -6,3 +6,4 @@
 /.idea
 /.python-version
 /docs/_build/
+*.DS_Store
