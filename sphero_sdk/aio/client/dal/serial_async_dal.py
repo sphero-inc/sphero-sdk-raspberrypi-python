@@ -6,6 +6,9 @@ from sphero_sdk.common.protocol import Message, ErrorCode
 
 
 class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
+    """
+    """
+
     def __init__(self, loop=None, device='/dev/ttyS0', baud=115200):
         AsyncDalBase.__init__(self)
         SerialSpheroPort.__init__(
@@ -19,6 +22,23 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
         )
 
     async def send_command(self, did, cid, target, timeout=None, inputs=[], outputs=[]):
+        """Creates a Message object using the provided parameters and creates response handler that
+        if a response is requested.
+
+        Args:
+            did (uint8): Device ID
+            cid (uint8): Command ID
+            target (uint8): 1 - Nordic; 2 - ST
+            timeout (uint8): Timeout in seconds
+            inputs (List): Inputs for command that is being sent
+            outputs (List): Expected outputs for command that is being sent
+
+        Returns:
+            The result of the response_handler, or None if a response_handler
+            was not provided
+        """
+
+
         msg = Message()
         msg.did = did
         msg.cid = cid
@@ -45,6 +65,20 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
         )
 
     async def on_command(self, did, cid, target, handler, timeout=None, outputs=[]):
+        """Creates a wrapper to unpack response data and invoke the provided handler.
+        Calls handler.add_command_worker() using parameters and wrapper() as inputs
+
+        Args:
+            did (uint8): Device ID
+            cid (uint8): Command ID
+            target (uint8): 1 - Nordic; 2 - ST
+            timeout (uint8): Timeout in seconds
+            outputs (List): Expected outputs for command that is being sent
+
+        Returns:
+
+
+        """
         async def wrapper(msg):
             response = {}
             for param in sorted(outputs, key=lambda x: x.index):

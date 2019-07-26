@@ -8,6 +8,7 @@ class SpheroPortBase:
     __slots__ = ['_port_id', '_handler', '_parser']
 
     def __init__(self, port_id, parser_factory, handler_factory):
+
         if not issubclass(parser_factory, SpheroParserBase):
             raise TypeError
         if not issubclass(handler_factory, SpheroHandlerBase):
@@ -19,15 +20,19 @@ class SpheroPortBase:
 
     @property
     def port_id(self):
+
         return self._port_id
 
     @port_id.setter
     def port_id(self, ID):
+
         self._port_id = ID
 
     @property
     def handler(self):
+
         return self._handler
 
     def send(self, msg):
+
         raise NotImplementedError
