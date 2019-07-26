@@ -12,5 +12,4 @@ from sphero_sdk.common.commands.sensor import *
 from sphero_sdk.common.commands.system_info import *
 
 from sphero_sdk.common.enums.colors_enums import Colors
-# from sphero_sdk.helpers.drive_helper_enum import RawMotorModes
 from sphero_sdk.aio.controls.infrared_control_async import InfraredControlAsync
