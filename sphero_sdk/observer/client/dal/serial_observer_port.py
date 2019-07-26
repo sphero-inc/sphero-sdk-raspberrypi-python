@@ -27,8 +27,6 @@ class SerialObserverPort:
     def close(self):
         """Closes the port and joins the thread managing reading and writing.
 
-        Returns:
-
         """
         logger.info("read/write thread joining.")
         self.__running = False
@@ -41,8 +39,6 @@ class SerialObserverPort:
 
         Args:
             message (Message): Instance of a Message object
-
-        Returns:
 
         """
         self.__write_queue.put(message.serialise())

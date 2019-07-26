@@ -15,8 +15,6 @@ class EventDispatcher:
         Args:
             message (Message): Used to look for registered handlers for this message.
 
-        Returns:
-
         """
         # TODO AC - Do we need 'sequence numbers' for command responses?
         # TODO AC - Do we need 'source node' for async responses

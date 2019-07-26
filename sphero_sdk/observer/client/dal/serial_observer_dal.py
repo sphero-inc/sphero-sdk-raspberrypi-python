@@ -23,8 +23,6 @@ class SerialObserverDal:
             inputs (list(Parameter)): Inputs for command that is being sent
             outputs (list(Parameter)): Expected outputs for command that is being sent
 
-        Returns:
-
         """
         message = Message()
         message.did = did
@@ -45,8 +43,6 @@ class SerialObserverDal:
 
     def close(self):
         """Closes the serial port, and joins the read/write thread.
-
-        Returns:
 
         """
         self._port.close()

@@ -38,8 +38,6 @@ class DriveControlAsync:
     async def reset_heading(self):
         """reset_heading resets the heading of the RVR
 
-        Returns:
-
         """
 
         await self.__rvr.reset_yaw()
@@ -53,8 +51,6 @@ class DriveControlAsync:
             speed (int): integer between 0 and 255
             heading (int): integer between 0 and 359
             time_to_drive (int): number of seconds to drive
-
-        Returns:
 
         """
 
@@ -70,8 +66,6 @@ class DriveControlAsync:
             heading (int): integer between 0 and 359
             time_to_drive (int): number of seconds to drive
 
-        Returns:
-
         """
 
         await self.__timed_drive(heading, speed, DriveControlAsync.__drive_no_flag, time_to_drive)
@@ -85,8 +79,6 @@ class DriveControlAsync:
         Args:
             heading (int): heading from where the turn will start
             amount (int): number of degrees to turn
-
-        Returns:
 
         """
         new_heading = (heading - amount) % 360
@@ -103,8 +95,6 @@ class DriveControlAsync:
             heading (int): heading from where the turn will start (number between 0 and 359)
             amount (int): number of degrees to turn
 
-        Returns:
-
         """
 
         await self.__rvr.drive_with_heading(0, heading + amount, DriveControlAsync.__drive_no_flag)
@@ -118,8 +108,6 @@ class DriveControlAsync:
         Args:
             speed (int): integer between 0 and 255
             heading (int): integer between 0 and 359
-
-        Returns:
 
         """
 
@@ -147,8 +135,6 @@ class DriveControlAsync:
         Args:
             heading (int): integer between 0 and 359
 
-        Returns:
-
         """
 
         await self.roll_start(heading, 0)
@@ -161,8 +147,6 @@ class DriveControlAsync:
         Args:
             heading (int): integer between 0 and 359
 
-        Returns:
-
         """
 
         await self.roll_stop(heading)
@@ -171,8 +155,6 @@ class DriveControlAsync:
 
     async def aim_start(self):
         """aim_start sets rear lights on RVR blue indicating the aiming process is starting
-
-        Returns:
 
         """
 
@@ -185,8 +167,6 @@ class DriveControlAsync:
 
     async def aim_stop(self):
         """aim_stop turns the rear lights off and resets the heading of the RVR
-
-        Returns:
 
         """
         # TODO: Add function for idling lights in the SDK

@@ -34,8 +34,6 @@ class LedControlAsync:
 
         Args:
 
-        Returns:
-
         """
 
         await self.__rvr.set_all_leds_with_32_bit_mask(
@@ -56,8 +54,6 @@ class LedControlAsync:
             green (int): integer between 0 and 255
             blue (int): integer between 0 and 255
 
-        Returns:
-
         """
 
         if not self.__is_color_valid(red, green, blue):
@@ -76,8 +72,6 @@ class LedControlAsync:
         Args:
             led (RvrLeds): element from the enumeration RvrLeds
             color (Color): element from the enumeration Color
-
-        Returns:
 
         """
 
@@ -101,8 +95,6 @@ class LedControlAsync:
             green (int): integer between 0 and 255
             blue (int): integer between 0 and 255
 
-        Returns:
-
         """
 
         if not self.__is_color_valid(red, green, blue):
@@ -121,8 +113,6 @@ class LedControlAsync:
         Args:
             color (Color): element from the enumeration Color
 
-        Returns:
-
         """
 
         red, green, blue = color.value
@@ -137,8 +127,6 @@ class LedControlAsync:
         Args:
             lights [RvrLeds]: array of elements from RvrLeds enumeration
             colors [Color]: array of elements from Color enumeration
-
-        Returns:
 
         """
         for i in range(len(led)):
@@ -158,8 +146,6 @@ class LedControlAsync:
         Args:
             lights [RvrLeds]: array of elements from RvrLeds enumeration
             colors [int]: array of integers representing rgb triples
-
-        Returns:
 
         """
 
