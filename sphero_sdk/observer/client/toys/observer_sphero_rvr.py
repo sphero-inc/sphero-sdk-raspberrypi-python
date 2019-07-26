@@ -7,7 +7,6 @@
 
 import logging.config
 from sphero_sdk.observer.config import logging_config
-# from sphero_sdk.observer.config import LogLevel
 from sphero_sdk.common.log_level import LogLevel
 from sphero_sdk.observer.observer_base import Observer
 from sphero_sdk.observer.client.dal.serial_observer_dal import SerialObserverDal
