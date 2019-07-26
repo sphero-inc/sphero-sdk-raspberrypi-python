@@ -20,8 +20,8 @@ class SerialObserverDal:
             cid (uint8): Command ID
             target (uint8): 1 - Nordic; 2 - ST
             timeout (uint8): Time in seconds to wait for a response, if one is requested. Otherwise, ignored.
-            inputs (List(Parameter)): Inputs for command that is being sent
-            outputs (List(Parameter)): Expected outputs for command that is being sent
+            inputs (list(Parameter)): Inputs for command that is being sent
+            outputs (list(Parameter)): Expected outputs for command that is being sent
 
         Returns:
 
