@@ -3,8 +3,8 @@
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
-from sphero_sdk.helpers.colors_enums import Colors
-from sphero_sdk.helpers.rvr_led_groups_enum import RvrLedGroups
+from sphero_sdk.common.enums.colors_enums import Colors
+from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 
 
 # TODO: ONCE COMMAND QUEUE IS IMPLEMENTED, REMOVE ALL ASYNCIO.SLEEP CALLS AFTER IR MESSAGES ARE SENT

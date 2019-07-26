@@ -3,10 +3,10 @@ import asyncio
 
 sys.path.append('/home/pi/raspberry-pi')
 
-from sphero_sdk.helpers.drive_control_async import DriveControlAsync
+from sphero_sdk.aio.controls.drive_control_async import DriveControlAsync
 from sphero_sdk.projects.voice_control.helper_microphone_input import Recorder
-from sphero_sdk.helpers.led_control_async import LedControlAsync
-from sphero_sdk.helpers.colors_enums import Colors
+from sphero_sdk.aio.controls.led_control_async import LedControlAsync
+from sphero_sdk.common.enums.colors_enums import Colors
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
 from text2digits import text2digits
