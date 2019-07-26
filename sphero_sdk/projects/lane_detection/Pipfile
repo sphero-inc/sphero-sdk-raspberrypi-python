@@ -6,14 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-aiohttp = "*"
-requests = "*"
-websocket-client = "*"
-pytest-asyncio = "*"
-pytest = "*"
-twine = "*"
-pyserial = "*"
-pyserial-asyncio = "*"
 opencv-python = "3.1.0"
 numpy = "*"
 picamera = "*"

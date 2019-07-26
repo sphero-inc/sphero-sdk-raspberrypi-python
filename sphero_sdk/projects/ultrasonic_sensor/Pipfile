@@ -6,14 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-aiohttp = "*"
-requests = "*"
-websocket-client = "*"
-pytest-asyncio = "*"
-pytest = "*"
-twine = "*"
-pyserial = "*"
-pyserial-asyncio = "*"
 RPi.GPIO = "*"
 asyncio = "*"
 

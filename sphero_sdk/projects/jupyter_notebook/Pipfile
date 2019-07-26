@@ -6,19 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-aiohttp = "*"
-requests = "*"
-websocket-client = "*"
-pytest-asyncio = "*"
-pytest = "*"
-twine = "*"
-pyserial = "*"
-pyserial-asyncio = "*"
 jupyter = "*"
 keras = "*"
 opencv-python = "*"
 numpy = "*"
 matplotlib = "*"
+tensorflow = "*"
 
 [requires]
 python_full_version = "3.5.3"
