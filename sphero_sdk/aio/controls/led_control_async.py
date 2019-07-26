@@ -51,9 +51,9 @@ class LedControlAsync:
 
         Args:
             led (RvrLeds): element from the enumeration RvrLeds
-            red (int): integer between 0 and 255
-            green (int): integer between 0 and 255
-            blue (int): integer between 0 and 255
+            red (uint8): integer between 0 and 255
+            green (uint8): integer between 0 and 255
+            blue (uint8): integer between 0 and 255
 
         """
 
@@ -92,9 +92,9 @@ class LedControlAsync:
         """set_all_leds_rgb sets all of the lights on the RVR to a specified RGB value
 
         Args:
-            red (int): integer between 0 and 255
-            green (int): integer between 0 and 255
-            blue (int): integer between 0 and 255
+            red (uint8): integer between 0 and 255
+            green (uint8): integer between 0 and 255
+            blue (uint8): integer between 0 and 255
 
         """
 

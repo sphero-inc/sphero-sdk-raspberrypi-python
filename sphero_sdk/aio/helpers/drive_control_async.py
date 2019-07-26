@@ -47,7 +47,7 @@ class DriveControlAsync:
         """drive_backward_seconds drives the RVR backward with a specified heading and speed for some number of seconds
 
         Args:
-            speed (int): integer between 0 and 255
+            speed (uint8): integer between 0 and 255
             heading (int): integer between 0 and 359
             time_to_drive (int): number of seconds to drive
 
@@ -61,7 +61,7 @@ class DriveControlAsync:
         """drive_forward_seconds drives the RVR forward with a specified heading and speed for some number of seconds
 
         Args:
-            speed (int): integer between 0 and 255
+            speed (uint8): integer between 0 and 255
             heading (int): integer between 0 and 359
             time_to_drive (int): number of seconds to drive
 
@@ -103,7 +103,7 @@ class DriveControlAsync:
         """roll_start rolls the RVR forward at a specified heading and speed
 
         Args:
-            speed (int): driving speed (if negative, RVR drives backward)
+            speed (int): driving speed -255 - 255(if negative, RVR drives backward)
             heading (int): direction to drive in
 
         """
