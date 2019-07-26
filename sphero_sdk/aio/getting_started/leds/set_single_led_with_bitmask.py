@@ -56,7 +56,7 @@ async def main():
     print(hex(led_group_bitmask)) # 0x1c0000
 
     await rvr.set_all_leds_with_32_bit_mask(
-        led_group_bitmask, [0, 0, 255, 0, 0, 255]
+        led_group_bitmask, [0, 0, 255, 255, 0,0]
     )
     await asyncio.sleep(1)
 
