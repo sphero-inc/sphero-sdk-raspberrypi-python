@@ -30,7 +30,6 @@ class ObserverSpheroRvr(Observer):
         parser = ObserverParser(dispatcher)
         port = SerialObserverPort(parser)
         self._dal = SerialObserverDal(port)
-        print("here")
 
     def close(self):
         self._dal.close()
@@ -247,7 +246,6 @@ class ObserverSpheroRvr(Observer):
 
         :returns: (None)
         '''
-        print("here")
         command_dict = power.wake(target=1, timeout=timeout)
         self._dal.send_command(**command_dict)
 
