@@ -9,11 +9,13 @@ from sphero_sdk import RvrLedGroups
 rvr = ObserverSpheroRvr()
 
 def main():
-    """ This program demonstrates how to set multiple LEDs on RVR with one function call
-            to set_all_leds_with_32_bit_mask.
+    """ This program demonstrates how to set multiple LEDs on RVR with one function call to set_all_leds_with_32_bit_mask.
 
     """
     rvr.wake()
+
+    # Give RVR time to wake up
+    time.sleep(2)
 
     # Turn off all lights
     rvr.set_all_leds_with_32_bit_mask(
@@ -22,11 +24,14 @@ def main():
 
     time.sleep(1)
 
-    # Set front and rear power buttons to blue
+    # Set front and rear power buttons to red and blue
     led_group_bitmask = RvrLedGroups.power_button_front.value | RvrLedGroups.power_button_rear.value # 0x1c0000
+
     rvr.set_all_leds_with_32_bit_mask(
-        led_group_bitmask, [0, 0, 255, 255, 0,0]
+        led_group_bitmask, [255, 0, 0, 0, 0, 255]
     )
+
+    time.sleep(1)
 
     rvr.close()
 

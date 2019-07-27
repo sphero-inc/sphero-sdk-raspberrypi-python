@@ -15,6 +15,9 @@ def main():
     """
     rvr.wake()
 
+    # Give RVR time to wake up
+    time.sleep(2)
+
     # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
     rvr.reset_yaw()
 
@@ -40,7 +43,7 @@ def main():
     time.sleep(1)
 
     # Stop RVR
-    rvr.raw_motors(0,0,0,0)
+    rvr.raw_motors(0, 0, 0, 0)
 
     rvr.close()
 

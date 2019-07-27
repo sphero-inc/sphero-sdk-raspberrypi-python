@@ -1,3 +1,4 @@
+# TODO: understand how to use get_bot_to_bot_infrared_readings() and demonstrate
 import sys
 sys.path.append('/home/pi/raspberry-pi-python')
 
@@ -7,9 +8,15 @@ from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
 
 
+# Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
 
-rvr = AsyncSpheroRvr(dal=SerialAsyncDal(loop=loop))
+# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
+rvr = AsyncSpheroRvr(
+    dal=SerialAsyncDal(
+        loop
+    )
+)
 
 async def on_ir_message_received(infraredCode):
     print("received code: {}".format(infraredCode))

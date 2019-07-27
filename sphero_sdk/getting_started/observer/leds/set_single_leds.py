@@ -9,11 +9,13 @@ from sphero_sdk import RvrLedGroups
 rvr = ObserverSpheroRvr()
 
 def main():
-    """ This program demonstrates how to set a single LEDs of RVR with one function call
-            to set_all_leds_with_32_bit_mask.
+    """ This program demonstrates how to set a single LED on RVR with one function call to set_all_leds_with_32_bit_mask.
 
     """
     rvr.wake()
+    
+    # Give RVR time to wake up
+    time.sleep(2)
 
     # Turn off all lights
     rvr.set_all_leds_with_32_bit_mask(
@@ -24,6 +26,7 @@ def main():
 
     # Set right headlight to red
     led_group_bitmask = RvrLedGroups.headlight_right.value # 0xe00
+
     rvr.set_all_leds_with_32_bit_mask(
        led_group_bitmask, [255, 0, 0]
     )
@@ -32,9 +35,12 @@ def main():
 
     # Set left headlight to green
     led_group_bitmask = RvrLedGroups.headlight_left.value # 0x1c0
+
     rvr.set_all_leds_with_32_bit_mask(
         led_group_bitmask, [0, 255, 0]
     )
+
+    time.sleep(1)
 
     rvr.close()
 

@@ -17,9 +17,9 @@ def main():
     rvr.wake()
     
     # Give RVR time to wake up
-    time.sleep(2)
+#    time.sleep(2)
     
-    # Register handler to be called when message is received
+    # Define handler to be called upon detection
     rvr.on_color_detection_notify(handler=on_color_detected)
 
     rvr.enable_color_detection(enable=True)

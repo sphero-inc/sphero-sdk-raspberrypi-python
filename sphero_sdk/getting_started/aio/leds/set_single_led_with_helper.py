@@ -10,46 +10,46 @@ from sphero_sdk import Colors
 from sphero_sdk import RvrLedGroups
 
 
-# Get a reference to the asynchornous program loop
+# Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object, and pass in a SerialAsyncDal object, which in turn takes a reference
-# to the asynchronous program loop 
+# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = AsyncSpheroRvr(
-    dal = SerialAsyncDal(
+    dal=SerialAsyncDal(
         loop
     )
 )
 
 # Create object that let's us control the LEDs of RVR
-leds_helper = LedControlAsync(rvr)
+led_controller = LedControlAsync(rvr)
 
 
 async def main():
-    """ This program demonstrates how to set a single LED on RVR using the helper function
-        defined in LedControlAsync.
+    """ This program demonstrates how to set a single LED on RVR using the controller LedControlAsync.
 
     """
     await rvr.wake()
 
-    await leds_helper.turn_leds_off()
+    # Give RVR time to wake up
+    await asyncio.sleep(2)
+
+    # Turn off all lights
+    await led_controller.turn_leds_off()
     await asyncio.sleep(0.5)
 
-    # Set single LED to color of RGB value (255, 0, 255)
-    await leds_helper.set_led_rgb(RvrLedGroups.headlight_left, 0, 255, 255)
+    # Set right headlight to red
+    await led_controller.set_led_rgb(RvrLedGroups.headlight_right, 255, 0, 0)
     await asyncio.sleep(1)
 
-    # Set single LED to color of RGB value (255, 0, 255)
-    await leds_helper.set_led_color(RvrLedGroups.headlight_left, Colors.red)
+    # Set left headlight to green
+    await led_controller.set_led_color(RvrLedGroups.headlight_left, Colors.green)
     await asyncio.sleep(1)
 
 
-# Run event loop until the main function has completed
+# Run program loop until the main function has completed
 loop.run_until_complete(
         main()
     )
 
-# Stop the event loop
 loop.stop()
-# Close the event loop
 loop.close()

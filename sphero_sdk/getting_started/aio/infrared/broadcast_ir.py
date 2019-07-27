@@ -6,10 +6,15 @@ sys.path.append('/home/pi/raspberry-pi-python')
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
 
-
+# Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
 
-rvr = AsyncSpheroRvr(dal=SerialAsyncDal(loop=loop))
+# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
+rvr = AsyncSpheroRvr(
+    dal=SerialAsyncDal(
+        loop
+    )
+)
 
 async def main():
     """
@@ -23,10 +28,10 @@ async def main():
     await rvr.wake()
 
     # Broadcast infrared codes 0 and 1
-    await rvr.start_robot_to_robot_infrared_broadcasting(0x00, 0x01)
+    await rvr.start_robot_to_robot_infrared_broadcasting(0, 1)
 
     await rvr.raw_motors(1, 64, 1, 64)
-    await asyncio.sleep(2)
+    await asyncio.sleep(3)
 
     await rvr.stop_robot_to_robot_infrared_broadcasting()
 

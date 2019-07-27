@@ -1,3 +1,4 @@
+# TODO: upon testing, BOLT gives no response
 import sys
 sys.path.append('/home/pi/raspberry-pi-python')
 
@@ -9,15 +10,17 @@ from sphero_sdk import InfraredControlAsync
 from sphero_sdk import InfraredCodes
 
 
+# Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
 
+# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = AsyncSpheroRvr(
     dal=SerialAsyncDal(
-        loop=loop
+        loop
     )
 )
 
-infrared_helper = InfraredControlAsync(rvr)
+infrared_controller = InfraredControlAsync(rvr)
 
 async def main():
     """ This program has another robot capable of infrared communication, e.g. BOLT, follow RVR.
@@ -29,13 +32,13 @@ async def main():
     """
     await rvr.wake()
 
-    # Broadcast on channels 0, 1, 2, and 3. Here, we specify the channels with the enumeration InfraredCodes
-    await infrared_helper.start_infrared_broadcasting([InfraredCodes.alpha, InfraredCodes.charlie], [InfraredCodes.bravo, InfraredCodes.delta])
+    # Broadcast on channels 0, 1, 2, and 3. We specify the channels with the InfraredCodes enumeration
+    await infrared_controller.start_infrared_broadcasting([InfraredCodes.alpha, InfraredCodes.charlie], [InfraredCodes.bravo, InfraredCodes.delta])
 
     await rvr.raw_motors(1, 64, 1, 64)
-    await asyncio.sleep(1)
+    await asyncio.sleep(3)
 
-    await infrared_helper.stop_infrared_broadcasting()
+    await infrared_controller.stop_infrared_broadcasting()
 
 try:
     asyncio.ensure_future(main())
