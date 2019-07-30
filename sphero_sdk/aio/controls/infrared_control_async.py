@@ -172,7 +172,7 @@ class InfraredControlAsync:
         else:
             pass    # TODO: remove existing future / handler?
 
-        await self.__rvr.listen_for_robot_to_robot_infrared_message(0x00, enable)
+        await self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
 
         return
 
