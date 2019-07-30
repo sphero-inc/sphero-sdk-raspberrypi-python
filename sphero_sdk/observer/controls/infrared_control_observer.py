@@ -153,7 +153,7 @@ class InfraredControlObserver:
         return
 
     def listen_for_infrared_message(self, enable=True):
-        """Listens for infrared messages on a list of channels
+        """Listens for infrared messages on all channels
 
         Args:
             enable (bool): True to enable listening async; False to disable

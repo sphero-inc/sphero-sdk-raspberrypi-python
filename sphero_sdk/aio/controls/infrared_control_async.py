@@ -8,8 +8,10 @@ class InfraredControlAsync:
     """InfraredControlAsync is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
 
-        :param rvr: (AsyncSpheroRvr): Instance of an AsyncSpheroRvr containing an event loop
-        :return:
+    Args:
+        rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr with a reference to an event loop
+
+    Returns:
     """
 
     def __init__(self, rvr):
@@ -23,9 +25,11 @@ class InfraredControlAsync:
     async def start_infrared_broadcasting(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code
 
-        :param far_codes: List of InfraredCodes for far code
-        :param near_codes: List of InfraredCodes for near code
-        :return:
+        Args:
+            far_codes (list): List of InfraredCodes for far code
+            near_codes (list): List of InfraredCodes for near code
+
+        Returns:
         """
 
         if far_codes is None:
@@ -58,7 +62,7 @@ class InfraredControlAsync:
     async def stop_infrared_broadcasting(self):
         """Calls stop_robot_to_robot_infrared_broadcasting()
 
-        :return:
+        Returns:
         """
 
         await self.__rvr.stop_robot_to_robot_infrared_broadcasting()
@@ -68,9 +72,11 @@ class InfraredControlAsync:
     async def start_infrared_following(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code for following
 
-        :param far_codes: List of InfraredCodes for far code
-        :param near_codes: List of InfraredCodes for near code
-        :return:
+        Args:
+            far_codes (list): List of InfraredCodes for far code
+            near_codes (list): List of InfraredCodes for near code
+
+        Returns:
         """
 
         if far_codes is None:
@@ -103,7 +109,7 @@ class InfraredControlAsync:
     async def stop_infrared_following(self):
         """Calls stop_robot_to_robot_infrared_following()
 
-        :return:
+        Returns:
         """
 
         await self.__rvr.stop_robot_to_robot_infrared_following()
@@ -113,9 +119,11 @@ class InfraredControlAsync:
     async def send_infrared_message(self, messages, strength=0):
         """Sends a single IR message for each element in the messages list
 
-        :param messages: List of InfraredCodes to send
-        :param strength: Integer that represents emitter strength (0 - 64)
-        :return:
+        Args:
+            messages (list): List of InfraredCodes to send
+            strength (uint8): Integer that represents emitter strength (0 - 64)
+
+        Returns:
         """
 
         if messages is None:
@@ -145,14 +153,14 @@ class InfraredControlAsync:
         return
 
     async def listen_for_infrared_message(self, handler, enable=True):
-        """Listens for infrared messages on a list of channels
+        """Listens for infrared messages on all channels
 
-        :param channels: List of InfraredCodes to listen for
-        :param handler: Reference to message notification callback function -
-                        requires one parameter called "infraredCode"
-        Ex. 'async def message_received_handler(infraredCode):'
-        :param enable: Keyword argument to enable or disable listener
-        :return:
+        Args:
+            enable (bool): True to enable listening async; False to disable
+            handler (func): Reference to message notification callback function -
+                            requires one parameter called "infraredCode"
+                            Ex. 'async def message_received_handler(infraredCode):'
+        Returns:
         """
 
         if callable(handler):
