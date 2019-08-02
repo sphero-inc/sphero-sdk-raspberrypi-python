@@ -1,5 +1,9 @@
 # NOTE: when rvr.listen_for_robot_to_robot_infrared_message is called, all channels are listen at regardless of
 # infrared code passed
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import time
 
 import asyncio

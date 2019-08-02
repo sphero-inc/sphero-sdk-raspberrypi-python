@@ -1,5 +1,9 @@
 # TODO: RVR does not pick up signal from BOLT
 #       BOLT only picks up signal from RVR if BOLT's script is run first
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import time
 
 import asyncio

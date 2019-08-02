@@ -1,4 +1,8 @@
 # TODO: understand how to use get_bot_to_bot_infrared_readings() and demonstrate
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import time
 
 import asyncio

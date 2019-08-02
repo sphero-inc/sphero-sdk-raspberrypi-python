@@ -3,17 +3,14 @@ Pygame module attempts to open a game window accross the network from the Pi to 
 requires X11 streaming. To use this script make sure that you have a client for X11 streaming installed
 locally (I used XQuartz on Mac). Connect to the Pi using the -X flag: ssh -X pi@<ip-addr>
 '''
-
-from __future__ import absolute_import, division, unicode_literals, print_function
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 import math
-import os
-import sys
-
 import asyncio
 import pygame
-
-sys.path.append('/home/pi/raspberry-pi')
+from __future__ import absolute_import, division, unicode_literals, print_function
 
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
