@@ -40,14 +40,12 @@ rvr = AsyncSpheroRvr(
 
 async def run_raw_motors(left_mode, left_speed, right_mode, right_speed):
     global rvr
-    await
-    rvr.raw_motors(left_mode, left_speed, right_mode, right_speed)
+    await rvr.raw_motors(left_mode, left_speed, right_mode, right_speed)
 
 
 async def stop_raw_motors():
     global rvr
-    await
-    rvr.raw_motors(0, 0, 0, 0)
+    await rvr.raw_motors(0, 0, 0, 0)
 
 
 def set_mouse_pos_on_click(event, x, y):
@@ -145,10 +143,8 @@ async def run_treads():
     left_speed = int(math.fabs(round(left_speed)))
 
     if mouse_button_down:
-        await
-        run_raw_motors(left_dir, left_speed, right_dir, right_speed)
-        await
-        asyncio.sleep(0.1)
+        await run_raw_motors(left_dir, left_speed, right_dir, right_speed)
+        await asyncio.sleep(0.1)
 
 
 def track_mouse():
@@ -164,12 +160,10 @@ def track_mouse():
 
 
 async def main():
-    await
-    rvr.wake()
+    await rvr.wake()
     loop.run_in_executor(None, track_mouse)
     while True:
-        await
-        run_treads()
+        await run_treads()
 
 
 try:

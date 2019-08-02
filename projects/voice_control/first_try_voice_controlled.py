@@ -44,10 +44,8 @@ async def move_forward(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("MOVING FORWARD " + str(distance))
-    await
-    driver.reset_heading()
-    await
-    driver.drive_forward_seconds(0, 128, distance)
+    await driver.reset_heading()
+    await driver.drive_forward_seconds(0, 128, distance)
     print("DONE")
 
 
@@ -55,10 +53,8 @@ async def move_backward(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("MOVING BACKWARD " + str(distance))
-    await
-    driver.reset_heading()
-    await
-    driver.drive_backward_seconds(0, 128, distance)
+    await driver.reset_heading()
+    await driver.drive_backward_seconds(0, 128, distance)
     print("DONE")
 
 
@@ -66,10 +62,8 @@ async def turn_left(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("TURNING LEFT " + str(distance))
-    await
-    driver.reset_heading()
-    await
-    driver.turn_left_degrees(0, distance)
+    await driver.reset_heading()
+    await driver.turn_left_degrees(0, distance)
     print("DONE")
 
 
@@ -77,10 +71,8 @@ async def turn_right(instruction):
     global driver
     distance = search_for_int_in_string(instruction)
     print("TURNING RIGHT " + str(distance))
-    await
-    driver.reset_heading()
-    await
-    driver.turn_right_degrees(0, distance)
+    await driver.reset_heading()
+    await driver.turn_right_degrees(0, distance)
     print("DONE")
 
 
@@ -89,16 +81,14 @@ async def turn_on_lights(instruction):
     words = instruction.split(" ")
     color = words[len(words) - 1].lower()
     print("TURNING LIGHTS", color)
-    await
-    light_manager.set_all_leds_color(Colors[color])
+    await light_manager.set_all_leds_color(Colors[color])
     print("DONE")
 
 
 async def turn_off_lights():
     global light_manager
     print("TURNING LIGHTS OFF")
-    await
-    light_manager.turn_leds_off()
+    await light_manager.turn_leds_off()
     print("DONE")
 
 
@@ -106,75 +96,59 @@ async def process_instructions(message):
     instructions = message.split('and')
     for instruction in instructions:
         if "forward" in instruction:
-            await
-            move_forward(instruction)
+            await move_forward(instruction)
         elif "back" in instruction:
-            await
-            move_backward(instruction)
+            await move_backward(instruction)
         elif "left" in instruction:
-            await
-            turn_left(instruction)
+            await turn_left(instruction)
         elif "right" in instruction:
-            await
-            turn_right(instruction)
+            await turn_right(instruction)
         elif "lights" in instruction and "set" in instruction:
-            await
-            turn_on_lights(instruction)
+            await turn_on_lights(instruction)
         elif "lights" in instruction and "off" in instruction:
-            await
-            turn_off_lights()
+            await turn_off_lights()
 
 
 async def check_valid_instruction(instruction):
     if instruction == "":
         print("I'm sorry, I couldn't hear you. Please try again.\n")
-        await
-        light_manager.set_all_leds_color(Colors.red)
-        await
-        asyncio.sleep(.02)
+        await light_manager.set_all_leds_color(Colors.red)
+        await asyncio.sleep(.02)
     else:
         print("Processing instruction")
         instruction = t2d.convert(instruction)
-        await
-        light_manager.set_all_leds_color(Colors.green)
-        await
-        process_instructions(instruction)
+        await light_manager.set_all_leds_color(Colors.green)
+        await process_instructions(instruction)
 
 
 async def listen_for_trigger(message):
     global recorder
     global light_manager
     if "rover" in message.lower():
-        await
-        light_manager.set_all_leds_color(Colors.yellow)
+        await light_manager.set_all_leds_color(Colors.yellow)
         recorder.transcribe_stream_houndify()
         while len(instruction_queue) == 0:
-            await
-            asyncio.sleep(0.1)
+            await asyncio.sleep(0.1)
         print("Received transcription")
         instruction = instruction_queue[0]
         instruction_queue.clear()
-        await
-        check_valid_instruction(instruction)
+        await check_valid_instruction(instruction)
 
 
 async def main_with_trigger():
     global rvr
     global recorder
     global light_manager
-    await
-    rvr.wake()
+    await rvr.wake()
     while True:
         print("\nTranscribing the stream")
         recorder.transcribe_stream_houndify()
         while len(instruction_queue) == 0:
-            await
-            asyncio.sleep(0.1)
+            await asyncio.sleep(0.1)
         print("Received transcription")
         instruction = instruction_queue[0]
         instruction_queue.clear()
-        await
-        listen_for_trigger(instruction)
+        await listen_for_trigger(instruction)
 
 
 async def main_no_trigger():
@@ -182,21 +156,17 @@ async def main_no_trigger():
     global recorder
     global light_manager
     global instruction_queue
-    await
-    rvr.wake()
+    await rvr.wake()
     while True:
         print("\nTranscribing the stream")
         recorder.transcribe_stream_houndify()
         while len(instruction_queue) == 0:
-            await
-            asyncio.sleep(0.1)
+            await asyncio.sleep(0.1)
         print("Received transcription")
         instruction = instruction_queue[0]
         instruction_queue.clear()
-        await
-        check_valid_instruction(instruction)
-        await
-        asyncio.sleep(0.01)
+        await check_valid_instruction(instruction)
+        await asyncio.sleep(0.01)
         print("Going back to listening")
 
 
