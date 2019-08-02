@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-import asyncio
+import time
 
 
-# todo: once command queue is implemented, remove all asyncio.sleep(.5) calls after ir messages are sent
-class InfraredControlAsync:
-    """InfraredControlAsync is a class that serves as a helper for RVR's IR features by encapsulating complexities and
+# todo: once command queue is implemented, remove all time.sleep(.5) calls after ir messages are sent
+class InfraredControlObserver:
+    """InfraredControlObserver is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
 
     Args:
-        rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr with a reference to an event loop
+        rvr (ObserverSpheroRvr): Instance of an ObserverSpheroRvr
 
     Returns:
     """
@@ -22,7 +22,7 @@ class InfraredControlAsync:
 
         return
 
-    async def start_infrared_broadcasting(self, far_codes, near_codes):
+    def start_infrared_broadcasting(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code
 
         Args:
@@ -54,22 +54,22 @@ class InfraredControlAsync:
 
         zipped = zip(far_codes, near_codes)
         for code in zipped:
-            await self.__rvr.start_robot_to_robot_infrared_broadcasting(code[0].value, code[1].value)
-            await asyncio.sleep(.5)
+            self.__rvr.start_robot_to_robot_infrared_broadcasting(code[0].value, code[1].value)
+            time.sleep(.5)
 
         return
 
-    async def stop_infrared_broadcasting(self):
+    def stop_infrared_broadcasting(self):
         """Calls stop_robot_to_robot_infrared_broadcasting()
 
         Returns:
         """
 
-        await self.__rvr.stop_robot_to_robot_infrared_broadcasting()
+        self.__rvr.stop_robot_to_robot_infrared_broadcasting()
 
         return
 
-    async def start_infrared_following(self, far_codes, near_codes):
+    def start_infrared_following(self, far_codes, near_codes):
         """Loops through lists of enums and broadcasts each IR code for following
 
         Args:
@@ -101,22 +101,22 @@ class InfraredControlAsync:
 
         zipped = zip(far_codes, near_codes)
         for code in zipped:
-            await self.__rvr.start_robot_to_robot_infrared_following(code[0].value, code[1].value)
-            await asyncio.sleep(.5)
+            self.__rvr.start_robot_to_robot_infrared_following(code[0].value, code[1].value)
+            time.sleep(.5)
 
         return
 
-    async def stop_infrared_following(self):
+    def stop_infrared_following(self):
         """Calls stop_robot_to_robot_infrared_following()
 
         Returns:
         """
 
-        await self.__rvr.stop_robot_to_robot_infrared_following()
+        self.__rvr.stop_robot_to_robot_infrared_following()
 
         return
 
-    async def send_infrared_message(self, messages, strength=0):
+    def send_infrared_message(self, messages, strength=0):
         """Sends a single IR message for each element in the messages list
 
         Args:
@@ -142,7 +142,7 @@ class InfraredControlAsync:
             return
 
         for message in messages:
-            await self.__rvr.send_robot_to_robot_infrared_message(
+            self.__rvr.send_robot_to_robot_infrared_message(
                 message.value,
                 strength,
                 strength,
@@ -152,35 +152,15 @@ class InfraredControlAsync:
 
         return
 
-    async def listen_for_infrared_message(self, handler, enable=True):
+    def listen_for_infrared_message(self, enable=True):
         """Listens for infrared messages on all channels
 
         Args:
             enable (bool): True to enable listening async; False to disable
-            handler (func): Reference to message notification callback function -
-                            requires one parameter called "infraredCode"
-                            Ex. 'async def message_received_handler(infraredCode):'
+
         Returns:
         """
 
-        if callable(handler):
-
-            pass
-        else:
-            print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
-
-            return
-
-        if enable:
-            asyncio.ensure_future(
-                await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
-                    handler=handler
-                )
-            )
-        else:
-            pass    # TODO: remove existing future / handler?
-
-        await self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
+        self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
 
         return
-
