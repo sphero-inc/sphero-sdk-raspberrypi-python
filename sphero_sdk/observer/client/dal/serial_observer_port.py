@@ -10,6 +10,13 @@ logger = logging.getLogger(__name__)
 
 class SerialObserverPort:
     def __init__(self, parser, port='/dev/ttyS0', baud=115200):
+        """SerialObserverPort is responsible opening, writing, and reading bytes coming from the UART port.
+
+        Args:
+            parser (ObserverParser): Used to parse bytes read from the port.
+            port (str): Port address.
+            baud (int): Baud rate.
+        """
         self.__parser = parser
         self.__ser = Serial(port, baud)
         self.__running = True
@@ -18,6 +25,9 @@ class SerialObserverPort:
         self.__serial_thread.start()
 
     def close(self):
+        """Closes the port and joins the thread managing reading and writing.
+
+        """
         logger.info("read/write thread joining.")
         self.__running = False
         self.__serial_thread.join()
@@ -25,6 +35,12 @@ class SerialObserverPort:
         self.__ser.close()
 
     def send(self, message):
+        """Enqueues a Message instance which will be serialized and written to the port at a later time.
+
+        Args:
+            message (Message): Instance of a Message object
+
+        """
         self.__write_queue.put(message.serialise())
 
     def __serial_rw(self):

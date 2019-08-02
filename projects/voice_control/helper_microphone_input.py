@@ -46,8 +46,6 @@ class Recorder:
         threshold and stopping them when the volume drops below that threshold. Recordings are saved as .wav files in
         the default location at the top of the script.
 
-        Returns:
-
         """
         print('Listening')
         while True:
@@ -61,8 +59,6 @@ class Recorder:
         """listen_once starts a recording when the volume exceeds a certain level and stops the recording when the
         volume dips below that threshold. Recordings are saved as .wav files in the default location at the top of the
         script.
-
-        Returns:
 
         """
         keep_listening = True
@@ -78,8 +74,6 @@ class Recorder:
     def transcribe_file_houndify(self):
         """transcribe_file_houndify uses the Houndify service to transcribe an audio recording file.
 
-        Returns:
-
         """
         self.listen_once()
         return self.__houndify_client.transcribe_file(f_name_directory + '/' + f_name)
@@ -87,8 +81,6 @@ class Recorder:
     def transcribe_stream_houndify(self):
         """transcribe_stream_houndify uses the Houndify service to transcribe a stream of audio straight from a
         microphone
-
-        Returns:
 
         """
         return self.__houndify_client.transcribe_stream(self.__stream)
