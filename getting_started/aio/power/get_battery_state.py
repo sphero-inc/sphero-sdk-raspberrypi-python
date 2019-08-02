@@ -16,14 +16,11 @@ async def main():
     """ This program demonstrates how to retrieve the battery state of RVR and print it to the console.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    battery_percentage = await
-    rvr.get_battery_percentage()
+    battery_percentage = await rvr.get_battery_percentage()
 
-    battery_voltage_state = await
-    rvr.get_battery_voltage_state()
+    battery_voltage_state = await rvr.get_battery_voltage_state()
 
     print("Current battery percentage: ", battery_percentage[0], "%")
 

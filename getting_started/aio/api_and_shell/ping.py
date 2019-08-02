@@ -17,11 +17,9 @@ async def main():
         the same data. Echo can be used to check to see if RVR is connected and awake.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    response = await
-    rvr.echo(255, 1)
+    response = await rvr.echo(255, 1)
     print(response)
 
 

@@ -25,20 +25,15 @@ async def main():
     Place your other robot behind RVR and run its script.
     Upon running this program RVR drives forward and the other robot follows it.
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Broadcast infrared codes 0 and 1
-    await
-    rvr.start_robot_to_robot_infrared_broadcasting(0, 1)
+    await rvr.start_robot_to_robot_infrared_broadcasting(0, 1)
 
-    await
-    rvr.raw_motors(1, 64, 1, 64)
-    await
-    asyncio.sleep(3)
+    await rvr.raw_motors(1, 64, 1, 64)
+    await asyncio.sleep(3)
 
-    await
-    rvr.stop_robot_to_robot_infrared_broadcasting()
+    await rvr.stop_robot_to_robot_infrared_broadcasting()
 
 
 try:

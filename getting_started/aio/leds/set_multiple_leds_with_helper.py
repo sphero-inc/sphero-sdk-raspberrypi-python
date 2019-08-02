@@ -24,32 +24,24 @@ async def main():
     """ This program demonstrates how to set multiple LEDs on RVR using the controller LedControlAsync.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Give RVR time to wake up
-    await
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
 
     # Turn off all lights
-    await
-    led_controller.turn_leds_off()
-    await
-    asyncio.sleep(0.5)
+    await led_controller.turn_leds_off()
+    await asyncio.sleep(0.5)
 
     # Set headlights to colors green and blue respectively using Colors enumeration
-    await
-    led_controller.set_multiple_leds_color(
+    await led_controller.set_multiple_leds_color(
         [RvrLedGroups.headlight_left, RvrLedGroups.headlight_right], [Colors.green, Colors.blue])
-    await
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
 
     # Set headlights to colors green and blue respectively using RGB list
-    await
-    led_controller.set_multiple_leds_colors(
+    await led_controller.set_multiple_leds_colors(
         [RvrLedGroups.headlight_left, RvrLedGroups.headlight_right], [255, 0, 0, 0, 255, 0])
-    await
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
 
 
 # Run program loop until the main function has completed

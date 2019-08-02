@@ -24,36 +24,26 @@ async def main():
     defined in LedControlAsync.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Give RVR time to wake up
-    await
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
 
     # Turn off all lights
-    await
-    led_controller.turn_leds_off()
-    await
-    asyncio.sleep(0.5)
+    await led_controller.turn_leds_off()
+    await asyncio.sleep(0.5)
 
     # Set all lights to yellow using Colors enumeration
-    await
-    led_controller.set_all_leds_color(Colors.yellow)
-    await
-    asyncio.sleep(1)
+    await led_controller.set_all_leds_color(Colors.yellow)
+    await asyncio.sleep(1)
 
     # Turn off all lights
-    await
-    led_controller.turn_leds_off()
-    await
-    asyncio.sleep(0.5)
+    await led_controller.turn_leds_off()
+    await asyncio.sleep(0.5)
 
     # Set all lights to yellow using RGB values
-    await
-    led_controller.set_all_leds_rgb(255, 144, 0)
-    await
-    asyncio.sleep(1)
+    await led_controller.set_all_leds_rgb(255, 144, 0)
+    await asyncio.sleep(1)
 
 
 # Run program loop until the main function has completed

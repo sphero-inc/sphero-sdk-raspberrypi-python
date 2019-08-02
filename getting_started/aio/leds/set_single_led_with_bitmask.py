@@ -20,36 +20,28 @@ async def main():
     """ This program demonstrates how to set a single LEDs of RVR with one function call to set_all_leds_with_32_bit_mask.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Give RVR time to wake up
-    await
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
 
     # Turn off all lights
-    await
-    rvr.set_all_leds_with_32_bit_mask(
+    await rvr.set_all_leds_with_32_bit_mask(
         RvrLedGroups.all_lights.value, [color for _ in range(10) for color in Colors.off.value]
     )
-    await
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
 
     # Set right headlight to red
     led_group_bitmask = RvrLedGroups.headlight_right.value  # 0xe00
 
-    await
-    rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [255, 0, 0])
-    await
-    asyncio.sleep(1)
+    await rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [255, 0, 0])
+    await asyncio.sleep(1)
 
     # Set left headlight to green
     led_group_bitmask = RvrLedGroups.headlight_left.value  # 0x1c0
 
-    await
-    rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [0, 255, 0])
-    await
-    asyncio.sleep(1)
+    await rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [0, 255, 0])
+    await asyncio.sleep(1)
 
 
 # Run program loop until the main function has completed

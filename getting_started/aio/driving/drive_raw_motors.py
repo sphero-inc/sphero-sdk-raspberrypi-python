@@ -23,36 +23,26 @@ async def main():
         To give RVR time to drive, we call asyncio.sleep(...); if we did not have these calls, the program would 
         go on and execute all the statements and exit without the driving ever taking place. 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Drive straight for one second at speed 128
-    await
-    rvr.raw_motors(1, 128, 1, 128)
-    await
-    asyncio.sleep(1)
+    await rvr.raw_motors(1, 128, 1, 128)
+    await asyncio.sleep(1)
 
     # Drive backwards for one second at speed 64
-    await
-    rvr.raw_motors(2, 64, 2, 64)
-    await
-    asyncio.sleep(1)
+    await rvr.raw_motors(2, 64, 2, 64)
+    await asyncio.sleep(1)
 
     # Turn right
-    await
-    rvr.raw_motors(2, 128, 1, 128)
-    await
-    asyncio.sleep(1)
+    await rvr.raw_motors(2, 128, 1, 128)
+    await asyncio.sleep(1)
 
     # Drive forward for 1 second at speed 128
-    await
-    rvr.raw_motors(1, 128, 1, 128)
-    await
-    asyncio.sleep(1)
+    await rvr.raw_motors(1, 128, 1, 128)
+    await asyncio.sleep(1)
 
     # Stop RVR
-    await
-    rvr.raw_motors(0, 0, 0, 0)
+    await rvr.raw_motors(0, 0, 0, 0)
 
 
 # Run event loop until the main function has completed

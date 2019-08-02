@@ -26,32 +26,25 @@ async def main():
             To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
             go on and execute all statements and exit without the driving ever taking place.
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Set aiming lights
-    await
-    driver.aim_start()
+    await driver.aim_start()
 
     # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
-    await
-    driver.reset_heading()
+    await driver.reset_heading()
 
     # Drive forward at speed 64 for one second
-    await
-    driver.drive_forward_seconds(64, 0, 1)
+    await driver.drive_forward_seconds(64, 0, 1)
 
     # Drive backwards at speed 64 for one second
-    await
-    driver.drive_backward_seconds(64, 0, 1)
+    await driver.drive_backward_seconds(64, 0, 1)
 
     # Turn left
-    await
-    driver.turn_left_degrees(0, 90)
+    await driver.turn_left_degrees(0, 90)
 
     # Turn of aiming lights
-    await
-    driver.aim_stop()
+    await driver.aim_stop()
 
 
 # Run event loop until the main function has completed

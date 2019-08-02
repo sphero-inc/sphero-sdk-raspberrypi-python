@@ -30,18 +30,14 @@ async def main():
         Note that these notifications are received without the need to enable them on the robot.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    await
-    rvr.on_will_sleep_notify(on_about_to_enter_soft_sleep)
+    await rvr.on_will_sleep_notify(on_about_to_enter_soft_sleep)
 
-    await
-    rvr.on_did_sleep_notify(on_entered_soft_sleep)
+    await rvr.on_did_sleep_notify(on_entered_soft_sleep)
 
     # Sleep for 5 minutes such that we see the aforementioned events have time to occur
-    await
-    asyncio.sleep(300)
+    await asyncio.sleep(300)
 
 
 loop.run_until_complete(

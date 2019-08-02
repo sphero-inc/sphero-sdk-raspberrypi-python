@@ -25,12 +25,10 @@ async def main():
     """ This program does... TODO
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     while True:
-        reading = await
-        rvr.get_bot_to_bot_infrared_readings()
+        reading = await rvr.get_bot_to_bot_infrared_readings()
         print(reading)
 
 

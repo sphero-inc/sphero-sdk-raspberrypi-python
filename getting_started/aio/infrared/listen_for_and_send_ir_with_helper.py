@@ -32,16 +32,13 @@ async def main():
        To try this out, write a script for your other robot that a) broadcasts on any channel and b) listens on the
        channel which RVR sends messages on [in this case channel 0, 1, 2, and 3]
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    await
-    infrared_controller.listen_for_infrared_message(on_ir_message_received)
+    await infrared_controller.listen_for_infrared_message(on_ir_message_received)
 
     while True:
         codes = [InfraredCodes.alpha, InfraredCodes.bravo, InfraredCodes.charlie, InfraredCodes.delta]
-        await
-        infrared_controller.send_infrared_message(codes, strength=64)
+        await infrared_controller.send_infrared_message(codes, strength=64)
         for code in codes:
             print("message sent with code {}".format(code.value))
         asyncio.sleep(0.2)
