@@ -1,12 +1,14 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 import cv2
 import time 
 import math 
 import numpy as np 
-import sys, os
-sys.path.append('/home/pi/raspberry-pi') # Append file path to directory that contains spheroboros
-import asyncio 
-from spheroboros import AsyncSpheroRvr 
-from spheroboros import SerialAsyncDal 
+import asyncio
+from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SerialAsyncDal
 from picamera.array import PiRGBArray 
 from picamera import PiCamera
 

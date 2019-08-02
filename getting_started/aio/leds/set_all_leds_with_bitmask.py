@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
@@ -20,26 +24,21 @@ async def main():
     """ This program demonstrates how to set the all the LEDs of RVR with one function call to set_all_leds_with_32_bit_mask.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Give RVR time to wake up
-    await
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
 
     # Turn off all lights
-    await
-    rvr.set_all_leds_with_32_bit_mask(
+    await rvr.set_all_leds_with_32_bit_mask(
         RvrLedGroups.all_lights.value, [color for _ in range(10) for color in Colors.off.value]
     )
-    await
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
 
     # Turn all lights to green
     led_group_bitmask = RvrLedGroups.all_lights.value  # 0x3fffffff
 
-    await
-    rvr.set_all_leds_with_32_bit_mask(
+    await rvr.set_all_leds_with_32_bit_mask(
         led_group_bitmask, [color for x in range(10) for color in [0, 255, 0]]
     )
 

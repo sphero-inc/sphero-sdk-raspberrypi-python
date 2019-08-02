@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
@@ -21,14 +25,11 @@ async def main():
         a handler for such notifications.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    await
-    rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
+    await rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
-    await
-    rvr.on_battery_voltage_state_change_notify(on_battery_voltage_state_change)
+    await rvr.on_battery_voltage_state_change_notify(on_battery_voltage_state_change)
 
 
 loop.run_until_complete(

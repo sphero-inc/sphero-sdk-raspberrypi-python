@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import time
 
 import asyncio
@@ -26,24 +30,19 @@ async def main():
 
     """
     # Wake up RVR
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Give RVR time to wake up
-    await
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
 
     # Register handler to be called when message is received
-    await
-    rvr.on_color_detection_notify(handler=on_color_detected)
+    await rvr.on_color_detection_notify(handler=on_color_detected)
 
-    await
-    rvr.enable_color_detection(enable=True)
+    await rvr.enable_color_detection(enable=True)
 
     # Color detection is reported at 100 ms intervals. Handler is called only if color is detected with
     # confidence level  0 or above
-    await
-    rvr.enable_color_detection_notification(enable=True, interval=100, minimum_confidence_threshold=0)
+    await rvr.enable_color_detection_notification(enable=True, interval=100, minimum_confidence_threshold=0)
 
 
 try:

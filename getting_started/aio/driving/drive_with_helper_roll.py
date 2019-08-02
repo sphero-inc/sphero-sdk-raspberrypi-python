@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
@@ -26,22 +30,17 @@ async def main():
             To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
             go on and execute all statements and exit without the driving ever taking place.
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
-    await
-    driver.reset_heading()
+    await driver.reset_heading()
 
     # Turn right degrees and drive for 1.5 seconds
-    await
-    driver.roll_start(64, 90)
-    await
-    asyncio.sleep(1.5)
+    await driver.roll_start(64, 90)
+    await asyncio.sleep(1.5)
 
     # Turn left (relative to original heading) and stop
-    await
-    driver.roll_stop(270)
+    await driver.roll_stop(270)
 
 
 # Run event loop until the main function has completed

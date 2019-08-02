@@ -1,5 +1,9 @@
 # NOTE: when rvr.listen_for_robot_to_robot_infrared_message is called, all channels are listen at regardless of
 # infrared code passed
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import time
 
 import asyncio
@@ -30,29 +34,24 @@ async def main():
     RVR sends messages on [in this case channel 3]
     """
 
-    await
-    rvr.wake()
+    await rvr.wake()
 
     # Register handler to be called when message is received
-    await
-    rvr.on_robot_to_robot_infrared_message_received_notify(handler=on_ir_message_received)
+    await rvr.on_robot_to_robot_infrared_message_received_notify(handler=on_ir_message_received)
 
     # Listen for messages at channel 0 for the maximum amount of time possible
     # Note: The channel is given as a bit mask
     # In this case, we want to listen to channel 0, so the first bit is set to 1
     infrared_code = 0x01
     listen_duration = 0xffffffff
-    await
-    rvr.listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration)
+    await rvr.listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration)
 
     # Send infrared message with code 3 at maximum strength from the front, rear, left and right sensor respectively
     infrared_code = 3
     strength = 64
     while True:
-        await
-        rvr.send_robot_to_robot_infrared_message(infrared_code, strength, strength, strength, strength)
-        await
-        asyncio.sleep(0.2)
+        await rvr.send_robot_to_robot_infrared_message(infrared_code, strength, strength, strength, strength)
+        await asyncio.sleep(0.2)
 
 
 try:

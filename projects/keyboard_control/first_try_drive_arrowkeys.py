@@ -1,8 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 import asyncio
 
 from projects.keyboard_control import KeyboardHelper
-from sphero_sdk.aio.client.dal.serial_async_dal import SerialAsyncDal
-from sphero_sdk.aio.client.toys.async_sphero_rvr import AsyncSpheroRvr
+from sphero_sdk import SerialAsyncDal
+from sphero_sdk import AsyncSpheroRvr
 
 # initialize global variables
 key_helper = KeyboardHelper()

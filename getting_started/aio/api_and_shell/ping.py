@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
@@ -17,11 +21,9 @@ async def main():
         the same data. Echo can be used to check to see if RVR is connected and awake.
 
     """
-    await
-    rvr.wake()
+    await rvr.wake()
 
-    response = await
-    rvr.echo(255, 1)
+    response = await rvr.echo(255, 1)
     print(response)
 
 
