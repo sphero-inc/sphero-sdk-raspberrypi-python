@@ -16,11 +16,8 @@ led_controller = LedControlObserver(rvr)
 
 
 def main():
-    """ This program has RVR drive around in different directions using raw motors.
-
-    Note:
-        To give RVR time to drive, we call time.sleep(...); if we did not have these calls, the program would
-        go on and execute all the statements and exit without the driving ever taking place.
+    """ This program demonstrates how to set a single LED on RVR using the controller LedControlObserver.
+    
     """
 
     rvr.wake()
