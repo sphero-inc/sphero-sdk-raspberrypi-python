@@ -46,7 +46,7 @@ class HoundifyHelper:
 
     def __init__(self, instruction_queue):
         self.audio = None
-        self.client_streaming = houndify.StreamingHoundClient(CLIENT_ID, CLIENT_KEY, "connor", useSpeex=True, enableVAD=True, requestInfo=request_info)
+        self.client_streaming = houndify.StreamingHoundClient(CLIENT_ID, CLIENT_KEY, "connor", enableVAD=True, requestInfo=request_info)
         self.client_file = houndify.StreamingHoundClient(CLIENT_ID, CLIENT_KEY, "test_user", enableVAD=False)
 
         self.listener = MyListener(instruction_queue)
