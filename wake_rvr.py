@@ -1,11 +1,10 @@
 import sys
-sys.path.append('/home/pi/raspberry-pi')
 
 import asyncio
-import spheroboros
+import sphero_sdk 
 
-from spheroboros import AsyncSpheroRvr
-from spheroboros import SerialAsyncDal
+from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SerialAsyncDal
 
 loop = asyncio.get_event_loop()
 
