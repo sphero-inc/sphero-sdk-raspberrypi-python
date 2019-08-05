@@ -14,7 +14,7 @@ driver = DriveControlObserver(rvr)
 
 
 def main():
-    """ This program has RVR drive around in different directions using raw motors.
+    """ This program has RVR drive with roll, using the helper functions defined in DriveControlObserver.
 
     Note:
         To give RVR time to drive, we call time.sleep(...); if we did not have these calls, the program would
