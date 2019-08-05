@@ -10,7 +10,7 @@ rvr = ObserverSpheroRvr()
 
 
 def handler(**kwargs):
-    print(kwargs)
+    print(kwargs['data'])
 
 
 def main():
