@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 import asyncio
 from text2digits import text2digits
 
-from projects import Recorder
+from projects.voice_control.helper_microphone_input import Recorder
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
 from sphero_sdk.aio.controls.drive_control_async import DriveControlAsync
@@ -174,7 +174,10 @@ if __name__ == "__main__":
     try:
         loop.run_until_complete(
             asyncio.gather(
-                main_no_trigger()
+                # just say 'move' or 'set'
+                # main_no_trigger()
+                # say 'hey rvr'
+                main_with_trigger()
             )
         )
     except KeyboardInterrupt:

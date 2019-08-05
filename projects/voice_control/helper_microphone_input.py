@@ -4,16 +4,7 @@ import struct
 import wave
 import time
 import os
-from projects import HoundifyHelper
-import math
-import os
-import struct
-import time
-import wave
-
-import pyaudio
-
-from projects import HoundifyHelper
+from projects.voice_control.helper_houndify import HoundifyHelper
 
 Threshold = 10
 short_normalize = (1.0 / 32768.0)
