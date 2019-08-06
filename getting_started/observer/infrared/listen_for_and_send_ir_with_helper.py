@@ -35,8 +35,7 @@ def main():
     for _ in range(20):
         codes = [InfraredCodes.alpha, InfraredCodes.bravo, InfraredCodes.charlie, InfraredCodes.delta]
         infrared_controller.send_infrared_message(codes, strength=64)
-        for code in codes:
-            print("message sent with code {}".format(code.value))
+        print("message sent with codes {}".format([code.value for code in codes]))
         time.sleep(0.2)
 
     rvr.close()
