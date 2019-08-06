@@ -1,5 +1,6 @@
-import pkgutil
-pkgutil.extend_path(__path__, __name__)
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 from sphero_sdk.aio.client.toys.async_sphero_rvr import AsyncSpheroRvr
 from sphero_sdk.aio.client.dal.serial_async_dal import SerialAsyncDal
