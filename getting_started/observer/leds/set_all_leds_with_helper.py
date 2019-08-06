@@ -16,7 +16,7 @@ led_controller = LedControlObserver(rvr)
 
 
 def main():
-     """ This program demonstrates how to set the all the LEDs of RVR using the helper function
+    """ This program demonstrates how to set the all the LEDs of RVR using the helper function
     defined in LedControlObserver.
 
     """
