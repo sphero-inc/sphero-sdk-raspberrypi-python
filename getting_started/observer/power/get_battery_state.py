@@ -9,14 +9,14 @@ from sphero_sdk import ObserverSpheroRvr
 rvr = ObserverSpheroRvr()
 
 
-def on_battery_percentage_info(**kwargs):
-    print("Current battery percentage: ", kwargs["percentage"], "%")
+def on_battery_percentage_info(percentage):
+    print("Current battery percentage: ", percentage, "%")
 
 
-def on_battery_volt_state_info(**kwargs):
+def on_battery_volt_state_info(state):
     state_info = {0: "unknown", 1: "OK", 2: "low", 3: "critical"}
     print("Voltage states: ", state_info)
-    print("Current voltage state: ", kwargs["state"])
+    print("Current voltage state: ", state)
 
 
 def main():

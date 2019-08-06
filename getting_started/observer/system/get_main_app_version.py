@@ -8,16 +8,22 @@ from sphero_sdk import ObserverSpheroRvr
 rvr = ObserverSpheroRvr()
 
 
-def handler(major, minor, revision):
+def handler1(major, minor, revision):
     print('{} {}.{}.{}'.format("Nordic", major, minor, revision))
 
 
+def handler2(major, minor, revision):
+    print('{} {}.{}.{}'.format("ST", major, minor, revision))
+
+
 def main():
-    rvr.get_main_application_version(handler, target=1)
+    rvr.get_main_application_version(handler1, target=1)
 
-    rvr.get_main_application_version(handler, target=2)
+    time.sleep(0.5)
 
-    time.sleep(2)
+    rvr.get_main_application_version(handler2, target=2)
+
+    time.sleep(0.5)
 
     rvr.close()
 
