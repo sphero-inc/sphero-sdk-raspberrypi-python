@@ -94,7 +94,7 @@ async def main():
                 print('turning left')
             await rvr.reset_yaw()
         elif dist_l >= 35 and dist_r >= 35:
-            await rvr.drive_with_heading(128,0,0)
+            await rvr.drive_with_heading(90,0,0)
 
 try:
     loop.run_until_complete(
