@@ -16,10 +16,10 @@ rvr = AsyncSpheroRvr(
 )
 GPIO.setmode(GPIO.BCM)
 
-right_trigger = 18
-right_echo = 24
-left_trigger = 17
-left_echo = 27
+right_trigger = 20
+right_echo = 21
+left_trigger = 23
+left_echo = 24
 
 GPIO.setup(left_trigger, GPIO.OUT)
 GPIO.setup(left_echo, GPIO.IN)
@@ -93,7 +93,7 @@ async def main():
                 print('turning left')
             await rvr.reset_yaw()
         elif dist_l >= 35 and dist_r >= 35:
-            await rvr.drive_with_heading(80,0,0)
+            await rvr.drive_with_heading(128,0,0)
 
 try:
     loop.run_until_complete(
