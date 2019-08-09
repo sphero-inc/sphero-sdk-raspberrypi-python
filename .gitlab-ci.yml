@@ -28,7 +28,7 @@ pylint:
     stage: linting
     allow_failure: false
     script: pylint --disable=R,C,W spheroboros/*.py
-
+# TODO: change spheroboros to sphero_sdk
 pytest:
     stage: test
     script:
