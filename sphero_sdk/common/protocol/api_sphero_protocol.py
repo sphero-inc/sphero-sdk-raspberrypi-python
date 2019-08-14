@@ -99,3 +99,10 @@ class Unpack:
     @staticmethod
     def bool8(buf):
         return struct.unpack('>?', buf[:1])[0]
+
+    @staticmethod
+    def string(buf):
+        size = len(buf)
+        fmt = '{}s'.format(size)
+        string_bytes = struct.unpack(fmt, buf[:size])[0]
+        return string_bytes.decode('utf-8')

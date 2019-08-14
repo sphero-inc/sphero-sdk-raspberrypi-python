@@ -280,6 +280,9 @@ class Message(SpheroMessageBase):
             size = 1
         elif type_string == "std::string":
             unpacker = Unpack.string
+            # size of a variable length string is unknown.
+            # setting size equal to length of self._body
+            size = len(self._body)
         else:
             raise AttributeError
 
