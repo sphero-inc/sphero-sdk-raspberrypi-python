@@ -3,21 +3,21 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          07/02/2019 @ 22:49:01.161660 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.070378 (UTC)
 
 from sphero_sdk.common.enums.power_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
 
 
-def enter_deep_sleep(seconds_until_deep_sleep, target, timeout):
-    return {
+def enter_deep_sleep(seconds_until_deep_sleep, target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enter_deep_sleep,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='secondsUntilDeepSleep',
                 data_type='uint8_t',
                 index=0,
@@ -28,8 +28,8 @@ def enter_deep_sleep(seconds_until_deep_sleep, target, timeout):
     }
 
 
-def enter_soft_sleep(target, timeout):
-    return {
+def enter_soft_sleep(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enter_soft_sleep,
         'target': target,
@@ -37,8 +37,8 @@ def enter_soft_sleep(target, timeout):
     }
 
 
-def wake(target, timeout):
-    return {
+def wake(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.wake,
         'target': target,
@@ -46,14 +46,14 @@ def wake(target, timeout):
     }
 
 
-def get_battery_percentage(target, timeout):
-    return {
+def get_battery_percentage(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_percentage,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='percentage',
                 data_type='uint8_t',
                 index=0,
@@ -63,14 +63,14 @@ def get_battery_percentage(target, timeout):
     }
 
 
-def get_battery_voltage_state(target, timeout):
-    return {
+def get_battery_voltage_state(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_voltage_state,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='state',
                 data_type='uint8_t',
                 index=0,
@@ -80,8 +80,8 @@ def get_battery_voltage_state(target, timeout):
     }
 
 
-def on_will_sleep_notify(target, timeout):
-    return {
+def on_will_sleep_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.will_sleep_notify,
         'target': target,
@@ -89,8 +89,8 @@ def on_will_sleep_notify(target, timeout):
     }
 
 
-def on_did_sleep_notify(target, timeout):
-    return {
+def on_did_sleep_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.did_sleep_notify,
         'target': target,
@@ -98,14 +98,14 @@ def on_did_sleep_notify(target, timeout):
     }
 
 
-def enable_battery_voltage_state_change_notify(is_enabled, target, timeout):
-    return {
+def enable_battery_voltage_state_change_notify(is_enabled, target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enable_battery_voltage_state_change_notify,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='isEnabled',
                 data_type='bool',
                 index=0,
@@ -116,16 +116,97 @@ def enable_battery_voltage_state_change_notify(is_enabled, target, timeout):
     }
 
 
-def on_battery_voltage_state_change_notify(target, timeout):
-    return {
+def on_battery_voltage_state_change_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.battery_voltage_state_change_notify,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='state',
                 data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_battery_voltage_in_volts(reading_type, target, timeout): 
+    return { 
+        'did': DevicesEnum.power,
+        'cid': CommandsEnum.get_battery_voltage_in_volts,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='readingType',
+                data_type='uint8_t',
+                index=0,
+                value=reading_type,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='voltage',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_battery_voltage_state_thresholds(target, timeout): 
+    return { 
+        'did': DevicesEnum.power,
+        'cid': CommandsEnum.get_battery_voltage_state_thresholds,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='criticalThreshold',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='lowThreshold',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='hysteresis',
+                data_type='float',
+                index=2,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_current_sense_amplifier_current(amplifier_id, target, timeout): 
+    return { 
+        'did': DevicesEnum.power,
+        'cid': CommandsEnum.get_current_sense_amplifier_current,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='amplifierId',
+                data_type='uint8_t',
+                index=0,
+                value=amplifier_id,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='amplifierCurrent',
+                data_type='float',
                 index=0,
                 size=1,
             ),

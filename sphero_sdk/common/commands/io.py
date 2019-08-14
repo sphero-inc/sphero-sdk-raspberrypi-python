@@ -3,28 +3,53 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          07/02/2019 @ 22:49:01.157849 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.064649 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
 
 
-def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, timeout):
-    return {
+def set_all_leds_with_16_bit_mask(led_group, led_brightness_values, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.set_all_leds_with_16_bit_mask,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='ledGroup',
+                data_type='uint16_t',
+                index=0,
+                value=led_group,
+                size=1
+            ),
+            Parameter( 
+                name='ledBrightnessValues',
+                data_type='uint8_t',
+                index=1,
+                value=led_brightness_values,
+                size=16
+            ),
+        ],
+    }
+
+
+def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, timeout): 
+    return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_all_leds_with_32_bit_mask,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='ledGroup',
                 data_type='uint32_t',
                 index=0,
                 value=led_group,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='ledBrightnessValues',
                 data_type='uint8_t',
                 index=1,
@@ -35,33 +60,292 @@ def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, time
     }
 
 
-def enable_usb_connection_notification(enable, target, timeout):
-    return {
+def set_all_leds_with_64_bit_mask(led_group, led_brightness_values, target, timeout): 
+    return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.enable_usb_connection_notification,
+        'cid': CommandsEnum.set_all_leds_with_64_bit_mask,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='enable',
-                data_type='bool',
+        'inputs': [ 
+            Parameter( 
+                name='ledGroup',
+                data_type='uint64_t',
                 index=0,
-                value=enable,
+                value=led_group,
+                size=1
+            ),
+            Parameter( 
+                name='ledBrightnessValues',
+                data_type='uint8_t',
+                index=1,
+                value=led_brightness_values,
+                size=64
+            ),
+        ],
+    }
+
+
+def set_all_leds_with_8_bit_mask(led_group, led_brightness_values, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.set_all_leds_with_8_bit_mask,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='ledGroup',
+                data_type='uint8_t',
+                index=0,
+                value=led_group,
+                size=1
+            ),
+            Parameter( 
+                name='ledBrightnessValues',
+                data_type='uint8_t',
+                index=1,
+                value=led_brightness_values,
+                size=8
+            ),
+        ],
+    }
+
+
+def set_led_matrix_one_color(red, green, blue, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.set_led_matrix_one_color,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='red',
+                data_type='uint8_t',
+                index=0,
+                value=red,
+                size=1
+            ),
+            Parameter( 
+                name='green',
+                data_type='uint8_t',
+                index=1,
+                value=green,
+                size=1
+            ),
+            Parameter( 
+                name='blue',
+                data_type='uint8_t',
+                index=2,
+                value=blue,
                 size=1
             ),
         ],
     }
 
 
-def on_usb_connection_status_notify(target, timeout):
-    return {
+def save_led_matrix_animation_frame(frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, target, timeout): 
+    return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.usb_connection_status_notify,
+        'cid': CommandsEnum.save_led_matrix_animation_frame,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='usbConnectionStatus',
+        'inputs': [ 
+            Parameter( 
+                name='frameIndex',
+                data_type='uint16_t',
+                index=0,
+                value=frame_index,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit0',
+                data_type='uint64_t',
+                index=1,
+                value=color_index_bit_0,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit1',
+                data_type='uint64_t',
+                index=2,
+                value=color_index_bit_1,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit2',
+                data_type='uint64_t',
+                index=3,
+                value=color_index_bit_2,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit3',
+                data_type='uint64_t',
+                index=4,
+                value=color_index_bit_3,
+                size=1
+            ),
+        ],
+    }
+
+
+def save_led_matrix_animation(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.save_led_matrix_animation,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='animationIndex',
+                data_type='uint8_t',
+                index=0,
+                value=animation_index,
+                size=1
+            ),
+            Parameter( 
+                name='speedFps',
+                data_type='uint8_t',
+                index=1,
+                value=speed_fps,
+                size=1
+            ),
+            Parameter( 
+                name='isFadeEnabled',
+                data_type='bool',
+                index=2,
+                value=is_fade_enabled,
+                size=1
+            ),
+            Parameter( 
+                name='paletteColorCount',
+                data_type='uint8_t',
+                index=3,
+                value=palette_color_count,
+                size=1
+            ),
+            Parameter( 
+                name='paletteRgbValues',
+                data_type='uint8_t',
+                index=4,
+                value=palette_rgb_values,
+                size=48
+            ),
+            Parameter( 
+                name='frameCount',
+                data_type='uint16_t',
+                index=5,
+                value=frame_count,
+                size=1
+            ),
+            Parameter( 
+                name='frameIndexes',
+                data_type='uint16_t',
+                index=6,
+                value=frame_indexes,
+                size=600
+            ),
+        ],
+    }
+
+
+def play_led_matrix_animation(animation_index, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.play_led_matrix_animation,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='animationIndex',
+                data_type='uint8_t',
+                index=0,
+                value=animation_index,
+                size=1
+            ),
+        ],
+    }
+
+
+def play_led_matrix_animation_frame(frame_index, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.play_led_matrix_animation_frame,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='frameIndex',
+                data_type='uint16_t',
+                index=0,
+                value=frame_index,
+                size=1
+            ),
+        ],
+    }
+
+
+def get_led_matrix_animation_frames(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.get_led_matrix_animation_frames,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='frameIndexes',
+                data_type='uint16_t',
+                index=0,
+                size=1000,
+            ),
+        ]
+    }
+
+
+def delete_led_matrix_animations_and_frames(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.delete_led_matrix_animations_and_frames,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def pause_led_matrix(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.pause_led_matrix,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def resume_led_matrix(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.resume_led_matrix,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def reset_led_matrix(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.reset_led_matrix,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def on_led_matrix_animation_complete_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.led_matrix_animation_complete_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='completeEvent',
                 data_type='uint8_t',
                 index=0,
                 size=1,
@@ -70,18 +354,237 @@ def on_usb_connection_status_notify(target, timeout):
     }
 
 
-def get_usb_connection_status(target, timeout):
-    return {
+def assign_frames_to_animation(animation_index, start_frame_index, frame_indices, target, timeout): 
+    return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.get_usb_connection_status,
+        'cid': CommandsEnum.assign_frames_to_animation,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='usbConnectionStatus',
+        'inputs': [ 
+            Parameter( 
+                name='animationIndex',
                 data_type='uint8_t',
                 index=0,
-                size=1,
+                value=animation_index,
+                size=1
+            ),
+            Parameter( 
+                name='startFrameIndex',
+                data_type='uint16_t',
+                index=1,
+                value=start_frame_index,
+                size=1
+            ),
+            Parameter( 
+                name='frameIndices',
+                data_type='uint16_t',
+                index=2,
+                value=frame_indices,
+                size=150
+            ),
+        ],
+    }
+
+
+def save_led_matrix_animation_without_frames(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.save_led_matrix_animation_without_frames,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='animationIndex',
+                data_type='uint8_t',
+                index=0,
+                value=animation_index,
+                size=1
+            ),
+            Parameter( 
+                name='speedFps',
+                data_type='uint8_t',
+                index=1,
+                value=speed_fps,
+                size=1
+            ),
+            Parameter( 
+                name='isFadeEnabled',
+                data_type='bool',
+                index=2,
+                value=is_fade_enabled,
+                size=1
+            ),
+            Parameter( 
+                name='paletteColorCount',
+                data_type='uint8_t',
+                index=3,
+                value=palette_color_count,
+                size=1
+            ),
+            Parameter( 
+                name='paletteRgbValues',
+                data_type='uint8_t',
+                index=4,
+                value=palette_rgb_values,
+                size=48
+            ),
+            Parameter( 
+                name='totalFrameCount',
+                data_type='uint16_t',
+                index=5,
+                value=total_frame_count,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='savedAnimations',
+                data_type='uint8_t',
+                index=0,
+                size=50,
             ),
         ]
+    }
+
+
+def play_led_matrix_animation_with_loop_option(animation_index, is_looping, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.play_led_matrix_animation_with_loop_option,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='animationIndex',
+                data_type='uint8_t',
+                index=0,
+                value=animation_index,
+                size=1
+            ),
+            Parameter( 
+                name='isLooping',
+                data_type='bool',
+                index=1,
+                value=is_looping,
+                size=1
+            ),
+        ],
+    }
+
+
+def get_active_color_palette(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.get_active_color_palette,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='rgbIndexBytes',
+                data_type='uint8_t',
+                index=0,
+                size=48,
+            ),
+        ]
+    }
+
+
+def set_active_color_palette(rgb_index_bytes, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.set_active_color_palette,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='rgbIndexBytes',
+                data_type='uint8_t',
+                index=0,
+                value=rgb_index_bytes,
+                size=48
+            ),
+        ],
+    }
+
+
+def get_color_identification_report(red, green, blue, confidence_threshold, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.get_color_identification_report,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='red',
+                data_type='uint8_t',
+                index=0,
+                value=red,
+                size=1
+            ),
+            Parameter( 
+                name='green',
+                data_type='uint8_t',
+                index=1,
+                value=green,
+                size=1
+            ),
+            Parameter( 
+                name='blue',
+                data_type='uint8_t',
+                index=2,
+                value=blue,
+                size=1
+            ),
+            Parameter( 
+                name='confidenceThreshold',
+                data_type='uint8_t',
+                index=3,
+                value=confidence_threshold,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='indexConfidenceByte',
+                data_type='uint8_t',
+                index=0,
+                size=24,
+            ),
+        ]
+    }
+
+
+def load_color_palette(palette_index, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.load_color_palette,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='paletteIndex',
+                data_type='uint8_t',
+                index=0,
+                value=palette_index,
+                size=1
+            ),
+        ],
+    }
+
+
+def save_color_palette(palette_index, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.save_color_palette,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='paletteIndex',
+                data_type='uint8_t',
+                index=0,
+                value=palette_index,
+                size=1
+            ),
+        ],
     }

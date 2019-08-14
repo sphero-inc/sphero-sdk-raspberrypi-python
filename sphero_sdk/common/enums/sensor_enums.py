@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          07/02/2019 @ 21:20:31.346003 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.067950 (UTC)
 
 from enum import IntEnum
 
@@ -12,33 +12,35 @@ __all__ = ['CollisionDetectionMethodsEnum',
            'CliffDetectionSensorLocationsBitMask',
            'GyroMaxFlagsBitMask',
            'CollisionDetectedAxisBitMask',
+           'LocatorFlagsBitMask',
            'InfraredSensorLocationsBitMask']
 
 
-class CommandsEnum(IntEnum):
-    set_sensor_streaming_mask = 0x00
-    get_sensor_streaming_mask = 0x01
-    sensor_streaming_data_notify = 0x02
-    get_encoder_counts = 0x09
-    get_euler_angles = 0x0A
-    get_gyro_degrees_per_second = 0x0B
-    set_extended_sensor_streaming_mask = 0x0C
-    get_extended_sensor_streaming_mask = 0x0D
+class CommandsEnum(IntEnum): 
     enable_gyro_max_notify = 0x0F
     gyro_max_notify = 0x10
     configure_collision_detection = 0x11
     collision_detected_notify = 0x12
+    reset_locator_x_and_y = 0x13
+    set_locator_flags = 0x17
     get_bot_to_bot_infrared_readings = 0x22
+    get_rgbc_sensor_values = 0x23
+    magnetometer_calibrate_to_north = 0x25
+    magnetometer_north_yaw_notify = 0x26
     start_robot_to_robot_infrared_broadcasting = 0x27
+    start_robot_to_robot_infrared_following = 0x28
     stop_robot_to_robot_infrared_broadcasting = 0x29
-    send_robot_to_robot_infrared_message = 0x2A
-    listen_for_robot_to_robot_infrared_message = 0x2B
     robot_to_robot_infrared_message_received_notify = 0x2C
     get_ambient_light_sensor_value = 0x30
-    enable_color_detection_notification = 0x35
+    stop_robot_to_robot_infrared_following = 0x32
+    start_robot_to_robot_infrared_evading = 0x33
+    stop_robot_to_robot_infrared_evading = 0x34
+    enable_color_detection_notify = 0x35
     color_detection_notify = 0x36
     get_current_detected_color_reading = 0x37
     enable_color_detection = 0x38
+    enable_robot_infrared_message_notify = 0x3E
+    send_infrared_message = 0x3F
 
 
 class CollisionDetectionMethodsEnum(IntEnum):
@@ -71,6 +73,11 @@ class CollisionDetectedAxisBitMask(IntEnum):
     ''' '''
     x_axis = 1 #: 
     y_axis = 2 #: 
+
+
+class LocatorFlagsBitMask(IntEnum):
+    ''' '''
+    auto_calibrate = 1 #: 
 
 
 class InfraredSensorLocationsBitMask(IntEnum):
