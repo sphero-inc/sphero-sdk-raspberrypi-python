@@ -7,11 +7,11 @@ class InfraredCodes(Enum):
     """InfraredCodes are the enums for the InfraredHelpers class
     """
 
-    alpha = 0
-    bravo = 1
-    charlie = 2
-    delta = 3
-    echo = 4
-    foxtrot = 5
-    golf = 6
-    hotel = 7
+    zero = 0
+    one = 1
+    two = 2
+    three = 3
+    four = 4
+    five = 5
+    six = 6
+    seven = 7

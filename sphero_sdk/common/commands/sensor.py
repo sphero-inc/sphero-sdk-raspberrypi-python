@@ -3,215 +3,21 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          07/02/2019 @ 22:49:01.159095 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.067874 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
 
 
-def set_sensor_streaming_mask(interval, packet_count, data_mask, target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.set_sensor_streaming_mask,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='interval',
-                data_type='uint16_t',
-                index=0,
-                value=interval,
-                size=1
-            ),
-            Parameter(
-                name='packetCount',
-                data_type='uint8_t',
-                index=1,
-                value=packet_count,
-                size=1
-            ),
-            Parameter(
-                name='dataMask',
-                data_type='uint32_t',
-                index=2,
-                value=data_mask,
-                size=1
-            ),
-        ],
-    }
-
-
-def get_sensor_streaming_mask(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_sensor_streaming_mask,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='interval',
-                data_type='uint16_t',
-                index=0,
-                size=1,
-            ),
-            Parameter(
-                name='packetCount',
-                data_type='uint8_t',
-                index=1,
-                size=1,
-            ),
-            Parameter(
-                name='dataMask',
-                data_type='uint32_t',
-                index=2,
-                size=1,
-            ),
-        ]
-    }
-
-
-def on_sensor_streaming_data_notify(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.sensor_streaming_data_notify,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='sensorData',
-                data_type='float',
-                index=0,
-                size=255,
-            ),
-        ]
-    }
-
-
-def get_encoder_counts(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_encoder_counts,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='encoderCounts',
-                data_type='int16_t',
-                index=0,
-                size=2,
-            ),
-        ]
-    }
-
-
-def get_euler_angles(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_euler_angles,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='pitch',
-                data_type='float',
-                index=0,
-                size=1,
-            ),
-            Parameter(
-                name='roll',
-                data_type='float',
-                index=1,
-                size=1,
-            ),
-            Parameter(
-                name='extendedRoll',
-                data_type='float',
-                index=2,
-                size=1,
-            ),
-            Parameter(
-                name='yaw',
-                data_type='float',
-                index=3,
-                size=1,
-            ),
-        ]
-    }
-
-
-def get_gyro_degrees_per_second(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_gyro_degrees_per_second,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='pitch',
-                data_type='float',
-                index=0,
-                size=1,
-            ),
-            Parameter(
-                name='roll',
-                data_type='float',
-                index=1,
-                size=1,
-            ),
-            Parameter(
-                name='yaw',
-                data_type='float',
-                index=2,
-                size=1,
-            ),
-        ]
-    }
-
-
-def set_extended_sensor_streaming_mask(data_mask, target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.set_extended_sensor_streaming_mask,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='dataMask',
-                data_type='uint32_t',
-                index=0,
-                value=data_mask,
-                size=1
-            ),
-        ],
-    }
-
-
-def get_extended_sensor_streaming_mask(target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_extended_sensor_streaming_mask,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='dataMask',
-                data_type='uint32_t',
-                index=0,
-                size=1,
-            ),
-        ]
-    }
-
-
-def enable_gyro_max_notify(is_enabled, target, timeout):
-    return {
+def enable_gyro_max_notify(is_enabled, target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_gyro_max_notify,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='isEnabled',
                 data_type='bool',
                 index=0,
@@ -222,14 +28,14 @@ def enable_gyro_max_notify(is_enabled, target, timeout):
     }
 
 
-def on_gyro_max_notify(target, timeout):
-    return {
+def on_gyro_max_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.gyro_max_notify,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='flags',
                 data_type='uint8_t',
                 index=0,
@@ -239,49 +45,49 @@ def on_gyro_max_notify(target, timeout):
     }
 
 
-def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_speed, dead_time, target, timeout):
-    return {
+def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_speed, dead_time, target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.configure_collision_detection,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='method',
                 data_type='uint8_t',
                 index=0,
                 value=method,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='xThreshold',
                 data_type='uint8_t',
                 index=1,
                 value=x_threshold,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='xSpeed',
                 data_type='uint8_t',
                 index=2,
                 value=x_speed,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='yThreshold',
                 data_type='uint8_t',
                 index=3,
                 value=y_threshold,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='ySpeed',
                 data_type='uint8_t',
                 index=4,
                 value=y_speed,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='deadTime',
                 data_type='uint8_t',
                 index=5,
@@ -292,56 +98,56 @@ def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_s
     }
 
 
-def on_collision_detected_notify(target, timeout):
-    return {
+def on_collision_detected_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.collision_detected_notify,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='accelerationX',
                 data_type='uint16_t',
                 index=0,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='accelerationY',
                 data_type='uint16_t',
                 index=1,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='accelerationZ',
                 data_type='uint16_t',
                 index=2,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='axis',
                 data_type='uint8_t',
                 index=3,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='powerX',
                 data_type='uint16_t',
                 index=4,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='powerY',
                 data_type='uint16_t',
                 index=5,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='speed',
                 data_type='uint8_t',
                 index=6,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='time',
                 data_type='uint32_t',
                 index=7,
@@ -351,14 +157,41 @@ def on_collision_detected_notify(target, timeout):
     }
 
 
-def get_bot_to_bot_infrared_readings(target, timeout):
-    return {
+def reset_locator_x_and_y(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.reset_locator_x_and_y,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def set_locator_flags(flags, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.set_locator_flags,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='flags',
+                data_type='uint8_t',
+                index=0,
+                value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def get_bot_to_bot_infrared_readings(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_bot_to_bot_infrared_readings,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='sensorData',
                 data_type='uint32_t',
                 index=0,
@@ -368,21 +201,82 @@ def get_bot_to_bot_infrared_readings(target, timeout):
     }
 
 
-def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, timeout):
-    return {
+def get_rgbc_sensor_values(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_rgbc_sensor_values,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='redChannelValue',
+                data_type='uint16_t',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='greenChannelValue',
+                data_type='uint16_t',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='blueChannelValue',
+                data_type='uint16_t',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='clearChannelValue',
+                data_type='uint16_t',
+                index=3,
+                size=1,
+            ),
+        ]
+    }
+
+
+def magnetometer_calibrate_to_north(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_calibrate_to_north,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def on_magnetometer_north_yaw_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_north_yaw_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='yawDirection',
+                data_type='uint16_t',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.start_robot_to_robot_infrared_broadcasting,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
+        'inputs': [ 
+            Parameter( 
                 name='farCode',
                 data_type='uint8_t',
                 index=0,
                 value=far_code,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='nearCode',
                 data_type='uint8_t',
                 index=1,
@@ -393,8 +287,33 @@ def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, time
     }
 
 
-def stop_robot_to_robot_infrared_broadcasting(target, timeout):
-    return {
+def start_robot_to_robot_infrared_following(far_code, near_code, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.start_robot_to_robot_infrared_following,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='farCode',
+                data_type='uint8_t',
+                index=0,
+                value=far_code,
+                size=1
+            ),
+            Parameter( 
+                name='nearCode',
+                data_type='uint8_t',
+                index=1,
+                value=near_code,
+                size=1
+            ),
+        ],
+    }
+
+
+def stop_robot_to_robot_infrared_broadcasting(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.stop_robot_to_robot_infrared_broadcasting,
         'target': target,
@@ -402,85 +321,14 @@ def stop_robot_to_robot_infrared_broadcasting(target, timeout):
     }
 
 
-def send_robot_to_robot_infrared_message(infrared_code, front_left_strength, front_right_strength, back_right_strength, back_left_strength, target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.send_robot_to_robot_infrared_message,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='infraredCode',
-                data_type='uint8_t',
-                index=0,
-                value=infrared_code,
-                size=1
-            ),
-            Parameter(
-                name='frontLeftStrength',
-                data_type='uint8_t',
-                index=1,
-                value=front_left_strength,
-                size=1
-            ),
-            Parameter(
-                name='frontRightStrength',
-                data_type='uint8_t',
-                index=2,
-                value=front_right_strength,
-                size=1
-            ),
-            Parameter(
-                name='backRightStrength',
-                data_type='uint8_t',
-                index=3,
-                value=back_right_strength,
-                size=1
-            ),
-            Parameter(
-                name='backLeftStrength',
-                data_type='uint8_t',
-                index=4,
-                value=back_left_strength,
-                size=1
-            ),
-        ],
-    }
-
-
-def listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration, target, timeout):
-    return {
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.listen_for_robot_to_robot_infrared_message,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='infraredCode',
-                data_type='uint8_t',
-                index=0,
-                value=infrared_code,
-                size=1
-            ),
-            Parameter(
-                name='listenDuration',
-                data_type='uint32_t',
-                index=1,
-                value=listen_duration,
-                size=1
-            ),
-        ],
-    }
-
-
-def on_robot_to_robot_infrared_message_received_notify(target, timeout):
-    return {
+def on_robot_to_robot_infrared_message_received_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.robot_to_robot_infrared_message_received_notify,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='infraredCode',
                 data_type='uint8_t',
                 index=0,
@@ -490,15 +338,15 @@ def on_robot_to_robot_infrared_message_received_notify(target, timeout):
     }
 
 
-def get_ambient_light_sensor_value(target, timeout):
-    return {
+def get_ambient_light_sensor_value(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_ambient_light_sensor_value,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
-                name='ambientLightWhiteChannelValue',
+        'outputs': [ 
+            Parameter( 
+                name='ambientLightValue',
                 data_type='float',
                 index=0,
                 size=1,
@@ -507,28 +355,71 @@ def get_ambient_light_sensor_value(target, timeout):
     }
 
 
-def enable_color_detection_notification(enable, interval, minimum_confidence_threshold, target, timeout):
-    return {
+def stop_robot_to_robot_infrared_following(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.enable_color_detection_notification,
+        'cid': CommandsEnum.stop_robot_to_robot_infrared_following,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='enable',
-                data_type='bool',
+    }
+
+
+def start_robot_to_robot_infrared_evading(far_code, near_code, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.start_robot_to_robot_infrared_evading,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='farCode',
+                data_type='uint8_t',
                 index=0,
-                value=enable,
+                value=far_code,
                 size=1
             ),
-            Parameter(
+            Parameter( 
+                name='nearCode',
+                data_type='uint8_t',
+                index=1,
+                value=near_code,
+                size=1
+            ),
+        ],
+    }
+
+
+def stop_robot_to_robot_infrared_evading(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.stop_robot_to_robot_infrared_evading,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def enable_color_detection_notify(is_enabled, interval, minimum_confidence_threshold, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.enable_color_detection_notify,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+            Parameter( 
                 name='interval',
                 data_type='uint16_t',
                 index=1,
                 value=interval,
                 size=1
             ),
-            Parameter(
+            Parameter( 
                 name='minimumConfidenceThreshold',
                 data_type='uint8_t',
                 index=2,
@@ -539,39 +430,39 @@ def enable_color_detection_notification(enable, interval, minimum_confidence_thr
     }
 
 
-def on_color_detection_notify(target, timeout):
-    return {
+def on_color_detection_notify(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.color_detection_notify,
         'target': target,
         'timeout': timeout,
-        'outputs': [
-            Parameter(
+        'outputs': [ 
+            Parameter( 
                 name='red',
                 data_type='uint8_t',
                 index=0,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='green',
                 data_type='uint8_t',
                 index=1,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='blue',
                 data_type='uint8_t',
                 index=2,
                 size=1,
             ),
-            Parameter(
+            Parameter( 
                 name='confidence',
                 data_type='uint8_t',
                 index=3,
                 size=1,
             ),
-            Parameter(
-                name='colorClassification',
+            Parameter( 
+                name='colorClassificationId',
                 data_type='uint8_t',
                 index=4,
                 size=1,
@@ -580,8 +471,8 @@ def on_color_detection_notify(target, timeout):
     }
 
 
-def get_current_detected_color_reading(target, timeout):
-    return {
+def get_current_detected_color_reading(target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_current_detected_color_reading,
         'target': target,
@@ -589,18 +480,82 @@ def get_current_detected_color_reading(target, timeout):
     }
 
 
-def enable_color_detection(enable, target, timeout):
-    return {
+def enable_color_detection(is_enabled, target, timeout): 
+    return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_color_detection,
         'target': target,
         'timeout': timeout,
-        'inputs': [
-            Parameter(
-                name='enable',
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
                 data_type='bool',
                 index=0,
-                value=enable,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def enable_robot_infrared_message_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.enable_robot_infrared_message_notify,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def send_infrared_message(infrared_code, front_strength, left_strength, right_strength, rear_strength, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.send_infrared_message,
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='infraredCode',
+                data_type='uint8_t',
+                index=0,
+                value=infrared_code,
+                size=1
+            ),
+            Parameter( 
+                name='frontStrength',
+                data_type='uint8_t',
+                index=1,
+                value=front_strength,
+                size=1
+            ),
+            Parameter( 
+                name='leftStrength',
+                data_type='uint8_t',
+                index=2,
+                value=left_strength,
+                size=1
+            ),
+            Parameter( 
+                name='rightStrength',
+                data_type='uint8_t',
+                index=3,
+                value=right_strength,
+                size=1
+            ),
+            Parameter( 
+                name='rearStrength',
+                data_type='uint8_t',
+                index=4,
+                value=rear_strength,
                 size=1
             ),
         ],

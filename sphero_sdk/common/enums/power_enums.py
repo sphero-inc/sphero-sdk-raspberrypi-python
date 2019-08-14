@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          07/02/2019 @ 21:20:31.348735 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.070458 (UTC)
 
 from enum import IntEnum
 
@@ -11,10 +11,13 @@ from enum import IntEnum
 __all__ = ['BatteryVoltageAndStateStatesEnum',
            'BatteryVoltageStatesEnum',
            'ChargerStatesEnum',
+           'EfuseIdsEnum',
+           'BatteryVoltageReadingTypesEnum',
+           'AmplifierIdsEnum',
            'PowerOptionsBitMask']
 
 
-class CommandsEnum(IntEnum):
+class CommandsEnum(IntEnum): 
     enter_deep_sleep = 0x00
     enter_soft_sleep = 0x01
     wake = 0x0D
@@ -24,6 +27,9 @@ class CommandsEnum(IntEnum):
     did_sleep_notify = 0x1A
     enable_battery_voltage_state_change_notify = 0x1B
     battery_voltage_state_change_notify = 0x1C
+    get_battery_voltage_in_volts = 0x25
+    get_battery_voltage_state_thresholds = 0x26
+    get_current_sense_amplifier_current = 0x27
 
 
 class BatteryVoltageAndStateStatesEnum(IntEnum):
@@ -52,6 +58,24 @@ class ChargerStatesEnum(IntEnum):
     not_charging = 1  #: 
     charging = 2  #: 
     charged = 3  #: 
+
+
+class EfuseIdsEnum(IntEnum):
+    ''' '''
+    primary_efuse = 0  #: 
+
+
+class BatteryVoltageReadingTypesEnum(IntEnum):
+    ''' '''
+    calibrated_and_filtered = 0  #: Most normal usage
+    calibrated_and_unfiltered = 1  #: Verifying calibration
+    uncalibrated_and_unfiltered = 2  #: Debugging
+
+
+class AmplifierIdsEnum(IntEnum):
+    ''' '''
+    left_motor = 0  #: 
+    right_motor = 1  #: 
 
 
 class PowerOptionsBitMask(IntEnum):
