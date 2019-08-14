@@ -20,24 +20,24 @@ class RvrLedGroups(Enum):
     headlight_right = SpheroRvrLedBitMasks.right_headlight_red | \
                       SpheroRvrLedBitMasks.right_headlight_green | \
                       SpheroRvrLedBitMasks.right_headlight_blue
-    battery_door_front = SpheroRvrLedBitMasks.door_1_red | \
-                         SpheroRvrLedBitMasks.door_1_green | \
-                         SpheroRvrLedBitMasks.door_1_blue
-    battery_door_rear = SpheroRvrLedBitMasks.door_2_red | \
-                        SpheroRvrLedBitMasks.door_2_green | \
-                        SpheroRvrLedBitMasks.door_2_blue
-    power_button_front = SpheroRvrLedBitMasks.side_1_red | \
-                         SpheroRvrLedBitMasks.side_1_green | \
-                         SpheroRvrLedBitMasks.side_1_blue
-    power_button_rear = SpheroRvrLedBitMasks.side_2_red | \
-                        SpheroRvrLedBitMasks.side_2_green | \
-                        SpheroRvrLedBitMasks.side_2_blue
-    brakelight_left = SpheroRvrLedBitMasks.rear_1_red | \
-                      SpheroRvrLedBitMasks.rear_1_green | \
-                      SpheroRvrLedBitMasks.rear_1_blue
-    brakelight_right = SpheroRvrLedBitMasks.rear_2_red | \
-                       SpheroRvrLedBitMasks.rear_2_green | \
-                       SpheroRvrLedBitMasks.rear_2_blue
+    battery_door_front = SpheroRvrLedBitMasks.battery_door_front_red | \
+                         SpheroRvrLedBitMasks.battery_door_front_green | \
+                         SpheroRvrLedBitMasks.battery_door_front_blue
+    battery_door_rear = SpheroRvrLedBitMasks.battery_door_rear_red | \
+                        SpheroRvrLedBitMasks.battery_door_rear_green | \
+                        SpheroRvrLedBitMasks.battery_door_rear_blue
+    power_button_front = SpheroRvrLedBitMasks.power_button_front_red | \
+                         SpheroRvrLedBitMasks.power_button_front_green | \
+                         SpheroRvrLedBitMasks.power_button_front_blue
+    power_button_rear = SpheroRvrLedBitMasks.power_button_rear_red | \
+                        SpheroRvrLedBitMasks.power_button_rear_green | \
+                        SpheroRvrLedBitMasks.power_button_rear_blue
+    brakelight_left = SpheroRvrLedBitMasks.left_brakelight_red | \
+                      SpheroRvrLedBitMasks.left_brakelight_green | \
+                      SpheroRvrLedBitMasks.left_brakelight_blue
+    brakelight_right = SpheroRvrLedBitMasks.right_brakelight_red | \
+                       SpheroRvrLedBitMasks.right_brakelight_green | \
+                       SpheroRvrLedBitMasks.right_brakelight_blue
     all_lights = status_indication_left | \
                  status_indication_right | \
                  headlight_left | \
