@@ -1,7 +1,6 @@
-# Adding a comment cuz
 image: python:3.5
 
-variables: 
+variables:
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
     PIP_CACHE_DIR: ".cache/pip"
@@ -15,15 +14,23 @@ cache:
 before_script:
     - python -V
     - pip install pipenv
+    - pip install pytest
+    - pip install pylint
     - pipenv install --dev --skip-lock
 
 stages:
+    - linting
     - build
     # TODO: Fix broken pipeline by fixing pytest process.  Bypassing for now.
     #- test
     # TODO: skipping deployment until further notice.
     #- deploy
     #- release
+
+pylint:
+    stage: linting
+    allow_failure: false
+    script: pylint --disable=R,C,W sphero_sdk/*.py
 
 setup:
     stage: build
@@ -37,6 +44,7 @@ setup:
     only:
         - master
 
+# TODO: change spheroboros to sphero_sdk
 #pytest:
 #    stage: test
 #    script:
