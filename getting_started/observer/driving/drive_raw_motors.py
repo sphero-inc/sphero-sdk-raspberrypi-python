@@ -1,0 +1,46 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
+import time
+
+from sphero_sdk import ObserverSpheroRvr
+
+rvr = ObserverSpheroRvr()
+
+
+def main():
+    """ This program has RVR drive around in different directions using raw motors.
+
+    Note:
+        To give RVR time to drive, we call time.sleep(...); if we did not have these calls, the program would
+        go on and execute all the statements and exit without the driving ever taking place. 
+    """
+    rvr.wake()
+
+    # Give RVR time to wake up
+    time.sleep(2)
+
+    # Drive straight for one second at speed 128
+    rvr.raw_motors(1, 128, 1, 128)
+    time.sleep(1)
+
+    # Drive backwards for one second at speed 128
+    rvr.raw_motors(2, 128, 2, 128)
+    time.sleep(1)
+
+    # Turn right
+    rvr.raw_motors(1, 128, 2, 128)
+    time.sleep(0.75)
+
+    # Drive forward for 1 second at speed 128
+    rvr.raw_motors(1, 128, 1, 128)
+    time.sleep(1)
+
+    # Stop RVR
+    rvr.raw_motors(0, 0, 0, 0)
+
+    rvr.close()
+
+
+main()

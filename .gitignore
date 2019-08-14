@@ -6,3 +6,7 @@
 /.idea
 /.python-version
 /docs/_build/
+*.py~
+*.py.un~
+*.DS_Store
+

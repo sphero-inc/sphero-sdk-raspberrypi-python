@@ -9,13 +9,13 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 version_dict = {}
-with open(path.join(here, 'spheroboros', '__version__.py')) as f:
+with open(path.join(here, 'sphero_sdk', '__version__.py')) as f:
     exec(f.read(), version_dict)
     print('Version: {}'.format(version_dict))
 
 
 setup(
-    name='spheroboros',
+    name='sphero_sdk',
     author='Sphero',
     author_email='rvr_hackathon_external_user@sphero.com',
     url='www.sphero.com',
