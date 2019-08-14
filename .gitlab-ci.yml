@@ -1,6 +1,6 @@
 image: python:3.5
 
-variables: 
+variables:
     GIT_STRATEGY: fetch
     GIT_SUBMODULE_STRATEGY: none
     PIP_CACHE_DIR: ".cache/pip"
@@ -27,10 +27,11 @@ stages:
     #- deploy
     #- release
 
+pylint:
     stage: linting
     allow_failure: false
     script: pylint --disable=R,C,W spheroboros/*.py
-    
+
 setup:
     stage: build
     script:
