@@ -9,8 +9,8 @@ from sphero_sdk import ObserverSpheroRvr
 rvr = ObserverSpheroRvr()
 
 
-def handler(**kwargs):
-    print(kwargs)
+def handler(data):
+    print("Data: ", data)
 
 
 def main():

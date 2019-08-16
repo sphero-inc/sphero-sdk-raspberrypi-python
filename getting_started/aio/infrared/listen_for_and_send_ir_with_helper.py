@@ -1,5 +1,3 @@
-# TODO: RVR does not pick up signal from BOLT
-#       BOLT only picks up signal from RVR if BOLT's script is run first
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
@@ -43,9 +41,8 @@ async def main():
     while True:
         codes = [InfraredCodes.alpha, InfraredCodes.bravo, InfraredCodes.charlie, InfraredCodes.delta]
         await infrared_controller.send_infrared_message(codes, strength=64)
-        for code in codes:
-            print("message sent with code {}".format(code.value))
-        asyncio.sleep(0.2)
+        print("message sent with codes {}".format([ code.value for code in codes ]))
+        await asyncio.sleep(0.5)
 
 
 try:

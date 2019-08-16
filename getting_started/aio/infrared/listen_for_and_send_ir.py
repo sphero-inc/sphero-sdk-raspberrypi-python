@@ -51,6 +51,7 @@ async def main():
     strength = 64
     while True:
         await rvr.send_robot_to_robot_infrared_message(infrared_code, strength, strength, strength, strength)
+        print("message sent with code {}".format(infrared_code))
         await asyncio.sleep(0.2)
 
 

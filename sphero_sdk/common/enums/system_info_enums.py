@@ -3,28 +3,35 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          07/02/2019 @ 21:20:31.349962 (UTC)
+# Timestamp:          08/14/2019 @ 17:33:23.072112 (UTC)
 
 from enum import IntEnum
 
 
 __all__ = ['ConfigBlockWriteCodesEnum',
            'DeviceModesEnum',
-           'ApplicationIndexesEnum']
+           'ApplicationIndexesEnum',
+           'SosMessagesEnum',
+           'BootReasonsEnum']
 
 
-class CommandsEnum(IntEnum):
+class CommandsEnum(IntEnum): 
     get_main_application_version = 0x00
     get_bootloader_version = 0x01
     get_board_revision = 0x03
     get_mac_address = 0x06
-    get_nordic_temperature = 0x0E
     get_stats_id = 0x13
     get_processor_name = 0x1F
     get_boot_reason = 0x20
     get_last_error_info = 0x21
-    get_manufacturing_date = 0x33
     get_sku = 0x38
+    get_core_up_time_in_milliseconds = 0x39
+    get_event_log_status = 0x3A
+    get_event_log_data = 0x3B
+    enable_sos_message_notify = 0x3D
+    sos_message_notify = 0x3E
+    get_sos_message = 0x3F
+    clear_sos_message = 0x44
 
 
 class ConfigBlockWriteCodesEnum(IntEnum):
@@ -46,3 +53,19 @@ class ApplicationIndexesEnum(IntEnum):
     ''' '''
     bootloader = 0  #: 
     main_application = 1  #: 
+
+
+class SosMessagesEnum(IntEnum):
+    ''' '''
+    unknown = 0  #: 
+    subprocessor_crashed = 1  #: 
+
+
+class BootReasonsEnum(IntEnum):
+    ''' '''
+    cold_boot = 0  #: 
+    unexpected_reset = 1  #: 
+    application_reset_due_to_error = 2  #: 
+    application_reset_for_a_firmware_update = 3  #: 
+    processor_is_booting_from_sleep = 4  #: 
+    processor_is_resetting_for_some_non_error_reason = 5  #: 
