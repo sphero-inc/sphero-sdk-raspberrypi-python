@@ -116,7 +116,7 @@ class InfraredControlAsync:
 
         return
 
-    async def send_infrared_message(self, messages, strength=0):
+    async def send_infrared_messages(self, messages, strength=0):
         """Sends a single IR message for each element in the messages list
 
         Args:
@@ -142,7 +142,7 @@ class InfraredControlAsync:
             return
 
         for message in messages:
-            await self.__rvr.send_robot_to_robot_infrared_message(
+            await self.__rvr.send_infrared_message(
                 message.value,
                 strength,
                 strength,
@@ -153,7 +153,7 @@ class InfraredControlAsync:
         return
 
     async def listen_for_infrared_message(self, handler, enable=True):
-        """Listens for infrared messages on all channels
+        """Listens for infrared messages on all channels and invokes given handler upon message received
 
         Args:
             enable (bool): True to enable listening async; False to disable
@@ -162,25 +162,33 @@ class InfraredControlAsync:
                             Ex. 'async def message_received_handler(infraredCode):'
         Returns:
         """
+        # enabled = True
+        # await self.__rvr.enable_robot_infrared_message_notify(enabled)
+        #
+        # # Register handler to be called when message is received
+        # await self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
+
 
         if callable(handler):
 
             pass
         else:
-            print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
 
+            print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
             return
 
         if enable:
-            asyncio.ensure_future(
-                await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
-                    handler=handler
-                )
-            )
+            await self.__rvr.enable_robot_infrared_message_notify(True)
+            # asyncio.ensure_future(
+            #             #     await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
+            #             #         handler=handler
+            #             #     )
+            #             # )
         else:
             pass    # TODO: remove existing future / handler?
 
-        await self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
+        await self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
+        # await self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
 
         return
 
