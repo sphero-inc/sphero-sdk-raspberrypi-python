@@ -32,9 +32,10 @@ async def main():
     """
     await rvr.wake()
 
-    far_code = InfraredCodes.zero
-    near_code = InfraredCodes.one
-    await rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
+    # Broadcast on channels 0 and 1. We specify the channels with the InfraredCodes enumeration
+    near_code = InfraredCodes.zero
+    far_code = InfraredCodes.one
+    await rvr.start_robot_to_robot_infrared_broadcasting(near_code.value, far_code.value)
 
 
     await rvr.raw_motors(1, 128, 1, 128)
