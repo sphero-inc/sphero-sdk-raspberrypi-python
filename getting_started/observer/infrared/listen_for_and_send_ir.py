@@ -25,22 +25,17 @@ def main():
     # Give RVR time to wake up
     time.sleep(2)
 
-    # Register handler to be called when message is received
-    rvr.on_robot_to_robot_infrared_message_received_notify(handler=on_ir_message_received)
+    enabled = True
+    rvr.enable_robot_infrared_message_notify(enabled)
 
-    # Listen for messages at channel 0 for the maximum amount of time possible
-    # Note: The channel is given as a bit mask
-    # In this case, we want to listen to channel 0, so the first bit is set to 1
-    infrared_code = 0x01
-    listen_duration = 0xffffffff
-    rvr.listen_for_robot_to_robot_infrared_message(infrared_code, listen_duration)
+    rvr.on_robot_to_robot_infrared_message_received_notify(on_ir_message_received)
 
     # Send infrared message with code 3 at maximum strength from the front, rear, left and right sensor respectively
     infrared_code = 3
     strength = 64
 
     for _ in range(20):
-        rvr.send_robot_to_robot_infrared_message(infrared_code, strength, strength, strength, strength)
+        rvr.send_infrared_message(infrared_code, strength, strength, strength, strength)
         print("message sent with code {}".format(infrared_code))
         time.sleep(0.2)
 
