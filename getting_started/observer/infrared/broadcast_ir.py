@@ -19,14 +19,16 @@ def main():
         Upon running this program RVR drives forward and the other robot follows it.
     """
     rvr.wake()
+    time.sleep(2)
 
     # Broadcast on channels 0 and 1. We specify the channels with the InfraredCodes enumeration
     near_code = InfraredCodes.zero
     far_code = InfraredCodes.one
-    rvr.start_robot_to_robot_infrared_broadcasting(near_code.value, far_code.value)
+    rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
     # Drive forward at speed 64 for two seconds
     rvr.raw_motors(1, 64, 1, 64)
+
     time.sleep(2)
 
     rvr.stop_robot_to_robot_infrared_broadcasting()

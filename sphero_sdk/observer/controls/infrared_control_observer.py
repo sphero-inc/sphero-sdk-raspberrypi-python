@@ -3,7 +3,6 @@
 import time
 
 
-# todo: once command queue is implemented, remove all time.sleep(.5) calls after ir messages are sent
 class InfraredControlObserver:
     """InfraredControlObserver is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
@@ -33,28 +32,19 @@ class InfraredControlObserver:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_codes parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            raise TypeError('near_codes parameter requires input')
 
-            return
-
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
+        if len(far_codes) == 0 or len(near_codes) == 0:
+            raise ValueError('lists near_codes and far_codes must have at least one element')
 
         if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
+            raise ValueError('lists near_codes and far_codes must have the same number of elements')
 
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            self.__rvr.start_robot_to_robot_infrared_broadcasting(code[0].value, code[1].value)
+        for far_code, near_code in zip(far_codes, near_codes):
+            self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
             time.sleep(.5)
 
         return
@@ -80,28 +70,19 @@ class InfraredControlObserver:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_codes parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            raise TypeError('near_codes parameter requires input')
 
-            return
-
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
+        if len(far_codes) == 0 or len(near_codes) == 0:
+            raise ValueError('lists near_codes and far_codes must have at least one element')
 
         if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
+            raise ValueError('lists near_codes and far_codes must have the same number of elements')
 
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            self.__rvr.start_robot_to_robot_infrared_following(code[0].value, code[1].value)
+        for far_code, near_code in zip(far_codes, near_codes):
+            self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
             time.sleep(.5)
 
         return
@@ -127,19 +108,13 @@ class InfraredControlObserver:
         """
 
         if messages is None:
-            print('ERROR: MESSAGES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('messages parameter requires input')
 
         if len(messages) == 0:
-            print('ERROR: LIST MUST BE OF LENGTH > 0')
-
-            return
+            raise ValueError('list messages must have at least one element')
 
         if strength < 0 or strength > 64:
-            print('ERROR: STRENGTH MUST BE > 0 AND < 64')
-
-            return
+            raise ValueError('parameter strength must be greater than or equal to 0 and less than or equal 64')
 
         for message in messages:
             self.__rvr.send_infrared_message(
@@ -152,7 +127,7 @@ class InfraredControlObserver:
 
         return
 
-    def listen_for_infrared_message(self, handler, enable=True):
+    def listen_for_infrared_message(self, handler):
         """Listens for infrared messages on all channels and invokes given handler upon message received
 
         Args:
