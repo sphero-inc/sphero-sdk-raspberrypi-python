@@ -36,12 +36,12 @@ async def main():
     await rvr.wake()
 
     # Broadcast on channels 0, 1, 2, and 3. We specify the channels with the InfraredCodes enumeration
-    near_codes = [InfraredCodes.zero, InfraredCodes.two]
-    far_codes = [InfraredCodes.one, InfraredCodes.three]
-    await infrared_controller.start_infrared_broadcasting(near_codes, far_codes)
+    near_codes = [InfraredCodes.zero] #, InfraredCodes.two
+    far_codes = [InfraredCodes.one] #InfraredCodes.three
+    await infrared_controller.start_infrared_broadcasting(far_codes, near_codes)
 
-    await rvr.raw_motors(1, 128, 1, 128)
-    await asyncio.sleep(2)
+    await rvr.raw_motors(1, 64, 1, 64)
+    await asyncio.sleep(4)
 
     await infrared_controller.stop_infrared_broadcasting()
 

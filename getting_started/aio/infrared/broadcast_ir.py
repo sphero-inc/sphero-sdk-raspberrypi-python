@@ -31,15 +31,16 @@ async def main():
     Upon running this program RVR drives forward and the other robot follows it.
     """
     await rvr.wake()
+    await asyncio.sleep(2)
 
     # Broadcast on channels 0 and 1. We specify the channels with the InfraredCodes enumeration
-    near_code = InfraredCodes.zero
     far_code = InfraredCodes.one
-    await rvr.start_robot_to_robot_infrared_broadcasting(near_code.value, far_code.value)
+    near_code = InfraredCodes.zero
+    await rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
 
-    await rvr.raw_motors(1, 128, 1, 128)
-    await asyncio.sleep(2)
+    await rvr.raw_motors(1, 64, 1, 64)
+    await asyncio.sleep(4)
 
     await rvr.stop_robot_to_robot_infrared_broadcasting()
 

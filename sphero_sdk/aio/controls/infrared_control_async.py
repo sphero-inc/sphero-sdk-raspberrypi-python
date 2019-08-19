@@ -3,7 +3,6 @@
 import asyncio
 
 
-# todo: once command queue is implemented, remove all asyncio.sleep(.5) calls after ir messages are sent
 class InfraredControlAsync:
     """InfraredControlAsync is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
@@ -16,7 +15,7 @@ class InfraredControlAsync:
 
     def __init__(self, rvr):
         if rvr is None:
-            raise TypeError("ERROR: A RVR OBJECT MUST BE PASSED IN AS A PARAMETER")
+            raise TypeError("constructor parameter rvr requires input")
 
         self.__rvr = rvr
 
@@ -33,29 +32,20 @@ class InfraredControlAsync:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_codes parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('near_codes parameter requires input')
 
         if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
+            raise ValueError('lists near_codes and far_codes must have at least one element')
 
         if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
+            raise ValueError('lists near_codes and far_codes must have the same number of elements')
 
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            await self.__rvr.start_robot_to_robot_infrared_broadcasting(code[0].value, code[1].value)
-            await asyncio.sleep(.5)
+        for far_code, near_code in zip(far_codes, near_codes):
+            await self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
+            await asyncio.sleep(0.5)
 
         return
 
@@ -80,28 +70,19 @@ class InfraredControlAsync:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_codes parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            raise TypeError('near_codes parameter requires input')
 
-            return
-
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
+        if len(far_codes) == 0 or len(near_codes) == 0:
+            raise ValueError('lists near_codes and far_codes must have at least one element')
 
         if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
+            raise ValueError('lists near_codes and far_codes must have the same number of elements')
 
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            await self.__rvr.start_robot_to_robot_infrared_following(code[0].value, code[1].value)
+        for far_code, near_code in zip(far_codes, near_codes):
+            await self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
             await asyncio.sleep(.5)
 
         return
@@ -127,19 +108,13 @@ class InfraredControlAsync:
         """
 
         if messages is None:
-            print('ERROR: MESSAGES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('messages parameter requires input')
 
         if len(messages) == 0:
-            print('ERROR: LIST MUST BE OF LENGTH > 0')
-
-            return
+            raise ValueError('list messages must have at least one element')
 
         if strength < 0 or strength > 64:
-            print('ERROR: STRENGTH MUST BE > 0 AND < 64')
-
-            return
+            raise ValueError('parameter strength must be greater than or equal to 0 and less than or equal 64')
 
         for message in messages:
             await self.__rvr.send_infrared_message(
@@ -152,7 +127,7 @@ class InfraredControlAsync:
 
         return
 
-    async def listen_for_infrared_message(self, handler, enable=True):
+    async def listen_for_infrared_message(self, handler):
         """Listens for infrared messages on all channels and invokes given handler upon message received
 
         Args:
@@ -162,33 +137,14 @@ class InfraredControlAsync:
                             Ex. 'async def message_received_handler(infraredCode):'
         Returns:
         """
-        # enabled = True
-        # await self.__rvr.enable_robot_infrared_message_notify(enabled)
-        #
-        # # Register handler to be called when message is received
-        # await self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
+
+        if not callable(handler):
+            raise TypeError("handler must be a function")
 
 
-        if callable(handler):
-
-            pass
-        else:
-
-            print('ERROR: HANDLER PARAMETER REQUIRES A FUNCTION REFERENCE AS INPUT')
-            return
-
-        if enable:
-            await self.__rvr.enable_robot_infrared_message_notify(True)
-            # asyncio.ensure_future(
-            #             #     await self.__rvr.on_robot_to_robot_infrared_message_received_notify(
-            #             #         handler=handler
-            #             #     )
-            #             # )
-        else:
-            pass    # TODO: remove existing future / handler?
+        await self.__rvr.enable_robot_infrared_message_notify(True)
 
         await self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
-        # await self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
 
         return
 
