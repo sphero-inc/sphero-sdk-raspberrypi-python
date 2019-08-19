@@ -8,6 +8,7 @@ import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import InfraredCodes
 
 # Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
@@ -31,11 +32,13 @@ async def main():
     """
     await rvr.wake()
 
-    # Broadcast infrared codes 0 and 1
-    await rvr.start_robot_to_robot_infrared_broadcasting(0, 1)
+    far_code = InfraredCodes.zero
+    near_code = InfraredCodes.one
+    await rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
-    await rvr.raw_motors(1, 64, 1, 64)
-    await asyncio.sleep(3)
+
+    await rvr.raw_motors(1, 128, 1, 128)
+    await asyncio.sleep(2)
 
     await rvr.stop_robot_to_robot_infrared_broadcasting()
 
