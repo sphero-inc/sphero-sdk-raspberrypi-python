@@ -116,7 +116,7 @@ class InfraredControlObserver:
 
         return
 
-    def send_infrared_message(self, messages, strength=0):
+    def send_infrared_messages(self, messages, strength=0):
         """Sends a single IR message for each element in the messages list
 
         Args:
@@ -142,7 +142,7 @@ class InfraredControlObserver:
             return
 
         for message in messages:
-            self.__rvr.send_robot_to_robot_infrared_message(
+            self.__rvr.send_infrared_message(
                 message.value,
                 strength,
                 strength,
@@ -152,8 +152,8 @@ class InfraredControlObserver:
 
         return
 
-    def listen_for_infrared_message(self, enable=True):
-        """Listens for infrared messages on all channels
+    def listen_for_infrared_message(self, handler, enable=True):
+        """Listens for infrared messages on all channels and invokes given handler upon message received
 
         Args:
             enable (bool): True to enable listening async; False to disable
@@ -161,6 +161,8 @@ class InfraredControlObserver:
         Returns:
         """
 
-        self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
+        self.__rvr.enable_robot_infrared_message_notify(enable)
+
+        self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
 
         return
