@@ -32,9 +32,9 @@ def main():
 
     infrared_controller.listen_for_infrared_message(on_ir_message_received)
 
+    codes = [InfraredCodes.zero, InfraredCodes.one, InfraredCodes.two, InfraredCodes.three]
     for _ in range(20):
-        codes = [InfraredCodes.alpha, InfraredCodes.bravo, InfraredCodes.charlie, InfraredCodes.delta]
-        infrared_controller.send_infrared_message(codes, strength=64)
+        infrared_controller.send_infrared_messages(codes, strength=64)
         print("message sent with codes {}".format([code.value for code in codes]))
         time.sleep(0.2)
 

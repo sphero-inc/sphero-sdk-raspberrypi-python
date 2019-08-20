@@ -18,9 +18,9 @@ from sphero_sdk.common.commands.system_info import *
 from sphero_sdk.common.enums.colors_enums import Colors
 from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 from sphero_sdk.common.enums.infrared_codes_enums import InfraredCodes
-from sphero_sdk.aio.helpers.led_control_async import LedControlAsync
-from sphero_sdk.aio.helpers.infrared_control_async import InfraredControlAsync
-from sphero_sdk.aio.helpers.drive_control_async import DriveControlAsync
-from sphero_sdk.observer.helpers.led_control_observer import LedControlObserver
-from sphero_sdk.observer.helpers.drive_control_observer import DriveControlObserver
+from sphero_sdk.aio.controls.led_control_async import LedControlAsync
+from sphero_sdk.aio.controls.infrared_control_async import InfraredControlAsync
+from sphero_sdk.aio.controls.drive_control_async import DriveControlAsync
+from sphero_sdk.observer.controls.led_control_observer import LedControlObserver
+from sphero_sdk.observer.controls.drive_control_observer import DriveControlObserver
 from sphero_sdk.observer.controls.infrared_control_observer import InfraredControlObserver

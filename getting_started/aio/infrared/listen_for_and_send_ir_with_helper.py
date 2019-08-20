@@ -7,9 +7,9 @@ import time
 import asyncio
 
 from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SerialAsyncDal
 from sphero_sdk import InfraredCodes
 from sphero_sdk import InfraredControlAsync
-from sphero_sdk import SerialAsyncDal
 
 # Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
@@ -38,10 +38,10 @@ async def main():
 
     await infrared_controller.listen_for_infrared_message(on_ir_message_received)
 
+    codes = [InfraredCodes.zero, InfraredCodes.one, InfraredCodes.two, InfraredCodes.three]
     while True:
-        codes = [InfraredCodes.alpha, InfraredCodes.bravo, InfraredCodes.charlie, InfraredCodes.delta]
-        await infrared_controller.send_infrared_message(codes, strength=64)
-        print("message sent with codes {}".format([ code.value for code in codes ]))
+        await infrared_controller.send_infrared_messages(codes, strength=64)
+        print("message sent with codes {}".format([code.value for code in codes]))
         await asyncio.sleep(0.5)
 
 

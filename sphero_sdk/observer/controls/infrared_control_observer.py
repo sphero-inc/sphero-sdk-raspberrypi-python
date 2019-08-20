@@ -3,7 +3,6 @@
 import time
 
 
-# todo: once command queue is implemented, remove all time.sleep(.5) calls after ir messages are sent
 class InfraredControlObserver:
     """InfraredControlObserver is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
@@ -22,40 +21,23 @@ class InfraredControlObserver:
 
         return
 
-    def start_infrared_broadcasting(self, far_codes, near_codes):
+    def start_infrared_broadcasting(self, far_code, near_code):
         """Loops through lists of enums and broadcasts each IR code
 
         Args:
-            far_codes (list): List of InfraredCodes for far code
-            near_codes (list): List of InfraredCodes for near code
+            far_code (InfraredCode): InfraredCode for far code
+            near_code (InfraredCode): InfraredCode for near code
 
         Returns:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_code parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            raise TypeError('near_code parameter requires input')
 
-            return
-
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
-
-        if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
-
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            self.__rvr.start_robot_to_robot_infrared_broadcasting(code[0].value, code[1].value)
-            time.sleep(.5)
+        self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
         return
 
@@ -69,40 +51,23 @@ class InfraredControlObserver:
 
         return
 
-    def start_infrared_following(self, far_codes, near_codes):
+    def start_infrared_following(self, far_code, near_code):
         """Loops through lists of enums and broadcasts each IR code for following
 
         Args:
-            far_codes (list): List of InfraredCodes for far code
-            near_codes (list): List of InfraredCodes for near code
+            far_code (InfraredCode): InfraredCode for far code
+            near_code (InfraredCode): InfraredCode for near code
 
         Returns:
         """
 
         if far_codes is None:
-            print('ERROR: FAR_CODES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('far_code parameter requires input')
 
         if near_codes is None:
-            print('ERROR: NEAR_CODES PARAMETER REQUIRES INPUT')
+            raise TypeError('near_code parameter requires input')
 
-            return
-
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            print('ERROR: LISTS MUST BE OF LENGTH > 0')
-
-            return
-
-        if len(far_codes) != len(near_codes):
-            print('ERROR: LISTS MUST BE THE SAME LENGTH')
-
-            return
-
-        zipped = zip(far_codes, near_codes)
-        for code in zipped:
-            self.__rvr.start_robot_to_robot_infrared_following(code[0].value, code[1].value)
-            time.sleep(.5)
+        self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
 
         return
 
@@ -116,7 +81,7 @@ class InfraredControlObserver:
 
         return
 
-    def send_infrared_message(self, messages, strength=0):
+    def send_infrared_messages(self, messages, strength=0):
         """Sends a single IR message for each element in the messages list
 
         Args:
@@ -127,22 +92,16 @@ class InfraredControlObserver:
         """
 
         if messages is None:
-            print('ERROR: MESSAGES PARAMETER REQUIRES INPUT')
-
-            return
+            raise TypeError('messages parameter requires input')
 
         if len(messages) == 0:
-            print('ERROR: LIST MUST BE OF LENGTH > 0')
-
-            return
+            raise ValueError('list messages must have at least one element')
 
         if strength < 0 or strength > 64:
-            print('ERROR: STRENGTH MUST BE > 0 AND < 64')
-
-            return
+            raise ValueError('parameter strength must be greater than or equal to 0 and less than or equal 64')
 
         for message in messages:
-            self.__rvr.send_robot_to_robot_infrared_message(
+            self.__rvr.send_infrared_message(
                 message.value,
                 strength,
                 strength,
@@ -152,8 +111,8 @@ class InfraredControlObserver:
 
         return
 
-    def listen_for_infrared_message(self, enable=True):
-        """Listens for infrared messages on all channels
+    def listen_for_infrared_message(self, handler):
+        """Listens for infrared messages on all channels and invokes given handler upon message received
 
         Args:
             enable (bool): True to enable listening async; False to disable
@@ -161,6 +120,8 @@ class InfraredControlObserver:
         Returns:
         """
 
-        self.__rvr.listen_for_robot_to_robot_infrared_message(enable)
+        self.__rvr.enable_robot_infrared_message_notify(enable)
+
+        self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
 
         return
