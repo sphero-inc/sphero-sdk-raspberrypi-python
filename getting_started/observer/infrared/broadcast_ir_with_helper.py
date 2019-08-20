@@ -27,9 +27,9 @@ def main():
     time.sleep(2)
 
     # Broadcast on channels 0, 1, 2, and 3. We specify the channels with the InfraredCodes enumeration
-    near_codes = [InfraredCodes.zero, InfraredCodes.two]
-    far_codes = [InfraredCodes.one, InfraredCodes.three]
-    infrared_controller.start_infrared_broadcasting(far_codes, near_codes)
+    near_code = InfraredCodes.zero
+    far_code = InfraredCodes.one
+    infrared_controller.start_infrared_broadcasting(far_code, near_code)
 
     rvr.raw_motors(1, 64, 1, 64)
     time.sleep(2)

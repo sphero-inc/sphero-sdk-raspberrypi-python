@@ -21,31 +21,23 @@ class InfraredControlAsync:
 
         return
 
-    async def start_infrared_broadcasting(self, far_codes, near_codes):
+    async def start_infrared_broadcasting(self, far_code, near_code):
         """Loops through lists of enums and broadcasts each IR code
 
         Args:
-            far_codes (list): List of InfraredCodes for far code
-            near_codes (list): List of InfraredCodes for near code
+            far_code (InfraredCode): InfraredCode for far code
+            near_code (InfraredCode): InfraredCode for near code
 
         Returns:
         """
 
-        if far_codes is None:
-            raise TypeError('far_codes parameter requires input')
+        if far_code is None:
+            raise TypeError('far_code parameter requires input')
 
-        if near_codes is None:
-            raise TypeError('near_codes parameter requires input')
+        if near_code is None:
+            raise TypeError('near_code parameter requires input')
 
-        if len(far_codes) == 0  or len(near_codes) == 0:
-            raise ValueError('lists near_codes and far_codes must have at least one element')
-
-        if len(far_codes) != len(near_codes):
-            raise ValueError('lists near_codes and far_codes must have the same number of elements')
-
-        for far_code, near_code in zip(far_codes, near_codes):
-            await self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
-            await asyncio.sleep(0.5)
+        await self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
         return
 
@@ -59,31 +51,22 @@ class InfraredControlAsync:
 
         return
 
-    async def start_infrared_following(self, far_codes, near_codes):
+    async def start_infrared_following(self, far_code, near_code):
         """Loops through lists of enums and broadcasts each IR code for following
 
         Args:
-            far_codes (list): List of InfraredCodes for far code
-            near_codes (list): List of InfraredCodes for near code
-
+            far_code (InfraredCode): InfraredCode for far code
+            near_code (InfraredCode): InfraredCode for far code
         Returns:
         """
 
         if far_codes is None:
-            raise TypeError('far_codes parameter requires input')
+            raise TypeError('far_code parameter requires input')
 
         if near_codes is None:
-            raise TypeError('near_codes parameter requires input')
+            raise TypeError('near_code parameter requires input')
 
-        if len(far_codes) == 0 or len(near_codes) == 0:
-            raise ValueError('lists near_codes and far_codes must have at least one element')
-
-        if len(far_codes) != len(near_codes):
-            raise ValueError('lists near_codes and far_codes must have the same number of elements')
-
-        for far_code, near_code in zip(far_codes, near_codes):
-            await self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
-            await asyncio.sleep(.5)
+        await self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
 
         return
 
