@@ -472,9 +472,7 @@ class SpheroRvrAsync:
         )
 
     async def configure_collision_detection(self, method, x_threshold, x_speed, y_threshold, y_speed, dead_time, timeout=None): 
-        """R2 and VD1 follow the older robots version of collision detection. Additional info can be seen here in the old API docs.
-        Sending this command with values other than zero for method, Xt, and Yt automatically enables collision detection asyncs,
-        same as sending CID 0x14, below. Sending this command with zeros for the above parameters disables collision detection asyncs.
+        """Sets the collision detection threshold based on the provided coefficients.
 
         Example Setting for detecting any collision of half accel scale:
         method 1
