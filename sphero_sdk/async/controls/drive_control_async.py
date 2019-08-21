@@ -3,7 +3,6 @@
 import asyncio
 from datetime import datetime
 
-from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import LedControlAsync
 from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 from sphero_sdk.common.enums.colors_enums import Colors

@@ -2,7 +2,6 @@
 
 import asyncio
 
-from sphero_sdk import SpheroRvrAsync
 from sphero_sdk.common.enums.colors_enums import Colors
 from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 
