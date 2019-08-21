@@ -5,12 +5,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 
 import time
 
-from sphero_sdk import ObserverSpheroRvr
+from sphero_sdk import SpheroRvrObserver
 from sphero_sdk import LedControlObserver
 from sphero_sdk import Colors
 
 
-rvr = ObserverSpheroRvr()
+rvr = SpheroRvrObserver()
 
 led_controller = LedControlObserver(rvr)
 

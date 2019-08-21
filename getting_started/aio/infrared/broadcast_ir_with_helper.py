@@ -7,7 +7,7 @@ import time
 
 import asyncio
 
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import InfraredCodes
 from sphero_sdk import InfraredControlAsync
 from sphero_sdk import SerialAsyncDal
@@ -16,7 +16,7 @@ from sphero_sdk import SerialAsyncDal
 loop = asyncio.get_event_loop()
 
 # Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )

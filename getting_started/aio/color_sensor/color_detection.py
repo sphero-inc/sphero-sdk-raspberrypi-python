@@ -6,14 +6,14 @@ import time
 
 import asyncio
 
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
 # Get a reference to the asynchronous program loop
 loop = asyncio.get_event_loop()
 
 # Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )

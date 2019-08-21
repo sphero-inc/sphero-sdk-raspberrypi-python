@@ -7,7 +7,7 @@ import time
 import math 
 import numpy as np 
 import asyncio
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 from picamera.array import PiRGBArray 
 from picamera import PiCamera
@@ -15,7 +15,7 @@ from picamera import PiCamera
 # Initialize RVR
 loop = asyncio.get_event_loop()
 
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )
