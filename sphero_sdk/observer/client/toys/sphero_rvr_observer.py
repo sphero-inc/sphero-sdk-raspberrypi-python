@@ -389,7 +389,10 @@ class SpheroRvrObserver(Observer):
         self._register_handler(handler, **command_dict)
 
     def get_battery_voltage_in_volts(self, reading_type, handler, timeout=None): 
-        """Returns the most recent battery voltage reading in volts. This results in a 'Command Failed' API error if the platform does not support calibration. Note that this command does not get a new voltage reading; it returns the most recently read value, which is updated once per second on most robots. To force the battery system to read a new value, use the 'Force Battery Refresh' command.
+        """Returns the most recent battery voltage reading in volts. This results in a 'Command Failed' API error if the
+        platform does not support calibration. Note that this command does not get a new voltage reading; it returns the
+        most recently read value, which is updated once per second on most robots. To force the battery system to read a
+        new value, use the 'Force Battery Refresh' command.
 
         Args:
             reading_type (uint8_t): None
@@ -404,7 +407,9 @@ class SpheroRvrObserver(Observer):
         self._dal.send_command(**command_dict)
 
     def get_battery_voltage_state_thresholds(self, handler, timeout=None): 
-        """Returns the battery voltage state thresholds and hysteresis value. The hysteresis value is added to the thresholds for rising voltages -- e.g., the voltage must be less than the low threshold to change the state to 'low battery' but it must be greater than (low threshold + hysteresis) to go back to the 'ok battery' state.
+        """Returns the battery voltage state thresholds and hysteresis value. The hysteresis value is added to the thresholds
+        for rising voltages -- e.g., the voltage must be less than the low threshold to change the state to 'low battery'
+        but it must be greater than (low threshold + hysteresis) to go back to the 'ok battery' state.
 
         Args:
             handler (function): called when response is received, takes form handler(criticalThreshold, lowThreshold, hysteresis).
@@ -500,22 +505,16 @@ class SpheroRvrObserver(Observer):
 
     def configure_collision_detection(self, method, x_threshold, x_speed, y_threshold, y_speed, dead_time, timeout=None): 
         """R2 and VD1 follow the older robots version of collision detection. Additional info can be seen here in the old API docs.
-Sending this command with values other than zero for method, Xt, and Yt automatically enables collision detection asyncs, same as sending CID 0x14, below. Sending this command with zeros for the above parameters disables collision detection asyncs.
-Example Setting for detecting any collision of half accel scale:
-method 1
-Xt 100
-Xs 0
-Yt 100
-Ys 0
-Deadtime 100
- 
-Example Setting that works well for LMQ:
-method 2
-Xt 180
-Xs 130
-Yt 180
-Ys 130
-Deadtime 100
+        Sending this command with values other than zero for method, Xt, and Yt automatically enables collision detection asyncs,
+        same as sending CID 0x14, below. Sending this command with zeros for the above parameters disables collision detection asyncs.
+
+        Example Setting for detecting any collision of half accel scale:
+        method 1
+        Xt 100
+        Xs 0
+        Yt 100
+        Ys 0
+        Deadtime 100
 
         Args:
             method (uint8_t): None
@@ -560,7 +559,7 @@ Deadtime 100
 
     def get_bot_to_bot_infrared_readings(self, handler, timeout=None): 
         """An 8-bit value is returned for each infrared sensor, assigned by mask.
-Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front right sensor 32'h00ff_0000: back right sensor 32'hff00_0000: back left sensor
+        Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front right sensor 32'h00ff_0000: back right sensor 32'hff00_0000: back left sensor
 
         Args:
             handler (function): called when response is received, takes form handler(sensorData).
@@ -610,7 +609,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._register_handler(handler, **command_dict)
 
     def start_robot_to_robot_infrared_broadcasting(self, far_code, near_code, timeout=None): 
-        """For robot following, broadcasting robots emit two codes: one for long distance (3 meters +), and one for short distance (< 1 meter). Following robots use both of these codes to determine direction and distance from the broadcasting robot.
+        """For robot following, broadcasting robots emit two codes: one for long distance (3 meters +), and one for short
+        distance (< 1 meter). Following robots use both of these codes to determine direction and distance from the broadcasting robot.
 
         Args:
             far_code (uint8_t): None
@@ -621,7 +621,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def start_robot_to_robot_infrared_following(self, far_code, near_code, timeout=None): 
-        """Registers a far code and near code for a following robot to follow. Following robots use the far code and near code emitted by a broadcaster bot to determine direction and distance to travel.
+        """Registers a far code and near code for a following robot to follow. Following robots use the far code and near
+        code emitted by a broadcaster bot to determine direction and distance to travel.
 
         Args:
             far_code (uint8_t): None
@@ -674,7 +675,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def start_robot_to_robot_infrared_evading(self, far_code, near_code, timeout=None): 
-        """Registers a far code and near code for a evading robot to evade. Evading robots use the far code and near code emitted by a broadcaster bot to determine direction and distance to travel.
+        """Registers a far code and near code for a evading robot to evade. Evading robots use the far code and near code
+        emitted by a broadcaster bot to determine direction and distance to travel.
 
         Args:
             far_code (uint8_t): None
@@ -706,7 +708,9 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def on_color_detection_notify(self, handler, timeout=None): 
-        """Notification sent on the interval set by the user in enable_color_detection_notification with information about the color detected.  The color classification ID 0xFF is a special value indicating that the color could not be identified (e.g., because the reading was too dark).  This is expected behavior when the ring is tapped in the air with the sensor facing out.
+        """Notification sent on the interval set by the user in enable_color_detection_notification with information about
+        the color detected.  The color classification ID 0xFF is a special value indicating that the color could not be
+        identified (e.g., because the reading was too dark).  This is expected behavior when the ring is tapped in the air with the sensor facing out.
 
         Args:
             handler (function): called when response is received, takes form handler(red, green, blue, confidence, colorClassificationId).
@@ -759,7 +763,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def set_bluetooth_device_name(self, name, timeout=None): 
-        """Sets a non-volatile name for the device that can be up to 48 characters long. Data will be accepted from 0 data length to max API packet length. Over 48 length will be truncated.
+        """Sets a non-volatile name for the device that can be up to 48 characters long. Data will be accepted from 0 data
+        length to max API packet length. Over 48 length will be truncated.
 
         Args:
             name (str): String to set as bluetooth device name.
@@ -797,7 +802,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def set_all_leds_with_32_bit_mask(self, led_group, led_brightness_values, timeout=None): 
-        """LED affected mask can affect up to 32 LEDs simultaneously. 0 = not affected. 1 = affected (update this LED). If mask value is set to 1, you must provide a value in the LED data array.
+        """LED affected mask can affect up to 32 LEDs simultaneously. 0 = not affected. 1 = affected (update this LED).
+        If mask value is set to 1, you must provide a value in the LED data array.
 
         Args:
             led_group (uint32_t): Bit-mask selecting which LEDs to change
@@ -997,7 +1003,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         self._dal.send_command(**command_dict)
 
     def get_color_identification_report(self, red, green, blue, confidence_threshold, handler, timeout=None): 
-        """The response to this command will provide an array of color palette entries that would match on the provided color with higher confidence than the given threshold.
+        """The response to this command will provide an array of color palette entries that would match on the provided
+        color with higher confidence than the given threshold.
 
         Args:
             red (uint8_t): None
