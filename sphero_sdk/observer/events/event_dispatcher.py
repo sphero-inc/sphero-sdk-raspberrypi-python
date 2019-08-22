@@ -27,7 +27,10 @@ class EventDispatcher:
             logger.debug("looking for entries with key %s.", key)
             if key in observer.handlers:
                 handler, outputs = observer.handlers[key]
-                observer.unregister_handler(key)
+
+                if message.is_response:
+                    observer.unregister_handler(key)
+
                 logger.debug("entry found, dispatching!")
                 self.__dispatch_event(handler, outputs, message)
                 break
