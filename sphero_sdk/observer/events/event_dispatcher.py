@@ -19,9 +19,9 @@ class EventDispatcher:
         # TODO AC - Implement error handling
 
         if message.is_response:
-            key = (message.did, message.cid, message.seq, message.target)
+            key = (message.did, message.cid, message.seq, message.source)
         else:
-            key = (message.did, message.cid, message.target)
+            key = (message.did, message.cid, message.source)
 
         for observer in Observer.observers:
             logger.debug("looking for entries with key %s.", key)

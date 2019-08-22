@@ -123,7 +123,7 @@ class Handler(SpheroHandlerBase):
         """
         self._add_worker(self.__response_workers, (did, cid, seq, target_node), handler)
 
-    def remove_response_worker(self, did, cid, seq):
+    def remove_response_worker(self, did, cid, seq, target_node):
         """Remove A Response Worker from this Handler's Dictionary"""
         self._remove_worker(self.__response_workers, (did, cid, seq))
 
@@ -191,7 +191,7 @@ class Handler(SpheroHandlerBase):
         except Exception:
             raise
         finally:
-            self.remove_response_worker(msg.did, msg.cid, msg.seq)
+            self.remove_response_worker(msg.did, msg.cid, msg.seq, msg.source)
 
     def _add_worker(self, worker_list, key, handler):
         if key in worker_list:
@@ -222,5 +222,5 @@ class Handler(SpheroHandlerBase):
         return await self._handle_message(self.__command_workers, msg, key)
 
     async def _handle_response(self, msg):
-        key = (msg.did, msg.cid, msg.seq, msg.target)
+        key = (msg.did, msg.cid, msg.seq, msg.source)
         return await self._handle_message(self.__response_workers, msg, key)
