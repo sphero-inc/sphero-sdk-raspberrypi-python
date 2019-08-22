@@ -20,8 +20,8 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_color_detected(red, green, blue, confidence, colorClassification):
-    print('Color detected: ', red, green, blue, confidence, colorClassification)
+async def on_color_detected(red, green, blue, confidence, colorClassificationId):
+    print('Color detected: ', red, green, blue, confidence, colorClassificationId)
 
 
 async def main():
