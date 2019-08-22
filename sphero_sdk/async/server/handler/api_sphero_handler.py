@@ -123,9 +123,9 @@ class Handler(SpheroHandlerBase):
         """
         self._add_worker(self.__response_workers, (did, cid, seq, target_node), handler)
 
-    def remove_response_worker(self, did, cid, seq, target):
+    def remove_response_worker(self, did, cid, seq, target_node):
         """Remove A Response Worker from this Handler's Dictionary"""
-        self._remove_worker(self.__response_workers, (did, cid, seq, target))
+        self._remove_worker(self.__response_workers, (did, cid, seq, target_node))
 
     async def send_command(self, msg, response_handler=None, timeout=None):
         """Send a command to the port, returns the result (if requested)
@@ -222,5 +222,5 @@ class Handler(SpheroHandlerBase):
         return await self._handle_message(self.__command_workers, msg, key)
 
     async def _handle_response(self, msg):
-        key = (msg.did, msg.cid, msg.seq, msg.source)
+        key = (msg.did, msg.cid, msg.seq, msg.source_node)
         return await self._handle_message(self.__response_workers, msg, key)
