@@ -4,8 +4,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 
 import time
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk.common.log_level import LogLevel
 
-rvr = SpheroRvrObserver()
+rvr = SpheroRvrObserver(log_level=LogLevel.Debug_Verbose)
 
 
 def handler1(major, minor, revision):
