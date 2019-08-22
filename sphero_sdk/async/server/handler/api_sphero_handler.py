@@ -175,7 +175,6 @@ class Handler(SpheroHandlerBase):
                 future.set_exception(e)
                 pass
 
-        print('adding response worker did:{} cid:{} seq:{} target:{}'.format(msg.did, msg.cid, msg.seq, msg.target))
         self.add_response_worker(
                 msg.did,
                 msg.cid,
@@ -200,7 +199,6 @@ class Handler(SpheroHandlerBase):
         worker_list[key] = handler
 
     def _remove_worker(self, worker_list, key):
-        print('key',key)
         worker_list.pop(key)
 
     async def _handle_message(self, worker_list, msg, key):
@@ -224,6 +222,5 @@ class Handler(SpheroHandlerBase):
         return await self._handle_message(self.__command_workers, msg, key)
 
     async def _handle_response(self, msg):
-        print('handling response with key did:{} cid:{} seq:{} source:{}'.format(msg.did, msg.cid, msg.seq, msg.source))
         key = (msg.did, msg.cid, msg.seq, msg.source)
         return await self._handle_message(self.__response_workers, msg, key)
