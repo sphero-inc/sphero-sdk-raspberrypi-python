@@ -15,10 +15,6 @@ class DriveControlObserver:
         Args:
             rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr containing an event loop
 
-
-        Returns:
-
-
         """
 
     __drive_no_flag = 0x00

@@ -6,11 +6,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 
 import time
 
-from sphero_sdk import ObserverSpheroRvr
+from sphero_sdk import SpheroRvrObserver
 from sphero_sdk import InfraredControlObserver
 from sphero_sdk import InfraredCodes
 
-rvr = ObserverSpheroRvr()
+rvr = SpheroRvrObserver()
 
 infrared_controller = InfraredControlObserver(rvr)
 

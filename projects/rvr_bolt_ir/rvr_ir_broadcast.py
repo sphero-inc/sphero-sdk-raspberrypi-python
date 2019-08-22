@@ -3,9 +3,9 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 import time
-from sphero_sdk import ObserverSpheroRvr
+from sphero_sdk import SpheroRvrObserver
 
-rvr = ObserverSpheroRvr()
+rvr = SpheroRvrObserver()
 green1 = [0, 255, 0]
 green2 = [0, 128, 0]
 

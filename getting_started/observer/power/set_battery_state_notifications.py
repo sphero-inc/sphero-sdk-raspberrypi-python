@@ -2,9 +2,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-from sphero_sdk import ObserverSpheroRvr
+from sphero_sdk import SpheroRvrObserver
 
-rvr = ObserverSpheroRvr()
+rvr = SpheroRvrObserver()
 
 
 def on_battery_voltage_state_change(state):

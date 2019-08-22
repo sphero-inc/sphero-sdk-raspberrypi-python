@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          08/14/2019 @ 17:33:23.064727 (UTC)
+# Timestamp:          08/21/2019 @ 21:34:24.502595 (UTC)
 
 from enum import IntEnum
 
@@ -14,10 +14,7 @@ __all__ = ['UsbConnectionStatusEnum',
 
 
 class CommandsEnum(IntEnum): 
-    set_all_leds_with_16_bit_mask = 0x0E
     set_all_leds_with_32_bit_mask = 0x1A
-    set_all_leds_with_64_bit_mask = 0x1B
-    set_all_leds_with_8_bit_mask = 0x1C
     set_led_matrix_one_color = 0x2F
     save_led_matrix_animation_frame = 0x30
     save_led_matrix_animation = 0x31

@@ -12,7 +12,7 @@ import asyncio
 import pygame
 from __future__ import absolute_import, division, unicode_literals, print_function
 
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
 # initialize event loops and constants
@@ -31,7 +31,7 @@ mouse_button_down = False
 run_mouse_tracking = True
 
 loop = asyncio.get_event_loop()
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )

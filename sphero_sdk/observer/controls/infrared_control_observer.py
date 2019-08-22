@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-
-import time
-
-
 class InfraredControlObserver:
     """InfraredControlObserver is a class that serves as a helper for RVR's IR features by encapsulating complexities and
         removing the need for redundant function calls
@@ -10,7 +6,6 @@ class InfraredControlObserver:
     Args:
         rvr (ObserverSpheroRvr): Instance of an ObserverSpheroRvr
 
-    Returns:
     """
 
     def __init__(self, rvr):
@@ -28,7 +23,6 @@ class InfraredControlObserver:
             far_code (InfraredCode): InfraredCode for far code
             near_code (InfraredCode): InfraredCode for near code
 
-        Returns:
         """
 
         if far_codes is None:
@@ -44,7 +38,6 @@ class InfraredControlObserver:
     def stop_infrared_broadcasting(self):
         """Calls stop_robot_to_robot_infrared_broadcasting()
 
-        Returns:
         """
 
         self.__rvr.stop_robot_to_robot_infrared_broadcasting()
@@ -58,7 +51,6 @@ class InfraredControlObserver:
             far_code (InfraredCode): InfraredCode for far code
             near_code (InfraredCode): InfraredCode for near code
 
-        Returns:
         """
 
         if far_codes is None:
@@ -74,7 +66,6 @@ class InfraredControlObserver:
     def stop_infrared_following(self):
         """Calls stop_robot_to_robot_infrared_following()
 
-        Returns:
         """
 
         self.__rvr.stop_robot_to_robot_infrared_following()
@@ -88,7 +79,6 @@ class InfraredControlObserver:
             messages (list): List of InfraredCodes to send
             strength (uint8): Integer that represents emitter strength (0 - 64)
 
-        Returns:
         """
 
         if messages is None:
@@ -117,7 +107,6 @@ class InfraredControlObserver:
         Args:
             enable (bool): True to enable listening async; False to disable
 
-        Returns:
         """
 
         self.__rvr.enable_robot_infrared_message_notify(enable)

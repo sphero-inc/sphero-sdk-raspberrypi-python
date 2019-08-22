@@ -3,36 +3,11 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          08/14/2019 @ 17:33:23.064649 (UTC)
+# Timestamp:          08/21/2019 @ 21:34:24.502499 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
-
-
-def set_all_leds_with_16_bit_mask(led_group, led_brightness_values, target, timeout): 
-    return { 
-        'did': DevicesEnum.io,
-        'cid': CommandsEnum.set_all_leds_with_16_bit_mask,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='ledGroup',
-                data_type='uint16_t',
-                index=0,
-                value=led_group,
-                size=1
-            ),
-            Parameter( 
-                name='ledBrightnessValues',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=16
-            ),
-        ],
-    }
 
 
 def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, timeout): 
@@ -55,56 +30,6 @@ def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, time
                 index=1,
                 value=led_brightness_values,
                 size=32
-            ),
-        ],
-    }
-
-
-def set_all_leds_with_64_bit_mask(led_group, led_brightness_values, target, timeout): 
-    return { 
-        'did': DevicesEnum.io,
-        'cid': CommandsEnum.set_all_leds_with_64_bit_mask,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='ledGroup',
-                data_type='uint64_t',
-                index=0,
-                value=led_group,
-                size=1
-            ),
-            Parameter( 
-                name='ledBrightnessValues',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=64
-            ),
-        ],
-    }
-
-
-def set_all_leds_with_8_bit_mask(led_group, led_brightness_values, target, timeout): 
-    return { 
-        'did': DevicesEnum.io,
-        'cid': CommandsEnum.set_all_leds_with_8_bit_mask,
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='ledGroup',
-                data_type='uint8_t',
-                index=0,
-                value=led_group,
-                size=1
-            ),
-            Parameter( 
-                name='ledBrightnessValues',
-                data_type='uint8_t',
-                index=1,
-                value=led_brightness_values,
-                size=8
             ),
         ],
     }

@@ -6,14 +6,14 @@ import asyncio
 from text2digits import text2digits
 
 from projects.voice_control.helper_microphone_input import Recorder
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk.aio.controls.drive_control_async import DriveControlAsync
-from sphero_sdk.aio.controls.led_control_async import LedControlAsync
+from sphero_sdk import DriveControlAsync
+from sphero_sdk import LedControlAsync
 from sphero_sdk.common.enums.colors_enums import Colors
 
 loop = asyncio.get_event_loop()
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )

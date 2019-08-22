@@ -6,7 +6,7 @@ import asyncio
 
 from projects.keyboard_control import KeyboardHelper
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import AsyncSpheroRvr
+from sphero_sdk import SpheroRvrAsync
 
 # initialize global variables
 key_helper = KeyboardHelper()
@@ -17,7 +17,7 @@ driving_keys = [119, 97, 115, 100, 113, 32]
 speed = 64
 
 loop = asyncio.get_event_loop()
-rvr = AsyncSpheroRvr(
+rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )

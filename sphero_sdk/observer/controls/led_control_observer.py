@@ -11,9 +11,6 @@ class LedControlObserver:
     Args:
         rvr (AsyncSpheroRvr): Instance of an AsyncSpheroRvr containing an event loop
 
-
-    Returns:
-
     """
 
     def __init__(self, rvr):
@@ -26,8 +23,6 @@ class LedControlObserver:
 
     def turn_leds_off(self):
         """turn_lights_off turns all the lights off on the rvr. It takes no inputs.
-
-        Args:
 
         """
 
