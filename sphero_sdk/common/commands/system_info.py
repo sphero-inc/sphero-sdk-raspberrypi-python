@@ -3,17 +3,19 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          08/21/2019 @ 21:34:24.511602 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.336821 (UTC)
 
 from sphero_sdk.common.enums.system_info_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def get_main_application_version(target, timeout): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_main_application_version,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -43,6 +45,7 @@ def get_bootloader_version(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_bootloader_version,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -72,6 +75,7 @@ def get_board_revision(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_board_revision,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -89,6 +93,7 @@ def get_mac_address(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_mac_address,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -106,6 +111,7 @@ def get_stats_id(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_stats_id,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -123,6 +129,7 @@ def get_processor_name(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_processor_name,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -140,6 +147,7 @@ def get_boot_reason(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_boot_reason,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -157,6 +165,7 @@ def get_last_error_info(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_last_error_info,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -186,6 +195,7 @@ def get_sku(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_sku,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -203,6 +213,7 @@ def get_core_up_time_in_milliseconds(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_core_up_time_in_milliseconds,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -220,6 +231,7 @@ def get_event_log_status(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_event_log_status,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -249,6 +261,7 @@ def get_event_log_data(offset, count, target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_event_log_data,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -282,6 +295,7 @@ def enable_sos_message_notify(is_enabled, target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.enable_sos_message_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -317,6 +331,7 @@ def get_sos_message(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_sos_message,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -334,6 +349,7 @@ def clear_sos_message(target, timeout):
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.clear_sos_message,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }

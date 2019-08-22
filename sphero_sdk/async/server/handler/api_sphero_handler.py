@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 class Handler(SpheroHandlerBase):
-    __slots__ = ['__sequences', '__command_workers', '__response_workers']
+    __slots__ = ['__command_workers', '__response_workers']
 
     def __init__(self, port, command_workers=None, response_workers=None):
-        '''Knows how to handle Sphero API Commands in both directions
+        """Knows how to handle Sphero API Commands in both directions
 
         Args:
             port (SpheroPortBase): A port instance that implements send(msg)
@@ -23,9 +23,8 @@ class Handler(SpheroHandlerBase):
             command_workers (dict):
             response_workers (dict):
 
-        '''
+        """
         SpheroHandlerBase.__init__(self, port)
-        self.__sequences = list(range(1, 256))
 
         if command_workers is not None:
             self.__command_workers = command_workers
@@ -46,10 +45,10 @@ class Handler(SpheroHandlerBase):
         return self.__response_workers.copy()
 
     async def message_handler(self, msg):
-        '''Handles API Messages (Commands and Responses)
+        """Handles API Messages (Commands and Responses)
 
         Pass to Parser
-        '''
+        """
         if msg.is_response:
             await self._handle_response(msg)
             return
@@ -69,20 +68,20 @@ class Handler(SpheroHandlerBase):
         self._port.send(response)
 
     async def error_handler(self, buf):
-        '''Attempts to Handle Malformed API Messages
+        """Attempts to Handle Malformed API Messages
 
         Pass To Parser
-        '''
+        """
         # TODO MJC Implement
         pass
 
     def add_command_worker(self, did, cid, target_node, handler):
-        '''Add A Command Worker to this Handler's Dictionary
+        """Add A Command Worker to this Handler's Dictionary
 
         Args:
-            did (unsigned byte): Device ID
-            cid (unsigned byte): Command ID
-            target_node (unsigned byte): Target ID Node
+            did (uint8): Device ID
+            cid (uint8): Command ID
+            target_node (uint8): Target ID Node
             handler (func): Takes Message,
                             returns (ErrorCode, response_body) tuple
 
@@ -92,7 +91,7 @@ class Handler(SpheroHandlerBase):
         Raises:
             ValueError: A Worker for that DID/CID/TID already exists.
                         You must explicitly remove it before adding a new one.
-        '''
+        """
         key = (did, cid, target_node)
         self._add_worker(
                 self.__command_workers,
@@ -101,16 +100,17 @@ class Handler(SpheroHandlerBase):
         )
 
     def remove_command_worker(self, did, cid, target_node):
-        '''Remove A Command Worker from this Handler's Dictionary'''
+        """Remove A Command Worker from this Handler's Dictionary"""
         self._remove_worker(self.__command_workers, (did, cid, target_node))
 
-    def add_response_worker(self, did, cid, seq, handler):
-        '''Add A Response Worker to this Handler's Dictionary
+    def add_response_worker(self, did, cid, seq, target_node, handler):
+        """Add A Response Worker to this Handler's Dictionary
 
         Args:
-            did (unsigned byte): Device ID
-            cid (unsigned byte): Command ID
-            seq (unsigned byte): Sequence
+            did (uint8): Device ID
+            cid (uint8): Command ID
+            seq (uint8): Sequence Number
+            target_node (uint8): Target ID Node
             handler (func): Takes Message, returns unpacked Message Body
 
         Returns:
@@ -120,15 +120,15 @@ class Handler(SpheroHandlerBase):
             ValueError: A Worker for that DID/CID/SEQ already exists.
                         You must explicitly remove it before adding a new one.
 
-        '''
-        self._add_worker(self.__response_workers, (did, cid, seq), handler)
+        """
+        self._add_worker(self.__response_workers, (did, cid, seq, target_node), handler)
 
     def remove_response_worker(self, did, cid, seq):
-        '''Remove A Response Worker from this Handler's Dictionary'''
+        """Remove A Response Worker from this Handler's Dictionary"""
         self._remove_worker(self.__response_workers, (did, cid, seq))
 
     async def send_command(self, msg, response_handler=None, timeout=None):
-        '''Send a command to the port, returns the result (if requested)
+        """Send a command to the port, returns the result (if requested)
 
         Args:
             msg (Message): an API Message
@@ -150,7 +150,7 @@ class Handler(SpheroHandlerBase):
             Exception: - A response with an ErrorCode other and SUCCESS was
                         received. arg[0] of the Excecption is the ErrorCode
                        - An exception occurred in the provided response_handler
-        '''
+        """
         if msg.requests_response and response_handler is None:
             raise TypeError('Response Handler must be supplied for'
                             'messages that request responses')
@@ -164,7 +164,6 @@ class Handler(SpheroHandlerBase):
             return
 
         future = asyncio.Future()
-        msg.seq = self.__sequences.pop()
 
         async def response_handler_wrapper(msg):
             try:
@@ -180,6 +179,7 @@ class Handler(SpheroHandlerBase):
                 msg.did,
                 msg.cid,
                 msg.seq,
+                msg.target,
                 response_handler_wrapper
         )
 
@@ -191,7 +191,6 @@ class Handler(SpheroHandlerBase):
         except Exception:
             raise
         finally:
-            self.__sequences.append(msg.seq)
             self.remove_response_worker(msg.did, msg.cid, msg.seq)
 
     def _add_worker(self, worker_list, key, handler):
@@ -223,5 +222,5 @@ class Handler(SpheroHandlerBase):
         return await self._handle_message(self.__command_workers, msg, key)
 
     async def _handle_response(self, msg):
-        key = (msg.did, msg.cid, msg.seq)
+        key = (msg.did, msg.cid, msg.seq, msg.target)
         return await self._handle_message(self.__response_workers, msg, key)

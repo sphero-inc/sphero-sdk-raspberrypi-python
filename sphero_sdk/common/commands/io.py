@@ -3,17 +3,19 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          08/21/2019 @ 21:34:24.502499 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.329227 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, timeout): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_all_leds_with_32_bit_mask,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -39,6 +41,7 @@ def set_led_matrix_one_color(red, green, blue, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_led_matrix_one_color,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -71,6 +74,7 @@ def save_led_matrix_animation_frame(frame_index, color_index_bit_0, color_index_
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.save_led_matrix_animation_frame,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -117,6 +121,7 @@ def save_led_matrix_animation(animation_index, speed_fps, is_fade_enabled, palet
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.save_led_matrix_animation,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -177,6 +182,7 @@ def play_led_matrix_animation(animation_index, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.play_led_matrix_animation,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -195,6 +201,7 @@ def play_led_matrix_animation_frame(frame_index, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.play_led_matrix_animation_frame,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -213,6 +220,7 @@ def get_led_matrix_animation_frames(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.get_led_matrix_animation_frames,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -230,6 +238,7 @@ def delete_led_matrix_animations_and_frames(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.delete_led_matrix_animations_and_frames,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -239,6 +248,7 @@ def pause_led_matrix(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.pause_led_matrix,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -248,6 +258,7 @@ def resume_led_matrix(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.resume_led_matrix,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -257,6 +268,7 @@ def reset_led_matrix(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.reset_led_matrix,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -283,6 +295,7 @@ def assign_frames_to_animation(animation_index, start_frame_index, frame_indices
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.assign_frames_to_animation,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -315,6 +328,7 @@ def save_led_matrix_animation_without_frames(animation_index, speed_fps, is_fade
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.save_led_matrix_animation_without_frames,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -376,6 +390,7 @@ def play_led_matrix_animation_with_loop_option(animation_index, is_looping, targ
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.play_led_matrix_animation_with_loop_option,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -401,6 +416,7 @@ def get_active_color_palette(target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.get_active_color_palette,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -418,6 +434,7 @@ def set_active_color_palette(rgb_index_bytes, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_active_color_palette,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -436,6 +453,7 @@ def get_color_identification_report(red, green, blue, confidence_threshold, targ
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.get_color_identification_report,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -483,6 +501,7 @@ def load_color_palette(palette_index, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.load_color_palette,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -501,6 +520,7 @@ def save_color_palette(palette_index, target, timeout):
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.save_color_palette,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
