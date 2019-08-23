@@ -3,17 +3,19 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          08/21/2019 @ 21:34:24.501734 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.328731 (UTC)
 
 from sphero_sdk.common.enums.api_and_shell_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def echo(data, target, timeout): 
     return { 
         'did': DevicesEnum.api_and_shell,
         'cid': CommandsEnum.echo,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 

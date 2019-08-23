@@ -16,14 +16,21 @@ class EventDispatcher:
             message (Message): Used to look for registered handlers for this message.
 
         """
-        # TODO AC - Do we need 'sequence numbers' for command responses?
-        # TODO AC - Do we need 'source node' for async responses
         # TODO AC - Implement error handling
+
+        if message.is_response:
+            key = (message.did, message.cid, message.seq, message.source)
+        else:
+            key = (message.did, message.cid, message.source)
+
         for observer in Observer.observers:
-            key = (message.did, message.cid)
             logger.debug("looking for entries with key %s.", key)
             if key in observer.handlers:
                 handler, outputs = observer.handlers[key]
+
+                if message.is_response:
+                    observer.unregister_handler(key)
+
                 logger.debug("entry found, dispatching!")
                 self.__dispatch_event(handler, outputs, message)
                 break

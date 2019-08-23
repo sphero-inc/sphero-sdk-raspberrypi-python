@@ -21,13 +21,14 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             baud
         )
 
-    async def send_command(self, did, cid, target, timeout=None, inputs=[], outputs=[]):
+    async def send_command(self, did, cid, seq, target, timeout=None, inputs=[], outputs=[]):
         """Creates a Message object using the provided parameters and creates response handler that
         if a response is requested.
 
         Args:
             did (uint8): Device ID
             cid (uint8): Command ID
+            seq (uint8): Sequence Number
             target (uint8): 1 - Nordic; 2 - ST
             timeout (uint8): Time in seconds to wait for a response, if one is requested. Otherwise, ignored.
             inputs (list(Parameter)): Inputs for command that is being sent
@@ -38,27 +39,28 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             was not provided
         """
 
-        msg = Message()
-        msg.did = did
-        msg.cid = cid
-        msg.target = target
-        msg.is_activity = True
+        message = Message()
+        message.did = did
+        message.cid = cid
+        message.seq = seq
+        message.target = target
+        message.is_activity = True
 
         if len(outputs) > 0:
-            msg.requests_response = True
+            message.requests_response = True
 
         for param in inputs:
-            msg.pack(param.data_type, param.value)
+            message.pack(param.data_type, param.value)
 
-        def response_handler(msg):
+        def response_handler(message):
             response_list = []
             for param in sorted(outputs, key=lambda x: x.index):
-                response_list.append(msg.unpack(param.data_type))
+                response_list.append(message.unpack(param.data_type))
 
             return tuple(response_list)
 
         return await self.handler.send_command(
-            msg,
+            message,
             response_handler=response_handler if len(outputs) > 0 else None,
             timeout=timeout
         )
@@ -71,11 +73,9 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             did (uint8): Device ID
             cid (uint8): Command ID
             target (uint8): 1 - Nordic; 2 - ST
+            handler (function): Callback function
             timeout (uint8): Timeout in seconds
             outputs (list): Expected outputs for command that is being sent
-
-        Returns:
-
 
         """
         async def wrapper(msg):

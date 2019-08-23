@@ -3,17 +3,19 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          08/21/2019 @ 21:34:24.509403 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.335074 (UTC)
 
 from sphero_sdk.common.enums.power_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def enter_deep_sleep(seconds_until_deep_sleep, target, timeout): 
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enter_deep_sleep,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -32,6 +34,7 @@ def enter_soft_sleep(target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enter_soft_sleep,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -41,6 +44,7 @@ def wake(target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.wake,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -50,6 +54,7 @@ def get_battery_percentage(target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_percentage,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -67,6 +72,7 @@ def get_battery_voltage_state(target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_voltage_state,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -102,6 +108,7 @@ def enable_battery_voltage_state_change_notify(is_enabled, target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.enable_battery_voltage_state_change_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -137,6 +144,7 @@ def get_battery_voltage_in_volts(reading_type, target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_voltage_in_volts,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -163,6 +171,7 @@ def get_battery_voltage_state_thresholds(target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_battery_voltage_state_thresholds,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -192,6 +201,7 @@ def get_current_sense_amplifier_current(amplifier_id, target, timeout):
     return { 
         'did': DevicesEnum.power,
         'cid': CommandsEnum.get_current_sense_amplifier_current,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 

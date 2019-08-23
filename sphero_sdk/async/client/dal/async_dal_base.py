@@ -5,7 +5,7 @@ class AsyncDalBase:
     def __init__(self):
         pass
 
-    async def send_command(self, did, cid, target,
+    async def send_command(self, did, cid, seq, target,
                            timeout=None, inputs=[], outputs=[]):
         '''Returns the response.
 
@@ -13,6 +13,7 @@ class AsyncDalBase:
             output0, output1, ... outputN = await self.send_command(
                 did,
                 cid,
+                seq,
                 target,
                 timeout,
                 inputs=[

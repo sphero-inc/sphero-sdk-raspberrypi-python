@@ -38,19 +38,15 @@ async def main():
     near_code = InfraredCodes.zero
     await rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
+    # drive RVR forward for 4 seconds (one command times out after 2 seconds)
+    for i in range(2):
+        await rvr.raw_motors(1, 64, 1, 64)
+        await asyncio.sleep(2)
 
-    await rvr.raw_motors(1, 64, 1, 64)
-    await asyncio.sleep(4)
-
+    # Stops IR broadcasting
     await rvr.stop_robot_to_robot_infrared_broadcasting()
 
 
-try:
-    asyncio.ensure_future(main())
-    loop.run_forever()
-
-except KeyboardInterrupt:
-    loop.stop()
-
-time.sleep(1)
-loop.close()
+loop.run_until_complete(
+    main()
+)

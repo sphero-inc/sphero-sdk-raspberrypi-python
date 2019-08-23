@@ -3,17 +3,19 @@
 # Source File:        0x19-peer_connection.json
 # Device ID:          0x19
 # Device Name:        connection
-# Timestamp:          08/21/2019 @ 21:34:24.511045 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.336374 (UTC)
 
 from sphero_sdk.common.enums.connection_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def set_bluetooth_device_name(name, target, timeout): 
     return { 
         'did': DevicesEnum.connection,
         'cid': CommandsEnum.set_bluetooth_device_name,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -32,6 +34,7 @@ def get_bluetooth_device_name(target, timeout):
     return { 
         'did': DevicesEnum.connection,
         'cid': CommandsEnum.get_bluetooth_device_name,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -49,6 +52,7 @@ def get_bluetooth_advertising_name(target, timeout):
     return { 
         'did': DevicesEnum.connection,
         'cid': CommandsEnum.get_bluetooth_advertising_name,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'outputs': [ 

@@ -9,31 +9,35 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def on_color_detected(red, green, blue, confidence, colorClassification):
-    print('Color detected: ', red, green, blue, confidence, colorClassification)
+def on_color_detected(red, green, blue, confidence, colorClassificationId):
+    print('Color detected: ', red, green, blue, confidence, colorClassificationId)
 
 
 def main():
     """ This program uses the color sensor on RVR (located on the down side of RVR, facing the floor) to report colors detected.
 
     """
+    # Wake up RVR
     rvr.wake()
 
     # Give RVR time to wake up
     time.sleep(2)
 
-    # Register handler to be called when message is received
+    # This enables the color sensor on RVR
+    rvr.enable_color_detection(is_enabled=True)
+
+    # Register a handler to be called when a color detection notification is received
     rvr.on_color_detection_notify(handler=on_color_detected)
 
-    rvr.enable_color_detection(enable=True)
+    # Enable the color detection notifications with the given parameters
+    rvr.enable_color_detection_notify(is_enabled=True, interval=250, minimum_confidence_threshold=0, timeout=5)
 
-    # Color detection is reported at 100 ms intervals. Handler is called only if color is detected with
-    # confidence level  0 or above
-    rvr.enable_color_detection_notification(enable=True, interval=100, minimum_confidence_threshold=0)
-
-    time.sleep(5)
-
+    # Allow this program to run for 10 seconds
+    time.sleep(10)
+    
+    # Properly shuts down the RVR serial port.
     rvr.close()
 
 
-main()
+if __name__ == "__main__":
+    main()

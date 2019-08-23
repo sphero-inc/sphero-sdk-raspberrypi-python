@@ -3,17 +3,19 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          08/21/2019 @ 21:34:24.505407 (UTC)
+# Timestamp:          08/22/2019 @ 20:06:31.331496 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
 from sphero_sdk.common.parameter import Parameter
+from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
 def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -53,6 +55,7 @@ def reset_yaw(target, timeout):
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.reset_yaw,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
@@ -62,6 +65,7 @@ def drive_with_heading(speed, heading, flags, target, timeout):
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_with_heading,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
@@ -94,6 +98,7 @@ def set_stabilization(index, target, timeout):
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.set_stabilization,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
