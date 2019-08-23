@@ -34,8 +34,8 @@ async def main():
     await asyncio.sleep(2)
 
     # Broadcast on channels 0 and 1. We specify the channels with the InfraredCodes enumeration
-    far_code = InfraredCodes.zero
-    near_code = InfraredCodes.one
+    far_code = InfraredCodes.one
+    near_code = InfraredCodes.zero
     await rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
 
     # drive RVR forward for 4 seconds (one command times out after 2 seconds)
