@@ -53,11 +53,14 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             message.pack(param.data_type, param.value)
 
         def response_handler(message):
-            response_list = []
+            response_dictionary = {}
             for param in sorted(outputs, key=lambda x: x.index):
-                response_list.append(message.unpack(param.data_type))
+                response_dictionary[param.name] = message.unpack(
+                    param.data_type,
+                    count=param.size
+                )
 
-            return tuple(response_list)
+            return response_dictionary
 
         return await self.handler.send_command(
             message,
@@ -79,14 +82,14 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
 
         """
         async def wrapper(msg):
-            response = {}
+            response_dictionary = {}
             for param in sorted(outputs, key=lambda x: x.index):
-                response[param.name] = msg.unpack(
+                response_dictionary[param.name] = msg.unpack(
                     param.data_type,
                     count=param.size
                 )
 
-            await handler(**response)
+            await handler(response_dictionary)
 
             return ErrorCode.SUCCESS, bytearray()
 

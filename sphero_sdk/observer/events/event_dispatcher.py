@@ -38,14 +38,14 @@ class EventDispatcher:
     def __dispatch_event(self, handler, outputs, message):
         if len(outputs) > 0:
             logger.debug("unpacking output from message")
-            response = {}
+            response_dictionary = {}
             for param in sorted(outputs, key=lambda x: x.index):
-                response[param.name] = message.unpack(
+                response_dictionary[param.name] = message.unpack(
                     param.data_type,
                     count=param.size
                 )
             logger.debug("invoking callback")
-            handler(**response)
+            handler(response_dictionary)
         else:
             logger.debug("no outputs expected, invoking callback.")
             handler()
