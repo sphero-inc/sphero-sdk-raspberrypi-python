@@ -24,8 +24,10 @@ rvr = SpheroRvrAsync(
 infrared_controller = InfraredControlAsync(rvr)
 
 
-async def on_ir_message_received(infraredCode):
-    print("received code: {}".format(infraredCode))
+async def on_ir_message_received(response):
+    print("Response contents:",response)
+    infrared_code = response['infraredCode']
+    print("Received code: {}".format(infrared_code))
 
 
 async def main():

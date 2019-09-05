@@ -16,13 +16,13 @@ rvr = SpheroRvrAsync(
 )
 
 
-def on_about_to_enter_soft_sleep():
+async def on_about_to_enter_soft_sleep():
     print("RVR is about to enter soft sleep...")
     # Here we could issue a command to RVR, e.g. wake() such that the sleep timer is reset
     # and RVR does not go to sleep
 
 
-def on_entered_soft_sleep():
+async def on_entered_soft_sleep():
     print("RVR entered soft sleep...")
 
 

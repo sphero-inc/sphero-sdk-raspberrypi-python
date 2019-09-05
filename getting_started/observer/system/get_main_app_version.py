@@ -8,11 +8,15 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def handler1(major, minor, revision):
+def handler1(response):
+    print('response contents:', response)
+    major, minor, revision = response['major'], response['minor'], response['revision']
     print('{} {}.{}.{}'.format("Nordic", major, minor, revision))
 
 
-def handler2(major, minor, revision):
+def handler2(response):
+    print('response contents:', response)
+    major, minor, revision = response['major'], response['minor'], response['revision']
     print('{} {}.{}.{}'.format("ST", major, minor, revision))
 
 
