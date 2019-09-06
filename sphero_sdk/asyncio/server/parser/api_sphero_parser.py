@@ -32,7 +32,6 @@ class Parser(SpheroParserBase):
 
         """
         self._buf += data
-        logger.debug("Appending bytes: %s", self.__buf)
         asyncio.ensure_future(self._read())
 
     async def _read(self):
@@ -60,7 +59,7 @@ class Parser(SpheroParserBase):
                                    self._buf.index(Message.END_OF_PACKET) + 1])
             self._handle_error(error_buf)
         else:
-            logger.info('Parsing packet complete: %s', msg)
+            logger.info('Parsing packet complete')
             self._handle_message(msg)
         finally:
             # Regardless of outcome, we should rerun _read until no SOP or EOP
