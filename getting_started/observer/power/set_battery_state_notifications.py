@@ -7,8 +7,8 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def on_battery_voltage_state_change(state):
-    print("Battery voltage state changed; new state: ", state)
+def on_battery_voltage_state_change(response):
+    print('Response data for voltage state change:',response)
 
 
 def main():

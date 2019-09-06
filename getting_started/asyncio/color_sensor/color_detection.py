@@ -20,8 +20,8 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_color_detected(red, green, blue, confidence, colorClassificationId):
-    print('Color detected: ', red, green, blue, confidence, colorClassificationId)
+async def on_color_detected(response):
+    print('Response data for color detected:',response)
 
 
 async def main():
@@ -33,10 +33,10 @@ async def main():
     await rvr.wake()
 
     # Give RVR time to wake up
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
 
     # This enables the color sensor on RVR
-    await rvr.enable_color_detection(is_enabled=True)
+    await rvr.enable_color_detection(is_enabled=False)
 
     # Register a handler to be called when a color detection notification is received
     await rvr.on_color_detection_notify(handler=on_color_detected)
