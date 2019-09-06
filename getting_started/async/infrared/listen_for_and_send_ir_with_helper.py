@@ -25,9 +25,7 @@ infrared_controller = InfraredControlAsync(rvr)
 
 
 async def on_ir_message_received(response):
-    print("Response contents:",response)
-    infrared_code = response['infraredCode']
-    print("Received code: {}".format(infrared_code))
+    print('Response data for IR message received:',response)
 
 
 async def main():

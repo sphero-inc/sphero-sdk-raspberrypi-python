@@ -9,15 +9,11 @@ rvr = SpheroRvrObserver()
 
 
 def handler1(response):
-    print('response contents:', response)
-    major, minor, revision = response['major'], response['minor'], response['revision']
-    print('{} {}.{}.{}'.format("Nordic", major, minor, revision))
+    print('Response data for target 1 (Nordic):',response)
 
 
 def handler2(response):
-    print('response contents:', response)
-    major, minor, revision = response['major'], response['minor'], response['revision']
-    print('{} {}.{}.{}'.format("ST", major, minor, revision))
+    print('Response data for target 2 (ST):',response)
 
 
 def main():

@@ -22,14 +22,10 @@ async def get_main_app_version():
     """
 
     response = await rvr.get_main_application_version(target=1, timeout=5)
-    print ('response contents:', response)
-    major, minor, revision = response['major'], response['minor'], response['revision']
-    print('{} {}.{}.{}'.format("Nordic", major, minor, revision))
+    print('Response data for target 1 (Nordic):',response)
 
     response = await rvr.get_main_application_version(target=2, timeout=5)
-    print('response contents:', response)
-    major, minor, revision = response['major'], response['minor'], response['revision']
-    print('{} {}.{}.{}'.format("ST", major, minor, revision))
+    print('Response data for target 2 (ST):',response)
 
 
 loop.run_until_complete(

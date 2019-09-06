@@ -18,9 +18,7 @@ rvr = SpheroRvrAsync(
 
 
 async def on_battery_voltage_state_change(response):
-    print('response contents:', response)
-    state = response['state']
-    print("Battery voltage state changed; new state: ", state)
+    print('Response data for voltage state change:',response)
 
 
 async def main():

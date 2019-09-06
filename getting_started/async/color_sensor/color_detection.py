@@ -21,10 +21,7 @@ rvr = SpheroRvrAsync(
 
 
 async def on_color_detected(response):
-    print('Response contents:',response)
-    red, green, blue = response['red'], response['green'], response['blue']
-    confidence, color_classification_id = response['confidence'], response['colorClassificationId']
-    print('Color detected: ', red, green, blue, confidence, color_classification_id)
+    print('Response data for color detected:',response)
 
 
 async def main():

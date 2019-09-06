@@ -22,11 +22,9 @@ async def main():
 
     """
     await rvr.wake()
-
+    
     response = await rvr.echo([0,2,4,8,16,32,64,128,255], target=1)
-    print("Response contents: ",response)
-    data = response['data']
-    print("echo data:{}".format(data))
+    print("Response data for echo: ",response)
 
 
 loop.run_until_complete(

@@ -23,18 +23,13 @@ async def main():
     await rvr.wake()
 
     response = await rvr.get_battery_percentage()
-    print('response contents:', response)
-    percentage = response['percentage']
+    print('Response data for battery percentage:',response)
 
     response = await rvr.get_battery_voltage_state()
-    print('response contents:', response)
-    state = response['state']
-
-    print("Current battery percentage: {}%".format(percentage))
+    print('Response data for voltage state:',response)
 
     state_info = {0: "unknown", 1: "OK", 2: "low", 3: "critical"}
     print("Voltage states: ", state_info)
-    print("Current voltage state: {}".format(state))
 
 
 loop.run_until_complete(
