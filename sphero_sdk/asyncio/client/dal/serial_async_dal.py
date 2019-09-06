@@ -49,7 +49,7 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
         message.target = target
         message.is_activity = True
 
-        logger.deubg("Message created: %s", message)
+        logger.debug("Message created: %s", message)
 
         if len(outputs) > 0:
             message.requests_response = True
