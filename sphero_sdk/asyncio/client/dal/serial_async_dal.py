@@ -1,8 +1,11 @@
 #! /usr/bin/env python3
 
+import logging
 from sphero_sdk.asyncio.client.dal.async_dal_base import AsyncDalBase
 from sphero_sdk.asyncio.server import SerialSpheroPort, Parser, Handler
 from sphero_sdk.common.protocol import Message, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 
 class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
@@ -46,6 +49,8 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
         message.target = target
         message.is_activity = True
 
+        logger.deubg("Message created: %s", message)
+
         if len(outputs) > 0:
             message.requests_response = True
 
@@ -59,6 +64,8 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
                     param.data_type,
                     count=param.size
                 )
+
+            logger.debug("Respnose_handler inovked, returning: %s", response_dictionary)
 
             return response_dictionary
 
@@ -89,8 +96,12 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
                     count=param.size
                 )
 
+            logger.debug("Command response wrapper invoked, returning: %s", response_dictionary)
+
             await handler(response_dictionary)
 
             return ErrorCode.SUCCESS, bytearray()
+
+        logger.debug("Command worker added for %s","did:{} cid:{} target:{}".format(did, cid, target))
 
         self.handler.add_command_worker(did, cid, target, wrapper)

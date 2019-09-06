@@ -32,6 +32,7 @@ class Parser(SpheroParserBase):
 
         """
         self._buf += data
+        logger.debug("Appending bytes: %s", self.__buf)
         asyncio.ensure_future(self._read())
 
     async def _read(self):
@@ -50,6 +51,7 @@ class Parser(SpheroParserBase):
         try:
             msg = Message.from_buffer(self._buf)
         except ValueError:  # Missing SOP, EOP
+            logger.debug('Packet missing SOP/EOP!')
             skip_future_reads = True
             return
         except AttributeError:  # Bad Packet
@@ -58,6 +60,7 @@ class Parser(SpheroParserBase):
                                    self._buf.index(Message.END_OF_PACKET) + 1])
             self._handle_error(error_buf)
         else:
+            logger.info('Parsing packet complete: %s', msg)
             self._handle_message(msg)
         finally:
             # Regardless of outcome, we should rerun _read until no SOP or EOP
@@ -66,6 +69,7 @@ class Parser(SpheroParserBase):
 
         # Consume the bytes from the buffer
         try:
+            logger.debug('Consuming bytes in packet.')
             self._buf = self._buf[self._buf.index(Message.END_OF_PACKET)+1:]
             logger.info(msg)
         except Exception:

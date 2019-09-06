@@ -160,6 +160,7 @@ class Handler(SpheroHandlerBase):
                             'messages that request error response')
 
         if response_handler is None:
+            logger.debug("No response requested, sending message to port")
             self._port.send(msg)
             return
 
@@ -186,6 +187,7 @@ class Handler(SpheroHandlerBase):
         self._port.send(msg)
 
         try:
+            logger.debug("Response requested, response_handler_wrapper created, awaiting future result.")
             await asyncio.shield(asyncio.wait_for(future, timeout=timeout))
             return future.result()
         except Exception:
@@ -202,8 +204,10 @@ class Handler(SpheroHandlerBase):
         worker_list.pop(key)
 
     async def _handle_message(self, worker_list, msg, key):
+        logger.debug("Looking up worker for key:{}".format(key))
         try:
             worker = worker_list[key]
+            logger.debug("Response handler for key found, invoking worker.")
             return await worker(msg)
         except KeyError:
             logger.warning('Response Handler Missing: {}'.format(key))
