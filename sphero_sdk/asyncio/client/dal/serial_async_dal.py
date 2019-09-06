@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
-from sphero_sdk.async.client.dal.async_dal_base import AsyncDalBase
-from sphero_sdk.async.server import SerialSpheroPort, Parser, Handler
+from sphero_sdk.asyncio.client.dal.async_dal_base import AsyncDalBase
+from sphero_sdk.asyncio.server import SerialSpheroPort, Parser, Handler
 from sphero_sdk.common.protocol import Message, ErrorCode
 
 
