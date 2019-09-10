@@ -15,7 +15,7 @@ class ObserverParser:
 
     def feed(self, data):
         self.__buf += data
-        logger.debug("appending bytes: %s", self.__buf)
+        logger.debug("Appending bytes: %s", self.__buf)
         self.__read()
 
     def __read(self):
@@ -33,17 +33,17 @@ class ObserverParser:
         try:
             msg = Message.from_buffer(self.__buf)
         except ValueError:  # Missing SOP, EOP
-            logger.debug('packet missing SOP/EOP!')
+            logger.debug('Packet missing SOP/EOP!')
             skip_future_reads = True
             return
         except AttributeError:  # Bad Packet
-            logger.error('invalid packet received!')
+            logger.error('Invalid packet received!')
             error_buf = (self.__buf[self.__buf.index(Message.START_OF_PACKET):
                                    self.__buf.index(Message.END_OF_PACKET) + 1])
             self.__handle_error(error_buf)
         else:
             skip_future_reads = True
-            logger.info('parsing packet complete: %s', msg)
+            logger.info('Parsing packet complete: %s', msg)
             self.__dispatcher.handle_message(msg)
         finally:
             # Regardless of outcome, we should rerun _read until no SOP or EOP
@@ -52,7 +52,7 @@ class ObserverParser:
 
         # Consume the bytes from the buffer
         try:
-            logger.debug('consuming bytes in packet.')
+            logger.debug('Consuming bytes in packet.')
             self.__buf = self.__buf[self.__buf.index(Message.END_OF_PACKET) + 1:]
         except Exception:
             self.__buf.clear()

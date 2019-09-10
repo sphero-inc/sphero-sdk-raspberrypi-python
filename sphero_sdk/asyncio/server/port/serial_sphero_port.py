@@ -3,7 +3,10 @@
 from .sphero_port_base import SpheroPortBase
 import asyncio
 import serial
+import logging
 from serial_asyncio import SerialTransport
+
+logger = logging.getLogger(__name__)
 
 
 class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
@@ -42,10 +45,12 @@ class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
             msg: Message to be sent to port
 
         """
-        self.__transport.write(msg.serialise())
+        data = msg.serialise()
+        logger.debug("Writing serial data: {}".format(data))
+        self.__transport.write(data)
 
     def data_received(self, data):
-
+        logger.debug("Reading serial data: {}".format(data))
         self._parser.feed(data)
 
     def pause_writing(self):

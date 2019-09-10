@@ -28,10 +28,10 @@ class SerialObserverPort:
         """Closes the port and joins the thread managing reading and writing.
 
         """
-        logger.info("read/write thread joining.")
+        logger.info("Read/Write thread joining.")
         self.__running = False
         self.__serial_thread.join()
-        logger.info("closing serial port.")
+        logger.info("Closing serial port.")
         self.__ser.close()
 
     def send(self, message):
@@ -52,11 +52,11 @@ class SerialObserverPort:
         bytes_in_waiting = self.__ser.in_waiting
         if bytes_in_waiting > 0:
             data = self.__ser.read(bytes_in_waiting)
-            logger.debug('read %s bytes: %s', bytes_in_waiting, data)
+            logger.debug('Read %s bytes: %s', bytes_in_waiting, data)
             self.__parser.feed(data)
 
     def __write_bytes(self):
         if not self.__write_queue.empty():
             data = self.__write_queue.get()
-            logger.debug('writing bytes: %s', data)
+            logger.debug('Writing bytes: %s', data)
             self.__ser.write(data)

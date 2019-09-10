@@ -6,6 +6,9 @@
 # Timestamp:          08/21/2019 @ 21:34:24.513804 (UTC)
 
 import asyncio
+import logging.config
+from sphero_sdk.asyncio.config import logging_config
+from sphero_sdk.common.log_level import LogLevel
 from sphero_sdk.common.commands import api_and_shell
 from sphero_sdk.common.commands import system_info
 from sphero_sdk.common.commands import power
@@ -19,7 +22,8 @@ from sphero_sdk import LedControlAsync
 
 
 class SpheroRvrAsync: 
-    def __init__(self, dal): 
+    def __init__(self, dal, log_level=LogLevel.Silent):
+        logging.config.dictConfig(logging_config.get_dict(log_level))
         self._dal = dal
         self._drive_control = DriveControlAsync(self)
         self._infrared_control = InfraredControlAsync(self)

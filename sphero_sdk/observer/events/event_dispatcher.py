@@ -24,29 +24,29 @@ class EventDispatcher:
             key = (message.did, message.cid, message.source)
 
         for observer in Observer.observers:
-            logger.debug("looking for entries with key %s.", key)
+            logger.debug("Looking for entries with key %s.", key)
             if key in observer.handlers:
                 handler, outputs = observer.handlers[key]
 
                 if message.is_response:
                     observer.unregister_handler(key)
 
-                logger.debug("entry found, dispatching!")
+                logger.debug("Entry found, dispatching!")
                 self.__dispatch_event(handler, outputs, message)
                 break
 
     def __dispatch_event(self, handler, outputs, message):
         if len(outputs) > 0:
-            logger.debug("unpacking output from message")
+            logger.debug("Unpacking output from message")
             response_dictionary = {}
             for param in sorted(outputs, key=lambda x: x.index):
                 response_dictionary[param.name] = message.unpack(
                     param.data_type,
                     count=param.size
                 )
-            logger.debug("invoking callback")
+            logger.debug("Invoking callback")
             handler(response_dictionary)
         else:
-            logger.debug("no outputs expected, invoking callback.")
+            logger.debug("No outputs expected, invoking callback.")
             handler()
 
