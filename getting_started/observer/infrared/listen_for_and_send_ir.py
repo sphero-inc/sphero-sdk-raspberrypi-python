@@ -9,8 +9,8 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def on_ir_message_received(infraredCode):
-    print("received code: {}".format(infraredCode))
+def on_ir_message_received(response):
+    print('Response data for IR message received:',response)
 
 
 def main():

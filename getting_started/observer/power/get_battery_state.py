@@ -9,8 +9,8 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def on_battery_percentage_info(percentage):
-    print("Current battery percentage: ", percentage, "%")
+def on_battery_percentage_info(response):
+    print('Response data for battery percentage:',response)
 
 
 def on_battery_volt_state_info(state):

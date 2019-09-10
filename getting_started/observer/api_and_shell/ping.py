@@ -9,8 +9,8 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def handler(data):
-    print("Data: ", data)
+def handler(response):
+    print("Response data for echo:",response)
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     """
     rvr.wake()
 
-    rvr.echo(255, handler, 1)
+    rvr.echo([2,4,16,32,64,128,255], handler, 1)
 
     # Sleep for one second such that RVR has time to send data back
     time.sleep(1)

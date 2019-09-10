@@ -9,8 +9,8 @@ from sphero_sdk import SpheroRvrObserver
 rvr = SpheroRvrObserver()
 
 
-def on_color_detected(red, green, blue, confidence, colorClassificationId):
-    print('Color detected: ', red, green, blue, confidence, colorClassificationId)
+def on_color_detected(response):
+    print('Response data for color detected:',response)
 
 
 def main():

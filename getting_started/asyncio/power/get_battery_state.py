@@ -17,14 +17,19 @@ rvr = SpheroRvrAsync(
 
 
 async def main():
-    """ This program demonstrates how to use the echo command, which sends data to RVR and has RVR return
-        the same data. Echo can be used to check to see if RVR is connected and awake.
+    """ This program demonstrates how to retrieve the battery state of RVR and print it to the console.
 
     """
     await rvr.wake()
 
-    response = await rvr.echo(255, 1)
-    print(response)
+    response = await rvr.get_battery_percentage()
+    print('Response data for battery percentage:',response)
+
+    response = await rvr.get_battery_voltage_state()
+    print('Response data for voltage state:',response)
+
+    state_info = {0: "unknown", 1: "OK", 2: "low", 3: "critical"}
+    print("Voltage states: ", state_info)
 
 
 loop.run_until_complete(
