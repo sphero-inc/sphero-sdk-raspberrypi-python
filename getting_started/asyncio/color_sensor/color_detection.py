@@ -36,7 +36,7 @@ async def main():
     await asyncio.sleep(1)
 
     # This enables the color sensor on RVR
-    await rvr.enable_color_detection(is_enabled=False)
+    await rvr.enable_color_detection(is_enabled=True)
 
     # Register a handler to be called when a color detection notification is received
     await rvr.on_color_detection_notify(handler=on_color_detected)
