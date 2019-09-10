@@ -24,7 +24,7 @@ def main():
     time.sleep(2)
 
     # This enables the color sensor on RVR
-    rvr.enable_color_detection(is_enabled=False)
+    rvr.enable_color_detection(is_enabled=True)
 
     # Register a handler to be called when a color detection notification is received
     rvr.on_color_detection_notify(handler=on_color_detected)
