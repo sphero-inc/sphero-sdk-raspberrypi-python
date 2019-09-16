@@ -1,3 +1,0 @@
-[submodule "autogen-api-generators"]
-	path = autogen-api-generators
-	url = git@gitlab.orbxdev.com:sdk/v3/autogen-api-generators.git
