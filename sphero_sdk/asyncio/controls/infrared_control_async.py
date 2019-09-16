@@ -124,8 +124,8 @@ class InfraredControlAsync:
         if not callable(handler):
             raise TypeError("handler must be a function")
 
-
-        await self.__rvr.enable_robot_infrared_message_notify(True)
+        is_enabled = True
+        await self.__rvr.enable_robot_infrared_message_notify(is_enabled)
 
         await self.__rvr.on_robot_to_robot_infrared_message_received_notify(handler)
 
