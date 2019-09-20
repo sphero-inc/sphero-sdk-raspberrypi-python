@@ -89,19 +89,22 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
 
         """
         async def wrapper(msg):
-            response_dictionary = {}
-            for param in sorted(outputs, key=lambda x: x.index):
-                response_dictionary[param.name] = msg.unpack(
-                    param.data_type,
-                    count=param.size
-                )
+            if len(outputs) > 0:
+                response_dictionary = {}
+                for param in sorted(outputs, key=lambda x: x.index):
+                    response_dictionary[param.name] = msg.unpack(
+                        param.data_type,
+                        count=param.size
+                    )
 
-            logger.debug("Command response wrapper invoked, returning: %s", response_dictionary)
-
-            await handler(response_dictionary)
+                logger.debug("Command response wrapper invoked, returning: {}".format(response_dictionary))
+                await handler(response_dictionary)
+            else:
+                logger.debug("No outputs expected, invoking callback.")
+                await handler()
 
             return ErrorCode.SUCCESS, bytearray()
 
-        logger.debug("Command worker added for %s","did:{} cid:{} target:{}".format(did, cid, target))
+        logger.debug("Command worker added for DID:{} CID:{} Target:{}".format(did, cid, target))
 
         self.handler.add_command_worker(did, cid, target, wrapper)
