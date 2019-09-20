@@ -40,8 +40,8 @@ async def main():
 
     await rvr.on_did_sleep_notify(on_entered_soft_sleep)
 
-    # Sleep for 5 minutes such that we see the aforementioned events have time to occur
-    await asyncio.sleep(300)
+    # Sleep for 310 seconds such that we see the aforementioned events have time to occur
+    await asyncio.sleep(310)
 
 
 loop.run_until_complete(
