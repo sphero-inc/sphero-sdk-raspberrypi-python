@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          08/22/2019 @ 20:06:31.336821 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.168946 (UTC)
 
 from sphero_sdk.common.enums.system_info_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum

@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          08/22/2019 @ 20:06:31.329227 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.158337 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -37,10 +37,10 @@ def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, time
     }
 
 
-def set_led_matrix_one_color(red, green, blue, target, timeout): 
+def set_compressed_frame_player_one_color(red, green, blue, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.set_led_matrix_one_color,
+        'cid': CommandsEnum.set_compressed_frame_player_one_color,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -70,57 +70,10 @@ def set_led_matrix_one_color(red, green, blue, target, timeout):
     }
 
 
-def save_led_matrix_animation_frame(frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, target, timeout): 
+def save_compressed_frame_player_animation(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.save_led_matrix_animation_frame,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='frameIndex',
-                data_type='uint16_t',
-                index=0,
-                value=frame_index,
-                size=1
-            ),
-            Parameter( 
-                name='colorIndexBit0',
-                data_type='uint64_t',
-                index=1,
-                value=color_index_bit_0,
-                size=1
-            ),
-            Parameter( 
-                name='colorIndexBit1',
-                data_type='uint64_t',
-                index=2,
-                value=color_index_bit_1,
-                size=1
-            ),
-            Parameter( 
-                name='colorIndexBit2',
-                data_type='uint64_t',
-                index=3,
-                value=color_index_bit_2,
-                size=1
-            ),
-            Parameter( 
-                name='colorIndexBit3',
-                data_type='uint64_t',
-                index=4,
-                value=color_index_bit_3,
-                size=1
-            ),
-        ],
-    }
-
-
-def save_led_matrix_animation(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, target, timeout): 
-    return { 
-        'did': DevicesEnum.io,
-        'cid': CommandsEnum.save_led_matrix_animation,
+        'cid': CommandsEnum.save_compressed_frame_player_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -178,10 +131,10 @@ def save_led_matrix_animation(animation_index, speed_fps, is_fade_enabled, palet
     }
 
 
-def play_led_matrix_animation(animation_index, target, timeout): 
+def play_compressed_frame_player_animation(animation_index, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.play_led_matrix_animation,
+        'cid': CommandsEnum.play_compressed_frame_player_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -197,10 +150,10 @@ def play_led_matrix_animation(animation_index, target, timeout):
     }
 
 
-def play_led_matrix_animation_frame(frame_index, target, timeout): 
+def play_compressed_frame_player_frame(frame_index, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.play_led_matrix_animation_frame,
+        'cid': CommandsEnum.play_compressed_frame_player_frame,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -216,10 +169,10 @@ def play_led_matrix_animation_frame(frame_index, target, timeout):
     }
 
 
-def get_led_matrix_animation_frames(target, timeout): 
+def get_compressed_frame_player_list_of_frames(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.get_led_matrix_animation_frames,
+        'cid': CommandsEnum.get_compressed_frame_player_list_of_frames,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -234,50 +187,50 @@ def get_led_matrix_animation_frames(target, timeout):
     }
 
 
-def delete_led_matrix_animations_and_frames(target, timeout): 
+def delete_all_compressed_frame_player_animations_and_frames(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.delete_led_matrix_animations_and_frames,
+        'cid': CommandsEnum.delete_all_compressed_frame_player_animations_and_frames,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
 
 
-def pause_led_matrix(target, timeout): 
+def pause_compressed_frame_player_animation(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.pause_led_matrix,
+        'cid': CommandsEnum.pause_compressed_frame_player_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
 
 
-def resume_led_matrix(target, timeout): 
+def resume_compressed_frame_player_animation(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.resume_led_matrix,
+        'cid': CommandsEnum.resume_compressed_frame_player_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
 
 
-def reset_led_matrix(target, timeout): 
+def reset_compressed_frame_player_animation(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.reset_led_matrix,
+        'cid': CommandsEnum.reset_compressed_frame_player_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
 
 
-def on_led_matrix_animation_complete_notify(target, timeout): 
+def on_compressed_frame_player_animation_complete_notify(target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.led_matrix_animation_complete_notify,
+        'cid': CommandsEnum.compressed_frame_player_animation_complete_notify,
         'target': target,
         'timeout': timeout,
         'outputs': [ 
@@ -291,10 +244,10 @@ def on_led_matrix_animation_complete_notify(target, timeout):
     }
 
 
-def assign_frames_to_animation(animation_index, start_frame_index, frame_indices, target, timeout): 
+def assign_compressed_frame_player_frames_to_animation(animation_index, start_frame_index, frame_indices, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.assign_frames_to_animation,
+        'cid': CommandsEnum.assign_compressed_frame_player_frames_to_animation,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -324,10 +277,10 @@ def assign_frames_to_animation(animation_index, start_frame_index, frame_indices
     }
 
 
-def save_led_matrix_animation_without_frames(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, target, timeout): 
+def save_compressed_frame_player_animation_without_frames(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.save_led_matrix_animation_without_frames,
+        'cid': CommandsEnum.save_compressed_frame_player_animation_without_frames,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -386,10 +339,10 @@ def save_led_matrix_animation_without_frames(animation_index, speed_fps, is_fade
     }
 
 
-def play_led_matrix_animation_with_loop_option(animation_index, is_looping, target, timeout): 
+def play_compressed_frame_player_animation_with_loop_option(animation_index, is_looping, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.play_led_matrix_animation_with_loop_option,
+        'cid': CommandsEnum.play_compressed_frame_player_animation_with_loop_option,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -532,4 +485,79 @@ def save_color_palette(palette_index, target, timeout):
                 size=1
             ),
         ],
+    }
+
+
+def get_compressed_frame_player_frame_info_type(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.get_compressed_frame_player_frame_info_type,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='frameInfoType',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def save_compressed_frame_player_16_bit_frame(frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.save_compressed_frame_player_16_bit_frame,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='frameIndex',
+                data_type='uint16_t',
+                index=0,
+                value=frame_index,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit0',
+                data_type='uint16_t',
+                index=1,
+                value=color_index_bit_0,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit1',
+                data_type='uint16_t',
+                index=2,
+                value=color_index_bit_1,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit2',
+                data_type='uint16_t',
+                index=3,
+                value=color_index_bit_2,
+                size=1
+            ),
+            Parameter( 
+                name='colorIndexBit3',
+                data_type='uint16_t',
+                index=4,
+                value=color_index_bit_3,
+                size=1
+            ),
+        ],
+    }
+
+
+def release_led_requests(target, timeout): 
+    return { 
+        'did': DevicesEnum.io,
+        'cid': CommandsEnum.release_led_requests,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }

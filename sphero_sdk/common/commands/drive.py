@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          08/22/2019 @ 20:06:31.331496 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.161086 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -110,4 +110,100 @@ def set_stabilization(index, target, timeout):
                 size=1
             ),
         ],
+    }
+
+
+def enable_motor_stall_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.enable_motor_stall_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_motor_stall_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.motor_stall_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='motorIndex',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='isTriggered',
+                data_type='bool',
+                index=1,
+                size=1,
+            ),
+        ]
+    }
+
+
+def enable_motor_fault_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.enable_motor_fault_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_motor_fault_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.motor_fault_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='isFault',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_motor_fault_state(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.get_motor_fault_state,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='isFault',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+        ]
     }

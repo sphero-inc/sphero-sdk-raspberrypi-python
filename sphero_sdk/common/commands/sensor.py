@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          08/22/2019 @ 20:06:31.332175 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.162785 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -41,119 +41,6 @@ def on_gyro_max_notify(target, timeout):
                 name='flags',
                 data_type='uint8_t',
                 index=0,
-                size=1,
-            ),
-        ]
-    }
-
-
-def configure_collision_detection(method, x_threshold, x_speed, y_threshold, y_speed, dead_time, target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.configure_collision_detection,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='method',
-                data_type='uint8_t',
-                index=0,
-                value=method,
-                size=1
-            ),
-            Parameter( 
-                name='xThreshold',
-                data_type='uint8_t',
-                index=1,
-                value=x_threshold,
-                size=1
-            ),
-            Parameter( 
-                name='xSpeed',
-                data_type='uint8_t',
-                index=2,
-                value=x_speed,
-                size=1
-            ),
-            Parameter( 
-                name='yThreshold',
-                data_type='uint8_t',
-                index=3,
-                value=y_threshold,
-                size=1
-            ),
-            Parameter( 
-                name='ySpeed',
-                data_type='uint8_t',
-                index=4,
-                value=y_speed,
-                size=1
-            ),
-            Parameter( 
-                name='deadTime',
-                data_type='uint8_t',
-                index=5,
-                value=dead_time,
-                size=1
-            ),
-        ],
-    }
-
-
-def on_collision_detected_notify(target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.collision_detected_notify,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [ 
-            Parameter( 
-                name='accelerationX',
-                data_type='uint16_t',
-                index=0,
-                size=1,
-            ),
-            Parameter( 
-                name='accelerationY',
-                data_type='uint16_t',
-                index=1,
-                size=1,
-            ),
-            Parameter( 
-                name='accelerationZ',
-                data_type='uint16_t',
-                index=2,
-                size=1,
-            ),
-            Parameter( 
-                name='axis',
-                data_type='uint8_t',
-                index=3,
-                size=1,
-            ),
-            Parameter( 
-                name='powerX',
-                data_type='uint16_t',
-                index=4,
-                size=1,
-            ),
-            Parameter( 
-                name='powerY',
-                data_type='uint16_t',
-                index=5,
-                size=1,
-            ),
-            Parameter( 
-                name='speed',
-                data_type='uint8_t',
-                index=6,
-                size=1,
-            ),
-            Parameter( 
-                name='time',
-                data_type='uint32_t',
-                index=7,
                 size=1,
             ),
         ]
@@ -516,6 +403,94 @@ def enable_color_detection(is_enabled, target, timeout):
     }
 
 
+def configure_streaming_service(token, configuration, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.configure_streaming_service,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='token',
+                data_type='uint8_t',
+                index=0,
+                value=token,
+                size=1
+            ),
+            Parameter( 
+                name='configuration',
+                data_type='uint8_t',
+                index=1,
+                value=configuration,
+                size=15
+            ),
+        ],
+    }
+
+
+def start_streaming_service(period, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.start_streaming_service,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='period',
+                data_type='uint16_t',
+                index=0,
+                value=period,
+                size=1
+            ),
+        ],
+    }
+
+
+def stop_streaming_service(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.stop_streaming_service,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def clear_streaming_service(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.clear_streaming_service,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def on_streaming_service_data_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.streaming_service_data_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='token',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='sensorData',
+                data_type='uint8_t',
+                index=1,
+                size=9999,
+            ),
+        ]
+    }
+
+
 def enable_robot_infrared_message_notify(is_enabled, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
@@ -579,4 +554,244 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
                 size=1
             ),
         ],
+    }
+
+
+def on_motor_current_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.motor_current_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='leftMotorCurrent',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='rightMotorCurrent',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='upTime',
+                data_type='uint64_t',
+                index=2,
+                size=1,
+            ),
+        ]
+    }
+
+
+def enable_motor_current_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.enable_motor_current_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def get_motor_temperature(motor_index, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_motor_temperature,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='motorIndex',
+                data_type='uint8_t',
+                index=0,
+                value=motor_index,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='windingCoilTemperature',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='caseTemperature',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+        ]
+    }
+
+
+def configure_sensitivity_based_collision_detection(method, sensitivity, dead_time, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.configure_sensitivity_based_collision_detection,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='method',
+                data_type='uint8_t',
+                index=0,
+                value=method,
+                size=1
+            ),
+            Parameter( 
+                name='sensitivity',
+                data_type='uint8_t',
+                index=1,
+                value=sensitivity,
+                size=1
+            ),
+            Parameter( 
+                name='deadTime',
+                data_type='uint16_t',
+                index=2,
+                value=dead_time,
+                size=1
+            ),
+        ],
+    }
+
+
+def enable_sensitivity_based_collision_detection_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.enable_sensitivity_based_collision_detection_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_sensitivity_based_collision_detected_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.sensitivity_based_collision_detected_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='time',
+                data_type='uint64_t',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_motor_thermal_protection_status(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_motor_thermal_protection_status,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='leftMotorTemperature',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='leftMotorStatus',
+                data_type='uint8_t',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='rightMotorTemperature',
+                data_type='float',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='rightMotorStatus',
+                data_type='uint8_t',
+                index=3,
+                size=1,
+            ),
+        ]
+    }
+
+
+def enable_motor_thermal_protection_status_notify(is_enabled, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.enable_motor_thermal_protection_status_notify,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='isEnabled',
+                data_type='bool',
+                index=0,
+                value=is_enabled,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_motor_thermal_protection_status_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.motor_thermal_protection_status_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='leftMotorTemperature',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='leftMotorStatus',
+                data_type='uint8_t',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='rightMotorTemperature',
+                data_type='float',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='rightMotorStatus',
+                data_type='uint8_t',
+                index=3,
+                size=1,
+            ),
+        ]
     }

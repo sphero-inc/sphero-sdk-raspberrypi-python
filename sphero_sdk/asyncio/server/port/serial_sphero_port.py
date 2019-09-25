@@ -39,18 +39,18 @@ class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
         pass
 
     def send(self, msg):
-        """Send a Message to the port
+        """Send a Message instance to the port
 
         Args:
-            msg: Message to be sent to port
+            msg (Message): Instance of Message
 
         """
         data = msg.serialise()
-        logger.debug("Writing serial data: {}".format(data))
+        logger.debug("Writing serial data: [{}]".format(', '.join('0x{:02x}'.format(x) for x in data)))
         self.__transport.write(data)
 
     def data_received(self, data):
-        logger.debug("Reading serial data: {}".format(data))
+        logger.debug("Reading serial data: [{}]".format(', '.join('0x{:02x}'.format(x) for x in data)))
         self._parser.feed(data)
 
     def pause_writing(self):

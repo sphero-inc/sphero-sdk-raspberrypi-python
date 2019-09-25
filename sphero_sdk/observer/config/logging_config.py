@@ -44,6 +44,15 @@ errors = {
         },
         'sphero_sdk.observer.events.event_dispatcher': {
             'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_streaming_control': {
+            'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_stream_slot': {
+            'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_stream_service': {
+            'propagate': True
         }
     },
     'root': {
@@ -71,6 +80,15 @@ debug_verbose = {
             'propagate': True
         },
         'sphero_sdk.observer.events.event_dispatcher': {
+            'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_streaming_control': {
+            'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_stream_slot': {
+            'propagate': True
+        },
+        'sphero_sdk.common.sensors.sensor_stream_service': {
             'propagate': True
         }
     },

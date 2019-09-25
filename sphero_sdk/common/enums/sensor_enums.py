@@ -3,15 +3,19 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          08/21/2019 @ 21:34:24.506380 (UTC)
+# Timestamp:          09/13/2019 @ 21:44:34.226119 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['CollisionDetectionMethodsEnum',
+__all__ = ['MotorIndexesEnum',
+           'ThermalProtectionStatusEnum',
+           'StreamingDataSizesEnum',
+           'StreamingServiceStatesEnum',
+           'SensitivityBasedCollisionDetectionMethodsEnum',
+           'SensitivityLevelsEnum',
            'CliffDetectionSensorLocationsBitMask',
            'GyroMaxFlagsBitMask',
-           'CollisionDetectedAxisBitMask',
            'LocatorFlagsBitMask',
            'InfraredSensorLocationsBitMask']
 
@@ -19,8 +23,6 @@ __all__ = ['CollisionDetectionMethodsEnum',
 class CommandsEnum(IntEnum): 
     enable_gyro_max_notify = 0x0F
     gyro_max_notify = 0x10
-    configure_collision_detection = 0x11
-    collision_detected_notify = 0x12
     reset_locator_x_and_y = 0x13
     set_locator_flags = 0x17
     get_bot_to_bot_infrared_readings = 0x22
@@ -39,16 +41,72 @@ class CommandsEnum(IntEnum):
     color_detection_notify = 0x36
     get_current_detected_color_reading = 0x37
     enable_color_detection = 0x38
+    configure_streaming_service = 0x39
+    start_streaming_service = 0x3A
+    stop_streaming_service = 0x3B
+    clear_streaming_service = 0x3C
+    streaming_service_data_notify = 0x3D
     enable_robot_infrared_message_notify = 0x3E
     send_infrared_message = 0x3F
+    motor_current_notify = 0x40
+    enable_motor_current_notify = 0x41
+    get_motor_temperature = 0x42
+    configure_sensitivity_based_collision_detection = 0x47
+    enable_sensitivity_based_collision_detection_notify = 0x48
+    sensitivity_based_collision_detected_notify = 0x49
+    get_motor_thermal_protection_status = 0x4B
+    enable_motor_thermal_protection_status_notify = 0x4C
+    motor_thermal_protection_status_notify = 0x4D
 
 
-class CollisionDetectionMethodsEnum(IntEnum):
+class MotorIndexesEnum(IntEnum):
     ''' '''
-    no_collision_detection = 0  #: 
-    accelerometer_based_detection = 1  #: 
-    accelerometer_based_with_extra_filtering = 2  #: 
-    hybrid_accelerometer_and_control_system_detection = 3  #: 
+    left_motor_index = 0  #: Left motor index.
+    right_motor_index = 1  #: Right motor index.
+
+
+class ThermalProtectionStatusEnum(IntEnum):
+    ''' '''
+    ok = 0  #: Ok
+    warn = 1  #: Warning
+    critical = 2  #: Critical, forced cool down
+
+
+class StreamingDataSizesEnum(IntEnum):
+    ''' '''
+    EightBit = 0x00  #: Configures the returned data values to be 8 bits in length.
+    SixteenBit = 0x01  #: Configures the returned data values to be 16 bits in length.
+    ThirtyTwoBit = 0x02  #: Configures the returned data values to be 32 bits in length. This is the default size.
+    Uint8Max = 255  #: Max value of uint8
+    Uint16Max = 65535  #: Max value of uint16
+    Uint32Max = 4294967295  #: Max value of uint32
+    Int32Min = -2147483648  #: Min value of int32
+    Int32Max = 2147483647  #: Max value of int32
+    Int64Min = -9223372036854775808  #: Min value of int64
+    Int64Max = 9223372036854775807  #: Max value of int64
+
+
+class StreamingServiceStatesEnum(IntEnum):
+    ''' '''
+    Unknown = 0  #: 
+    Stop = 1  #: 
+    Start = 2  #: 
+    Restart = 3  #: 
+
+
+class SensitivityBasedCollisionDetectionMethodsEnum(IntEnum):
+    ''' '''
+    accelerometer_based_detection = 0  #: 
+
+
+class SensitivityLevelsEnum(IntEnum):
+    ''' '''
+    super_high = 0  #: 
+    very_high = 1  #: 
+    high = 2  #: 
+    medium = 3  #: 
+    low = 4  #: 
+    very_low = 5  #: 
 
 
 class CliffDetectionSensorLocationsBitMask(IntEnum):
@@ -69,12 +127,6 @@ class GyroMaxFlagsBitMask(IntEnum):
     max_minus_z = 32 #: 
 
 
-class CollisionDetectedAxisBitMask(IntEnum):
-    ''' '''
-    x_axis = 1 #: 
-    y_axis = 2 #: 
-
-
 class LocatorFlagsBitMask(IntEnum):
     ''' '''
     auto_calibrate = 1 #: 
@@ -82,7 +134,7 @@ class LocatorFlagsBitMask(IntEnum):
 
 class InfraredSensorLocationsBitMask(IntEnum):
     ''' '''
-    front_left = 1 #: 
-    front_right = 2 #: 
-    back_right = 4 #: 
-    back_left = 8 #: 
+    front_left = 0x000000FF #: 
+    front_right = 0x0000FF00 #: 
+    back_right = 0x00FF0000 #: 
+    back_left = 0xFF000000 #: 
