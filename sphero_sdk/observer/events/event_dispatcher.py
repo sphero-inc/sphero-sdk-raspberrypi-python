@@ -20,11 +20,20 @@ class EventDispatcher:
 
         if message.is_response:
             key = (message.did, message.cid, message.seq, message.source)
+            logger.debug(
+                "Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Seq: {}, Source: {})".format(
+                key[0], key[1], key[2], key[3]
+                )
+            )
         else:
             key = (message.did, message.cid, message.source)
+            logger.debug(
+                "Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Source: {})".format(
+                    key[0], key[1], key[2]
+                )
+            )
 
         for observer in Observer.observers:
-            logger.debug("Looking for entries with key %s.", key)
             if key in observer.handlers:
                 handler, outputs = observer.handlers[key]
 
@@ -44,7 +53,7 @@ class EventDispatcher:
                     param.data_type,
                     count=param.size
                 )
-            logger.debug("Invoking callback")
+            logger.debug("Invoking callback with response data: {}".format(response_dictionary))
             handler(response_dictionary)
         else:
             logger.debug("No outputs expected, invoking callback.")

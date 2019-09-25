@@ -26,7 +26,8 @@ class Message(SpheroMessageBase):
     def __repr__(self):
         return '{} {}: DID: {} CID: {} Payload: {} ERR: {}'.format(
             self._header.packet_type_string, self._header.seq,
-            self._header.did, self._header.cid, self._body.hex(),
+            '0x{:02x}'.format(self._header.did), '0x{:02x}'.format(self._header.cid),
+            ','.join('0x{:02x}'.format(x) for x in self._body),
             self._header.err)
 
     @property

@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          08/21/2019 @ 21:34:24.511691 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.169029 (UTC)
 
 from enum import IntEnum
 

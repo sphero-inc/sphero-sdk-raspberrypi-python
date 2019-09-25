@@ -39,10 +39,10 @@ async def main():
     await rvr.enable_color_detection(is_enabled=True)
 
     # Register a handler to be called when a color detection notification is received
-    await rvr.on_color_detection_notify(handler=on_color_detected)
+    await rvr.sensor_control.add_sensor_data_handler(on_color_detected)
 
-    # Enable the color detection notifications with the given parameters
-    await rvr.enable_color_detection_notify(is_enabled=True, interval=250, minimum_confidence_threshold=0, timeout=5)
+    # Enable the color detection sensor stream
+    await rvr.sensor_control.enable("ColorDetection")
 
 
 try:
@@ -50,7 +50,6 @@ try:
     loop.run_forever()
 
 except KeyboardInterrupt:
-    loop.stop()
+    loop.run_until_complete(rvr.close())
 
-time.sleep(1)
 loop.close()

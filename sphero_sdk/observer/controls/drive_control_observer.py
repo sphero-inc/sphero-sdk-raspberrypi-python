@@ -3,8 +3,8 @@
 from datetime import datetime
 import time
 
-from sphero_sdk import RvrLedGroups
 from sphero_sdk import Colors
+from sphero_sdk import RvrLedGroups
 from sphero_sdk import LedControlObserver
 
 

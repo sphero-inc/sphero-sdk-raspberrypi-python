@@ -52,11 +52,11 @@ class SerialObserverPort:
         bytes_in_waiting = self.__ser.in_waiting
         if bytes_in_waiting > 0:
             data = self.__ser.read(bytes_in_waiting)
-            logger.debug('Read %s bytes: %s', bytes_in_waiting, data)
+            logger.debug('Read {} bytes: [{}]'.format(bytes_in_waiting, ', '.join('0x{:02x}'.format(x) for x in data)))
             self.__parser.feed(data)
 
     def __write_bytes(self):
         if not self.__write_queue.empty():
             data = self.__write_queue.get()
-            logger.debug('Writing bytes: %s', data)
+            logger.debug('Writing bytes: [{}]'.format(', '.join('0x{:02x}'.format(x) for x in data)))
             self.__ser.write(data)

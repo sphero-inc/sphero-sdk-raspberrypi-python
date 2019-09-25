@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          08/21/2019 @ 21:34:24.509564 (UTC)
+# Timestamp:          09/09/2019 @ 17:37:24.167026 (UTC)
 
 from enum import IntEnum
 

@@ -15,7 +15,7 @@ class ObserverParser:
 
     def feed(self, data):
         self.__buf += data
-        logger.debug("Appending bytes: %s", self.__buf)
+        logger.debug("Appending bytes: [{}]".format(', '.join('0x{:02x}'.format(x) for x in self.__buf)))
         self.__read()
 
     def __read(self):
