@@ -1,42 +1,46 @@
-# No response from BOLT
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
+import sys
 import time
 
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 from sphero_sdk import SpheroRvrObserver
-from sphero_sdk import InfraredControlObserver
 from sphero_sdk import InfraredCodes
+from sphero_sdk import RawMotorModesEnum
+
 
 rvr = SpheroRvrObserver()
 
 
-infrared_controller = InfraredControlObserver(rvr)
-
-
 def main():
-    """ This program has another robot capable of infrared communication, e.g. BOLT, follow RVR.
-
-        To try this out, write a script for your other robot that has it follow on the corresponding channel
-        that RVR broadcasts on [in this case channel 0 and 1].
-        Place your other robot behind RVR and run its script.
-        Upon running this program RVR drives forward and the other robot follows it.
+    """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
     """
+
     rvr.wake()
+
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Broadcast on channels 0, 1, 2, and 3. We specify the channels with the InfraredCodes enumeration
-    near_code = InfraredCodes.zero
-    far_code = InfraredCodes.one
-    infrared_controller.start_infrared_broadcasting(far_code, near_code)
+    rvr.infrared_control.start_robot_to_robot_infrared_broadcasting(
+        far_code=InfraredCodes.one.value,
+        near_code=InfraredCodes.zero.value
+    )
 
-    rvr.raw_motors(1, 64, 1, 64)
-    time.sleep(2)
+    rvr.raw_motors(
+        left_mode=RawMotorModesEnum.forward.value,
+        left_speed=64,
+        right_mode=RawMotorModesEnum.forward.value,
+        right_speed=64
+    )
 
-    infrared_controller.stop_infrared_broadcasting()
+    # delay to allow RVR to drive
+    time.sleep(4)
+
+    rvr.infrared_control.stop_infrared_broadcasting()
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

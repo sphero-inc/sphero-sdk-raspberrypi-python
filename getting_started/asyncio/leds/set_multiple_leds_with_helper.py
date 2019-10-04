@@ -1,57 +1,76 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import Colors
-from sphero_sdk import LedControlAsync
 from sphero_sdk import RvrLedGroups
 from sphero_sdk import SerialAsyncDal
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )
 )
 
-# Create object that let's us control the LEDs of RVR
-led_controller = LedControlAsync(rvr)
-
 
 async def main():
-    """ This program demonstrates how to set multiple LEDs on RVR using the controller LedControlAsync.
-
+    """ This program demonstrates how to set multiple LEDs on RVR using the LED control helper.
     """
+
     await rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     await asyncio.sleep(2)
 
-    # Turn off all lights
-    await led_controller.turn_leds_off()
-    await asyncio.sleep(0.5)
+    await rvr.led_control.turn_leds_off()
 
-    # Set headlights to colors green and blue respectively using Colors enumeration
-    await led_controller.set_multiple_leds_color(
-        [RvrLedGroups.headlight_left, RvrLedGroups.headlight_right], [Colors.green, Colors.blue])
+    # delay to show LEDs change
     await asyncio.sleep(1)
 
-    # Set headlights to colors green and blue respectively using RGB list
-    await led_controller.set_multiple_leds_colors(
-        [RvrLedGroups.headlight_left, RvrLedGroups.headlight_right], [255, 0, 0, 0, 255, 0])
+    await rvr.led_control.set_multiple_leds_with_enums(
+        leds=[
+            RvrLedGroups.headlight_left,
+            RvrLedGroups.headlight_right
+        ],
+        colors=[
+            Colors.green,
+            Colors.blue
+        ]
+    )
+
+    # delay to show LEDs change
     await asyncio.sleep(1)
 
+    await rvr.led_control.set_multiple_leds_with_rgb(
+        leds=[
+            RvrLedGroups.headlight_left,
+            RvrLedGroups.headlight_right
+        ],
+        colors=[
+            255, 0, 0,
+            0, 255, 0
+        ]
+    )
 
-# Run program loop until the main function has completed
-loop.run_until_complete(
-    main()
-)
+    # delay to show LEDs change
+    await asyncio.sleep(1)
 
-loop.stop()
-loop.close()
+    await rvr.close()
+
+
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
+    )
+
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()

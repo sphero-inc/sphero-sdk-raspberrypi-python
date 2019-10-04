@@ -157,7 +157,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__led_control.set_multiple_leds_color(
+        await self.__led_control.set_multiple_leds_with_enums(
             [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
             [Colors.blue, Colors.blue]
         )
@@ -171,7 +171,7 @@ class DriveControlAsync:
         # TODO: Add function for idling lights in the SDK
         await self.reset_heading()
 
-        await self.__led_control.set_multiple_leds_color(
+        await self.__led_control.set_multiple_leds_with_enums(
             [RvrLedGroups.brakelight_left, RvrLedGroups.brakelight_right],
             [Colors.off, Colors.off]
         )

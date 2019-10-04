@@ -1,54 +1,57 @@
-import time
-import sys
 import os
+import sys
+import time
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
 
+
 rvr = SpheroRvrObserver()
 
 
-def on_sensor_streaming_data(response):
-    print(response)
+def sensor_data_handler(sensor_data):
+    print('Sensor data response: ', sensor_data)
 
 
-def get_single_sensor_stream():
-    """This program enables a single sensor stream that will be printed to the console.
-
+def main():
+    """ This program demonstrates how to enable a single sensor to stream.
     """
+
     try:
-        # Wake up RVR
         rvr.wake()
 
-        # Give RVR time to wake up
+        # give RVR time to wake up
         time.sleep(2)
 
-        # Add a callback to receive sensor stream data
-        rvr.sensor_control.add_sensor_data_handler(on_sensor_streaming_data)
+        rvr.sensor_control.add_sensor_data_handler(sensor_data_handler)
 
+        # TODO: is there a constant or enum available for these?
         # Enable a single sensor. Supported sensors are:
-        # "ColorDetection"
-        # "AmbientLight"
-        # "Quaternion"
-        # "IMU"
-        # "Accelerometer"
-        # "Gyroscope"
-        # "Locator"
-        # "Velocity"
-        # "Speed"
-        # "CoreTime"
-        rvr.sensor_control.enable("Accelerometer")
+        # 'ColorDetection'
+        # 'AmbientLight'
+        # 'Quaternion'
+        # 'IMU'
+        # 'Accelerometer'
+        # 'Gyroscope'
+        # 'Locator'
+        # 'Velocity'
+        # 'Speed'
+        # 'CoreTime'
 
-        # Allow this program to run until a keyboard interrupt is detected
+        rvr.sensor_control.enable('Accelerometer')
+
         while True:
+            # delay to allow RVR to stream sensor data
             time.sleep(1)
-            # raise Exception("whoops")
+
     except KeyboardInterrupt:
-        print("Program terminated with keyboard interrupt.")
+        print('Program terminated with keyboard interrupt.')
+
     finally:
-        # Properly shuts down the RVR serial port.
         rvr.close()
 
 
-if __name__ == "__main__":
-    get_single_sensor_stream()
+if __name__ == '__main__':
+    main()

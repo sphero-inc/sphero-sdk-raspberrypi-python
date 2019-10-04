@@ -1,40 +1,48 @@
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
+import sys
 import time
 
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import DriveFlagsBitmask
+
 
 rvr = SpheroRvrObserver()
 
 
 def main():
+    """ This program has RVR drive around in different directions using the function drive_with_heading.
     """
-    This program has RVR drive using the function drive_with_heading with the reverse_drive flag set.
-    It demonstrates how the heading (passed in as the second argument to the function) affects
-    the driving direction when in reverse mode.
 
-    Note:
-        To have RVR drive, we call time.sleep(...); if we did not have these calls, the program would
-        go on and execute all statements and exit without the driving ever taking place.
-    """
     rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
     rvr.reset_yaw()
 
-    # If driving in reverse mode, the heading is relative to the direction that the BACK of RVR is facing
-    rvr.drive_with_heading(128, 90, 1)
+    rvr.drive_with_heading(
+        speed=128,
+        heading=90,
+        flags=DriveFlagsBitmask.drive_reverse.value
+    )
+
+    # delay to allow RVR to drive
     time.sleep(1)
 
-    # Stop RVR
-    rvr.raw_motors(0, 0, 0, 0)
+    rvr.drive_with_heading(
+        speed=0,
+        heading=0,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
+    time.sleep(1)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

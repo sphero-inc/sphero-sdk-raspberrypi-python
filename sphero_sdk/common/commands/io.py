@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          09/09/2019 @ 17:37:24.158337 (UTC)
+# Timestamp:          10/02/2019 @ 17:09:49.585358 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,10 +11,10 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def set_all_leds_with_32_bit_mask(led_group, led_brightness_values, target, timeout): 
+def set_all_leds(led_group, led_brightness_values, target, timeout): 
     return { 
         'did': DevicesEnum.io,
-        'cid': CommandsEnum.set_all_leds_with_32_bit_mask,
+        'cid': CommandsEnum.set_all_leds,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,

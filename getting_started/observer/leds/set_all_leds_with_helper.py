@@ -1,48 +1,48 @@
-import sys
 import os
+import sys
+import time
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import time
-
 from sphero_sdk import SpheroRvrObserver
-from sphero_sdk import LedControlObserver
 from sphero_sdk import Colors
 
 
 rvr = SpheroRvrObserver()
 
-led_controller = LedControlObserver(rvr)
-
 
 def main():
-    """ This program demonstrates how to set the all the LEDs of RVR using the helper function
-    defined in LedControlObserver.
-
+    """ This program demonstrates how to set the all the LEDs of RVR using the LED control helper.
     """
 
     rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Turn off all lights
-    led_controller.turn_leds_off()
-    time.sleep(0.5)
+    rvr.led_control.turn_leds_off()
 
-    # Set all lights to yellow using Colors enumeration
-    led_controller.set_all_leds_color(Colors.yellow)
+    # delay to show LEDs change
     time.sleep(1)
 
-    # Turn off all lights
-    led_controller.turn_leds_off()
-    time.sleep(0.5)
+    rvr.led_control.set_all_leds_color(color=Colors.yellow)
 
-    # Set all lights to yellow using RGB values
-    led_controller.set_all_leds_rgb(255, 144, 0)
+    # delay to show LEDs change
+    time.sleep(1)
+
+    rvr.led_control.turn_leds_off()
+
+    # delay to show LEDs change
+    time.sleep(1)
+
+    rvr.led_control.set_all_leds_rgb(red=255, green=144, blue=0)
+
+    # delay to show LEDs change
     time.sleep(1)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

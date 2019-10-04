@@ -1,10 +1,13 @@
-import sys
+import asyncio
 import os
+import sys
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+
 
 loop = asyncio.get_event_loop()
 
@@ -15,53 +18,61 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_sensor_streaming_data(response):
-    print(response)
+async def sensor_data_handler(sensor_data):
+    print('Sensor data response: ', sensor_data)
 
 
-async def get_single_sensor_stream():
-    """This program enables multiple sensors streams that will be printed to the console.
-
+async def main():
+    """ This program demonstrates how to enable multiple sensors to stream.
     """
-    # Wake up RVR
+
     await rvr.wake()
 
-    # Add a callback to receive sensor stream data
-    await rvr.sensor_control.add_sensor_data_handler(on_sensor_streaming_data)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
 
-    # Enable a multiple sensors. Supported sensors are:
-    # "ColorDetection"
-    # "AmbientLight"
-    # "Quaternion"
-    # "IMU"
-    # "Accelerometer"
-    # "Gyroscope"
-    # "Locator"
-    # "Velocity"
-    # "Speed"
-    # "CoreTime"
-    await rvr.sensor_control.enable("IMU","ColorDetection","Accelerometer","AmbientLight")
+    await rvr.sensor_control.add_sensor_data_handler(sensor_data_handler)
 
-    # Allow this program to run until a keyboard interrupt is detected
+    # TODO: is there a constant or enum available for these?
+    # Enable a single sensor. Supported sensors are:
+    # 'ColorDetection'
+    # 'AmbientLight'
+    # 'Quaternion'
+    # 'IMU'
+    # 'Accelerometer'
+    # 'Gyroscope'
+    # 'Locator'
+    # 'Velocity'
+    # 'Speed'
+    # 'CoreTime'
+
+    await rvr.sensor_control.enable(
+        'IMU',
+        'ColorDetection',
+        'Accelerometer',
+        'AmbientLight'
+    )
+
     while True:
+        # delay to allow RVR to stream sensor data
         await asyncio.sleep(1)
 
 
-async def close_rvr():
-    await rvr.close()
+if __name__ == '__main__':
+    try:
+        loop.run_until_complete(
+            main()
+        )
 
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
 
-try:
-    loop.run_until_complete(
-        get_single_sensor_stream()
-    )
-except KeyboardInterrupt:
-    print("Program terminated with keyboard interrupt.")
+        loop.run_until_complete(
+            rvr.close()
+        )
 
-    # Need to make sure we close rvr properly to terminate all streams.
-    loop.run_until_complete(
-        rvr.close()
-    )
-finally:
-    # stop the loop
-    loop.close()
+    finally:
+        if loop.is_running():
+            loop.stop()
+
+        loop.close()

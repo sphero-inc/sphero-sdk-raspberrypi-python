@@ -36,7 +36,7 @@ class LedControlAsync:
 
         """
 
-        await self.__rvr.set_all_leds_with_32_bit_mask(
+        await self.__rvr.set_all_leds(
             RvrLedGroups.all_lights.value,
             [color for i in range(10) for color in Colors.off.value]
         )
@@ -59,8 +59,8 @@ class LedControlAsync:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        await self.__rvr.set_all_leds_with_32_bit_mask(
-            led.value,
+        await self.__rvr.set_all_leds(
+            led,
             [red, green, blue]
         )
 
@@ -80,7 +80,7 @@ class LedControlAsync:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        await self.__rvr.set_all_leds_with_32_bit_mask(
+        await self.__rvr.set_all_leds(
             led.value,
             [red, green, blue]
         )
@@ -100,7 +100,7 @@ class LedControlAsync:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        await self.__rvr.set_all_leds_with_32_bit_mask(
+        await self.__rvr.set_all_leds(
             RvrLedGroups.all_lights.value,
             [color for x in range(0, 10) for color in [red, green, blue]]
         )
@@ -121,7 +121,7 @@ class LedControlAsync:
 
         return
 
-    async def set_multiple_leds_color(self, led, colors):
+    async def set_multiple_leds_with_enums(self, leds, colors):
         """set_multiple_leds_color sets multiple lights on the RVR to specified colors from the enumeration Color
 
         Args:
@@ -129,10 +129,9 @@ class LedControlAsync:
             colors [Color]: array of elements from Color enumeration
 
         """
-
-        for i in range(len(led)):
+        for i in range(len(leds)):
             await self.set_led_rgb(
-                led[i].value,
+                leds[i].value,
                 colors[i].value[0],
                 colors[i].value[1],
                 colors[i].value[2]
@@ -140,7 +139,7 @@ class LedControlAsync:
 
         return
 
-    async def set_multiple_leds_colors(self, leds, colors):
+    async def set_multiple_leds_with_rgb(self, leds, colors):
         """set_multiple_lights_enum sets multiple lights on the RVR to specified rgb values.
         The array of colors should be an array of integers whose size is a multiple of three.
 

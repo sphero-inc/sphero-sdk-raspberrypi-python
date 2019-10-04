@@ -1,50 +1,55 @@
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
+import sys
 import time
 
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 from sphero_sdk import SpheroRvrObserver
-from sphero_sdk import DriveControlObserver
+
+
 rvr = SpheroRvrObserver()
 
-driver = DriveControlObserver(rvr)
 
 def main():
-    """ This program has RVR drive around in different directions using raw motors.
-
-    Note:
-        To give RVR time to drive, we call time.sleep(...); if we did not have these calls, the program would
-        go on and execute all the statements and exit without the driving ever taking place.
+    """ This program has RVR drive with how to drive RVR using the drive control helper.
     """
 
     rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Set aiming lights
-    driver.aim_start()
+    rvr.drive_control.reset_heading()
 
-    # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
-    driver.reset_heading()
+    rvr.drive_control.drive_forward_seconds(
+        speed=64,
+        heading=0,
+        time_to_drive=1
+    )
 
-    # Drive forward at speed 64 for one second
-    driver.drive_forward_seconds(64, 0, 1)
+    # delay to allow RVR to drive
+    time.sleep(1)
 
-    # Drive backwards at speed 64 for one second
-    driver.drive_backward_seconds(64, 0, 1)
+    rvr.drive_control.drive_backward_seconds(
+        speed=64,
+        heading=0,
+        time_to_drive=1
+    )
 
-    # Turn left
-    driver.turn_left_degrees(0, 90)
+    # delay to allow RVR to drive
+    time.sleep(1)
 
-    # Turn off aiming lights
-    driver.aim_stop()
+    rvr.drive_control.turn_left_degrees(
+        heading=0,
+        amount=90
+    )
 
-    # Stop RVR
-    # rvr.raw_motors(0, 0, 0, 0)
+    # delay to allow RVR to drive
+    time.sleep(1)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

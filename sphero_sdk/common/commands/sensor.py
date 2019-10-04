@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          09/09/2019 @ 17:37:24.162785 (UTC)
+# Timestamp:          10/02/2019 @ 17:09:49.589140 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -632,75 +632,6 @@ def get_motor_temperature(motor_index, target, timeout):
                 name='caseTemperature',
                 data_type='float',
                 index=1,
-                size=1,
-            ),
-        ]
-    }
-
-
-def configure_sensitivity_based_collision_detection(method, sensitivity, dead_time, target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.configure_sensitivity_based_collision_detection,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='method',
-                data_type='uint8_t',
-                index=0,
-                value=method,
-                size=1
-            ),
-            Parameter( 
-                name='sensitivity',
-                data_type='uint8_t',
-                index=1,
-                value=sensitivity,
-                size=1
-            ),
-            Parameter( 
-                name='deadTime',
-                data_type='uint16_t',
-                index=2,
-                value=dead_time,
-                size=1
-            ),
-        ],
-    }
-
-
-def enable_sensitivity_based_collision_detection_notify(is_enabled, target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.enable_sensitivity_based_collision_detection_notify,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='isEnabled',
-                data_type='bool',
-                index=0,
-                value=is_enabled,
-                size=1
-            ),
-        ],
-    }
-
-
-def on_sensitivity_based_collision_detected_notify(target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.sensitivity_based_collision_detected_notify,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [ 
-            Parameter( 
-                name='time',
-                data_type='uint64_t',
-                index=0,
                 size=1,
             ),
         ]

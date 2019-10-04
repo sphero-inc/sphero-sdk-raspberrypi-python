@@ -26,7 +26,7 @@ class LedControlObserver:
 
         """
 
-        self.__rvr.set_all_leds_with_32_bit_mask(
+        self.__rvr.set_all_leds(
             RvrLedGroups.all_lights.value,
             [color for i in range(10) for color in Colors.off.value]
         )
@@ -49,7 +49,7 @@ class LedControlObserver:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        self.__rvr.set_all_leds_with_32_bit_mask(
+        self.__rvr.set_all_leds(
             led.value,
             [red, green, blue]
         )
@@ -70,7 +70,7 @@ class LedControlObserver:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        self.__rvr.set_all_leds_with_32_bit_mask(
+        self.__rvr.set_all_leds(
             led.value,
             [red, green, blue]
         )
@@ -90,7 +90,7 @@ class LedControlObserver:
         if not self.__is_color_valid(red, green, blue):
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
-        self.__rvr.set_all_leds_with_32_bit_mask(
+        self.__rvr.set_all_leds(
             RvrLedGroups.all_lights.value,
             [color for x in range(0, 10) for color in [red, green, blue]]
         )
@@ -111,7 +111,7 @@ class LedControlObserver:
 
         return
 
-    def set_multiple_leds_color(self, led, colors):
+    def set_multiple_leds_color(self, leds, colors):
         """set_multiple_leds_color sets multiple lights on the RVR to specified colors from the enumeration Color
 
         Args:
@@ -119,9 +119,9 @@ class LedControlObserver:
             colors [Color]: array of elements from Color enumeration
 
         """
-        for i in range(len(led)):
+        for i in range(len(leds)):
             self.set_led_color(
-                led[i], colors[i]
+                leds[i], colors[i]
             )
 
         return

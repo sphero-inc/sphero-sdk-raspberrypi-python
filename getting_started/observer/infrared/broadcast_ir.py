@@ -1,39 +1,47 @@
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
+import sys
 import time
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
 from sphero_sdk import InfraredCodes
+from sphero_sdk import RawMotorModesEnum
+
 
 rvr = SpheroRvrObserver()
 
 
 def main():
-    """ This program has another robot capable of infrared communication, e.g. BOLT, follow RVR.
-
-        To try this out, write a script for your other robot that has it follow on the corresponding channel
-        that RVR broadcasts on [in this case channel 0 and 1].
-        Place your other robot behind RVR and run its script.
-        Upon running this program RVR drives forward and the other robot follows it.
+    """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
     """
+
     rvr.wake()
+
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Broadcast on channels 0 and 1. We specify the channels with the InfraredCodes enumeration
-    near_code = InfraredCodes.zero
-    far_code = InfraredCodes.one
-    rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
+    rvr.start_robot_to_robot_infrared_broadcasting(
+        far_code=InfraredCodes.one.value,
+        near_code=InfraredCodes.zero.value
+    )
 
-    # Drive forward at speed 64 for two seconds
-    rvr.raw_motors(1, 64, 1, 64)
+    for i in range(2):
+        rvr.raw_motors(
+            left_mode=RawMotorModesEnum.forward.value,
+            left_speed=64,
+            right_mode=RawMotorModesEnum.forward.value,
+            right_speed=64
+        )
 
-    time.sleep(2)
+        # delay to allow RVR to drive
+        time.sleep(1)
 
     rvr.stop_robot_to_robot_infrared_broadcasting()
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

@@ -1,12 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
-import time
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+
 
 loop = asyncio.get_event_loop()
 
@@ -17,36 +18,43 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_battery_voltage_state_change(response):
-    print('Response data for voltage state change:',response)
+async def battery_voltage_state_change_handler(battery_voltage_state):
+    print('Battery voltage state: ', battery_voltage_state)
 
 
 async def main():
-    """ This program demonstrates how to enable battery state change notifications and how to set up
-        a handler for such notifications.
-
+    """ This program demonstrates how to enable battery state change notifications.
     """
+
     await rvr.wake()
 
+    # give RVR time to wake up
+    await asyncio.sleep(2)
+
+    await rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
     await rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
-    await rvr.on_battery_voltage_state_change_notify(on_battery_voltage_state_change)
-
-    # Uncomment this infinite loop if you'd like to operate RVR by other means and monitor battery notifications.
+    # remove infinite loop if you'd like to operate RVR by other means and monitor battery notifications
     while True:
-       print('waiting for battery notification....')
-       await asyncio.sleep(5)
+        print('Waiting for battery notification...')
+        await asyncio.sleep(5)
 
 
-try:
-    loop.run_until_complete(
-        asyncio.gather(
+if __name__ == '__main__':
+    try:
+        loop.run_until_complete(
             main()
         )
-    )
-except KeyboardInterrupt:
-    print("Program aborted with keyboard interrupt.")
-    loop.stop()
 
-time.sleep(1)
-loop.close()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
+
+        loop.run_until_complete(
+            rvr.close()
+        )
+
+    finally:
+        if loop.is_running():
+            loop.stop()
+
+        loop.close()

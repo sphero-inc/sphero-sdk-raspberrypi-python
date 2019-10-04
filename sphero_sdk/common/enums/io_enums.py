@@ -3,19 +3,17 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          09/09/2019 @ 17:37:24.158425 (UTC)
+# Timestamp:          10/02/2019 @ 17:09:49.585433 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['UsbConnectionStatusEnum',
-           'AudioPlaybackModesEnum',
-           'SpecdrumsColorPaletteIndiciesEnum',
+__all__ = ['SpecdrumsColorPaletteIndiciesEnum',
            'FrameInfoTypesEnum']
 
 
 class CommandsEnum(IntEnum): 
-    set_all_leds_with_32_bit_mask = 0x1A
+    set_all_leds = 0x1A
     set_compressed_frame_player_one_color = 0x2F
     save_compressed_frame_player_animation = 0x31
     play_compressed_frame_player_animation = 0x32
@@ -39,30 +37,13 @@ class CommandsEnum(IntEnum):
     release_led_requests = 0x4E
 
 
-class UsbConnectionStatusEnum(IntEnum):
-    ''' '''
-    unknown = 0  #: USB Connection Status is unknown.
-    connected_but_not_ready = 1  #: USB is connected to a Device, but not ready for communication.
-    connected_and_ready = 2  #: USB is connected and ready for communication!
-    disconnected = 3  #: USB is disconnected!
-
-
-class AudioPlaybackModesEnum(IntEnum):
-    ''' '''
-    play_immediately = 0  #: 
-    play_only_if_not_playing = 1  #: 
-    play_after_current_sound = 2  #: 
-
-
-class SpecdrumsColorPaletteIndiciesEnum(IntEnum):
-    ''' '''
-    default = 0  #: 
-    midi = 1  #: 
+class SpecdrumsColorPaletteIndiciesEnum(IntEnum):   # TODO: should probably rename
+    default = 0
+    midi = 1
 
 
 class FrameInfoTypesEnum(IntEnum):
-    ''' '''
-    compressed_frame_player_info_type_8_bit = 0  #: 
-    compressed_frame_player_info_type_16_bit = 1  #: 
-    compressed_frame_player_info_type_32_bit = 2  #: 
-    compressed_frame_player_info_type_64_bit = 3  #: 
+    compressed_frame_player_info_type_8_bit = 0
+    compressed_frame_player_info_type_16_bit = 1
+    compressed_frame_player_info_type_32_bit = 2
+    compressed_frame_player_info_type_64_bit = 3

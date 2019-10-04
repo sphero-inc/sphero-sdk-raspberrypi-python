@@ -1,18 +1,18 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import Colors
 from sphero_sdk import RvrLedGroups
 from sphero_sdk import SerialAsyncDal
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
@@ -21,37 +21,47 @@ rvr = SpheroRvrAsync(
 
 
 async def main():
-    """ This program demonstrates how to set a single LEDs of RVR with one function call to set_all_leds_with_32_bit_mask.
-
+    """ This program demonstrates how to set a single LED.
     """
+
     await rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     await asyncio.sleep(2)
 
-    # Turn off all lights
-    await rvr.set_all_leds_with_32_bit_mask(
-        RvrLedGroups.all_lights.value, [color for _ in range(10) for color in Colors.off.value]
+    await rvr.set_all_leds(
+        led_group=RvrLedGroups.all_lights.value,
+        led_brightness_values=[color for _ in range(10) for color in Colors.off.value]
     )
+
+    # delay to show LEDs change
     await asyncio.sleep(1)
 
-    # Set right headlight to red
-    led_group_bitmask = RvrLedGroups.headlight_right.value  # 0xe00
+    await rvr.set_all_leds(
+        led_group=RvrLedGroups.headlight_right.value,   # 0xe00
+        led_brightness_values=[255, 0, 0]
+    )
 
-    await rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [255, 0, 0])
+    # delay to show LEDs change
     await asyncio.sleep(1)
 
-    # Set left headlight to green
-    led_group_bitmask = RvrLedGroups.headlight_left.value  # 0x1c0
+    await rvr.set_all_leds(
+        led_group=RvrLedGroups.headlight_left.value,    # 0x1c0
+        led_brightness_values=[0, 255, 0]
+    )
 
-    await rvr.set_all_leds_with_32_bit_mask(led_group_bitmask, [0, 255, 0])
+    # delay to show LEDs change
     await asyncio.sleep(1)
 
+    await rvr.close()
 
-# Run program loop until the main function has completed
-loop.run_until_complete(
-    main()
-)
 
-loop.stop()
-loop.close()
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
+    )
+
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()

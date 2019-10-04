@@ -1,17 +1,17 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import RawMotorModesEnum
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object, and pass in a SerialAsyncDal object, which in turn takes a reference
-# to the asynchronous program loop 
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
@@ -20,41 +20,75 @@ rvr = SpheroRvrAsync(
 
 
 async def main():
+    """ This program has RVR drive around in different directions.
     """
-    This program has RVR drive around in different directions using the function raw_motors.
-    
-    Note:
-        To give RVR time to drive, we call asyncio.sleep(...); if we did not have these calls, the program would 
-        go on and execute all the statements and exit without the driving ever taking place. 
-    """
+
     await rvr.wake()
 
-    # Drive straight for one second at speed 128
-    await rvr.raw_motors(1, 128, 1, 128)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
+
+    await rvr.reset_yaw()
+
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.forward.value,
+        left_speed=128,
+        right_mode=RawMotorModesEnum.forward.value,
+        right_speed=128
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Drive backwards for one second at speed 64
-    await rvr.raw_motors(2, 64, 2, 64)
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.reverse.value,
+        left_speed=64,
+        right_mode=RawMotorModesEnum.reverse.value,
+        right_speed=64
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Turn right
-    await rvr.raw_motors(2, 128, 1, 128)
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.reverse.value,
+        left_speed=128,
+        right_mode=RawMotorModesEnum.forward.value,
+        right_speed=128
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Drive forward for 1 second at speed 128
-    await rvr.raw_motors(1, 128, 1, 128)
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.forward.value,
+        left_speed=128,
+        right_mode=RawMotorModesEnum.forward.value,
+        right_speed=128
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Stop RVR
-    await rvr.raw_motors(0, 0, 0, 0)
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.off.value,
+        left_speed=0,
+        right_mode=RawMotorModesEnum.off.value,
+        right_speed=0
+    )
+
+    # delay to allow RVR to drive
+    await asyncio.sleep(1)
+
+    await rvr.close()
 
 
-# Run event loop until the main function has completed
-loop.run_until_complete(
-    main()
-)
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
+    )
 
-# Stop the event loop
-loop.stop()
-# Close the event loop
-loop.close()
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()
