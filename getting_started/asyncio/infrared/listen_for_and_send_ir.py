@@ -1,18 +1,16 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
-import time
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
@@ -20,41 +18,55 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_ir_message_received(response):
-    print('Response data for IR message received:',response)
+async def infrared_message_received_handler(infrared_message):
+    print('Infrared message response: ', infrared_message)
 
 
 async def main():
     """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
-
-    To try this out, write a script for your other robot that a) broadcasts on the corresponding
-    channel that RVR is set to listen to [in this case channel 0] and b) listens on the channel which
-    RVR sends messages on [in this case channel 3]
     """
 
     await rvr.wake()
 
-    enabled = True
-    await rvr.enable_robot_infrared_message_notify(enabled)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
 
-    # Register handler to be called when message is received
-    await rvr.on_robot_to_robot_infrared_message_received_notify(on_ir_message_received)
+    await rvr.on_robot_to_robot_infrared_message_received_notify(handler=infrared_message_received_handler)
 
-    # Send infrared message with code 3 at maximum strength from the front, rear, left and right sensor respectively
+    await rvr.enable_robot_infrared_message_notify(is_enabled=True)
+
     infrared_code = 3
     strength = 64
+
     while True:
-        await rvr.send_infrared_message(infrared_code, strength, strength, strength, strength)
-        print("message sent with code {}".format(infrared_code))
-        await asyncio.sleep(0.2)
+        await rvr.send_infrared_message(
+            infrared_code=infrared_code,
+            front_strength=strength,
+            left_strength=strength,
+            right_strength=strength,
+            rear_strength=strength
+        )
+
+        print('Infrared message sent with code: {0}'.format(infrared_code))
+
+        await asyncio.sleep(2)
 
 
-try:
-    asyncio.ensure_future(main())
-    loop.run_forever()
+if __name__ == '__main__':
+    try:
+        loop.run_until_complete(
+            main()
+        )
 
-except KeyboardInterrupt:
-    loop.stop()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
 
-time.sleep(1)
-loop.close()
+        loop.run_until_complete(
+            rvr.close()
+        )
+
+    finally:
+        if loop.is_running():
+            loop.stop()
+
+        loop.close()

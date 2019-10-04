@@ -1,57 +1,60 @@
-# TODO: upon testing, BOLT gives no response
-import sys
+import asyncio
 import os
+import sys
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import time
-
-import asyncio
-
 from sphero_sdk import SpheroRvrAsync
-from sphero_sdk import InfraredCodes
-from sphero_sdk import InfraredControlAsync
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import InfraredCodes
+from sphero_sdk import RawMotorModesEnum
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object and pass in a SerialAsyncDal object, which in turn takes a reference to the program loop
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
     )
 )
 
-infrared_controller = InfraredControlAsync(rvr)
-
 
 async def main():
-    """ This program has another robot capable of infrared communication, e.g. BOLT, follow RVR.
-
-        To try this out, write a script for your other robot that has it follow on the corresponding channel
-        that RVR broadcasts on [in this case channel 0 and 1].
-        Place your other robot behind RVR and run its script.
-        Upon running this program RVR drives forward and the other robot follows it.
+    """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
     """
+
     await rvr.wake()
 
-    # Broadcast on channels 0, 1, 2, and 3. We specify the channels with the InfraredCodes enumeration
-    near_code = InfraredCodes.zero
-    far_code = InfraredCodes.one
-    await infrared_controller.start_infrared_broadcasting(far_code, near_code)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
 
-    await rvr.raw_motors(1, 64, 1, 64)
+    await rvr.infrared_control.start_infrared_broadcasting(
+        far_code=InfraredCodes.one,
+        near_code=InfraredCodes.zero
+    )
+
+    await rvr.raw_motors(
+        left_mode=RawMotorModesEnum.forward.value,
+        left_speed=64,
+        right_mode=RawMotorModesEnum.forward.value,
+        right_speed=64
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(4)
 
-    await infrared_controller.stop_infrared_broadcasting()
+    await rvr.infrared_control.stop_infrared_broadcasting()
+
+    await rvr.close()
 
 
-try:
-    asyncio.ensure_future(main())
-    loop.run_forever()
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
+    )
 
-except KeyboardInterrupt:
-    loop.stop()
+    if loop.is_running():
+        loop.stop()
 
-time.sleep(1)
-loop.close()
+    loop.close()

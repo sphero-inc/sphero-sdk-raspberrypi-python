@@ -1,54 +1,75 @@
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
+import sys
 import time
 
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import DriveFlagsBitmask
+
 
 rvr = SpheroRvrObserver()
 
 
 def main():
-    """ This program has RVR drive around in different directions using drive_with_heading.
-
-    Note:
-        To have RVR drive, we call time.sleep(...); if we did not have these calls, the program would
-        go on and execute all statements and exit without the driving ever taking place.
+    """ This program has RVR drive around in different directions using the function drive_with_heading.
     """
+
     rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     time.sleep(2)
 
-    # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
     rvr.reset_yaw()
 
-    # Drive straight for one second at speed 128
-    rvr.drive_with_heading(128, 0, 0)
+    rvr.drive_with_heading(
+        speed=128,
+        heading=0,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     time.sleep(1)
 
-    # Drive backwards for one second at speed 128
-    # Note that the flag is set to 1 for reverse
-    rvr.drive_with_heading(128, 0, 1)
+    rvr.drive_with_heading(
+        speed=128,
+        heading=0,
+        flags=DriveFlagsBitmask.drive_reverse.value
+    )
+
+    # delay to allow RVR to drive
     time.sleep(1)
 
-    # Go right for a second (relative to original yaw)
-    rvr.drive_with_heading(128, 90, 0)
+    rvr.drive_with_heading(
+        speed=128,
+        heading=90,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     time.sleep(1)
 
-    # Go left for a second (relative to original yaw)
-    rvr.drive_with_heading(128, 270, 0)
+    rvr.drive_with_heading(
+        speed=128,
+        heading=270,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     time.sleep(1)
 
-    # Go back to original position
-    rvr.drive_with_heading(0, 0, 0)
-    time.sleep(1)
+    rvr.drive_with_heading(
+        speed=0,
+        heading=0,
+        flags=DriveFlagsBitmask.none.value
+    )
 
-    # Stop RVR
-    rvr.raw_motors(0, 0, 0, 0)
+    # delay to allow RVR to drive
+    time.sleep(1)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

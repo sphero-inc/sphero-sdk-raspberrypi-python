@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          09/13/2019 @ 21:44:34.226119 (UTC)
+# Timestamp:          10/02/2019 @ 17:09:49.589216 (UTC)
 
 from enum import IntEnum
 
@@ -12,12 +12,9 @@ __all__ = ['MotorIndexesEnum',
            'ThermalProtectionStatusEnum',
            'StreamingDataSizesEnum',
            'StreamingServiceStatesEnum',
-           'SensitivityBasedCollisionDetectionMethodsEnum',
-           'SensitivityLevelsEnum',
-           'CliffDetectionSensorLocationsBitMask',
-           'GyroMaxFlagsBitMask',
-           'LocatorFlagsBitMask',
-           'InfraredSensorLocationsBitMask']
+           'GyroMaxFlagsBitmask',
+           'LocatorFlagsBitmask',
+           'InfraredSensorLocationsBitmask']
 
 
 class CommandsEnum(IntEnum): 
@@ -51,90 +48,60 @@ class CommandsEnum(IntEnum):
     motor_current_notify = 0x40
     enable_motor_current_notify = 0x41
     get_motor_temperature = 0x42
-    configure_sensitivity_based_collision_detection = 0x47
-    enable_sensitivity_based_collision_detection_notify = 0x48
-    sensitivity_based_collision_detected_notify = 0x49
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
     motor_thermal_protection_status_notify = 0x4D
 
 
 class MotorIndexesEnum(IntEnum):
-    ''' '''
-    left_motor_index = 0  #: Left motor index.
-    right_motor_index = 1  #: Right motor index.
+    left_motor_index = 0
+    right_motor_index = 1
 
 
 class ThermalProtectionStatusEnum(IntEnum):
-    ''' '''
-    ok = 0  #: Ok
-    warn = 1  #: Warning
-    critical = 2  #: Critical, forced cool down
+    ok = 0
+    warn = 1
+    critical = 2
 
 
-class StreamingDataSizesEnum(IntEnum):
-    ''' '''
-    EightBit = 0x00  #: Configures the returned data values to be 8 bits in length.
-    SixteenBit = 0x01  #: Configures the returned data values to be 16 bits in length.
-    ThirtyTwoBit = 0x02  #: Configures the returned data values to be 32 bits in length. This is the default size.
-    Uint8Max = 255  #: Max value of uint8
-    Uint16Max = 65535  #: Max value of uint16
-    Uint32Max = 4294967295  #: Max value of uint32
-    Int32Min = -2147483648  #: Min value of int32
-    Int32Max = 2147483647  #: Max value of int32
-    Int64Min = -9223372036854775808  #: Min value of int64
-    Int64Max = 9223372036854775807  #: Max value of int64
+class StreamingDataSizesEnum(IntEnum):  # TODO: should we split out the two sets of data here?
+    eight_bit = 0x00
+    sixteen_bit = 0x01
+    thirty_two_bit = 0x02
+    uint_8_max = 255
+    uint_16_max = 65535
+    uint_32_max = 4294967295
+    int_32_min = -2147483648
+    int_32_max = 2147483647
+    int_64_min = -9223372036854775808
+    int_64_max = 9223372036854775807
 
 
-class StreamingServiceStatesEnum(IntEnum):
-    ''' '''
+class StreamingServiceStatesEnum(IntEnum):  # TODO: this isn't autogen'd
     Unknown = 0  #: 
     Stop = 1  #: 
     Start = 2  #: 
     Restart = 3  #: 
 
 
-class SensitivityBasedCollisionDetectionMethodsEnum(IntEnum):
-    ''' '''
-    accelerometer_based_detection = 0  #: 
+class GyroMaxFlagsBitmask(IntEnum):
+    none = 0
+    max_plus_x = 1
+    max_minus_x = 2
+    max_plus_y = 4
+    max_minus_y = 8
+    max_plus_z = 16
+    max_minus_z = 32
 
 
-class SensitivityLevelsEnum(IntEnum):
-    ''' '''
-    super_high = 0  #: 
-    very_high = 1  #: 
-    high = 2  #: 
-    medium = 3  #: 
-    low = 4  #: 
-    very_low = 5  #: 
+class LocatorFlagsBitmask(IntEnum):
+    none = 0
+    auto_calibrate = 1
 
 
-class CliffDetectionSensorLocationsBitMask(IntEnum):
-    ''' '''
-    front_left = 1 #: 
-    front_right = 2 #: 
-    back_left = 4 #: 
-    back_right = 8 #: 
-
-
-class GyroMaxFlagsBitMask(IntEnum):
-    ''' '''
-    max_plus_x = 1 #: 
-    max_minus_x = 2 #: 
-    max_plus_y = 4 #: 
-    max_minus_y = 8 #: 
-    max_plus_z = 16 #: 
-    max_minus_z = 32 #: 
-
-
-class LocatorFlagsBitMask(IntEnum):
-    ''' '''
-    auto_calibrate = 1 #: 
-
-
-class InfraredSensorLocationsBitMask(IntEnum):
-    ''' '''
-    front_left = 0x000000FF #: 
-    front_right = 0x0000FF00 #: 
-    back_right = 0x00FF0000 #: 
-    back_left = 0xFF000000 #: 
+class InfraredSensorLocationsBitmask(IntEnum):
+    none = 0
+    front_left = 0x000000FF
+    front_right = 0x0000FF00
+    back_right = 0x00FF0000
+    back_left = 0xFF000000

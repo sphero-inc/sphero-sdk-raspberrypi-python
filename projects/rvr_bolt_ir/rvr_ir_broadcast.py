@@ -17,9 +17,9 @@ def main():
 
     try:
         while True:
-            rvr.set_all_leds_with_32_bit_mask(0x3FFFFFFF, [color for i in range(10) for color in green1])
+            rvr.set_all_leds(0x3FFFFFFF, [color for i in range(10) for color in green1])
             time.sleep(1)
-            rvr.set_all_leds_with_32_bit_mask(0x3FFFFFFF, [color for i in range(10) for color in green2])
+            rvr.set_all_leds(0x3FFFFFFF, [color for i in range(10) for color in green2])
             time.sleep(2)
     except KeyboardInterrupt:
         rvr.stop_robot_to_robot_infrared_broadcasting()

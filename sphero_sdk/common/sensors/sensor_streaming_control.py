@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class SensorStreamingControl:
+    # TODO: there are mixed styles of constants in sphero_sdk. we need to pick one and update
     SLOT_TOKEN_1 = 0x01
     SLOT_TOKEN_2 = 0x02
     SLOT_TOKEN_3 = 0x03
@@ -374,7 +375,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0000,
             "Quaternion",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -389,7 +390,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0001,
             "IMU",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -404,7 +405,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0002,
             "Accelerometer",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -421,7 +422,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0003,
             "ColorDetection",
-            StreamingDataSizesEnum.EightBit,
+            StreamingDataSizesEnum.eight_bit,
             attributes,
             [Processors.NORDIC_TARGET]
         )
@@ -436,7 +437,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0004,
             "Gyroscope",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -444,13 +445,13 @@ class SensorStreamingControl:
 
         # Locator
         attributes = [
-            SensorStreamAttribute("X", StreamingDataSizesEnum.Int32Min, StreamingDataSizesEnum.Int32Max),
-            SensorStreamAttribute("Y", StreamingDataSizesEnum.Int32Min, StreamingDataSizesEnum.Int32Max)
+            SensorStreamAttribute("X", StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max),
+            SensorStreamAttribute("Y", StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max)
         ]
         streaming_service = SensorStreamService(
             0x0006,
             "Locator",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -458,13 +459,13 @@ class SensorStreamingControl:
 
         # Velocity
         attributes = [
-            SensorStreamAttribute("X", StreamingDataSizesEnum.Int32Min, StreamingDataSizesEnum.Int32Max),
-            SensorStreamAttribute("Y", StreamingDataSizesEnum.Int32Min, StreamingDataSizesEnum.Int32Max)
+            SensorStreamAttribute("X", StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max),
+            SensorStreamAttribute("Y", StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max)
         ]
         streaming_service = SensorStreamService(
             0x0007,
             "Velocity",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -477,7 +478,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x0008,
             "Speed",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.ST_TARGET]
         )
@@ -485,13 +486,13 @@ class SensorStreamingControl:
 
         # Core Time
         attributes = [
-            SensorStreamAttribute("TimeUpper", 0, StreamingDataSizesEnum.Int64Max),
-            SensorStreamAttribute("TimeLower", 0, StreamingDataSizesEnum.Int64Max)
+            SensorStreamAttribute("TimeUpper", 0, StreamingDataSizesEnum.int_64_max),
+            SensorStreamAttribute("TimeLower", 0, StreamingDataSizesEnum.int_64_max)
         ]
         streaming_service = SensorStreamService(
             0x0009,
             "CoreTime",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.NORDIC_TARGET, Processors.ST_TARGET]
         )
@@ -504,7 +505,7 @@ class SensorStreamingControl:
         streaming_service = SensorStreamService(
             0x000A,
             "AmbientLight",
-            StreamingDataSizesEnum.ThirtyTwoBit,
+            StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [Processors.NORDIC_TARGET]
         )

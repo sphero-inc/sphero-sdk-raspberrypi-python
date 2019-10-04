@@ -1,31 +1,52 @@
-import sys
 import os
+import sys
+import time
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import time
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import SpheroRvrTargets
+
 
 rvr = SpheroRvrObserver()
 
 
-def handler1(response):
-    print('Response data for target 1 (Nordic):',response)
+def get_nordic_main_application_version_handler(nordic_main_application_version):
+    print('Nordic main application version (target 1): ', nordic_main_application_version)
 
 
-def handler2(response):
-    print('Response data for target 2 (ST):',response)
+def get_st_main_application_version_handler(st_main_application_version):
+    print('ST main application version (target 2): ', st_main_application_version)
 
 
 def main():
-    rvr.get_main_application_version(handler1, target=1)
+    """ This program demonstrates how to obtain the firmware version for a specific processor.
+    """
 
-    time.sleep(0.5)
+    rvr.wake()
 
-    rvr.get_main_application_version(handler2, target=2)
+    # give RVR time to wake up
+    time.sleep(2)
 
-    time.sleep(0.5)
+    rvr.get_main_application_version(
+        handler=get_nordic_main_application_version_handler,
+        target=SpheroRvrTargets.primary.value
+    )
+
+    # sleep for one second such that RVR has time to send data back
+    time.sleep(1)
+
+    rvr.get_main_application_version(
+        handler=get_st_main_application_version_handler,
+        target=SpheroRvrTargets.secondary.value
+    )
+
+    # sleep for one second such that RVR has time to send data back
+    time.sleep(1)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

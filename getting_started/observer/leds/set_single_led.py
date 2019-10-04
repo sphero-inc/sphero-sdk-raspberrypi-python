@@ -14,7 +14,7 @@ rvr = SpheroRvrObserver()
 
 
 def main():
-    """ This program demonstrates how to set multiple LEDs.
+    """ This program demonstrates how to set a single LED.
     """
 
     rvr.wake()
@@ -31,11 +31,16 @@ def main():
     time.sleep(1)
 
     rvr.set_all_leds(
-        led_group=RvrLedGroups.power_button_front.value | RvrLedGroups.power_button_rear.value,   # 0x1c0000
-        led_brightness_values=[
-            255, 0, 0,
-            0, 0, 255
-        ]
+        led_group=RvrLedGroups.headlight_right.value,   # 0xe00
+        led_brightness_values=[255, 0, 0]
+    )
+
+    # delay to show LEDs change
+    time.sleep(1)
+
+    rvr.set_all_leds(
+        led_group=RvrLedGroups.headlight_left.value,      # 0x1c0
+        led_brightness_values=[0, 255, 0]
     )
 
     # delay to show LEDs change

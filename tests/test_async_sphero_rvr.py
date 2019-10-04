@@ -587,8 +587,8 @@ async def test_sphero_rvr_get_bluetooth_device_name(async_mock_sphero_rvr, rando
 
 
 @pytest.mark.asyncio
-async def test_sphero_rvr_set_all_leds_with_32_bit_mask(async_mock_sphero_rvr, random_value, random_list):
-    response = await async_mock_sphero_rvr.set_all_leds_with_32_bit_mask(
+async def test_sphero_rvr_set_all_leds(async_mock_sphero_rvr, random_value, random_list):
+    response = await async_mock_sphero_rvr.set_all_leds(
         led_group=random_value('uint32_t'),
         led_brightness_values=random_list('uint8_t', 32),
     )

@@ -3,8 +3,27 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 
 from sphero_sdk.common.enums.colors_enums import Colors
-from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 from sphero_sdk.common.enums.infrared_codes_enums import InfraredCodes
+from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
+from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrTargets
+from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitmasks
+
+from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
+from sphero_sdk.common.enums.drive_enums import StabilizationIndexesEnum
+from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum
+from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
+from sphero_sdk.common.enums.io_enums import SpecdrumsColorPaletteIndiciesEnum
+from sphero_sdk.common.enums.io_enums import FrameInfoTypesEnum
+from sphero_sdk.common.enums.power_enums import BatteryVoltageStatesEnum
+from sphero_sdk.common.enums.power_enums import BatteryVoltageReadingTypesEnum
+from sphero_sdk.common.enums.power_enums import AmplifierIdsEnum
+from sphero_sdk.common.enums.sensor_enums import MotorIndexesEnum
+from sphero_sdk.common.enums.sensor_enums import ThermalProtectionStatusEnum
+from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
+from sphero_sdk.common.enums.sensor_enums import StreamingServiceStatesEnum
+from sphero_sdk.common.enums.sensor_enums import GyroMaxFlagsBitmask
+from sphero_sdk.common.enums.sensor_enums import LocatorFlagsBitmask
+from sphero_sdk.common.enums.sensor_enums import InfraredSensorLocationsBitmask
 
 from sphero_sdk.asyncio.controls.led_control_async import LedControlAsync
 from sphero_sdk.asyncio.controls.drive_control_async import DriveControlAsync

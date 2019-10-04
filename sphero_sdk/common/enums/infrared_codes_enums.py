@@ -4,7 +4,7 @@ from enum import Enum
 
 
 class InfraredCodes(Enum):
-    """InfraredCodes are the enums for the InfraredHelpers class
+    """ InfraredCodes are the enums for the InfraredHelpers class
     """
 
     zero = 0

@@ -1,30 +1,34 @@
-import sys
 import os
+import sys
+import time
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
 
+
 rvr = SpheroRvrObserver()
 
 
-def on_battery_voltage_state_change(response):
-    print('Response data for voltage state change:',response)
+def battery_voltage_state_change_handler(battery_voltage_state):
+    print('Battery voltage state: ', battery_voltage_state)
 
 
 def main():
-    """ This program demonstrates how to enable battery state change notifications and how to set up
-    a handler for such notifications.
-
+    """ This program demonstrates how to enable battery state change notifications.
     """
+
     rvr.wake()
 
-    # Instruct RVR to report battery change events
-    rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
+    # give RVR time to wake up
+    time.sleep(2)
 
-    # Register handler to be called when a battery state change occur
-    rvr.on_battery_voltage_state_change_notify(on_battery_voltage_state_change)
+    rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
+    rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
     rvr.close()
 
 
-main()
+if __name__ == '__main__':
+    main()

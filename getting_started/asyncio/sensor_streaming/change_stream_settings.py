@@ -1,10 +1,13 @@
-import sys
+import asyncio
 import os
+import sys
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+
 
 loop = asyncio.get_event_loop()
 
@@ -15,79 +18,83 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def on_sensor_streaming_data(response):
-    print(response)
+async def sensor_data_handler(sensor_data):
+    print('Sensor data response: ', sensor_data)
 
 
-async def get_single_sensor_stream():
-    """This program demonstrates how to update sensor streaming parameters at runtime.
-
+async def main():
+    """ This program demonstrates how to update sensor streaming parameters at runtime.
     """
-    # Wake up RVR
+
     await rvr.wake()
 
-    # Give RVR time to wake up
+    # give RVR time to wake up
     await asyncio.sleep(2)
-    print("----------", "Enabling IMU at 100 ms", "----------")
 
-    # Add a callback to receive sensor stream data
-    await rvr.sensor_control.add_sensor_data_handler(on_sensor_streaming_data)
+    print('----------', 'Enabling IMU at 100 ms', '----------')
 
-    # Set a slow streaming interval (every 500 ms)
+    await rvr.sensor_control.add_sensor_data_handler(sensor_data_handler)
+
     rvr.sensor_control.streaming_interval = 100
 
+    # TODO: is there a constant or enum available for these?
     # Enable a single sensor. Supported sensors are:
-    # "ColorDetection"
-    # "AmbientLight"
-    # "Quaternion"
-    # "IMU"
-    # "Accelerometer"
-    # "Gyroscope"
-    # "Locator"
-    # "Velocity"
-    # "Speed"
-    # "CoreTime"
-    await rvr.sensor_control.enable("IMU")
+    # 'ColorDetection'
+    # 'AmbientLight'
+    # 'Quaternion'
+    # 'IMU'
+    # 'Accelerometer'
+    # 'Gyroscope'
+    # 'Locator'
+    # 'Velocity'
+    # 'Speed'
+    # 'CoreTime'
 
-    # Pause this function for 5 seconds
+    await rvr.sensor_control.enable('IMU')
+
+    # delay to allow RVR to stream sensor data
     await asyncio.sleep(5)
-    print("----------", "Updating interval to 1000 ms", "----------")
 
-    # Update the streaming interval to 100ms
+    print('----------', 'Updating interval to 1000 ms', '----------')
+
     rvr.sensor_control.streaming_interval = 1000
 
-    # Sleep for 5 seconds before calling next function
+    # delay to allow RVR to stream sensor data
     await asyncio.sleep(5)
-    print("----------", "Adding color detection and velocity sensor streams", "----------")
 
-    # Add 2 more services
-    await rvr.sensor_control.enable("AmbientLight", "Velocity")
+    print('----------', 'Adding ambient light and velocity sensor streams', '----------')
 
-    # Sleep for another 5 seconds
+    await rvr.sensor_control.enable(
+        'AmbientLight',
+        'Velocity'
+    )
+
+    # delay to allow RVR to stream sensor data
     await asyncio.sleep(5)
-    print("----------", "Disabling IMU sensor stream and updating interval to 100", "----------")
 
-    # Disable IMU service
-    await rvr.sensor_control.disable("IMU")
+    print('----------', 'Disabling IMU sensor stream and updating interval to 100 ms', '----------')
 
-    # Sleep for another 5 seconds
+    await rvr.sensor_control.disable('IMU')
+
+    # delay to allow RVR to stream sensor data
     await asyncio.sleep(5)
-    print("----------", "Disabling all services", "----------")
 
-    # Disable all services
+    print('----------', 'Disabling all services', '----------')
+
     await rvr.sensor_control.disable_all()
 
-try:
-    loop.run_until_complete(
-        get_single_sensor_stream()
-    )
-except KeyboardInterrupt:
-    print("Program terminated with keyboard interrupt.")
+    # delay to allow RVR to stream sensor data
+    await asyncio.sleep(5)
 
-    # Need to make sure we close rvr properly to terminate all streams.
+    await rvr.close()
+
+
+if __name__ == '__main__':
     loop.run_until_complete(
-        rvr.close()
+        main()
     )
-finally:
-    # stop the loop
+
+    if loop.is_running():
+        loop.stop()
+
     loop.close()

@@ -3,15 +3,12 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          09/09/2019 @ 17:37:24.169029 (UTC)
+# Timestamp:          10/02/2019 @ 17:09:49.594746 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['ConfigBlockWriteCodesEnum',
-           'DeviceModesEnum',
-           'ApplicationIndexesEnum',
-           'SosMessagesEnum',
+__all__ = ['SosMessagesEnum',
            'BootReasonsEnum']
 
 
@@ -34,38 +31,15 @@ class CommandsEnum(IntEnum):
     clear_sos_message = 0x44
 
 
-class ConfigBlockWriteCodesEnum(IntEnum):
-    ''' '''
-    CB_SUCCESS = 0  #: 
-    CB_BUSY = 1  #: 
-    CB_FS_ERROR = 2  #: 
-
-
-class DeviceModesEnum(IntEnum):
-    ''' '''
-    factory_mode = 0  #: 
-    user_play_test_mode = 1  #: 
-    user_out_of_box_mode = 2  #: 
-    user_full_mode = 3  #: 
-
-
-class ApplicationIndexesEnum(IntEnum):
-    ''' '''
-    bootloader = 0  #: 
-    main_application = 1  #: 
-
-
 class SosMessagesEnum(IntEnum):
-    ''' '''
-    unknown = 0  #: 
-    subprocessor_crashed = 1  #: 
+    unknown = 0
+    subprocessor_crashed = 1
 
 
 class BootReasonsEnum(IntEnum):
-    ''' '''
-    cold_boot = 0  #: 
-    unexpected_reset = 1  #: 
-    application_reset_due_to_error = 2  #: 
-    application_reset_for_a_firmware_update = 3  #: 
-    processor_is_booting_from_sleep = 4  #: 
-    processor_is_resetting_for_some_non_error_reason = 5  #: 
+    cold_boot = 0
+    unexpected_reset = 1
+    application_reset_due_to_error = 2
+    application_reset_for_a_firmware_update = 3
+    processor_is_booting_from_sleep = 4
+    processor_is_resetting_for_some_non_error_reason = 5

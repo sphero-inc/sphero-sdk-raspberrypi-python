@@ -1,11 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+
 
 loop = asyncio.get_event_loop()
 
@@ -17,26 +19,37 @@ rvr = SpheroRvrAsync(
 
 
 async def main():
-    """ This program demonstrates how to retrieve the battery state of RVR and print it to the console.
-
+    """ This program demonstrates how to retrieve the battery state of RVR.
     """
+
     await rvr.wake()
 
-    response = await rvr.get_battery_percentage()
-    print('Response data for battery percentage:',response)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
 
-    response = await rvr.get_battery_voltage_state()
-    print('Response data for voltage state:',response)
+    battery_percentage = await rvr.get_battery_percentage()
+    print('Battery percentage: ', battery_percentage)
 
-    state_info = {0: "unknown", 1: "OK", 2: "low", 3: "critical"}
-    print("Voltage states: ", state_info)
+    battery_voltage_state = await rvr.get_battery_voltage_state()
+    print('Voltage state: ', battery_voltage_state)
+
+    state_info = {
+        0: 'Unknown',
+        1: 'OK',
+        2: 'Low',
+        3: 'Critical'
+    }   # TODO: are these autogen'd and can they be referenced instead?
+    print('Voltage states: ', state_info)
+
+    await rvr.close()
 
 
-loop.run_until_complete(
-    asyncio.gather(
+if __name__ == '__main__':
+    loop.run_until_complete(
         main()
     )
-)
 
-loop.stop()
-loop.close()
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()

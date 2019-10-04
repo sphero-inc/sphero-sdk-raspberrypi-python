@@ -1,17 +1,17 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import DriveFlagsBitmask
 
-# Get a reference to the asynchronous program loop
+
 loop = asyncio.get_event_loop()
 
-# Create an AsyncSpheroRvr object, and pass in a SerialAsyncDal object, which in turn takes a reference
-# to the asynchronous program loop 
 rvr = SpheroRvrAsync(
     dal=SerialAsyncDal(
         loop
@@ -21,47 +21,69 @@ rvr = SpheroRvrAsync(
 
 async def main():
     """ This program has RVR drive around in different directions using the function drive_with_heading.
-
-    Note:
-        To have RVR drive, we call asyncio.sleep(...); if we did not have these calls, the program would
-        go on and execute all statements and exit without the driving ever taking place.
     """
+
     await rvr.wake()
 
-    # Reset yaw such that the heading will be set compared to the direction RVR is currently facing
+    # give RVR time to wake up
+    await asyncio.sleep(2)
+
     await rvr.reset_yaw()
 
-    # Drive straight for one second at speed 128
-    await rvr.drive_with_heading(128, 0, 0)
+    await rvr.drive_with_heading(
+        speed=128,
+        heading=0,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Drive backwards for one second at speed 128
-    # Note that the flag is set to 1 for reverse
-    await rvr.drive_with_heading(128, 0, 1)
+    await rvr.drive_with_heading(
+        speed=128,
+        heading=0,
+        flags=DriveFlagsBitmask.drive_reverse.value
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Go right for a second (relative to original yaw)
-    await rvr.drive_with_heading(128, 90, 0)
+    await rvr.drive_with_heading(
+        speed=128,
+        heading=90,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Go left for a second (relative to original yaw)
-    await rvr.drive_with_heading(128, 270, 0)
+    await rvr.drive_with_heading(
+        speed=128,
+        heading=270,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Turn facing the original direction
-    await rvr.drive_with_heading(0, 0, 0)
+    await rvr.drive_with_heading(
+        speed=0,
+        heading=0,
+        flags=DriveFlagsBitmask.none.value
+    )
+
+    # delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Stop RVR
-    await rvr.raw_motors(0, 0, 0, 0)
+    await rvr.close()
 
 
-# Run event loop until the main function has completed
-loop.run_until_complete(
-    main()
-)
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
+    )
 
-# Stop the event loop
-loop.stop()
-# Close the event loop
-loop.close()
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()

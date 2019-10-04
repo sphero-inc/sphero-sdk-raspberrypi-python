@@ -70,11 +70,11 @@ class SensorStreamService:
         return attribute_values
 
     def __get_values_from_bytes(self, bytes_buffer):
-        if self.data_size == StreamingDataSizesEnum.EightBit:
-            return Unpack.uint8(bytes_buffer), StreamingDataSizesEnum.Uint8Max.value
-        elif self.data_size == StreamingDataSizesEnum.SixteenBit:
-            return Unpack.uint16(bytes_buffer), StreamingDataSizesEnum.Uint16Max.value
-        elif self.data_size == StreamingDataSizesEnum.ThirtyTwoBit:
-            return Unpack.uint32(bytes_buffer), StreamingDataSizesEnum.Uint32Max.value
+        if self.data_size == StreamingDataSizesEnum.eight_bit:
+            return Unpack.uint8(bytes_buffer), StreamingDataSizesEnum.uint_8_max.value
+        elif self.data_size == StreamingDataSizesEnum.sixteen_bit:
+            return Unpack.uint16(bytes_buffer), StreamingDataSizesEnum.uint_16_max.value
+        elif self.data_size == StreamingDataSizesEnum.thirty_two_bit:
+            return Unpack.uint32(bytes_buffer), StreamingDataSizesEnum.uint_32_max.value
         else:
             raise ValueError("Unsupported data size.  Make sure you assign a supported data size value!")

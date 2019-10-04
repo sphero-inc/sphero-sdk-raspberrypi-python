@@ -1,11 +1,14 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
-
 import asyncio
+import os
+import sys
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import SpheroRvrTargets
+
 
 loop = asyncio.get_event_loop()
 
@@ -16,23 +19,30 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def get_main_app_version():
-    """This program demonstrates how to obtain the firmware version for a specific processor.
-
+async def main():
+    """ This program demonstrates how to obtain the firmware version for a specific processor.
     """
 
-    response = await rvr.get_main_application_version(target=1, timeout=5)
-    print('Response data for target 1 (Nordic):',response)
+    await rvr.wake()
 
-    response = await rvr.get_main_application_version(target=2, timeout=5)
-    print('Response data for target 2 (ST):',response)
+    # give RVR time to wake up
+    await asyncio.sleep(2)
+
+    nordic_main_application_version = await rvr.get_main_application_version(target=SpheroRvrTargets.primary.value)
+    print('Nordic main application version (target 1): ', nordic_main_application_version)
+
+    st_main_application_version = await rvr.get_main_application_version(target=SpheroRvrTargets.secondary.value)
+    print('ST main application version (target 2): ', st_main_application_version)
+
+    await rvr.close()
 
 
-loop.run_until_complete(
-    asyncio.gather(
-        get_main_app_version()
+if __name__ == '__main__':
+    loop.run_until_complete(
+        main()
     )
-)
 
-loop.stop()
-loop.close()
+    if loop.is_running():
+        loop.stop()
+
+    loop.close()
