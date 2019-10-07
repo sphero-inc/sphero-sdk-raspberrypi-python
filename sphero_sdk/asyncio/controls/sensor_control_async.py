@@ -24,6 +24,11 @@ class SensorControlAsync(SensorStreamingControl):
         SensorStreamingControl.disable_all(self)
 
     def _configure_streaming_service(self, token_id, configuration, processor):
+        logger.info(
+            'Configuring streaming service with data (token:{}, configuration:{}, target:{})'
+            .format(token_id, configuration, processor)
+        )
+
         asyncio.ensure_future(
             self._rvr.configure_streaming_service(
                 token=token_id,
@@ -45,6 +50,7 @@ class SensorControlAsync(SensorStreamingControl):
         )
 
     def _start_streaming_service(self, interval, processor):
+        logger.info('Starting streaming service for at {}ms for processor {}'.format(interval, processor))
         asyncio.ensure_future(
             self._rvr.start_streaming_service(
                 period=interval,
@@ -53,6 +59,7 @@ class SensorControlAsync(SensorStreamingControl):
         )
 
     def _stop_streaming_service(self, processor):
+        logger.info('Stopping streaming service for processor {}'.format(processor))
         asyncio.ensure_future(
             self._rvr.stop_streaming_service(
                 target=processor
@@ -67,13 +74,16 @@ class SensorControlAsync(SensorStreamingControl):
         )
 
     async def __nordic_streaming_data_handler(self, response):
-        await self.__dispatch_user_callback(response, Processors.NORDIC_TARGET)
+        await self.__dispatch_user_callback(Processors.NORDIC_TARGET, response)
 
     async def __st_streaming_data_handler(self, response):
-        await self.__dispatch_user_callback(response, Processors.ST_TARGET)
+        await self.__dispatch_user_callback(Processors.ST_TARGET, response)
 
-    async def __dispatch_user_callback(self, response, processor):
-        streaming_data = SensorStreamingControl._process_streaming_data(self, response, processor)
+    async def __dispatch_user_callback(self, processor, response):
+        streaming_data = SensorStreamingControl._process_streaming_data(self, processor, response)
+        if streaming_data is None:
+            logger.error('Streaming response dictionary processed from streaming data is null!')
+            return
 
         for handler in self._handlers:
             await handler(streaming_data)

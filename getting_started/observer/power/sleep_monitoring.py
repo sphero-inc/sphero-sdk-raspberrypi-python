@@ -1,8 +1,6 @@
 import os
 import sys
 import time
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
@@ -29,19 +27,24 @@ def main():
         Note that these notifications are received without the need to enable them on the robot.
     """
 
-    rvr.wake()
+    try:
+        rvr.wake()
 
-    # give RVR time to wake up
-    time.sleep(2)
+        # give RVR time to wake up
+        time.sleep(2)
 
-    rvr.on_will_sleep_notify(will_sleep_handler)
+        rvr.on_will_sleep_notify(will_sleep_handler)
 
-    rvr.on_did_sleep_notify(did_sleep_handler)
+        rvr.on_did_sleep_notify(did_sleep_handler)
 
-    # sleep for 310 seconds such that we see the aforementioned events have time to occur
-    time.sleep(310)
+        # sleep for 310 seconds such that we see the aforementioned events have time to occur
+        time.sleep(310)
 
-    rvr.close()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
+
+    finally:
+        rvr.close()
 
 
 if __name__ == '__main__':

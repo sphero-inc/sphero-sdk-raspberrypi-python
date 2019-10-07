@@ -58,7 +58,7 @@ class Handler(SpheroHandlerBase):
         if not msg.requests_response:
             return
 
-        if msg.requests_error_response and err is ErrorCode.SUCCESS:
+        if msg.requests_error_response and err is ErrorCode.success:
             return
 
         response = Message.from_command_message(msg)
@@ -168,7 +168,7 @@ class Handler(SpheroHandlerBase):
 
         async def response_handler_wrapper(msg):
             try:
-                if msg.err is not ErrorCode.SUCCESS:
+                if msg.err is not ErrorCode.success:
                     raise Exception(msg.err.name)
                 result = response_handler(msg)
                 future.set_result(result)
@@ -221,7 +221,7 @@ class Handler(SpheroHandlerBase):
         if key not in self.__command_workers:
             key = (msg.did, msg.cid, None)
         if key not in self.__command_workers:
-            return ErrorCode.NOT_YET_IMPLEMENTED, b''
+            return ErrorCode.not_yes_implemented, b''
 
         return await self._handle_message(self.__command_workers, msg, key)
 

@@ -1,19 +1,19 @@
 #! /usr/bin/env python3
 
 import logging
-from sphero_sdk.asyncio.client.dal.async_dal_base import AsyncDalBase
+from sphero_sdk.common.client.dal.sphero_dal_base import SpheroDalBase
 from sphero_sdk.asyncio.server import SerialSpheroPort, Parser, Handler
 from sphero_sdk.common.protocol import Message, ErrorCode
 
 logger = logging.getLogger(__name__)
 
 
-class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
+class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
     """
     """
 
     def __init__(self, loop=None, device='/dev/ttyS0', baud=115200):
-        AsyncDalBase.__init__(self)
+        SpheroDalBase.__init__(self)
         SerialSpheroPort.__init__(
             self,
             loop,
@@ -23,6 +23,9 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
             device,
             baud
         )
+
+    async def close(self):
+        SerialSpheroPort.close(self)
 
     async def send_command(self, did, cid, seq, target, timeout=None, inputs=[], outputs=[]):
         """Creates a Message object using the provided parameters and creates response handler that
@@ -103,7 +106,7 @@ class SerialAsyncDal(AsyncDalBase, SerialSpheroPort):
                 logger.debug("No outputs expected, invoking callback.")
                 await handler()
 
-            return ErrorCode.SUCCESS, bytearray()
+            return ErrorCode.success, bytearray()
 
         logger.debug("Command worker added for DID:{} CID:{} Target:{}".format(did, cid, target))
 

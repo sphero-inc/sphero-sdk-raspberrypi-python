@@ -45,6 +45,12 @@ errors = {
         'sphero_sdk.asyncio.server.port.serial_sphero_port': {
             'propagate': True
         },
+        'sphero_sdk.asyncio.controls.sensor_control_async': {
+            'propagate': True
+        },
+        'sphero_sdk.asyncio.client.dal.restful_async_dal': {
+            'propagate': True
+        },
         'sphero_sdk.common.sensors.sensor_streaming_control': {
             'propagate': True
         },
@@ -80,6 +86,12 @@ debug_verbose = {
             'propagate': True
         },
         'sphero_sdk.asyncio.server.port.serial_sphero_port': {
+            'propagate': True
+        },
+        'sphero_sdk.asyncio.controls.sensor_control_async': {
+            'propagate': True
+        },
+        'sphero_sdk.asyncio.client.dal.restful_async_dal': {
             'propagate': True
         },
         'sphero_sdk.common.sensors.sensor_streaming_control': {

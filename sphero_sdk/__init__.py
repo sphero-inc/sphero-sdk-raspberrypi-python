@@ -31,6 +31,7 @@ from sphero_sdk.asyncio.controls.infrared_control_async import InfraredControlAs
 from sphero_sdk.asyncio.controls.sensor_control_async import SensorControlAsync
 from sphero_sdk.asyncio.client.toys.sphero_rvr_async import SpheroRvrAsync
 from sphero_sdk.asyncio.client.dal.serial_async_dal import SerialAsyncDal
+from sphero_sdk.asyncio.client.dal.restful_async_dal import RestfulAsyncDal
 
 from sphero_sdk.observer.observer_base import Observer
 from sphero_sdk.observer.events.event_dispatcher import EventDispatcher

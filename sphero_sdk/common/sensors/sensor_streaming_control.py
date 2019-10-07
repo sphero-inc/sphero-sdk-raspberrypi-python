@@ -177,16 +177,14 @@ class SensorStreamingControl:
         """Disables all sensor streams
 
         """
-        if len(self.__enabled_sensors) > 0:
-            self.__stop_services()
-            self.__clear_services()
+        if len(self.__enabled_sensors) == 0:
+            logger.info('No enabled sensors to disable.')
+            return
 
         logger.info("Disabling all streaming services.")
 
-        if len(self.__enabled_sensors) == 0:
-            logger.info("No sensor enabled!")
-            return
-
+        self.__stop_services()
+        self.__clear_services()
         self.__enabled_sensors.clear()
         self.__reset_services(Processors.NORDIC_TARGET)
         self.__reset_services(Processors.ST_TARGET)

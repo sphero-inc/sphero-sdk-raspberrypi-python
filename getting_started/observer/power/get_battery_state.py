@@ -1,8 +1,6 @@
 import os
 import sys
 import time
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
@@ -31,22 +29,27 @@ def main():
     """ This program demonstrates how to retrieve the battery state of RVR.
     """
 
-    rvr.wake()
+    try:
+        rvr.wake()
 
-    # give RVR time to wake up
-    time.sleep(2)
+        # give RVR time to wake up
+        time.sleep(2)
 
-    rvr.get_battery_percentage(handler=battery_percentage_handler)
+        rvr.get_battery_percentage(handler=battery_percentage_handler)
 
-    # sleep for one second such that RVR has time to send data back
-    time.sleep(1)
+        # sleep for one second such that RVR has time to send data back
+        time.sleep(1)
 
-    rvr.get_battery_voltage_state(handler=battery_voltage_handler)
+        rvr.get_battery_voltage_state(handler=battery_voltage_handler)
 
-    # sleep for one second such that RVR has time to send data back
-    time.sleep(1)
+        # sleep for one second such that RVR has time to send data back
+        time.sleep(1)
 
-    rvr.close()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
+
+    finally:
+        rvr.close()
 
 
 if __name__ == '__main__':

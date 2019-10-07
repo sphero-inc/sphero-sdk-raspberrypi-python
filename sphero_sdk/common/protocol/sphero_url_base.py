@@ -2,7 +2,7 @@
 
 
 class SpheroUrlBase:
-    def __init__(self, scheme, domain, port, paths):
+    def __init__(self, scheme, domain, port, *paths):
         '''A Base URL takes form:
             scheme://domain:port/path
 
@@ -15,7 +15,7 @@ class SpheroUrlBase:
         self.__paths = paths
 
     def __str__(self):
-        return '://'.join((
+        url_string = '://'.join((
             self.__scheme,
             '/'.join((
                 ':'.join((
@@ -25,3 +25,4 @@ class SpheroUrlBase:
                 '/'.join(path for path in self.__paths)
             ))
         ))
+        return url_string

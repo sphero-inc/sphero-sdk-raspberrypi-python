@@ -1,8 +1,6 @@
 import os
 import sys
 import time
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
@@ -19,15 +17,20 @@ def main():
     """ This program demonstrates how to enable battery state change notifications.
     """
 
-    rvr.wake()
+    try:
+        rvr.wake()
 
-    # give RVR time to wake up
-    time.sleep(2)
+        # give RVR time to wake up
+        time.sleep(2)
 
-    rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
-    rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
+        rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
+        rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
-    rvr.close()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
+
+    finally:
+        rvr.close()
 
 
 if __name__ == '__main__':
