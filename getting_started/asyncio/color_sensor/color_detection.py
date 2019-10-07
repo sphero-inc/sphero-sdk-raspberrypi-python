@@ -39,21 +39,17 @@ async def main():
 
 if __name__ == '__main__':
     try:
-        asyncio.ensure_future(
+        loop.run_until_complete(
             main()
         )
-
-        loop.run_forever()
 
     except KeyboardInterrupt:
         print('Program terminated with keyboard interrupt.')
 
+    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
-    finally:
         if loop.is_running():
-            loop.stop()
-
-        loop.close()
+            loop.close()

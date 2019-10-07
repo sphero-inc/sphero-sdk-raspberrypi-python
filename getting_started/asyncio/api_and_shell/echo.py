@@ -28,7 +28,7 @@ async def main():
 
     # give RVR time to wake up
     await asyncio.sleep(2)
-    
+
     echo_response = await rvr.echo(
         data=[0, 2, 4, 8, 16, 32, 64, 128, 255],
         target=SpheroRvrTargets.primary.value
@@ -39,11 +39,18 @@ async def main():
 
 
 if __name__ == '__main__':
-    loop.run_until_complete(
-        main()
-    )
+    try:
+        loop.run_until_complete(
+            main()
+        )
 
-    if loop.is_running():
-        loop.stop()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
 
-    loop.close()
+    finally:
+        loop.run_until_complete(
+            rvr.close()
+        )
+
+        if loop.is_running():
+            loop.close()

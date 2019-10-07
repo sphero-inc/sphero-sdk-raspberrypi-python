@@ -81,7 +81,10 @@ class SensorStreamSlot:
 
     def disable_all_streaming_services(self):
         if len(self.__enabled_streaming_services_by_id) == 0:
-            logger.error('No enabled services, nothing to disable!')
+            logger.error(
+                'Attempted to disable all services for Slot (token:{}, processor:{}), but none are enabled.'
+                .format(self.token, self.processor)
+            )
             return
 
         self.__enabled_streaming_services_by_id.clear()

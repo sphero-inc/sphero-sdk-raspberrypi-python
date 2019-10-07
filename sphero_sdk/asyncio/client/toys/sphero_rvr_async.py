@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      96
-# Timestamp:          10/02/2019 @ 17:09:49.596863 (UTC)
+# Timestamp:          10/03/2019 @ 00:25:55.596401 (UTC)
 
 import asyncio
 import logging.config
@@ -22,8 +22,8 @@ from sphero_sdk import InfraredControlAsync
 from sphero_sdk import SensorControlAsync
 
 
-class SpheroRvrAsync: 
-    def __init__(self, dal, log_level=LogLevel.Silent): 
+class SpheroRvrAsync:
+    def __init__(self, dal, log_level=LogLevel.Silent):
         logging.config.dictConfig(logging_config.get_dict(log_level))
         self._dal = dal
         self._led_control = LedControlAsync(self)
@@ -31,27 +31,30 @@ class SpheroRvrAsync:
         self._infrared_control = InfraredControlAsync(self)
         self._sensor_control = SensorControlAsync(self)
 
-    @property 
-    def led_control(self): 
+    @property
+    def led_control(self):
         return self._led_control
 
-    @property 
-    def drive_control(self): 
+    @property
+    def drive_control(self):
         return self._drive_control
 
-    @property 
-    def infrared_control(self): 
+    @property
+    def infrared_control(self):
         return self._infrared_control
 
-    @property 
-    def sensor_control(self): 
+    @property
+    def sensor_control(self):
         return self._sensor_control
 
-    async def close(self): 
-        if len(self._sensor_control.enabled_sensors) > 0: 
+    async def close(self):
+        if len(self._sensor_control.enabled_sensors) > 0:
             await self._sensor_control.disable_all()
+            await asyncio.sleep(.2)
 
-    async def echo(self, data, target, timeout=None): 
+        await self._dal.close()
+
+    async def echo(self, data, target, timeout=None):
         """Echo back the payload data (zero data is equivalent to a ping).
 
         Args:
@@ -65,7 +68,7 @@ class SpheroRvrAsync:
         command_dict = api_and_shell.echo(data, target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_main_application_version(self, target, timeout=None): 
+    async def get_main_application_version(self, target, timeout=None):
         """Gets the version of the main application.
 
         Args:
@@ -78,7 +81,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_main_application_version(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_bootloader_version(self, target, timeout=None): 
+    async def get_bootloader_version(self, target, timeout=None):
         """Gets the version of the bootloader.
 
         Args:
@@ -91,7 +94,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_bootloader_version(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_board_revision(self, timeout=None): 
+    async def get_board_revision(self, timeout=None):
         """Gets the board revision number.
 
         Args:
@@ -103,7 +106,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_board_revision(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_mac_address(self, timeout=None): 
+    async def get_mac_address(self, timeout=None):
         """Gets the robot's MAC address.
 
         Args:
@@ -115,7 +118,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_mac_address(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_stats_id(self, timeout=None): 
+    async def get_stats_id(self, timeout=None):
         """Gets the id number assigned by the company for activation tracking.
 
         Args:
@@ -127,7 +130,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_stats_id(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_processor_name(self, target, timeout=None): 
+    async def get_processor_name(self, target, timeout=None):
         """Returns the processor name string (as specified to the System Info module). If no name is specified, returns an empty string or no string.
 
         Args:
@@ -140,7 +143,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_processor_name(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_boot_reason(self, timeout=None): 
+    async def get_boot_reason(self, timeout=None):
         """Returns boot reason code.
 
         Args:
@@ -152,7 +155,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_boot_reason(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_last_error_info(self, timeout=None): 
+    async def get_last_error_info(self, timeout=None):
         """Returns info about last catastrophic error.
 
         Args:
@@ -164,7 +167,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_last_error_info(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_sku(self, timeout=None): 
+    async def get_sku(self, timeout=None):
         """Gets the SKU
 
         Args:
@@ -176,7 +179,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_sku(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_core_up_time_in_milliseconds(self, timeout=None): 
+    async def get_core_up_time_in_milliseconds(self, timeout=None):
         """Returns core time in milliseconds since latest power cycle started.
 
         Args:
@@ -188,7 +191,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_core_up_time_in_milliseconds(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_event_log_status(self, target, timeout=None): 
+    async def get_event_log_status(self, target, timeout=None):
         """Returns status of event log. Returns error code 6 (Command failed) if no log is found.
 
         Args:
@@ -201,7 +204,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_event_log_status(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_event_log_data(self, offset, count, target, timeout=None): 
+    async def get_event_log_data(self, offset, count, target, timeout=None):
         """Returns requested number of events data starting at specified offset.
 
         Args:
@@ -216,7 +219,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_event_log_data(offset, count, target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_sos_message_notify(self, is_enabled, timeout=None): 
+    async def enable_sos_message_notify(self, is_enabled, timeout=None):
         """enable_sos_message_notify
 
         Args:
@@ -226,7 +229,7 @@ class SpheroRvrAsync:
         command_dict = system_info.enable_sos_message_notify(is_enabled, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_sos_message_notify(self, handler=None, timeout=None): 
+    async def on_sos_message_notify(self, handler=None, timeout=None):
         """sos_message_notify
 
         Args:
@@ -237,11 +240,11 @@ class SpheroRvrAsync:
         """
         command_dict = system_info.on_sos_message_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def get_sos_message(self, timeout=None): 
+    async def get_sos_message(self, timeout=None):
         """get_sos_message
 
         Args:
@@ -253,7 +256,7 @@ class SpheroRvrAsync:
         command_dict = system_info.get_sos_message(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def clear_sos_message(self, timeout=None): 
+    async def clear_sos_message(self, timeout=None):
         """Clears the last SOS message saved on the robot.
 
         Args:
@@ -262,7 +265,7 @@ class SpheroRvrAsync:
         command_dict = system_info.clear_sos_message(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enter_deep_sleep(self, seconds_until_deep_sleep, timeout=None): 
+    async def enter_deep_sleep(self, seconds_until_deep_sleep, timeout=None):
         """Put robot into a deep sleep state. This is similar to powering off.
 
         Args:
@@ -272,7 +275,7 @@ class SpheroRvrAsync:
         command_dict = power.enter_deep_sleep(seconds_until_deep_sleep, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enter_soft_sleep(self, timeout=None): 
+    async def enter_soft_sleep(self, timeout=None):
         """Put robot into a soft sleep state. Driving, LEDS, and sensors are disabled.
 
         Args:
@@ -281,7 +284,7 @@ class SpheroRvrAsync:
         command_dict = power.enter_soft_sleep(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def wake(self, timeout=None): 
+    async def wake(self, timeout=None):
         """Wake up the system from soft sleep. Nothing to do if awake.
 
         Args:
@@ -290,7 +293,7 @@ class SpheroRvrAsync:
         command_dict = power.wake(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_battery_percentage(self, timeout=None): 
+    async def get_battery_percentage(self, timeout=None):
         """Get usable battery percentage remaining.
 
         Args:
@@ -302,7 +305,7 @@ class SpheroRvrAsync:
         command_dict = power.get_battery_percentage(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_battery_voltage_state(self, timeout=None): 
+    async def get_battery_voltage_state(self, timeout=None):
         """Returns the current battery state
 
         Args:
@@ -314,7 +317,7 @@ class SpheroRvrAsync:
         command_dict = power.get_battery_voltage_state(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_will_sleep_notify(self, handler=None, timeout=None): 
+    async def on_will_sleep_notify(self, handler=None, timeout=None):
         """Notification triggered 10 seconds before soft/deep sleep.
 
         Args:
@@ -325,11 +328,11 @@ class SpheroRvrAsync:
         """
         command_dict = power.on_will_sleep_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def on_did_sleep_notify(self, handler=None, timeout=None): 
+    async def on_did_sleep_notify(self, handler=None, timeout=None):
         """Notification triggered when robot has entered soft/deep sleep.
 
         Args:
@@ -340,11 +343,11 @@ class SpheroRvrAsync:
         """
         command_dict = power.on_did_sleep_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def enable_battery_voltage_state_change_notify(self, is_enabled, timeout=None): 
+    async def enable_battery_voltage_state_change_notify(self, is_enabled, timeout=None):
         """Enables or disables notifications for changes to battery voltage state.
 
         Args:
@@ -354,7 +357,7 @@ class SpheroRvrAsync:
         command_dict = power.enable_battery_voltage_state_change_notify(is_enabled, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_battery_voltage_state_change_notify(self, handler=None, timeout=None): 
+    async def on_battery_voltage_state_change_notify(self, handler=None, timeout=None):
         """Notification for battery voltage state change.
 
         Args:
@@ -365,11 +368,11 @@ class SpheroRvrAsync:
         """
         command_dict = power.on_battery_voltage_state_change_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def get_battery_voltage_in_volts(self, reading_type, timeout=None): 
+    async def get_battery_voltage_in_volts(self, reading_type, timeout=None):
         """Returns the most recent battery voltage reading in volts. This results in a 'Command Failed' API error if the platform does not support calibration. Note that this command does not get a new voltage reading; it returns the most recently read value, which is updated once per second on most robots. To force the battery system to read a new value, use the 'Force Battery Refresh' command.
 
         Args:
@@ -382,7 +385,7 @@ class SpheroRvrAsync:
         command_dict = power.get_battery_voltage_in_volts(reading_type, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_battery_voltage_state_thresholds(self, timeout=None): 
+    async def get_battery_voltage_state_thresholds(self, timeout=None):
         """Returns the battery voltage state thresholds and hysteresis value. The hysteresis value is added to the thresholds for rising voltages -- e.g., the voltage must be less than the low threshold to change the state to 'low battery' but it must be greater than (low threshold + hysteresis) to go back to the 'ok battery' state.
 
         Args:
@@ -394,7 +397,7 @@ class SpheroRvrAsync:
         command_dict = power.get_battery_voltage_state_thresholds(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_current_sense_amplifier_current(self, amplifier_id, timeout=None): 
+    async def get_current_sense_amplifier_current(self, amplifier_id, timeout=None):
         """Get the current draw, in AMPS, from a current sense amplifier
 
         Args:
@@ -407,7 +410,7 @@ class SpheroRvrAsync:
         command_dict = power.get_current_sense_amplifier_current(amplifier_id, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def raw_motors(self, left_mode, left_speed, right_mode, right_speed, timeout=None): 
+    async def raw_motors(self, left_mode, left_speed, right_mode, right_speed, timeout=None):
         """Run left and right motors at a speed 0-255. Set driving mode using flags
 
         Args:
@@ -420,7 +423,7 @@ class SpheroRvrAsync:
         command_dict = drive.raw_motors(left_mode, left_speed, right_mode, right_speed, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def reset_yaw(self, timeout=None): 
+    async def reset_yaw(self, timeout=None):
         """Sets current yaw angle to zero.
 
         Args:
@@ -429,19 +432,19 @@ class SpheroRvrAsync:
         command_dict = drive.reset_yaw(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def drive_with_heading(self, speed, heading, flags, timeout=None): 
+    async def drive_with_heading(self, speed, heading, flags, timeout=None):
         """Drive towards a heading at a particular speed. Flags can be set to modify driving mode.
 
         Args:
             speed (uint8_t): 0 to 255 value
-            heading (int16_t): 0 to 359 degrees (0 degrees is forward, 90 degrees is to the right, 180 degrees is back, and 270 is to the left)
+            heading (uint16_t): 0 to 359 degrees (0 degrees is forward, 90 degrees is to the right, 180 degrees is back, and 270 is to the left)
             flags (uint8_t): Relevant flags: Drive Reverse, Boost, Fast Turn Mode
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_with_heading(speed, heading, flags, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def set_stabilization(self, index, timeout=None): 
+    async def set_stabilization(self, index, timeout=None):
         """Sets what kind of stabilization control system is active on the device.
 
         Args:
@@ -451,7 +454,7 @@ class SpheroRvrAsync:
         command_dict = drive.set_stabilization(index, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_motor_stall_notify(self, is_enabled, timeout=None): 
+    async def enable_motor_stall_notify(self, is_enabled, timeout=None):
         """Enables motor stall notifications.
 
         Args:
@@ -461,7 +464,7 @@ class SpheroRvrAsync:
         command_dict = drive.enable_motor_stall_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_motor_stall_notify(self, handler=None, timeout=None): 
+    async def on_motor_stall_notify(self, handler=None, timeout=None):
         """Motor stall protection change notification.
 
         Args:
@@ -472,11 +475,11 @@ class SpheroRvrAsync:
         """
         command_dict = drive.on_motor_stall_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def enable_motor_fault_notify(self, is_enabled, timeout=None): 
+    async def enable_motor_fault_notify(self, is_enabled, timeout=None):
         """Enables motor fault notification.
 
         Args:
@@ -486,7 +489,7 @@ class SpheroRvrAsync:
         command_dict = drive.enable_motor_fault_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_motor_fault_notify(self, handler=None, timeout=None): 
+    async def on_motor_fault_notify(self, handler=None, timeout=None):
         """Motor fault notification.
 
         Args:
@@ -497,11 +500,11 @@ class SpheroRvrAsync:
         """
         command_dict = drive.on_motor_fault_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def get_motor_fault_state(self, timeout=None): 
+    async def get_motor_fault_state(self, timeout=None):
         """Get the motor fault state.
 
         Args:
@@ -513,7 +516,7 @@ class SpheroRvrAsync:
         command_dict = drive.get_motor_fault_state(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_gyro_max_notify(self, is_enabled, timeout=None): 
+    async def enable_gyro_max_notify(self, is_enabled, timeout=None):
         """Enables the Async messages for when the Gyro max is hit.
 
         Args:
@@ -523,7 +526,7 @@ class SpheroRvrAsync:
         command_dict = sensor.enable_gyro_max_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_gyro_max_notify(self, handler=None, timeout=None): 
+    async def on_gyro_max_notify(self, handler=None, timeout=None):
         """An Asynchronous message with the OVflags for when Gyro exceeds it's max threshold.
 
         Args:
@@ -534,11 +537,11 @@ class SpheroRvrAsync:
         """
         command_dict = sensor.on_gyro_max_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def reset_locator_x_and_y(self, timeout=None): 
+    async def reset_locator_x_and_y(self, timeout=None):
         """Resets the locator module's current X and Y values to 0.
 
         Args:
@@ -547,7 +550,7 @@ class SpheroRvrAsync:
         command_dict = sensor.reset_locator_x_and_y(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def set_locator_flags(self, flags, timeout=None): 
+    async def set_locator_flags(self, flags, timeout=None):
         """Sets flags for the locator module.
 
         Args:
@@ -557,7 +560,7 @@ class SpheroRvrAsync:
         command_dict = sensor.set_locator_flags(flags, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_bot_to_bot_infrared_readings(self, timeout=None): 
+    async def get_bot_to_bot_infrared_readings(self, timeout=None):
         """An 8-bit value is returned for each infrared sensor, assigned by mask.
 Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front right sensor 32'h00ff_0000: back right sensor 32'hff00_0000: back left sensor
 
@@ -570,7 +573,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_bot_to_bot_infrared_readings(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_rgbc_sensor_values(self, timeout=None): 
+    async def get_rgbc_sensor_values(self, timeout=None):
         """Return raw data being read by RGBC sensor on each sensor channel
 
         Args:
@@ -582,7 +585,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_rgbc_sensor_values(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def magnetometer_calibrate_to_north(self, timeout=None): 
+    async def magnetometer_calibrate_to_north(self, timeout=None):
         """Starts bot calibration to find north.
 
         Args:
@@ -591,7 +594,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.magnetometer_calibrate_to_north(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_magnetometer_north_yaw_notify(self, handler=None, timeout=None): 
+    async def on_magnetometer_north_yaw_notify(self, handler=None, timeout=None):
         """Returns 0-360 value for reported yaw north.
 
         Args:
@@ -602,11 +605,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_magnetometer_north_yaw_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def start_robot_to_robot_infrared_broadcasting(self, far_code, near_code, timeout=None): 
+    async def start_robot_to_robot_infrared_broadcasting(self, far_code, near_code, timeout=None):
         """For robot following, broadcasting robots emit two codes: one for long distance (3 meters +), and one for short distance (< 1 meter). Following robots use both of these codes to determine direction and distance from the broadcasting robot.
 
         Args:
@@ -617,7 +620,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.start_robot_to_robot_infrared_broadcasting(far_code, near_code, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def start_robot_to_robot_infrared_following(self, far_code, near_code, timeout=None): 
+    async def start_robot_to_robot_infrared_following(self, far_code, near_code, timeout=None):
         """Registers a far code and near code for a following robot to follow. Following robots use the far code and near code emitted by a broadcaster bot to determine direction and distance to travel.
 
         Args:
@@ -628,7 +631,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.start_robot_to_robot_infrared_following(far_code, near_code, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def stop_robot_to_robot_infrared_broadcasting(self, timeout=None): 
+    async def stop_robot_to_robot_infrared_broadcasting(self, timeout=None):
         """Halts current broadcasting or following. De-registers far code and near code on broadcasting or following robot.
 
         Args:
@@ -637,7 +640,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.stop_robot_to_robot_infrared_broadcasting(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_robot_to_robot_infrared_message_received_notify(self, handler=None, timeout=None): 
+    async def on_robot_to_robot_infrared_message_received_notify(self, handler=None, timeout=None):
         """Async sent when a registered robot to robot infrared message is received. In response returns the infrared code listened for.
 
         Args:
@@ -648,11 +651,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_robot_to_robot_infrared_message_received_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def get_ambient_light_sensor_value(self, timeout=None): 
+    async def get_ambient_light_sensor_value(self, timeout=None):
         """Ambient light value is returned; higher = more light!
 
         Args:
@@ -664,7 +667,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_ambient_light_sensor_value(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def stop_robot_to_robot_infrared_following(self, timeout=None): 
+    async def stop_robot_to_robot_infrared_following(self, timeout=None):
         """Halts current following. De-registers far code and near code on following robot.
 
         Args:
@@ -673,7 +676,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.stop_robot_to_robot_infrared_following(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def start_robot_to_robot_infrared_evading(self, far_code, near_code, timeout=None): 
+    async def start_robot_to_robot_infrared_evading(self, far_code, near_code, timeout=None):
         """Registers a far code and near code for a evading robot to evade. Evading robots use the far code and near code emitted by a broadcaster bot to determine direction and distance to travel.
 
         Args:
@@ -684,7 +687,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.start_robot_to_robot_infrared_evading(far_code, near_code, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def stop_robot_to_robot_infrared_evading(self, timeout=None): 
+    async def stop_robot_to_robot_infrared_evading(self, timeout=None):
         """Halts current evading. De-registers far code and near code on evading robot.
 
         Args:
@@ -693,7 +696,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.stop_robot_to_robot_infrared_evading(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_color_detection_notify(self, is_enabled, interval, minimum_confidence_threshold, timeout=None): 
+    async def enable_color_detection_notify(self, is_enabled, interval, minimum_confidence_threshold, timeout=None):
         """Enable or disable asynchronous color detection notifications. The user must provide an interval and a confidence threshold
 
         Args:
@@ -705,7 +708,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.enable_color_detection_notify(is_enabled, interval, minimum_confidence_threshold, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_color_detection_notify(self, handler=None, timeout=None): 
+    async def on_color_detection_notify(self, handler=None, timeout=None):
         """Notification sent on the interval set by the user in enable_color_detection_notification with information about the color detected.  The color classification ID 0xFF is a special value indicating that the color could not be identified (e.g., because the reading was too dark).  This is expected behavior when the ring is tapped in the air with the sensor facing out.
 
         Args:
@@ -716,11 +719,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_color_detection_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def get_current_detected_color_reading(self, timeout=None): 
+    async def get_current_detected_color_reading(self, timeout=None):
         """Note: this does not return anything.  Instead, a color_detection_notify async will be sent after measurement with the answer.
 
         Args:
@@ -729,7 +732,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_current_detected_color_reading(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_color_detection(self, is_enabled, timeout=None): 
+    async def enable_color_detection(self, is_enabled, timeout=None):
         """Enables the color detection module.
 
         Args:
@@ -739,7 +742,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.enable_color_detection(is_enabled, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def configure_streaming_service(self, token, configuration, target, timeout=None): 
+    async def configure_streaming_service(self, token, configuration, target, timeout=None):
         """Configure streaming services.
 
         Args:
@@ -751,7 +754,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.configure_streaming_service(token, configuration, target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def start_streaming_service(self, period, target, timeout=None): 
+    async def start_streaming_service(self, period, target, timeout=None):
         """Start all streaming services for a client
 
         Args:
@@ -762,7 +765,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.start_streaming_service(period, target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def stop_streaming_service(self, target, timeout=None): 
+    async def stop_streaming_service(self, target, timeout=None):
         """Stops all streaming services for a client
 
         Args:
@@ -772,7 +775,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.stop_streaming_service(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def clear_streaming_service(self, target, timeout=None): 
+    async def clear_streaming_service(self, target, timeout=None):
         """Clears all streaming services for a client
 
         Args:
@@ -782,7 +785,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.clear_streaming_service(target=target, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_streaming_service_data_notify(self, target, handler=None, timeout=None): 
+    async def on_streaming_service_data_notify(self, target, handler=None, timeout=None):
         """Streaming data notification for a client configuration
 
         Args:
@@ -794,11 +797,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_streaming_service_data_notify(target=target, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def enable_robot_infrared_message_notify(self, is_enabled, timeout=None): 
+    async def enable_robot_infrared_message_notify(self, is_enabled, timeout=None):
         """Starts listening for infrared messages sent to the robot and will send an async message when received.
 
         Args:
@@ -808,7 +811,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.enable_robot_infrared_message_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def send_infrared_message(self, infrared_code, front_strength, left_strength, right_strength, rear_strength, timeout=None): 
+    async def send_infrared_message(self, infrared_code, front_strength, left_strength, right_strength, rear_strength, timeout=None):
         """send_infrared_message
 
         Args:
@@ -822,7 +825,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.send_infrared_message(infrared_code, front_strength, left_strength, right_strength, rear_strength, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_motor_current_notify(self, handler=None, timeout=None): 
+    async def on_motor_current_notify(self, handler=None, timeout=None):
         """Motor current measurements with a timestamp.
 
         Args:
@@ -833,11 +836,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_motor_current_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def enable_motor_current_notify(self, is_enabled, timeout=None): 
+    async def enable_motor_current_notify(self, is_enabled, timeout=None):
         """Enables motor current notifications.
 
         Args:
@@ -847,7 +850,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.enable_motor_current_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_motor_temperature(self, motor_index, timeout=None): 
+    async def get_motor_temperature(self, motor_index, timeout=None):
         """Get the motor temperature (calculated from motor current) for given a motor index.
 
         Args:
@@ -860,7 +863,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_motor_temperature(motor_index, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_motor_thermal_protection_status(self, timeout=None): 
+    async def get_motor_thermal_protection_status(self, timeout=None):
         """Get motor thermal protection status.
 
         Args:
@@ -872,7 +875,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.get_motor_thermal_protection_status(target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def enable_motor_thermal_protection_status_notify(self, is_enabled, timeout=None): 
+    async def enable_motor_thermal_protection_status_notify(self, is_enabled, timeout=None):
         """Enable motor thermal protection status notifications.
 
         Args:
@@ -882,7 +885,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.enable_motor_thermal_protection_status_notify(is_enabled, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_motor_thermal_protection_status_notify(self, handler=None, timeout=None): 
+    async def on_motor_thermal_protection_status_notify(self, handler=None, timeout=None):
         """Motor thermal protection status notification.
 
         Args:
@@ -893,11 +896,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = sensor.on_motor_thermal_protection_status_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def set_bluetooth_device_name(self, name, timeout=None): 
+    async def set_bluetooth_device_name(self, name, timeout=None):
         """Sets a non-volatile name for the device that can be up to 48 characters long. Data will be accepted from 0 data length to max API packet length. Over 48 length will be truncated.
 
         Args:
@@ -907,7 +910,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = connection.set_bluetooth_device_name(name, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_bluetooth_device_name(self, timeout=None): 
+    async def get_bluetooth_device_name(self, timeout=None):
         """Returns the stored non-volatile name for the device. Does not return terminating Null character.
 
         Args:
@@ -919,7 +922,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = connection.get_bluetooth_device_name(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_bluetooth_advertising_name(self, timeout=None): 
+    async def get_bluetooth_advertising_name(self, timeout=None):
         """Returns null-terminated string with the BLE advertising name (e.g., "BL-ABCD").
 
         Args:
@@ -931,7 +934,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = connection.get_bluetooth_advertising_name(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def set_all_leds(self, led_group, led_brightness_values, timeout=None): 
+    async def set_all_leds(self, led_group, led_brightness_values, timeout=None):
         """LED affected mask can affect up to 32 LEDs simultaneously. 0 = not affected. 1 = affected (update this LED). If mask value is set to 1, you must provide a value in the LED data array.
 
         Args:
@@ -942,7 +945,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.set_all_leds(led_group, led_brightness_values, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def set_compressed_frame_player_one_color(self, red, green, blue, timeout=None): 
+    async def set_compressed_frame_player_one_color(self, red, green, blue, timeout=None):
         """Set entire frame player to a single color.
 
         Args:
@@ -954,7 +957,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.set_compressed_frame_player_one_color(red, green, blue, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def save_compressed_frame_player_animation(self, animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, timeout=None): 
+    async def save_compressed_frame_player_animation(self, animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, timeout=None):
         """save_compressed_frame_player_animation
 
         Args:
@@ -970,7 +973,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.save_compressed_frame_player_animation(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, frame_count, frame_indexes, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def play_compressed_frame_player_animation(self, animation_index, timeout=None): 
+    async def play_compressed_frame_player_animation(self, animation_index, timeout=None):
         """play_compressed_frame_player_animation
 
         Args:
@@ -980,7 +983,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.play_compressed_frame_player_animation(animation_index, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def play_compressed_frame_player_frame(self, frame_index, timeout=None): 
+    async def play_compressed_frame_player_frame(self, frame_index, timeout=None):
         """play_compressed_frame_player_frame
 
         Args:
@@ -990,7 +993,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.play_compressed_frame_player_frame(frame_index, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_compressed_frame_player_list_of_frames(self, timeout=None): 
+    async def get_compressed_frame_player_list_of_frames(self, timeout=None):
         """get_compressed_frame_player_list_of_frames
 
         Args:
@@ -1002,7 +1005,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.get_compressed_frame_player_list_of_frames(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def delete_all_compressed_frame_player_animations_and_frames(self, timeout=None): 
+    async def delete_all_compressed_frame_player_animations_and_frames(self, timeout=None):
         """delete_all_compressed_frame_player_animations_and_frames
 
         Args:
@@ -1011,7 +1014,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.delete_all_compressed_frame_player_animations_and_frames(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def pause_compressed_frame_player_animation(self, timeout=None): 
+    async def pause_compressed_frame_player_animation(self, timeout=None):
         """pause_compressed_frame_player_animation
 
         Args:
@@ -1020,7 +1023,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.pause_compressed_frame_player_animation(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def resume_compressed_frame_player_animation(self, timeout=None): 
+    async def resume_compressed_frame_player_animation(self, timeout=None):
         """resume_compressed_frame_player_animation
 
         Args:
@@ -1029,7 +1032,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.resume_compressed_frame_player_animation(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def reset_compressed_frame_player_animation(self, timeout=None): 
+    async def reset_compressed_frame_player_animation(self, timeout=None):
         """reset_compressed_frame_player_animation
 
         Args:
@@ -1038,7 +1041,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.reset_compressed_frame_player_animation(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_compressed_frame_player_animation_complete_notify(self, handler=None, timeout=None): 
+    async def on_compressed_frame_player_animation_complete_notify(self, handler=None, timeout=None):
         """compressed_frame_player_animation_complete_notify
 
         Args:
@@ -1049,11 +1052,11 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """
         command_dict = io.on_compressed_frame_player_animation_complete_notify(target=1, timeout=timeout)
         command_dict['handler'] = handler
-        return asyncio.ensure_future( 
+        return asyncio.ensure_future(
             self._dal.on_command(**command_dict)
         )
 
-    async def assign_compressed_frame_player_frames_to_animation(self, animation_index, start_frame_index, frame_indices, timeout=None): 
+    async def assign_compressed_frame_player_frames_to_animation(self, animation_index, start_frame_index, frame_indices, timeout=None):
         """assign_compressed_frame_player_frames_to_animation
 
         Args:
@@ -1065,7 +1068,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.assign_compressed_frame_player_frames_to_animation(animation_index, start_frame_index, frame_indices, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def save_compressed_frame_player_animation_without_frames(self, animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, timeout=None): 
+    async def save_compressed_frame_player_animation_without_frames(self, animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, timeout=None):
         """save_compressed_frame_player_animation_without_frames
 
         Args:
@@ -1083,7 +1086,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.save_compressed_frame_player_animation_without_frames(animation_index, speed_fps, is_fade_enabled, palette_color_count, palette_rgb_values, total_frame_count, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def play_compressed_frame_player_animation_with_loop_option(self, animation_index, is_looping, timeout=None): 
+    async def play_compressed_frame_player_animation_with_loop_option(self, animation_index, is_looping, timeout=None):
         """play_compressed_frame_player_animation_with_loop_option
 
         Args:
@@ -1094,7 +1097,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.play_compressed_frame_player_animation_with_loop_option(animation_index, is_looping, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_active_color_palette(self, timeout=None): 
+    async def get_active_color_palette(self, timeout=None):
         """The response data will list all assigned color palette slots in the system.
 
         Args:
@@ -1106,7 +1109,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.get_active_color_palette(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def set_active_color_palette(self, rgb_index_bytes, timeout=None): 
+    async def set_active_color_palette(self, rgb_index_bytes, timeout=None):
         """Each entry in the array corresponds to one color slot in the system.  Any unmentioned slot indices will be marked unassigned.
 
         Args:
@@ -1116,7 +1119,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.set_active_color_palette(rgb_index_bytes, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_color_identification_report(self, red, green, blue, confidence_threshold, timeout=None): 
+    async def get_color_identification_report(self, red, green, blue, confidence_threshold, timeout=None):
         """The response to this command will provide an array of color palette entries that would match on the provided color with higher confidence than the given threshold.
 
         Args:
@@ -1132,7 +1135,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.get_color_identification_report(red, green, blue, confidence_threshold, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def load_color_palette(self, palette_index, timeout=None): 
+    async def load_color_palette(self, palette_index, timeout=None):
         """Loads the specified color palette into the active palette.
 
         Args:
@@ -1142,7 +1145,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.load_color_palette(palette_index, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def save_color_palette(self, palette_index, timeout=None): 
+    async def save_color_palette(self, palette_index, timeout=None):
         """Stores the active palette into the palette at palette index (see table above).
 
         Args:
@@ -1152,7 +1155,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.save_color_palette(palette_index, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def get_compressed_frame_player_frame_info_type(self, timeout=None): 
+    async def get_compressed_frame_player_frame_info_type(self, timeout=None):
         """get_compressed_frame_player_frame_info_type
 
         Args:
@@ -1164,7 +1167,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.get_compressed_frame_player_frame_info_type(target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def save_compressed_frame_player_16_bit_frame(self, frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, timeout=None): 
+    async def save_compressed_frame_player_16_bit_frame(self, frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, timeout=None):
         """save_compressed_frame_player_16_bit_frame
 
         Args:
@@ -1178,7 +1181,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = io.save_compressed_frame_player_16_bit_frame(frame_index, color_index_bit_0, color_index_bit_1, color_index_bit_2, color_index_bit_3, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def release_led_requests(self, timeout=None): 
+    async def release_led_requests(self, timeout=None):
         """release_led_requests
 
         Args:

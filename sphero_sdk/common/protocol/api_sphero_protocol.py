@@ -9,28 +9,28 @@ logger = logging.getLogger(__name__)
 
 
 class Flags(IntEnum):
-    PACKET_IS_RESPONSE = 1
-    PACKET_REQUESTS_RESPONSE = 2
-    PACKET_REQUESTS_RESPONSE_IF_ERROR = 4
-    PACKET_IS_ACTIVITY = 8
-    PACKET_HAS_TARGET = 16
-    PACKET_HAS_SOURCE = 32
-    PACKET_UNUSED_FLAG_BIT = 64
-    PACKET_HAS_MORE_FLAGS = 128
+    packet_is_response = 1
+    packet_requests_response = 2
+    packet_requests_response_if_error = 4
+    packet_is_activity = 8
+    packet_has_target = 16
+    packet_has_source = 32
+    packet_unused_flag_bit = 64
+    packet_has_more_flags = 128
 
 
 class ErrorCode(IntEnum):
-    SUCCESS = 0x00
-    BAD_DID = 0x01
-    BAD_CID = 0x02
-    NOT_YET_IMPLEMENTED = 0x03
-    RESTRICTED = 0x04
-    BAD_DATA_LENGTH = 0x05
-    FAILED = 0x06
-    BAD_DATA_VALUE = 0x07
-    BUSY = 0x08
-    BAD_TID = 0x09
-    TARGET_UNAVAILABLE = 0x0A
+    success = 0x00
+    bad_did = 0x01
+    bad_cid = 0x02
+    not_yes_implemented = 0x03
+    restricted = 0x04
+    bad_data_length = 0x05
+    failed = 0x06
+    bad_data_value = 0x07
+    busy = 0x08
+    bad_tid = 0x09
+    target_unavailable = 0x0A
 
 
 class Pack:

@@ -79,11 +79,18 @@ async def main():
 
 
 if __name__ == '__main__':
-    loop.run_until_complete(
-        main()
-    )
+    try:
+        loop.run_until_complete(
+            main()
+        )
 
-    if loop.is_running():
-        loop.stop()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
 
-    loop.close()
+    finally:
+        loop.run_until_complete(
+            rvr.close()
+        )
+
+        if loop.is_running():
+            loop.close()

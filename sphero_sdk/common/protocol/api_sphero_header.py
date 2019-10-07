@@ -25,79 +25,79 @@ class Header(SpheroHeaderBase):
 
     @property
     def is_response(self):
-        return self.is_flag_set(Flags.PACKET_IS_RESPONSE)
+        return self.is_flag_set(Flags.packet_is_response)
 
     @is_response.setter
     def is_response(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_IS_RESPONSE)
-            self.clear_flag(Flags.PACKET_REQUESTS_RESPONSE)
-            self.clear_flag(Flags.PACKET_REQUESTS_RESPONSE_IF_ERROR)
+            self.set_flag(Flags.packet_is_response)
+            self.clear_flag(Flags.packet_requests_response)
+            self.clear_flag(Flags.packet_requests_response_if_error)
         else:
-            self.clear_flag(Flags.PACKET_IS_RESPONSE)
+            self.clear_flag(Flags.packet_is_response)
 
     @property
     def requests_response(self):
-        return self.is_flag_set(Flags.PACKET_REQUESTS_RESPONSE)
+        return self.is_flag_set(Flags.packet_requests_response)
 
     @requests_response.setter
     def requests_response(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_REQUESTS_RESPONSE)
+            self.set_flag(Flags.packet_requests_response)
         else:
-            self.clear_flag(Flags.PACKET_REQUESTS_RESPONSE)
+            self.clear_flag(Flags.packet_requests_response)
 
     @property
     def requests_error_response(self):
         return (self.requests_response
-                and self.is_flag_set(Flags.PACKET_REQUESTS_RESPONSE_IF_ERROR))
+                and self.is_flag_set(Flags.packet_requests_response_if_error))
 
     @requests_error_response.setter
     def requests_error_response(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_REQUESTS_RESPONSE)
-            self.set_flag(Flags.PACKET_REQUESTS_RESPONSE_IF_ERROR)
+            self.set_flag(Flags.packet_requests_response)
+            self.set_flag(Flags.packet_requests_response_if_error)
         else:
-            self.clear_flag(Flags.PACKET_REQUESTS_RESPONSE_IF_ERROR)
+            self.clear_flag(Flags.packet_requests_response_if_error)
 
     @property
     def is_activity(self):
-        return self.is_flag_set(Flags.PACKET_IS_ACTIVITY)
+        return self.is_flag_set(Flags.packet_is_activity)
 
     @is_activity.setter
     def is_activity(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_IS_ACTIVITY)
+            self.set_flag(Flags.packet_is_activity)
         else:
-            self.clear_flag(Flags.PACKET_IS_ACTIVITY)
+            self.clear_flag(Flags.packet_is_activity)
 
     @property
     def has_target(self):
-        return self.is_flag_set(Flags.PACKET_HAS_TARGET)
+        return self.is_flag_set(Flags.packet_has_target)
 
     @has_target.setter
     def has_target(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_HAS_TARGET)
+            self.set_flag(Flags.packet_has_target)
         else:
-            self.clear_flag(Flags.PACKET_HAS_TARGET)
+            self.clear_flag(Flags.packet_has_target)
             self.target = None
 
     @property
     def has_source(self):
-        return self.is_flag_set(Flags.PACKET_HAS_SOURCE)
+        return self.is_flag_set(Flags.packet_has_source)
 
     @has_source.setter
     def has_source(self, answer):
         if answer:
-            self.set_flag(Flags.PACKET_HAS_SOURCE)
+            self.set_flag(Flags.packet_has_source)
         else:
-            self.clear_flag(Flags.PACKET_HAS_SOURCE)
+            self.clear_flag(Flags.packet_has_source)
             self.source = None
 
     @property
     def has_extended_flags(self):
-        return self.is_flag_set(Flags.PACKET_HAS_MORE_FLAGS)
+        return self.is_flag_set(Flags.packet_has_more_flags)
 
     @has_extended_flags.setter
     def has_extended_flags(self, answer):

@@ -60,7 +60,7 @@ class LedControlAsync:
             raise ValueError('ERROR: RGB VALUES ARE INVALID')
 
         await self.__rvr.set_all_leds(
-            led,
+            led.value,
             [red, green, blue]
         )
 
@@ -131,7 +131,7 @@ class LedControlAsync:
         """
         for i in range(len(leds)):
             await self.set_led_rgb(
-                leds[i].value,
+                leds[i],
                 colors[i].value[0],
                 colors[i].value[1],
                 colors[i].value[2]
@@ -154,7 +154,7 @@ class LedControlAsync:
 
         for i in range(len(leds)):
             await self.set_led_rgb(
-                leds[i].value,
+                leds[i],
                 colors[i * 3],
                 colors[i * 3 + 1],
                 colors[i * 3 + 2]

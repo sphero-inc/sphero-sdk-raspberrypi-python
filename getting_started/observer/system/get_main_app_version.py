@@ -1,8 +1,6 @@
 import os
 import sys
 import time
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
@@ -24,28 +22,33 @@ def main():
     """ This program demonstrates how to obtain the firmware version for a specific processor.
     """
 
-    rvr.wake()
+    try:
+        rvr.wake()
 
-    # give RVR time to wake up
-    time.sleep(2)
+        # give RVR time to wake up
+        time.sleep(2)
 
-    rvr.get_main_application_version(
-        handler=get_nordic_main_application_version_handler,
-        target=SpheroRvrTargets.primary.value
-    )
+        rvr.get_main_application_version(
+            handler=get_nordic_main_application_version_handler,
+            target=SpheroRvrTargets.primary.value
+        )
 
-    # sleep for one second such that RVR has time to send data back
-    time.sleep(1)
+        # sleep for one second such that RVR has time to send data back
+        time.sleep(1)
 
-    rvr.get_main_application_version(
-        handler=get_st_main_application_version_handler,
-        target=SpheroRvrTargets.secondary.value
-    )
+        rvr.get_main_application_version(
+            handler=get_st_main_application_version_handler,
+            target=SpheroRvrTargets.secondary.value
+        )
 
-    # sleep for one second such that RVR has time to send data back
-    time.sleep(1)
+        # sleep for one second such that RVR has time to send data back
+        time.sleep(1)
 
-    rvr.close()
+    except KeyboardInterrupt:
+        print('Program terminated with keyboard interrupt.')
+
+    finally:
+        rvr.close()
 
 
 if __name__ == '__main__':
