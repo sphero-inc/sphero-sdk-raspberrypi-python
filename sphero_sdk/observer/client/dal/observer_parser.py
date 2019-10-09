@@ -15,7 +15,7 @@ class ObserverParser:
 
     def feed(self, data):
         self.__buf += data
-        logger.debug("Appending bytes: [{}]".format(', '.join('0x{:02x}'.format(x) for x in self.__buf)))
+        logger.debug('Appending bytes: [{}]'.format(', '.join('0x{:02x}'.format(x) for x in self.__buf)))
         self.__read()
 
     def __read(self):
@@ -62,10 +62,10 @@ class ObserverParser:
         try:
             asyncio.ensure_future(self._error_handler(buf))
         except TypeError:
-            logger.warning("Parser Fed without Error Handler Set")
+            logger.warning('Parser Fed without Error Handler Set')
             raise
         except Exception as e:
-            logger.critical("Exception in Error Handler: {}".format(e))
+            logger.critical('Exception in Error Handler: {}'.format(e))
             raise
         '''
         pass

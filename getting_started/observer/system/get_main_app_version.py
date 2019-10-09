@@ -25,7 +25,7 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.get_main_application_version(
@@ -33,7 +33,7 @@ def main():
             target=SpheroRvrTargets.primary.value
         )
 
-        # sleep for one second such that RVR has time to send data back
+        # Sleep for one second such that RVR has time to send data back
         time.sleep(1)
 
         rvr.get_main_application_version(
@@ -41,11 +41,11 @@ def main():
             target=SpheroRvrTargets.secondary.value
         )
 
-        # sleep for one second such that RVR has time to send data back
+        # Sleep for one second such that RVR has time to send data back
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

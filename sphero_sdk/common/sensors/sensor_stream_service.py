@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class SensorStreamService:
 
-    __slots__ = ["__id", "__name", "__data_size", "__byte_count", "__attributes", "__processors"]
+    __slots__ = ['__id', '__name', '__data_size', '__byte_count', '__attributes', '__processors']
 
     def __init__(self, id, name, data_size, attributes, processors):
         self.__id = id
@@ -77,4 +77,4 @@ class SensorStreamService:
         elif self.data_size == StreamingDataSizesEnum.thirty_two_bit:
             return Unpack.uint32(bytes_buffer), StreamingDataSizesEnum.uint_32_max.value
         else:
-            raise ValueError("Unsupported data size.  Make sure you assign a supported data size value!")
+            raise ValueError('Unsupported data size.  Make sure you assign a supported data size value!')

@@ -15,7 +15,7 @@ class InfraredControlAsync:
 
     def __init__(self, rvr):
         if rvr is None:
-            raise TypeError("constructor parameter rvr requires input")
+            raise TypeError('constructor parameter rvr requires input')
 
         self.__rvr = rvr
 
@@ -60,10 +60,10 @@ class InfraredControlAsync:
         Returns:
         """
 
-        if far_codes is None:
+        if far_code is None:
             raise TypeError('far_code parameter requires input')
 
-        if near_codes is None:
+        if near_code is None:
             raise TypeError('near_code parameter requires input')
 
         await self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)
@@ -116,13 +116,13 @@ class InfraredControlAsync:
         Args:
             enable (bool): True to enable listening async; False to disable
             handler (func): Reference to message notification callback function -
-                            requires one parameter called "infraredCode"
+                            requires one parameter called 'infraredCode'
                             Ex. 'async def message_received_handler(infraredCode):'
         Returns:
         """
 
         if not callable(handler):
-            raise TypeError("handler must be a function")
+            raise TypeError('handler must be a function')
 
         is_enabled = True
         await self.__rvr.enable_robot_infrared_message_notify(is_enabled)

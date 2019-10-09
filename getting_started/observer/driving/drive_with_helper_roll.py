@@ -16,7 +16,7 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.drive_control.reset_heading()
@@ -26,16 +26,16 @@ def main():
             heading=90
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_control.roll_stop(heading=270)
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

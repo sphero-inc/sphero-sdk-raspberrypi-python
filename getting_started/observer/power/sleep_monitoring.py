@@ -30,18 +30,18 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.on_will_sleep_notify(will_sleep_handler)
 
         rvr.on_did_sleep_notify(did_sleep_handler)
 
-        # sleep for 310 seconds such that we see the aforementioned events have time to occur
+        # Sleep for 310 seconds such that we see the aforementioned events have time to occur
         time.sleep(310)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

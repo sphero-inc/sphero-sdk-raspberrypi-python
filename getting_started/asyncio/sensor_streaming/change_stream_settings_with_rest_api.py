@@ -4,15 +4,16 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 
 import asyncio
 from sphero_sdk import SpheroRvrAsync
-from sphero_sdk import SerialAsyncDal
+from sphero_sdk import RestfulAsyncDal
 from sphero_sdk import RvrStreamingServices
 
 
 loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
-    dal=SerialAsyncDal(
-        loop
+    dal=RestfulAsyncDal(
+        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
+        port=2010
     )
 )
 
@@ -30,7 +31,11 @@ async def velocity_handler(velocity_data):
 
 
 async def main():
-    """ This program demonstrates how to update sensor streaming parameters at runawait asyncio.
+    """ This program has RVR drive around in different directions using the function raw_motors.
+
+        Note:
+            To give RVR time to drive, we call asyncio.sleep(...); if we did not have these calls, the program would
+            go on and execute all the statements and exit without the driving ever taking place.
     """
 
     await rvr.wake()

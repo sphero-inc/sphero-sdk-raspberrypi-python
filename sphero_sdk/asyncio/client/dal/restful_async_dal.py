@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class RestfulAsyncDal(SpheroDalBase):
-    def __init__(self, prefix, domain='localhost', port=8080, ssl=None):
+    def __init__(self, prefix='RV', domain='localhost', port=8080, ssl=None):
         SpheroDalBase.__init__(self)
         self._session = ClientSession(raise_for_status=True)
         self._prefix = prefix

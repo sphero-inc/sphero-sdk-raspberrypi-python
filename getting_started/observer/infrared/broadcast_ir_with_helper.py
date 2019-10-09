@@ -14,10 +14,11 @@ rvr = SpheroRvrObserver()
 def main():
     """ This program sets up RVR to communicate with another robot, e.g. BOLT, capable of infrared communication.
     """
+
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.infrared_control.start_robot_to_robot_infrared_broadcasting(
@@ -27,19 +28,23 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.forward.value,
-            left_speed=64,
+            left_speed=64,  # Valid speed values are 0-255
             right_mode=RawMotorModesEnum.forward.value,
-            right_speed=64
+            right_speed=64  # Valid speed values are 0-255
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(4)
 
     except:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.stop_robot_to_robot_infrared_broadcasting()
+
+        # Delay to allow RVR issue command before closing
+        time.sleep(.5)
+
         rvr.close()
 
 

@@ -1,12 +1,11 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
+from sphero_sdk import RvrStreamingServices
 
 
 loop = asyncio.get_event_loop()
@@ -18,8 +17,8 @@ rvr = SpheroRvrAsync(
 )
 
 
-async def sensor_data_handler(sensor_data):
-    print('Sensor data response: ', sensor_data)
+async def accelerometer_handler(accelerometer_data):
+    print('Accelerometer data response: ', accelerometer_data)
 
 
 async def main():
@@ -28,45 +27,36 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
-    await rvr.sensor_control.add_sensor_data_handler(sensor_data_handler)
+    await rvr.sensor_control.add_sensor_data_handler(
+        service=RvrStreamingServices.accelerometer,
+        handler=accelerometer_handler
+    )
 
-    # TODO: is there a constant or enum available for these?
-    # Enable a single sensor. Supported sensors are:
-    # 'ColorDetection'
-    # 'AmbientLight'
-    # 'Quaternion'
-    # 'IMU'
-    # 'Accelerometer'
-    # 'Gyroscope'
-    # 'Locator'
-    # 'Velocity'
-    # 'Speed'
-    # 'CoreTime'
+    await rvr.sensor_control.start(interval=250)
 
-    await rvr.sensor_control.enable('Accelerometer')
-
-    while True:
-        # delay to allow RVR to stream sensor data
-        await asyncio.sleep(1)
+    # The asyncio loop will run forever to allow infinite streaming.
 
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(
+        asyncio.ensure_future(
             main()
         )
+        loop.run_forever()
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
-            rvr.close()
+            asyncio.gather(
+                rvr.sensor_control.clear(),
+                rvr.close()
+            )
         )
 
+    finally:
         if loop.is_running():
             loop.close()
-

@@ -1,10 +1,8 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import Colors
 from sphero_sdk import RvrLedGroups
@@ -26,7 +24,7 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
     await rvr.set_all_leds(
@@ -34,7 +32,7 @@ async def main():
         led_brightness_values=[color for _ in range(10) for color in Colors.off.value]
     )
 
-    # delay to show LEDs change
+    # Delay to show LEDs change
     await asyncio.sleep(1)
 
     await rvr.set_all_leds(
@@ -42,7 +40,7 @@ async def main():
         led_brightness_values=[color for x in range(10) for color in [0, 255, 0]]
     )
 
-    # delay to show LEDs change
+    # Delay to show LEDs change
     await asyncio.sleep(1)
 
     await rvr.close()
@@ -55,12 +53,12 @@ if __name__ == '__main__':
         )
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
+    finally:
         if loop.is_running():
             loop.close()

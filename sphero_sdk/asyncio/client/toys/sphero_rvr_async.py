@@ -49,7 +49,7 @@ class SpheroRvrAsync:
 
     async def close(self):
         if len(self._sensor_control.enabled_sensors) > 0:
-            await self._sensor_control.disable_all()
+            await self._sensor_control.clear()
             await asyncio.sleep(.2)
 
         await self._dal.close()
@@ -923,7 +923,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         return await self._dal.send_command(**command_dict)
 
     async def get_bluetooth_advertising_name(self, timeout=None):
-        """Returns null-terminated string with the BLE advertising name (e.g., "BL-ABCD").
+        """Returns null-terminated string with the BLE advertising name (e.g., 'BL-ABCD').
 
         Args:
             timeout (float): maximum time to await a response.

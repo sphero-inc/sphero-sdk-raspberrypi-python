@@ -21,14 +21,14 @@ class EventDispatcher:
         if message.is_response:
             key = (message.did, message.cid, message.seq, message.source)
             logger.debug(
-                "Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Seq: {}, Source: {})".format(
+                'Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Seq: {}, Source: {})'.format(
                 key[0], key[1], key[2], key[3]
                 )
             )
         else:
             key = (message.did, message.cid, message.source)
             logger.debug(
-                "Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Source: {})".format(
+                'Looking for entries with key (CID: 0x{:02x}, DID: 0x{:02x}, Source: {})'.format(
                     key[0], key[1], key[2]
                 )
             )
@@ -40,22 +40,22 @@ class EventDispatcher:
                 if message.is_response:
                     observer.unregister_handler(key)
 
-                logger.debug("Entry found, dispatching!")
+                logger.debug('Entry found, dispatching!')
                 self.__dispatch_event(handler, outputs, message)
                 break
 
     def __dispatch_event(self, handler, outputs, message):
         if len(outputs) > 0:
-            logger.debug("Unpacking output from message")
+            logger.debug('Unpacking output from message')
             response_dictionary = {}
             for param in sorted(outputs, key=lambda x: x.index):
                 response_dictionary[param.name] = message.unpack(
                     param.data_type,
                     count=param.size
                 )
-            logger.debug("Invoking callback with response data: {}".format(response_dictionary))
+            logger.debug('Invoking callback with response data: {}'.format(response_dictionary))
             handler(response_dictionary)
         else:
-            logger.debug("No outputs expected, invoking callback.")
+            logger.debug('No outputs expected, invoking callback.')
             handler()
 

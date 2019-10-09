@@ -20,7 +20,7 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.on_robot_to_robot_infrared_message_received_notify(handler=infrared_message_received_handler)
@@ -44,9 +44,14 @@ def main():
             time.sleep(2)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
+        rvr.stop_robot_to_robot_infrared_broadcasting()
+
+        # Delay to allow RVR issue command before closing
+        time.sleep(.5)
+        
         rvr.close()
 
 

@@ -21,16 +21,25 @@ def main():
 
     rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     time.sleep(2)
 
     rvr.echo(
-        data=[2, 4, 16, 32, 64, 128, 255],
+        data=[0, 1, 2],
         handler=echo_handler,
         target=SpheroRvrTargets.primary.value
     )
 
-    # sleep for one second such that RVR has time to send data back
+    # Give RVR time to respond
+    time.sleep(1)
+
+    rvr.echo(
+        data=[3, 4, 5],
+        handler=echo_handler,
+        target=SpheroRvrTargets.secondary.value
+    )
+
+    # Sleep for one second such that RVR has time to send data back
     time.sleep(1)
 
     rvr.close()
