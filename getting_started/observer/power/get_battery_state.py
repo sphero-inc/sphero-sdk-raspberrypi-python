@@ -4,6 +4,7 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import BatteryVoltageStatesEnum as VoltageStates
 
 
 rvr = SpheroRvrObserver()
@@ -16,12 +17,12 @@ def battery_percentage_handler(battery_percentage):
 def battery_voltage_handler(battery_voltage_state):
     print('Voltage state: ', battery_voltage_state)
 
-    state_info = {
-        0: 'Unknown',
-        1: 'OK',
-        2: 'Low',
-        3: 'Critical'
-    }  # TODO: are these autogen'd and can they be referenced instead?
+    state_info = '[{}, {}, {}, {}]'.format(
+        '{}: {}'.format(VoltageStates.unknown.name, VoltageStates.unknown.value),
+        '{}: {}'.format(VoltageStates.ok.name, VoltageStates.ok.value),
+        '{}: {}'.format(VoltageStates.low.name, VoltageStates.low.value),
+        '{}: {}'.format(VoltageStates.critical.name, VoltageStates.critical.value)
+    )
     print('Voltage states: ', state_info)
 
 
@@ -32,21 +33,21 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.get_battery_percentage(handler=battery_percentage_handler)
 
-        # sleep for one second such that RVR has time to send data back
+        # Sleep for one second such that RVR has time to send data back
         time.sleep(1)
 
         rvr.get_battery_voltage_state(handler=battery_voltage_handler)
 
-        # sleep for one second such that RVR has time to send data back
+        # Sleep for one second such that RVR has time to send data back
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

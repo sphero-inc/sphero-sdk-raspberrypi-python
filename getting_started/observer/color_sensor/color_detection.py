@@ -4,13 +4,14 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import RvrStreamingServices
 
 
 rvr = SpheroRvrObserver()
 
 
-def sensor_data_handler(sensor_data):
-    print('Sensor data response: ', sensor_data)
+def color_detected_handler(color_detected_data):
+    print('Color detection data response: ', color_detected_data)
 
 
 def main():
@@ -21,20 +22,28 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.enable_color_detection(is_enabled=True)
-        rvr.sensor_control.add_sensor_data_handler(handler=sensor_data_handler)
-        rvr.sensor_control.enable('ColorDetection')     # TODO: is there a constant available for this?
+        rvr.sensor_control.add_sensor_data_handler(
+            service=RvrStreamingServices.color_detection,
+            handler=color_detected_handler
+        )
+        rvr.sensor_control.start(interval=250)
 
-        # allow this program to run for 10 seconds
+        # Allow this program to run for 10 seconds
         time.sleep(10)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
+        rvr.sensor_control.clear()
+
+        # Delay to allow RVR issue command before closing
+        time.sleep(.5)
+        
         rvr.close()
 
 

@@ -21,17 +21,17 @@ class SerialObserverPort:
         self.__ser = Serial(port, baud)
         self.__running = True
         self.__write_queue = Queue()
-        self.__serial_thread = Thread(name="serial_thread", target=self.__serial_rw)
+        self.__serial_thread = Thread(name='serial_thread', target=self.__serial_rw)
         self.__serial_thread.start()
 
     def close(self):
         """Closes the port and joins the thread managing reading and writing.
 
         """
-        logger.info("Read/Write thread joining.")
+        logger.info('Read/Write thread joining.')
         self.__running = False
         self.__serial_thread.join()
-        logger.info("Closing serial port.")
+        logger.info('Closing serial port.')
         self.__ser.close()
 
     def send(self, message):

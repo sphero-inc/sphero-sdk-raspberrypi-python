@@ -176,29 +176,29 @@ class Message(SpheroMessageBase):
         return buf
 
     def pack(self, type_string, value):
-        if type_string == "uint8_t":
+        if type_string == 'uint8_t':
             return self.pack_uint8(value)
-        if type_string == "uint16_t":
+        if type_string == 'uint16_t':
             return self.pack_uint16(value)
-        if type_string == "uint32_t":
+        if type_string == 'uint32_t':
             return self.pack_uint32(value)
-        if type_string == "uint64_t":
+        if type_string == 'uint64_t':
             return self.pack_uint64(value)
-        if type_string == "int8_t":
+        if type_string == 'int8_t':
             return self.pack_int8(value)
-        if type_string == "int16_t":
+        if type_string == 'int16_t':
             return self.pack_int16(value)
-        if type_string == "int32_t":
+        if type_string == 'int32_t':
             return self.pack_int32(value)
-        if type_string == "int64_t":
+        if type_string == 'int64_t':
             return self.pack_int32(value)
-        if type_string == "float":
+        if type_string == 'float':
             return self.pack_float(value)
-        if type_string == "double":
+        if type_string == 'double':
             return self.pack_double(value)
-        if type_string == "bool":
+        if type_string == 'bool':
             return self.pack_bool(value)
-        if type_string == "std::string":
+        if type_string == 'std::string':
             return self.pack_string(value)
 
         raise AttributeError
@@ -246,40 +246,40 @@ class Message(SpheroMessageBase):
             self._body += packer(value)
 
     def unpack(self, type_string, count=1):
-        if type_string == "uint8_t":
+        if type_string == 'uint8_t':
             unpacker = Unpack.uint8
             size = 1
-        elif type_string == "uint16_t":
+        elif type_string == 'uint16_t':
             unpacker = Unpack.uint16
             size = 2
-        elif type_string == "uint32_t":
+        elif type_string == 'uint32_t':
             unpacker = Unpack.uint32
             size = 4
-        elif type_string == "uint64_t":
+        elif type_string == 'uint64_t':
             unpacker = Unpack.uint64
             size = 8
-        elif type_string == "int8_t":
+        elif type_string == 'int8_t':
             unpacker = Unpack.int8
             size = 1
-        elif type_string == "int16_t":
+        elif type_string == 'int16_t':
             unpacker = Unpack.int16
             size = 2
-        elif type_string == "int32_t":
+        elif type_string == 'int32_t':
             unpacker = Unpack.int32
             size = 4
-        elif type_string == "int64_t":
+        elif type_string == 'int64_t':
             unpacker = Unpack.int64
             size = 8
-        elif type_string == "float":
+        elif type_string == 'float':
             unpacker = Unpack.float32
             size = 4
-        elif type_string == "double":
+        elif type_string == 'double':
             unpacker = Unpack.float64
             size = 8
-        elif type_string == "bool":
+        elif type_string == 'bool':
             unpacker = Unpack.bool8
             size = 1
-        elif type_string == "std::string":
+        elif type_string == 'std::string':
             unpacker = Unpack.string
             # size of a variable length string is unknown.
             # setting size equal to length of self._body

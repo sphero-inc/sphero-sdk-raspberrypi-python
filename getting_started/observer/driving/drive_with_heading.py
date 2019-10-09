@@ -13,61 +13,62 @@ rvr = SpheroRvrObserver()
 def main():
     """ This program has RVR drive around in different directions using the function drive_with_heading.
     """
+
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.reset_yaw()
 
         rvr.drive_with_heading(
-            speed=128,
-            heading=0,
+            speed=128,  # Valid speed values are 0-255
+            heading=0,  # Valid heading values are 0-359
             flags=DriveFlagsBitmask.none.value
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_with_heading(
-            speed=128,
-            heading=0,
+            speed=128,  # Valid speed values are 0-255
+            heading=0,  # Valid heading values are 0-359
             flags=DriveFlagsBitmask.drive_reverse.value
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_with_heading(
-            speed=128,
-            heading=90,
+            speed=128,  # Valid speed values are 0-255
+            heading=90,  # Valid heading values are 0-359
             flags=DriveFlagsBitmask.none.value
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_with_heading(
-            speed=128,
-            heading=270,
+            speed=128,  # Valid speed values are 0-255
+            heading=270,  # Valid heading values are 0-359
             flags=DriveFlagsBitmask.none.value
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_with_heading(
-            speed=0,
-            heading=0,
+            speed=0,  # Valid heading values are 0-359
+            heading=0,  # Valid heading values are 0-359
             flags=DriveFlagsBitmask.none.value
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

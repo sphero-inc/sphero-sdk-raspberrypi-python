@@ -51,7 +51,7 @@ class SerialObserverDal(SpheroDalBase):
         for param in inputs:
             message.pack(param.data_type, param.value)
 
-        logger.info("Sending message: %s", message)
+        logger.info('Sending message: %s', message)
 
         self._port.send(message)
 

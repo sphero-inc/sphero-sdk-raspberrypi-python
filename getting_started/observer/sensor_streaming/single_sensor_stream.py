@@ -4,13 +4,14 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
+from sphero_sdk import RvrStreamingServices
 
 
 rvr = SpheroRvrObserver()
 
 
-def sensor_data_handler(sensor_data):
-    print('Sensor data response: ', sensor_data)
+def accelerometer_handler(accelerometer_data):
+    print('Accelerometer data response: ', accelerometer_data)
 
 
 def main():
@@ -20,34 +21,29 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
-        rvr.sensor_control.add_sensor_data_handler(sensor_data_handler)
+        rvr.sensor_control.add_sensor_data_handler(
+            service=RvrStreamingServices.accelerometer,
+            handler=accelerometer_handler
+        )
 
-        # TODO: is there a constant or enum available for these?
-        # Enable a single sensor. Supported sensors are:
-        # 'ColorDetection'
-        # 'AmbientLight'
-        # 'Quaternion'
-        # 'IMU'
-        # 'Accelerometer'
-        # 'Gyroscope'
-        # 'Locator'
-        # 'Velocity'
-        # 'Speed'
-        # 'CoreTime'
-
-        rvr.sensor_control.enable('Accelerometer')
+        rvr.sensor_control.start(interval=250)
 
         while True:
-            # delay to allow RVR to stream sensor data
+            # Delay to allow RVR to stream sensor data
             time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
+        rvr.sensor_control.clear()
+
+        # Delay to allow RVR issue command before closing
+        time.sleep(.5)
+        
         rvr.close()
 
 

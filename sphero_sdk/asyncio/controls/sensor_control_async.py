@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from sphero_sdk.common.processors import Processors
+from sphero_sdk import SpheroRvrTargets
 from sphero_sdk.common.sensors.sensor_streaming_control import SensorStreamingControl
 
 logger = logging.getLogger(__name__)
@@ -11,17 +11,20 @@ class SensorControlAsync(SensorStreamingControl):
     def __init__(self, rvr):
         SensorStreamingControl.__init__(self, rvr)
 
-    async def add_sensor_data_handler(self, handler):
-        SensorStreamingControl.add_sensor_data_handler(self, handler)
+    async def add_sensor_data_handler(self, service, handler):
+        SensorStreamingControl.add_sensor_data_handler(self, service, handler)
 
-    async def enable(self, *sensor_names):
-        SensorStreamingControl.enable(self, *sensor_names)
+    async def remove_sensor_data_handler(self, service):
+        SensorStreamingControl.remove_sensor_data_handler(self, service)
 
-    async def disable(self, *sensor_names):
-        SensorStreamingControl.disable(self, *sensor_names)
+    async def start(self, interval):
+        SensorStreamingControl.start(self, interval)
 
-    async def disable_all(self):
-        SensorStreamingControl.disable_all(self)
+    async def stop(self):
+        SensorStreamingControl.stop(self)
+
+    async def clear(self):
+        SensorStreamingControl.clear(self)
 
     def _configure_streaming_service(self, token_id, configuration, processor):
         logger.info(
@@ -39,7 +42,7 @@ class SensorControlAsync(SensorStreamingControl):
 
     def _add_streaming_service_data_notify_handler(self, processor):
         handler = self.__nordic_streaming_data_handler\
-            if processor == Processors.NORDIC_TARGET\
+            if processor == SpheroRvrTargets.primary.value\
             else self.__st_streaming_data_handler
 
         asyncio.ensure_future(
@@ -50,7 +53,7 @@ class SensorControlAsync(SensorStreamingControl):
         )
 
     def _start_streaming_service(self, interval, processor):
-        logger.info('Starting streaming service for at {}ms for processor {}'.format(interval, processor))
+        logger.info('Starting streaming service at {}ms for processor {}'.format(interval, processor))
         asyncio.ensure_future(
             self._rvr.start_streaming_service(
                 period=interval,
@@ -66,7 +69,7 @@ class SensorControlAsync(SensorStreamingControl):
             )
         )
 
-    def _clear_streaming_service(self, processor):
+    def _stop_and_clear_streaming_service(self, processor):
         asyncio.ensure_future(
             self._rvr.clear_streaming_service(
                 target=processor
@@ -74,16 +77,19 @@ class SensorControlAsync(SensorStreamingControl):
         )
 
     async def __nordic_streaming_data_handler(self, response):
-        await self.__dispatch_user_callback(Processors.NORDIC_TARGET, response)
+        await self.__dispatch_user_callback(SpheroRvrTargets.primary.value, response)
 
     async def __st_streaming_data_handler(self, response):
-        await self.__dispatch_user_callback(Processors.ST_TARGET, response)
+        await self.__dispatch_user_callback(SpheroRvrTargets.secondary.value, response)
 
     async def __dispatch_user_callback(self, processor, response):
-        streaming_data = SensorStreamingControl._process_streaming_data(self, processor, response)
-        if streaming_data is None:
+        response_dictionary = SensorStreamingControl._process_streaming_response(self, processor, response)
+        if response_dictionary is None:
             logger.error('Streaming response dictionary processed from streaming data is null!')
             return
 
-        for handler in self._handlers:
-            await handler(streaming_data)
+        sensors_in_response = response_dictionary.keys()
+        for sensor_name in self.enabled_sensors:
+            if sensor_name in sensors_in_response:
+                handler = self._sensor_handlers[sensor_name]
+                await handler(response_dictionary)

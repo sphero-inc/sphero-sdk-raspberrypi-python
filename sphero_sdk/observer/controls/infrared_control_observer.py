@@ -10,7 +10,7 @@ class InfraredControlObserver:
 
     def __init__(self, rvr):
         if rvr is None:
-            raise TypeError("ERROR: A RVR OBJECT MUST BE PASSED IN AS A PARAMETER")
+            raise TypeError('ERROR: A RVR OBJECT MUST BE PASSED IN AS A PARAMETER')
 
         self.__rvr = rvr
 
@@ -25,10 +25,10 @@ class InfraredControlObserver:
 
         """
 
-        if far_codes is None:
+        if far_code is None:
             raise TypeError('far_code parameter requires input')
 
-        if near_codes is None:
+        if near_code is None:
             raise TypeError('near_code parameter requires input')
 
         self.__rvr.start_robot_to_robot_infrared_broadcasting(far_code.value, near_code.value)
@@ -53,10 +53,10 @@ class InfraredControlObserver:
 
         """
 
-        if far_codes is None:
+        if far_code is None:
             raise TypeError('far_code parameter requires input')
 
-        if near_codes is None:
+        if near_code is None:
             raise TypeError('near_code parameter requires input')
 
         self.__rvr.start_robot_to_robot_infrared_following(far_code.value, near_code.value)

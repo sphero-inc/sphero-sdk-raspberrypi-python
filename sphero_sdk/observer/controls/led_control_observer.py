@@ -111,7 +111,7 @@ class LedControlObserver:
 
         return
 
-    def set_multiple_leds_color(self, leds, colors):
+    def set_multiple_leds_with_enums(self, leds, colors):
         """set_multiple_leds_color sets multiple lights on the RVR to specified colors from the enumeration Color
 
         Args:
@@ -126,7 +126,7 @@ class LedControlObserver:
 
         return
 
-    def set_multiple_leds_colors(self, leds, colors):
+    def set_multiple_leds_with_rgb(self, leds, colors):
         """set_multiple_lights_enum sets multiple lights on the RVR to specified rgb values.
         The array of colors should be an array of integers whose size is a multiple of three.
 

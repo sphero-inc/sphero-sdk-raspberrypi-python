@@ -84,10 +84,10 @@ class Parser(SpheroParserBase):
         try:
             asyncio.ensure_future(self._message_handler(msg))
         except TypeError:
-            logger.warning("Parser Fed without Message Handler Set")
+            logger.warning('Parser Fed without Message Handler Set')
             raise
         except Exception as e:
-            logger.critical("Exception in Message Handler: {}".format(e))
+            logger.critical('Exception in Message Handler: {}'.format(e))
             raise
 
     def _handle_error(self, buf):
@@ -100,8 +100,8 @@ class Parser(SpheroParserBase):
         try:
             asyncio.ensure_future(self._error_handler(buf))
         except TypeError:
-            logger.warning("Parser Fed without Error Handler Set")
+            logger.warning('Parser Fed without Error Handler Set')
             raise
         except Exception as e:
-            logger.critical("Exception in Error Handler: {}".format(e))
+            logger.critical('Exception in Error Handler: {}'.format(e))
             raise

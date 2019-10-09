@@ -1,10 +1,8 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
@@ -28,7 +26,7 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
     await rvr.on_robot_to_robot_infrared_message_received_notify(handler=infrared_message_received_handler)
@@ -54,17 +52,22 @@ async def main():
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(
+        asyncio.ensure_future(
             main()
         )
+        loop.run_forever()
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
-            rvr.close()
+            asyncio.gather(
+                rvr.stop_robot_to_robot_infrared_broadcasting(),
+                rvr.close()
+            )
         )
 
+    finally:
         if loop.is_running():
             loop.close()
+

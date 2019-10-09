@@ -1,41 +1,48 @@
-import sys
 import os
+import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import RestfulAsyncDal
-from sphero_sdk.common.log_level import LogLevel
+from sphero_sdk import SpheroRvrTargets
+
 
 loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
     dal=RestfulAsyncDal(
-        prefix="RV",  # RVR's prefix is RV
-        domain="10.211.2.21",  # Add your raspberry-pi's IP address here
+        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
         port=2010  # The port opened by the npm server is always 2010
-    ),
-    log_level=LogLevel.Debug_Verbose
+    )
 )
 
 
 async def main():
+    """ This program demonstrates how to use the echo command, which sends data to RVR and has RVR returns
+        the same data. Echo can be used to check to see if RVR is connected and awake.  In order to test it,
+        a node.js server must be running on the raspberry-pi connected to RVR.  This code is meant to be
+        executed from a separate computer.
     """
-    This program demonstrates how to use the echo command, which sends data to RVR and has RVR returns
-    the same data. Echo can be used to check to see if RVR is connected and awake.  In order to test it,
-    a node.js server must be running on the raspberry-pi connected to RVR.  This code is meant to be
-    executed from a separate computer.
 
-    """
-    response = await rvr.echo([1], target=2)
-    print(response)
+    await rvr.wake()
 
-    await asyncio.sleep(1)
+    # Give RVR time to wake up
+    await asyncio.sleep(2)
 
-    response = await rvr.echo([2], target=2)
-    print(response)
+    echo_response = await rvr.echo(
+        data=[0, 1, 2],
+        target=SpheroRvrTargets.primary.value
+    )
+    print('Echo response 1: ', echo_response)
 
-    await asyncio.sleep(1)
+    echo_response = await rvr.echo(
+        data=[4, 5, 6],
+        target=SpheroRvrTargets.secondary.value
+    )
+    print('Echo response 2: ', echo_response)
+
+    await rvr.close()
 
 
 if __name__ == '__main__':
@@ -45,12 +52,12 @@ if __name__ == '__main__':
         )
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
+    finally:
         if loop.is_running():
             loop.close()

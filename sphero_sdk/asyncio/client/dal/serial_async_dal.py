@@ -52,7 +52,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
         message.target = target
         message.is_activity = True
 
-        logger.debug("Message created: %s", message)
+        logger.debug('Message created: %s', message)
 
         if len(outputs) > 0:
             message.requests_response = True
@@ -68,7 +68,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
                     count=param.size
                 )
 
-            logger.debug("Respnose_handler inovked, returning: %s", response_dictionary)
+            logger.debug('Respnose_handler inovked, returning: %s', response_dictionary)
 
             return response_dictionary
 
@@ -100,14 +100,14 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
                         count=param.size
                     )
 
-                logger.debug("Command response wrapper invoked, returning: {}".format(response_dictionary))
+                logger.debug('Command response wrapper invoked, returning: {}'.format(response_dictionary))
                 await handler(response_dictionary)
             else:
-                logger.debug("No outputs expected, invoking callback.")
+                logger.debug('No outputs expected, invoking callback.')
                 await handler()
 
             return ErrorCode.success, bytearray()
 
-        logger.debug("Command worker added for DID:{} CID:{} Target:{}".format(did, cid, target))
+        logger.debug('Command worker added for DID:{} CID:{} Target:{}'.format(did, cid, target))
 
         self.handler.add_command_worker(did, cid, target, wrapper)

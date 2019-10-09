@@ -20,14 +20,14 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
         rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

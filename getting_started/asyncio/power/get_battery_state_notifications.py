@@ -1,10 +1,8 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
@@ -28,31 +26,31 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
     await rvr.on_battery_voltage_state_change_notify(handler=battery_voltage_state_change_handler)
     await rvr.enable_battery_voltage_state_change_notify(is_enabled=True)
 
-    # remove infinite loop if you'd like to operate RVR by other means and monitor battery notifications
-    while True:
-        print('Waiting for battery notification...')
-        await asyncio.sleep(5)
+    print('Waiting for battery notification...')
+
+    # The asyncio loop will run forever to give the aforementioned events time to occur
 
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(
+        asyncio.ensure_future(
             main()
         )
+        loop.run_forever()
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
+    finally:
         if loop.is_running():
             loop.close()

@@ -18,12 +18,12 @@ def main():
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.led_control.turn_leds_off()
 
-        # delay to show LEDs change
+        # Delay to show LEDs change
         time.sleep(1)
 
         rvr.led_control.set_multiple_leds_with_enums(
@@ -37,7 +37,7 @@ def main():
             ]
         )
 
-        # delay to show LEDs change
+        # Delay to show LEDs change
         time.sleep(1)
 
         rvr.led_control.set_multiple_leds_with_rgb(
@@ -51,11 +51,11 @@ def main():
             ]
         )
 
-        # delay to show LEDs change
+        # Delay to show LEDs change
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

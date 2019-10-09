@@ -56,7 +56,7 @@ class SpheroRoboService(RoboServiceBase):
                     dbus.DBUS.ERROR_LIMITS_EXCEEDED, 'Node Limit Reached')
 
     @method(name='unregisterNode', in_signature='y',
-            arg_keys=["ID"], out_signature='')
+            arg_keys=['ID'], out_signature='')
     def unregister_node(self, ID):
         try:
             self.nodes.unregister(ID)
@@ -86,7 +86,7 @@ class SpheroRoboService(RoboServiceBase):
         return [port_id]
 
     @method(name='unregisterPort', in_signature='y',
-            arg_keys=["ID"], out_signature='')
+            arg_keys=['ID'], out_signature='')
     def unregister_port(self, ID):
         try:
             self.ports.unregister(ID)

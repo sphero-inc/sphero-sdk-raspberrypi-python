@@ -12,42 +12,43 @@ rvr = SpheroRvrObserver()
 def main():
     """ This program has RVR drive with how to drive RVR using the drive control helper.
     """
+
     try:
         rvr.wake()
 
-        # give RVR time to wake up
+        # Give RVR time to wake up
         time.sleep(2)
 
         rvr.drive_control.reset_heading()
 
         rvr.drive_control.drive_forward_seconds(
             speed=64,
-            heading=0,
+            heading=0,  # Valid heading values are 0-359
             time_to_drive=1
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_control.drive_backward_seconds(
             speed=64,
-            heading=0,
+            heading=0,  # Valid heading values are 0-359
             time_to_drive=1
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
         rvr.drive_control.turn_left_degrees(
-            heading=0,
+            heading=0,  # Valid heading values are 0-359
             amount=90
         )
 
-        # delay to allow RVR to drive
+        # Delay to allow RVR to drive
         time.sleep(1)
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
     finally:
         rvr.close()

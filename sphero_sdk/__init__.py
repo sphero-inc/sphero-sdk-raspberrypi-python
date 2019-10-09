@@ -7,6 +7,7 @@ from sphero_sdk.common.enums.infrared_codes_enums import InfraredCodes
 from sphero_sdk.common.enums.rvr_led_groups_enum import RvrLedGroups
 from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrTargets
 from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitmasks
+from sphero_sdk.common.rvr_streaming_services import RvrStreamingServices
 
 from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
 from sphero_sdk.common.enums.drive_enums import StabilizationIndexesEnum

@@ -4,21 +4,24 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 
 import asyncio
 from sphero_sdk import SpheroRvrAsync
-from sphero_sdk import SerialAsyncDal
 from sphero_sdk import SpheroRvrTargets
+from sphero_sdk import RestfulAsyncDal
 
 
 loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
-    dal=SerialAsyncDal(
-        loop
+    dal=RestfulAsyncDal(
+        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
+        port=2010  # The port opened by the npm server is always 2010
     )
 )
 
 
 async def main():
     """ This program demonstrates how to obtain the firmware version for a specific processor.
+        In order to test it, a node.js server must be running on the raspberry-pi connected to RVR.
+        This code is meant to be executed from a separate computer.
     """
 
     await rvr.wake()

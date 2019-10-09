@@ -1,10 +1,8 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 from sphero_sdk import DriveFlagsBitmask
@@ -25,54 +23,54 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
     await rvr.reset_yaw()
 
     await rvr.drive_with_heading(
-        speed=128,
-        heading=0,
+        speed=128,  # Valid speed values are 0-255
+        heading=0,  # Valid heading values are 0-359
         flags=DriveFlagsBitmask.none.value
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.drive_with_heading(
-        speed=128,
-        heading=0,
+        speed=128,  # Valid speed values are 0-255
+        heading=0,  # Valid heading values are 0-359
         flags=DriveFlagsBitmask.drive_reverse.value
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.drive_with_heading(
-        speed=128,
-        heading=90,
+        speed=128,  # Valid speed values are 0-255
+        heading=90,  # Valid heading values are 0-359
         flags=DriveFlagsBitmask.none.value
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.drive_with_heading(
-        speed=128,
-        heading=270,
+        speed=128,  # Valid speed values are 0-255
+        heading=270,  # Valid heading values are 0-359
         flags=DriveFlagsBitmask.none.value
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.drive_with_heading(
-        speed=0,
-        heading=0,
+        speed=0,  # Valid heading values are 0-359
+        heading=0,  # Valid heading values are 0-359
         flags=DriveFlagsBitmask.none.value
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.close()
@@ -85,12 +83,12 @@ if __name__ == '__main__':
         )
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
+    finally:
         if loop.is_running():
             loop.close()

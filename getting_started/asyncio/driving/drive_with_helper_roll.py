@@ -1,10 +1,8 @@
-import asyncio
 import os
 import sys
-
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
+import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 
@@ -24,7 +22,7 @@ async def main():
 
     await rvr.wake()
 
-    # give RVR time to wake up
+    # Give RVR time to wake up
     await asyncio.sleep(2)
 
     await rvr.drive_control.reset_heading()
@@ -34,12 +32,12 @@ async def main():
         heading=90
     )
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.drive_control.roll_stop(heading=270)
 
-    # delay to allow RVR to drive
+    # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
     await rvr.close()
@@ -52,12 +50,12 @@ if __name__ == '__main__':
         )
 
     except KeyboardInterrupt:
-        print('Program terminated with keyboard interrupt.')
+        print('\nProgram terminated with keyboard interrupt.')
 
-    finally:
         loop.run_until_complete(
             rvr.close()
         )
 
+    finally:
         if loop.is_running():
             loop.close()

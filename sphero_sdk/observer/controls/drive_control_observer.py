@@ -34,7 +34,7 @@ class DriveControlObserver:
         """reset_heading resets the heading of the RVR
 
         """
-        print("reset heading...")
+        print('reset heading...')
         self.__rvr.reset_yaw()
 
         return
@@ -48,7 +48,7 @@ class DriveControlObserver:
             time_to_drive (int): number of seconds to drive
 
         """
-        print("drive backwards...")
+        print('drive backwards...')
         self.__timed_drive(speed, heading, DriveControlObserver.__drive_reverse_flag, time_to_drive)
 
         return
@@ -63,7 +63,7 @@ class DriveControlObserver:
 
         """
 
-        print("drive forward...")
+        print('drive forward...')
         self.__timed_drive(speed, heading, DriveControlObserver.__drive_no_flag, time_to_drive)
 
         return
