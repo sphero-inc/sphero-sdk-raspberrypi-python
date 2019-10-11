@@ -3,47 +3,24 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          10/02/2019 @ 17:09:49.585433 (UTC)
+# Timestamp:          10/10/2019 @ 21:40:31.373739 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['SpecdrumsColorPaletteIndiciesEnum',
-           'FrameInfoTypesEnum']
+__all__ = ['SpecdrumsColorPaletteIndiciesEnum']
 
 
 class CommandsEnum(IntEnum): 
     set_all_leds = 0x1A
-    set_compressed_frame_player_one_color = 0x2F
-    save_compressed_frame_player_animation = 0x31
-    play_compressed_frame_player_animation = 0x32
-    play_compressed_frame_player_frame = 0x33
-    get_compressed_frame_player_list_of_frames = 0x34
-    delete_all_compressed_frame_player_animations_and_frames = 0x35
-    pause_compressed_frame_player_animation = 0x36
-    resume_compressed_frame_player_animation = 0x37
-    reset_compressed_frame_player_animation = 0x38
-    compressed_frame_player_animation_complete_notify = 0x3F
-    assign_compressed_frame_player_frames_to_animation = 0x40
-    save_compressed_frame_player_animation_without_frames = 0x41
-    play_compressed_frame_player_animation_with_loop_option = 0x43
     get_active_color_palette = 0x44
     set_active_color_palette = 0x45
     get_color_identification_report = 0x46
     load_color_palette = 0x47
     save_color_palette = 0x48
-    get_compressed_frame_player_frame_info_type = 0x4C
-    save_compressed_frame_player_16_bit_frame = 0x4D
     release_led_requests = 0x4E
 
 
-class SpecdrumsColorPaletteIndiciesEnum(IntEnum):   # TODO: should probably rename
+class SpecdrumsColorPaletteIndiciesEnum(IntEnum):
     default = 0
     midi = 1
-
-
-class FrameInfoTypesEnum(IntEnum):
-    compressed_frame_player_info_type_8_bit = 0
-    compressed_frame_player_info_type_16_bit = 1
-    compressed_frame_player_info_type_32_bit = 2
-    compressed_frame_player_info_type_64_bit = 3

@@ -2,6 +2,7 @@ import logging
 from sphero_sdk.common.protocol.api_sphero_protocol import Unpack
 from sphero_sdk.common.helpers import normalize
 from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
+from sphero_sdk.common.enums.number_bounds_enums import UintBounds
 
 logger = logging.getLogger(__name__)
 
@@ -71,10 +72,10 @@ class SensorStreamService:
 
     def __get_values_from_bytes(self, bytes_buffer):
         if self.data_size == StreamingDataSizesEnum.eight_bit:
-            return Unpack.uint8(bytes_buffer), StreamingDataSizesEnum.uint_8_max.value
+            return Unpack.uint8(bytes_buffer), UintBounds.uint_8_max
         elif self.data_size == StreamingDataSizesEnum.sixteen_bit:
-            return Unpack.uint16(bytes_buffer), StreamingDataSizesEnum.uint_16_max.value
+            return Unpack.uint16(bytes_buffer), UintBounds.uint_16_max
         elif self.data_size == StreamingDataSizesEnum.thirty_two_bit:
-            return Unpack.uint32(bytes_buffer), StreamingDataSizesEnum.uint_32_max.value
+            return Unpack.uint32(bytes_buffer), UintBounds.uint_32_max
         else:
             raise ValueError('Unsupported data size.  Make sure you assign a supported data size value!')

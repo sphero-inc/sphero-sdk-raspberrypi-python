@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          10/02/2019 @ 17:09:49.588093 (UTC)
+# Timestamp:          10/10/2019 @ 21:40:31.374648 (UTC)
 
 from enum import IntEnum
 
@@ -46,7 +46,7 @@ class MotorIndexesEnum(IntEnum):
     right_motor_index = 1
 
 
-class DriveFlagsBitmask(IntEnum):   # TODO: we may have to manually remove the items that aren't supported
+class DriveFlagsBitmask(IntEnum):
     none = 0
     drive_reverse = 1
     boost = 2

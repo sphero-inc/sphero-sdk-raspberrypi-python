@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/02/2019 @ 17:09:49.589216 (UTC)
+# Timestamp:          10/10/2019 @ 21:40:31.375740 (UTC)
 
 from enum import IntEnum
 
@@ -11,7 +11,6 @@ from enum import IntEnum
 __all__ = ['MotorIndexesEnum',
            'ThermalProtectionStatusEnum',
            'StreamingDataSizesEnum',
-           'StreamingServiceStatesEnum',
            'GyroMaxFlagsBitmask',
            'LocatorFlagsBitmask',
            'InfraredSensorLocationsBitmask']
@@ -64,24 +63,10 @@ class ThermalProtectionStatusEnum(IntEnum):
     critical = 2
 
 
-class StreamingDataSizesEnum(IntEnum):  # TODO: should we split out the two sets of data here?
+class StreamingDataSizesEnum(IntEnum):
     eight_bit = 0x00
     sixteen_bit = 0x01
     thirty_two_bit = 0x02
-    uint_8_max = 255
-    uint_16_max = 65535
-    uint_32_max = 4294967295
-    int_32_min = -2147483648
-    int_32_max = 2147483647
-    int_64_min = -9223372036854775808
-    int_64_max = 9223372036854775807
-
-
-class StreamingServiceStatesEnum(IntEnum):  # TODO: this isn't autogen'd
-    Unknown = 0  #: 
-    Stop = 1  #: 
-    Start = 2  #: 
-    Restart = 3  #: 
 
 
 class GyroMaxFlagsBitmask(IntEnum):
