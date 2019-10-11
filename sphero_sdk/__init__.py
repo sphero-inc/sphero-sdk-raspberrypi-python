@@ -9,23 +9,23 @@ from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrTargets
 from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitmasks
 from sphero_sdk.common.rvr_streaming_services import RvrStreamingServices
 
+
 from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
 from sphero_sdk.common.enums.drive_enums import StabilizationIndexesEnum
-from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum
+from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum as DriveMotorIndexesEnum
 from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
 from sphero_sdk.common.enums.io_enums import SpecdrumsColorPaletteIndiciesEnum
-from sphero_sdk.common.enums.io_enums import FrameInfoTypesEnum
 from sphero_sdk.common.enums.power_enums import BatteryVoltageStatesEnum
 from sphero_sdk.common.enums.power_enums import BatteryVoltageReadingTypesEnum
 from sphero_sdk.common.enums.power_enums import AmplifierIdsEnum
-from sphero_sdk.common.enums.sensor_enums import MotorIndexesEnum
+from sphero_sdk.common.enums.sensor_enums import MotorIndexesEnum as SensorMotorIndexesEnum
 from sphero_sdk.common.enums.sensor_enums import ThermalProtectionStatusEnum
 from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
-from sphero_sdk.common.enums.sensor_enums import StreamingServiceStatesEnum
 from sphero_sdk.common.enums.sensor_enums import GyroMaxFlagsBitmask
 from sphero_sdk.common.enums.sensor_enums import LocatorFlagsBitmask
 from sphero_sdk.common.enums.sensor_enums import InfraredSensorLocationsBitmask
 
+from sphero_sdk.asyncio.client.firmware.rvr_fw_check_async import RvrFwCheckAsync
 from sphero_sdk.asyncio.controls.led_control_async import LedControlAsync
 from sphero_sdk.asyncio.controls.drive_control_async import DriveControlAsync
 from sphero_sdk.asyncio.controls.infrared_control_async import InfraredControlAsync
@@ -35,6 +35,7 @@ from sphero_sdk.asyncio.client.dal.serial_async_dal import SerialAsyncDal
 from sphero_sdk.asyncio.client.dal.restful_async_dal import RestfulAsyncDal
 
 from sphero_sdk.observer.observer_base import Observer
+from sphero_sdk.observer.client.firmware.rvr_fw_check_observer import RvrFwCheckObserver
 from sphero_sdk.observer.events.event_dispatcher import EventDispatcher
 from sphero_sdk.observer.controls.led_control_observer import LedControlObserver
 from sphero_sdk.observer.controls.drive_control_observer import DriveControlObserver

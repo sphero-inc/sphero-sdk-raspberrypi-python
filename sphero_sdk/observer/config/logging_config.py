@@ -42,6 +42,9 @@ errors = {
         'sphero_sdk.observer.client.dal.serial_observer_port': {
             'propagate': True
         },
+        'sphero_sdk.observer.client.firmware.rvr_observer_fw_check': {
+            'propagate': True
+        },
         'sphero_sdk.observer.events.event_dispatcher': {
             'propagate': True
         },
@@ -77,6 +80,9 @@ debug_verbose = {
             'propagate': True
         },
         'sphero_sdk.observer.client.dal.serial_observer_port': {
+            'propagate': True
+        },
+        'sphero_sdk.observer.client.firmware.rvr_observer_fw_check': {
             'propagate': True
         },
         'sphero_sdk.observer.events.event_dispatcher': {

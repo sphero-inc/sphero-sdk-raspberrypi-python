@@ -3,8 +3,8 @@ from .sensor_stream_attribute import SensorStreamAttribute
 from .sensor_stream_service import SensorStreamService
 from .sensor_stream_slot import SensorStreamSlot
 from sphero_sdk import SpheroRvrTargets
-from sphero_sdk.common.enums.sensor_enums import StreamingServiceStatesEnum
 from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
+from sphero_sdk.common.enums.number_bounds_enums import IntBounds
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +25,6 @@ class SensorStreamingControl:
         self.__st_service_slots_by_token = {}
         self.__streaming_services_by_name = {}
         self.__enabled_sensors = []
-        self.__nordic_service_state = StreamingServiceStatesEnum.Stop
-        self.__st_service_state = StreamingServiceStatesEnum.Stop
         self.__streaming_interval = 0
         self.__init_service_slots()
         self.__init_services()
@@ -417,8 +415,8 @@ class SensorStreamingControl:
 
         # Locator
         attributes = [
-            SensorStreamAttribute('X', StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max),
-            SensorStreamAttribute('Y', StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max)
+            SensorStreamAttribute('X', IntBounds.int_32_min, IntBounds.int_32_max),
+            SensorStreamAttribute('Y', IntBounds.int_32_min, IntBounds.int_32_max)
         ]
         streaming_service = SensorStreamService(
             0x0006,
@@ -431,8 +429,8 @@ class SensorStreamingControl:
 
         # Velocity
         attributes = [
-            SensorStreamAttribute('X', StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max),
-            SensorStreamAttribute('Y', StreamingDataSizesEnum.int_32_min, StreamingDataSizesEnum.int_32_max)
+            SensorStreamAttribute('X', IntBounds.int_32_min, IntBounds.int_32_max),
+            SensorStreamAttribute('Y', IntBounds.int_32_min, IntBounds.int_32_max)
         ]
         streaming_service = SensorStreamService(
             0x0007,
@@ -458,8 +456,8 @@ class SensorStreamingControl:
 
         # Core Time
         attributes = [
-            SensorStreamAttribute('TimeUpper', 0, StreamingDataSizesEnum.int_64_max),
-            SensorStreamAttribute('TimeLower', 0, StreamingDataSizesEnum.int_64_max)
+            SensorStreamAttribute('TimeUpper', 0, IntBounds.int_64_max),
+            SensorStreamAttribute('TimeLower', 0, IntBounds.int_64_max)
         ]
         streaming_service = SensorStreamService(
             0x0009,

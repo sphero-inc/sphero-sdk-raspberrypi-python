@@ -6,6 +6,7 @@
 /.idea
 /.python-version
 /docs/_build/
+/.fw
 *.ipynb_checkpoints
 *.h5
 *.py~

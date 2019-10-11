@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          10/02/2019 @ 17:09:49.588013 (UTC)
+# Timestamp:          10/10/2019 @ 21:40:31.374572 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -78,7 +78,7 @@ def drive_with_heading(speed, heading, flags, target, timeout):
             ),
             Parameter( 
                 name='heading',
-                data_type='int16_t',
+                data_type='uint16_t',
                 index=1,
                 value=heading,
                 size=1

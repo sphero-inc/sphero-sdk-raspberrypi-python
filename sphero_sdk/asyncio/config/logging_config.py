@@ -48,6 +48,9 @@ errors = {
         'sphero_sdk.asyncio.controls.sensor_control_async': {
             'propagate': True
         },
+        'sphero_sdk.asyncio.client.firmware.rvr_async_fw_check': {
+            'propagate': True
+        },
         'sphero_sdk.asyncio.client.dal.restful_async_dal': {
             'propagate': True
         },
@@ -89,6 +92,9 @@ debug_verbose = {
             'propagate': True
         },
         'sphero_sdk.asyncio.controls.sensor_control_async': {
+            'propagate': True
+        },
+        'sphero_sdk.asyncio.client.firmware.rvr_async_fw_check': {
             'propagate': True
         },
         'sphero_sdk.asyncio.client.dal.restful_async_dal': {

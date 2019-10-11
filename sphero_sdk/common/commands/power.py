@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          10/02/2019 @ 17:09:49.592912 (UTC)
+# Timestamp:          10/10/2019 @ 21:40:31.379259 (UTC)
 
 from sphero_sdk.common.enums.power_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,29 +11,10 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def enter_deep_sleep(seconds_until_deep_sleep, target, timeout): 
+def sleep(target, timeout): 
     return { 
         'did': DevicesEnum.power,
-        'cid': CommandsEnum.enter_deep_sleep,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='secondsUntilDeepSleep',
-                data_type='uint8_t',
-                index=0,
-                value=seconds_until_deep_sleep,
-                size=1
-            ),
-        ],
-    }
-
-
-def enter_soft_sleep(target, timeout): 
-    return { 
-        'did': DevicesEnum.power,
-        'cid': CommandsEnum.enter_soft_sleep,
+        'cid': CommandsEnum.sleep,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
