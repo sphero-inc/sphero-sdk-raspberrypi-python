@@ -19,7 +19,8 @@ def get_st_main_application_version_handler(st_main_application_version):
 
 
 def main():
-    """ This program demonstrates how to obtain the firmware version for a specific processor.
+    """ This program demonstrates how to obtain the firmware version for a specific processor.  RVR does not need
+        to be awake for this operation.
     """
 
     try:

@@ -12,7 +12,7 @@ loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
     dal=RestfulAsyncDal(
-        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
+        domain='0.0.0.0',  # Add your raspberry-pi's IP address here
         port=2010  # The port opened by the npm server is always 2010
     )
 )
@@ -20,15 +20,10 @@ rvr = SpheroRvrAsync(
 
 async def main():
     """ This program demonstrates how to use the echo command, which sends data to RVR and has RVR returns
-        the same data. Echo can be used to check to see if RVR is connected and awake.  In order to test it,
-        a node.js server must be running on the raspberry-pi connected to RVR.  This code is meant to be
-        executed from a separate computer.
+        the same data. Echo can be used to check to see if RVR is connected.  RVR does not need to be awake
+        for this operation. In order to test it, a node.js server must be running on the raspberry-pi connected
+        to RVR.  This code is meant to be executed from a separate computer.
     """
-
-    await rvr.wake()
-
-    # Give RVR time to wake up
-    await asyncio.sleep(2)
 
     echo_response = await rvr.echo(
         data=[0, 1, 2],

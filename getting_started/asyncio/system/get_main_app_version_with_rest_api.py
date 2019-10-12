@@ -12,22 +12,17 @@ loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
     dal=RestfulAsyncDal(
-        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
+        domain='0.0.0.0',  # Add your raspberry-pi's IP address here
         port=2010  # The port opened by the npm server is always 2010
     )
 )
 
 
 async def main():
-    """ This program demonstrates how to obtain the firmware version for a specific processor.
-        In order to test it, a node.js server must be running on the raspberry-pi connected to RVR.
-        This code is meant to be executed from a separate computer.
+    """ This program demonstrates how to obtain the firmware version for a specific processor.  RVR does
+        not need to be awake for this operation. In order to test it, a node.js server must be running on the
+        raspberry-pi connected to RVR. This code is meant to be executed from a separate computer.
     """
-
-    await rvr.wake()
-
-    # Give RVR time to wake up
-    await asyncio.sleep(2)
 
     nordic_main_application_version = await rvr.get_main_application_version(target=SpheroRvrTargets.primary.value)
     print('Nordic main application version (target 1): ', nordic_main_application_version)

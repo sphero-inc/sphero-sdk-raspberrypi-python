@@ -19,13 +19,9 @@ rvr = SpheroRvrAsync(
 
 async def main():
     """ This program demonstrates how to use the echo command, which sends data to RVR and RVR returns
-        the same data. Echo can be used to check to see if RVR is connected and awake.
+        the same data. Echo can be used to check to see if RVR is connected.  RVR does not
+        need to be awake for this operation.
     """
-
-    await rvr.wake()
-
-    # Give RVR time to wake up
-    await asyncio.sleep(2)
 
     echo_response = await rvr.echo(
         data=[0, 1, 2],
