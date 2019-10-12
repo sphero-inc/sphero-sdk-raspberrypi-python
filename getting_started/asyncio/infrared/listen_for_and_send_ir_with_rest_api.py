@@ -11,7 +11,7 @@ loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrAsync(
     dal=RestfulAsyncDal(
-        domain='10.211.2.21',  # Add your raspberry-pi's IP address here
+        domain='0.0.0.0',  # Add your raspberry-pi's IP address here
         port=2010  # The port opened by the npm server is always 2010
     )
 )
