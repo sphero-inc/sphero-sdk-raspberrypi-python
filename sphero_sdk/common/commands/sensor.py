@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/10/2019 @ 21:40:31.375643 (UTC)
+# Timestamp:          10/12/2019 @ 01:43:14.086610 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -124,33 +124,6 @@ def get_rgbc_sensor_values(target, timeout):
                 name='clearChannelValue',
                 data_type='uint16_t',
                 index=3,
-                size=1,
-            ),
-        ]
-    }
-
-
-def magnetometer_calibrate_to_north(target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.magnetometer_calibrate_to_north,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-    }
-
-
-def on_magnetometer_north_yaw_notify(target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.magnetometer_north_yaw_notify,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [ 
-            Parameter( 
-                name='yawDirection',
-                data_type='uint16_t',
-                index=0,
                 size=1,
             ),
         ]
@@ -551,54 +524,6 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
                 data_type='uint8_t',
                 index=4,
                 value=rear_strength,
-                size=1
-            ),
-        ],
-    }
-
-
-def on_motor_current_notify(target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.motor_current_notify,
-        'target': target,
-        'timeout': timeout,
-        'outputs': [ 
-            Parameter( 
-                name='leftMotorCurrent',
-                data_type='float',
-                index=0,
-                size=1,
-            ),
-            Parameter( 
-                name='rightMotorCurrent',
-                data_type='float',
-                index=1,
-                size=1,
-            ),
-            Parameter( 
-                name='upTime',
-                data_type='uint64_t',
-                index=2,
-                size=1,
-            ),
-        ]
-    }
-
-
-def enable_motor_current_notify(is_enabled, target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.enable_motor_current_notify,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='isEnabled',
-                data_type='bool',
-                index=0,
-                value=is_enabled,
                 size=1
             ),
         ],

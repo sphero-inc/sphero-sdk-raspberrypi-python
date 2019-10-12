@@ -11,7 +11,6 @@ from sphero_sdk.common.rvr_streaming_services import RvrStreamingServices
 
 
 from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
-from sphero_sdk.common.enums.drive_enums import StabilizationIndexesEnum
 from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum as DriveMotorIndexesEnum
 from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
 from sphero_sdk.common.enums.io_enums import SpecdrumsColorPaletteIndiciesEnum

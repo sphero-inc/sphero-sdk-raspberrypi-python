@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/10/2019 @ 21:40:31.375740 (UTC)
+# Timestamp:          10/12/2019 @ 01:43:14.086683 (UTC)
 
 from enum import IntEnum
 
@@ -23,8 +23,6 @@ class CommandsEnum(IntEnum):
     set_locator_flags = 0x17
     get_bot_to_bot_infrared_readings = 0x22
     get_rgbc_sensor_values = 0x23
-    magnetometer_calibrate_to_north = 0x25
-    magnetometer_north_yaw_notify = 0x26
     start_robot_to_robot_infrared_broadcasting = 0x27
     start_robot_to_robot_infrared_following = 0x28
     stop_robot_to_robot_infrared_broadcasting = 0x29
@@ -44,8 +42,6 @@ class CommandsEnum(IntEnum):
     streaming_service_data_notify = 0x3D
     enable_robot_infrared_message_notify = 0x3E
     send_infrared_message = 0x3F
-    motor_current_notify = 0x40
-    enable_motor_current_notify = 0x41
     get_motor_temperature = 0x42
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
