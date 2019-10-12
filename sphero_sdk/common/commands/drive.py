@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          10/10/2019 @ 21:40:31.374572 (UTC)
+# Timestamp:          10/12/2019 @ 01:43:14.085581 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -88,25 +88,6 @@ def drive_with_heading(speed, heading, flags, target, timeout):
                 data_type='uint8_t',
                 index=2,
                 value=flags,
-                size=1
-            ),
-        ],
-    }
-
-
-def set_stabilization(index, target, timeout): 
-    return { 
-        'did': DevicesEnum.drive,
-        'cid': CommandsEnum.set_stabilization,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='index',
-                data_type='uint8_t',
-                index=0,
-                value=index,
                 size=1
             ),
         ],
