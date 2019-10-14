@@ -4,6 +4,10 @@ Greetings adventurous students, developers, hackers, and makers!  RVR is one of 
 
 ## First things first
 
+### Getting Started
+
+Visit our [Getting Started](http://sdk.sphero.com/getting_started) to learn more about the ins-and-outs of working with RVR, including some important details on the getting started process.
+
 ### More information and documentation
 
 Visit our [SDK website](sdk.sphero.com) to find more information about RVR, the SDK and the API!
@@ -14,7 +18,7 @@ Visit our [community forum](https://community.sphero.com/c/advanced-programming)
 
 ### Staying up to date
 
-Consider [signing up](http://sdk-staging.sphero.com/sign-up) for our SDK email list to stay current on new features being released in our robot firmware as well as our SDKs, including new platform / language support.  
+Consider [signing up](http://sdk.sphero.com/sign-up) for our SDK email list to stay current on new features being released in our robot firmware as well as our SDKs, including new platform / language support.  
 
 ## About the Raspberry Pi Python SDK
 
