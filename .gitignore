@@ -1,0 +1,15 @@
+*.pyc
+*.lock
+/pycache/
+/dist/
+/*.egg-info
+/.idea
+/.python-version
+/docs/_build/
+/.fw
+*.ipynb_checkpoints
+*.h5
+*.py~
+*.py.un~
+*.DS_Store
+
