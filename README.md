@@ -18,7 +18,7 @@ Visit our [community forum](https://community.sphero.com/c/advanced-programming)
 
 ### Staying up to date
 
-Consider [signing up](http://sdk.sphero.com/sign-up) for our SDK email list to stay current on new features being released in our robot firmware as well as our SDKs, including new platform / language support.  
+Consider [signing up](https://sdk.sphero.com/sign-up) for our SDK email list to stay current on new features being released in our robot firmware as well as our SDKs, including new platform / language support.  
 
 ## About the Raspberry Pi Python SDK
 
