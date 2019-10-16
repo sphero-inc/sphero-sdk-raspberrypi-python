@@ -1,3 +1,5 @@
+sudo apt-get update -y
+sudo apt-get install -y libssl-dev bzip2 libreadline6 libreadline6-dev sqlite3
 echo "PATH=$HOME/.local/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 python -m pip install pipenv
