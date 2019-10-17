@@ -7,7 +7,8 @@ echo 'export PATH="/home/pi/.pyenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 echo ''
-echo "Press ENTER to continue..."
+echo 'SUCCESS! Looks like your virtual environment toosl are ready.'
+echo 'Press ENTER to continue...'
 read
 wait $(source ~/.bashrc)
 pyenv install 3.5.3
