@@ -6,5 +6,6 @@ curl https://pyenv.run | bash
 echo 'export PATH="/home/pi/.pyenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-source ~/.bashrc
-xterm -e "pyenv install 3.5.3; pipenv install"
+xterm -e "echo 'Shell refreshed, please close this window'; exec $SHELL"
+pyenv install 3.5.3
+pipenv install
