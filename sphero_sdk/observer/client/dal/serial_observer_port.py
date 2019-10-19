@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class SerialObserverPort:
-    def __init__(self, parser, port='/dev/ttyS0', baud=115200):
+    def __init__(self, parser, port='/dev/serial0', baud=115200):
         """SerialObserverPort is responsible opening, writing, and reading bytes coming from the UART port.
 
         Args:
