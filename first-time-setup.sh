@@ -1,6 +1,7 @@
 sudo apt-get update -y
-sudo apt-get install -y make llvm build-essential libssl-dev bzip2 zlib1g-dev libbz2-dev libreadline6 libreadline6-dev sqlite3 \
-libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+sudo apt-get install -y make llvm build-essential wget curl llvm libssl-dev bzip2 zlib1g-dev libbz2-dev libreadline6 \
+wget curl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev \
+python-openssl
 python -m pip install pipenv
 printf "PATH=$HOME/.local/bin:$PATH" >> ~/.bashrc
 curl https://pyenv.run | bash
