@@ -21,4 +21,4 @@ python -m pip install pipenv
 
 printf "PATH=$HOME/.local/bin:$PATH\n" >> ~/.profile
 
-exec $SHELL
+sudo reboot
