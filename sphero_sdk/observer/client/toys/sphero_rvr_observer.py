@@ -26,11 +26,11 @@ from sphero_sdk import RvrFwCheckObserver
 
 
 class SpheroRvrObserver(Observer, RvrFwCheckObserver):
-    def __init__(self, log_level=LogLevel.Silent):
+    def __init__(self, log_level=LogLevel.Silent, serial_port='/dev/ttyS0'):
         logging.config.dictConfig(logging_config.get_dict(log_level))
         Observer.__init__(self)
         RvrFwCheckObserver.__init__(self)
-        self._dal = SerialObserverDal()
+        self._dal = SerialObserverDal(port=serial_port)
         self._led_control = LedControlObserver(self)
         self._drive_control = DriveControlObserver(self)
         self._infrared_control = InfraredControlObserver(self)
