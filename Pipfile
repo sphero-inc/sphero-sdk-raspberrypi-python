@@ -15,5 +15,3 @@ twine = "*"
 pyserial = "*"
 pyserial-asyncio = "*"
 
-[requires]
-python_full_version = "3.5.3"

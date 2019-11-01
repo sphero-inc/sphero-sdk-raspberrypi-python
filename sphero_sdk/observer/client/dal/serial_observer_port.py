@@ -9,16 +9,16 @@ logger = logging.getLogger(__name__)
 
 
 class SerialObserverPort:
-    def __init__(self, parser, port='/dev/ttyS0', baud=115200):
+    def __init__(self, parser, port_id, baud):
         """SerialObserverPort is responsible opening, writing, and reading bytes coming from the UART port.
 
         Args:
             parser (ObserverParser): Used to parse bytes read from the port.
-            port (str): Port address.
+            port_id (str): id for the serial port.
             baud (int): Baud rate.
         """
         self.__parser = parser
-        self.__ser = Serial(port, baud)
+        self.__ser = Serial(port_id, baud)
         self.__running = True
         self.__write_queue = Queue()
         self.__serial_thread = Thread(name='serial_thread', target=self.__serial_rw)

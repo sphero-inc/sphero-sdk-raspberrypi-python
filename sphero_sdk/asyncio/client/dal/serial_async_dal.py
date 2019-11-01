@@ -12,7 +12,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
     """
     """
 
-    def __init__(self, loop=None, device='/dev/ttyS0', baud=115200):
+    def __init__(self, loop=None, port_id='/dev/ttyS0', baud=115200):
         SpheroDalBase.__init__(self)
         SerialSpheroPort.__init__(
             self,
@@ -20,7 +20,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
             1,
             Parser,
             Handler,
-            device,
+            port_id,
             baud
         )
 

@@ -1,18 +1,41 @@
-#!/usr/bin/env python3
-from setuptools import find_packages
-from distutils.core import setup
+from io import open
+from os import path
+from setuptools import setup, find_packages
+
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+version_dict = {}
+with open(path.join(here, 'sphero_sdk', '__version__.py')) as f:
+    exec(f.read(), version_dict)
+    print('Version: {}'.format(version_dict))
+
 
 setup(
-	name='sphero_sdk',
-	version='0.3.4.post2',  # TODO: unify with __version__.py
-	description='Sphero SDK to run on Raspberry Pi using Python',
-	author='Anthony Vizcarra',
-	author_email='Anthony@sphero.com',
-	url='https://github.com/sphero-inc/sphero-sdk-raspberrypi-python',
-	packages=find_packages(include=['sphero_sdk*']),
-	install_requires=[
-		'aiohttp',
-		'pyserial',
-		'pyserial-asyncio',
-	],
+    author='Sphero',
+    name='sphero_sdk',
+    version=version_dict['__version__'],
+    author_email='sdk@sphero.com',
+    url='sdk.sphero.com',
+    description='Provides an API for interfacing with Sphero RVR',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    python_requires='>=3.5.3',
+    packages=find_packages(),
+    classifiers=[
+         'Programming Language :: Python :: 3',
+         'License :: Other/Proprietary License',
+         'Operating System :: OS Independent',
+     ],
+    install_requires=[
+        'aiohttp == 3.5.4',
+        'requests == 2.21.0',
+        'websocket-client == 0.54.0',
+        'pyserial == 3.4',
+        'pyserial-asyncio == 0.4',
+        'twine == 1.13.0'
+    ]
 )

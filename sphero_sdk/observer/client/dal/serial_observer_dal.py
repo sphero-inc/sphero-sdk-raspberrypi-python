@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 class SerialObserverDal(SpheroDalBase):
     __slots__ = ['_port']
 
-    def __init__(self, port='/dev/ttyS0'):
+    def __init__(self, port_id='/dev/ttyS0', baud=115200):
         SpheroDalBase.__init__(self)
         dispatcher = EventDispatcher()
         parser = ObserverParser(dispatcher)
-        self._port = SerialObserverPort(parser, port=port)
+        self._port = SerialObserverPort(parser, port_id, baud)
 
     def send_command(self, did, cid, seq, target, timeout=None, inputs=[], outputs=[]):
         """Creates a Message object using the provided parameters and sends it to the serial port.
