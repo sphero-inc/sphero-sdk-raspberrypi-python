@@ -48,8 +48,8 @@ async def main():
     await rvr.wake()
 
     await rvr.reset_yaw()
-    
-    while True:    
+
+    while True:
 
         if current_key_code == 119:  # W
             # if previously going reverse, reset speed back to 64
@@ -77,6 +77,12 @@ async def main():
             # reset speed and flags, but don't modify heading.
             speed = 0
             flags = 0
+
+        # check the speed value, and wrap as necessary.
+        if speed > 255:
+            speed = 255
+        elif speed < -255:
+            speed = -255
 
         # check the heading value, and wrap as necessary.
         if heading > 359:

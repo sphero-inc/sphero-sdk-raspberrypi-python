@@ -15,21 +15,27 @@ with open(path.join(here, 'sphero_sdk', '__version__.py')) as f:
 
 
 setup(
-    name='sphero_sdk',
     author='Sphero',
-    author_email='rvr_hackathon_external_user@sphero.com',
-    url='www.sphero.com',
+    name='sphero_sdk',
     version=version_dict['__version__'],
-    description='Provides methods for interfacing with the Sphero Service',
+    author_email='sdk@sphero.com',
+    url='sdk.sphero.com',
+    description='Provides an API for interfacing with Sphero RVR',
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires='>=3.5.3',
     packages=find_packages(),
+    classifiers=[
+         'Programming Language :: Python :: 3',
+         'License :: Other/Proprietary License',
+         'Operating System :: OS Independent',
+     ],
     install_requires=[
         'aiohttp == 3.5.4',
         'requests == 2.21.0',
         'websocket-client == 0.54.0',
         'pyserial == 3.4',
-        'pyserial-asyncio == 0.4'
+        'pyserial-asyncio == 0.4',
+        'twine == 1.13.0'
     ]
 )
