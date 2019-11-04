@@ -2,8 +2,8 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-from projects.fpv_rvr.pysbus.serial_parser import SerialParser
-from projects.fpv_rvr.pysbus.constants import SBUSConsts
+from projects.rc_rvr.pysbus.serial_parser import SerialParser
+from projects.rc_rvr.pysbus.constants import SBUSConsts
 
 tty = sys.argv[1]
 baud = sys.argv[2]
