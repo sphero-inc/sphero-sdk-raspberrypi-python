@@ -25,9 +25,6 @@ recommended [link](https://www.propwashed.com/how-to-bind-taranis/).  If you hav
 
 ##### **Important: Please ensure your transmitter and receiver are both on and paired before continuing.**
 
-#### Initialize The SDK and PySBUS Submodules:
-```git submodule update --init```
-
 #### Running the program:
 The use of the FTDI UART to USB adpater is required since the Raspberry-Pi's UART pins are already occupied by the connection
 to RVR. To determine the which port FTDI is on, be sure to plugin in the FTDI to one of the Pi's available USB Ports.
