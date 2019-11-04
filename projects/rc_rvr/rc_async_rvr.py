@@ -7,9 +7,9 @@ import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
-from projects.fpv_rvr.pysbus.sbus import SBUS
-from projects.fpv_rvr.pysbus.constants import SBUSConsts
-from projects.fpv_rvr.pysbus.serial_parser import SerialParser
+from projects.rc_rvr.pysbus.sbus import SBUS
+from projects.rc_rvr.pysbus.constants import SBUSConsts
+from projects.rc_rvr.pysbus.serial_parser import SerialParser
 
 loop = asyncio.get_event_loop()
 rvr = SpheroRvrAsync(dal=SerialAsyncDal(loop))
