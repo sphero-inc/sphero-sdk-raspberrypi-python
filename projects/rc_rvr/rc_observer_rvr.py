@@ -5,9 +5,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 import time
 from sphero_sdk import SpheroRvrObserver
 from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
-from projects.fpv_rvr.pysbus.sbus import SBUS
-from projects.fpv_rvr.pysbus.constants import SBUSConsts
-from projects.fpv_rvr.pysbus.serial_parser import SerialParser
+from projects.rc_rvr.pysbus.sbus import SBUS
+from projects.rc_rvr.pysbus.constants import SBUSConsts
+from projects.rc_rvr.pysbus.serial_parser import SerialParser
 
 rvr = SpheroRvrObserver()
 
