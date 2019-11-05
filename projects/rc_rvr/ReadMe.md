@@ -8,8 +8,8 @@ it can be paired to.
 - Raspberry-pi 3 or 3B+
 - 5v FTDI Basic
 - USB-A to USB-Mini cable
-- FRSky Taranis 9XD
-- FRSky X4R-SB 2.4Ghz Receiver w/ SBUS support 
+- FRSky Taranis QX7
+- FRSky X8R 2.4Ghz Receiver w/ SBUS support 
 - SBUS Signal Inverter Cable
 
 **Note about receivers and transmitters:**\
@@ -17,13 +17,22 @@ While this project was developed using the receiver and transmitter stated earli
 use other receiver/transmitter combinations, as long as the receiver supports the SBUS protocol. 
 
 #### Pairing the transmitter and receiver:
-There are plenty of online resources to help with pairing X4R-SB with the Taranis 9XD.  Here's a 
+There are plenty of online resources to help with pairing X8R with the Taranis QX7.  Here's a 
 recommended [link](https://www.propwashed.com/how-to-bind-taranis/).  If you have acquired other components, be sure to look up their pairing procedure.
 
+#### X8R Pin Diagram:
+Take a moment to look over the X8R receiver, and locate the SBUS Port.
+![X8R Pin Diagram](images/X8R_Diagram.png)
+
 #### Wiring Diagram:
+Here's how to hook up the X8R receiver to the FTDI basic with the signal inverter cable, and ultimately into the Raspberry-Pi.
 ![Wiring Diagram](images/SBUS_RVR_Diagram.png)
 
 ##### **Important: Please ensure your transmitter and receiver are both on and paired before continuing.**
+
+#### Start the virtual environment:
+[As specified in our "Getting Started" guide](https://sdk.sphero.com/docs/getting_started/raspberry_pi/raspberry_pi_setup/#starting-programs), 
+be sure to start your virtual environment inside the root SDK folder before proceeding any further.
 
 #### Running the program:
 The use of the FTDI UART to USB adpater is required since the Raspberry-Pi's UART pins are already occupied by the connection
@@ -44,8 +53,8 @@ The format of the command is as follows:
 ```python <program_script> <port> <baudrate>```
 
 
-If you decide to run the observer script, the command looks like this, assuming your FTDI port is ```/dev/ttyUSB0```:\
-```python rc_observer_rvr.py /dev/ttyUSB0 96666```
+If you decide to run the asyncio script, the command looks like this, assuming your FTDI port is ```/dev/ttyUSB0```:\
+```python rc_async_rvr.py '/dev/ttyUSB0' 96666```
 
 Note the non-standard baud rate of ```96666```. This value was reached through trial and error, and was based on an issue raised
 in the comments section of [this forum post](https://os.mbed.com/users/Digixx/notebook/futaba-s-bus-controlled-by-mbed/).
@@ -60,29 +69,24 @@ shell script.
 
 - Open the `autostart_rc_rvr.sh` shell script. 
 ```
-cd <your-repo-path-here>
-python rc_asyncio_rvr.py <usb-port-here-in-quotes> 96666
+cd <path-to-sdk-folder-here>
+pipenv run python projects/rc_rvr/rc_async_rvr.py <usb-port-here-in-single-quotes> 96666
 #scrot
 ```
 
-- Add the path to your local repo directory.  For example, if it's under  `/home/pi/rc-rvr`, then the command will be `cd rc-rvr`.
-Next, add the USB port you'd like to access here in quotes (e.g. "/dev/ttyUSB0"). This is the same port discovered in the section
-"Running the program."  It is not necessary to uncomment the `scrot` command, since it's meant for troubleshooting, and 
-explained in the last step of this section.
+- Add the path to your local repo directory.  For example, if it's under  `/home/pi/sphero-sdk/`, then the command will be \
+`cd sphero-sdk/projects/rc-rvr`.  Next, add the USB port you'd like to access here in quotes (e.g. '/dev/ttyUSB0'). This is the
+same port discovered in the section "Running the program."  It is not necessary to uncomment the `scrot` command, since it's 
+meant for troubleshooting, and explained in the last step of this section.
 ```
-cd rc-rvr
-python rc_asyncio_rvr.py "/dev/ttyUSB0" 96666
+cd sphero-sdk
+pipenv run python projects/rc_rvr/rc_async_rvr.py '/dev/ttyUSB0' 96666
 #scrot
-```
-
-- Make the `autostart_rc_rvr.sh` executable by running the `chmod` command with the `+x` flag:
-```
-pi@rvr-pi:~/rc-rvr $ chmod +x autostart_rc_rvr.sh
 ```
 
 -  Now that the shell script is configured, navigate to the root directory of your Pi:
 ```
-pi@rvr-pi:~/rc-rvr $ cd ..
+pi@rvr-pi:~/sphero-sdk $ cd ..
 pi@rvr-pi:~ $ cd ..
 pi@rvr-pi:/home $ cd ..
 pi@rvr-pi:/ $  
@@ -110,7 +114,7 @@ point-rpi
 ```
 
 - You will need to provide the absolute path to the `autostart_rc_rvr.sh` shell script contained within your local repo directory.
-For example, if you cloned it to `/home/pi/rc-rvr`, then you'll create a new line above `@xscreensaver -no-splash`,
+For example, if you cloned it to `/home/pi/sphero-sdk`, then you'll create a new line above `@xscreensaver -no-splash`,
 and type in the following command:
 
 ```
@@ -118,7 +122,7 @@ GNU nano 2.7.4
 
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
-@lxterminal -e /home/pi/rc-rvr/autostart_rc_rvr.sh
+@lxterminal -e /home/pi/sphero-sdk/projects/rc_rvr/autostart_rc_rvr.sh
 @xscreensaver -no-splash
 point-rpi
 ```
@@ -136,6 +140,6 @@ USB port correctly in the `autostart_rc_rvr.sh` script, and that you've specifie
 script in `/etc/xdg/lxsession/LXDE-pi` directory.
 
 - If you continue experiencing issues, you can also capture a screenshot of the terminal window if you uncomment the `scrot` 
-command in the `autostart_rc_rvr.py` shell script. The terminal window that launches at startup automatically closes if 
+command in the `autostart_rc_rvr.sh` shell script. The terminal window that launches at startup automatically closes if 
 it encounters an error.  This will allow you to see the error message being generated.
 

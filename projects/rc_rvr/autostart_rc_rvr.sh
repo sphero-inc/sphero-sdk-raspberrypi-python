@@ -3,6 +3,6 @@
 # sessions start in the /home/pi/ directory, so all path changes are
 # relative to that location.
 
-cd <your-repo-path-here>
-python rc_async_rvr.py <usb-port-here-in-quotes> 96666
+cd <path-to-sdk-folder-here>
+pipenv run python projects/rc_rvr/rc_async_rvr.py <usb-port-here-in-single-quotes> 96666
 #scrot
