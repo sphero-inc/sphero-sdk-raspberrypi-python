@@ -4,7 +4,7 @@ from .sensor_stream_service import SensorStreamService
 from .sensor_stream_slot import SensorStreamSlot
 from sphero_sdk import SpheroRvrTargets
 from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
-from sphero_sdk.common.enums.number_bounds_enums import IntBounds
+from sphero_sdk.common.enums.number_bounds_enums import UintBounds
 
 logger = logging.getLogger(__name__)
 
@@ -415,8 +415,8 @@ class SensorStreamingControl:
 
         # Locator
         attributes = [
-            SensorStreamAttribute('X', IntBounds.int_32_min, IntBounds.int_32_max),
-            SensorStreamAttribute('Y', IntBounds.int_32_min, IntBounds.int_32_max)
+            SensorStreamAttribute('X', -16000.0, 16000.0),
+            SensorStreamAttribute('Y', -16000.0, 16000.0)
         ]
         streaming_service = SensorStreamService(
             0x0006,
@@ -429,8 +429,8 @@ class SensorStreamingControl:
 
         # Velocity
         attributes = [
-            SensorStreamAttribute('X', IntBounds.int_32_min, IntBounds.int_32_max),
-            SensorStreamAttribute('Y', IntBounds.int_32_min, IntBounds.int_32_max)
+            SensorStreamAttribute('X', -5.0, 5.0),
+            SensorStreamAttribute('Y', -5.0, 5.0)
         ]
         streaming_service = SensorStreamService(
             0x0007,
@@ -443,7 +443,7 @@ class SensorStreamingControl:
 
         # Speed
         attributes = [
-            SensorStreamAttribute('Speed', 0.0, 2.0068307),
+            SensorStreamAttribute('Speed', 0.0, 5.0),
         ]
         streaming_service = SensorStreamService(
             0x0008,
@@ -456,8 +456,8 @@ class SensorStreamingControl:
 
         # Core Time
         attributes = [
-            SensorStreamAttribute('TimeUpper', 0, IntBounds.int_64_max),
-            SensorStreamAttribute('TimeLower', 0, IntBounds.int_64_max)
+            SensorStreamAttribute('TimeUpper', 0, UintBounds.uint_32_max),
+            SensorStreamAttribute('TimeLower', 0, UintBounds.uint_32_max)
         ]
         streaming_service = SensorStreamService(
             0x0009,
