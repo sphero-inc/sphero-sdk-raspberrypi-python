@@ -53,7 +53,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_reverse_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_reverse_flag, time_to_drive)
 
         return
 
@@ -67,7 +67,7 @@ class DriveControlAsync:
 
         """
 
-        await self.__timed_drive(heading, speed, DriveControlAsync.__drive_no_flag, time_to_drive)
+        await self.__timed_drive(speed, heading, DriveControlAsync.__drive_no_flag, time_to_drive)
 
         return
 
@@ -136,7 +136,7 @@ class DriveControlAsync:
 
         """
 
-        await self.roll_start(heading, 0)
+        await self.roll_start(0, heading)
 
         return
 
