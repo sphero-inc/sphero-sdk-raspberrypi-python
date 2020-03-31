@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          03/31/2020 @ 20:26:27.174710 (UTC)
+# Timestamp:          03/31/2020 @ 21:00:11.722651 (UTC)
 
 from enum import IntEnum
 
@@ -19,6 +19,7 @@ class CommandsEnum(IntEnum):
     raw_motors = 0x01
     reset_yaw = 0x06
     drive_with_heading = 0x07
+    set_control_system_timeout = 0x22
     enable_motor_stall_notify = 0x25
     motor_stall_notify = 0x26
     enable_motor_fault_notify = 0x27

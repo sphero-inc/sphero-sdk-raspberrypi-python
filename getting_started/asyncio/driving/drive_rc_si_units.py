@@ -39,28 +39,33 @@ async def main():
 
     print("sending drive command")
 
-    await rvr.drive_rc_normalized(
-        linear_velocity=20,  # Valid linear velocity values are -127..127
-        yaw_angular_velocity=0,  # Valid angular velocity values are -127..127
+    await rvr.drive_rc_si_units(
+        linear_velocity=.3,     # 
+        yaw_angular_velocity=0, # 
         flags=0
     )
 
     # Delay to allow RVR to drive
     await asyncio.sleep(1)
+
+    # The control system timeout can be modified to keep a command running longer
+    # than the default 2 seconds.  This only remains in effect for the next command.
+    # Note that this is in milliseconds.
+    await rvr.set_control_system_timeout(command_timeout=20000)
 
     # Continue driving forward, while turning left
-    await rvr.drive_rc_normalized(
-        linear_velocity=15,         # Valid linear velocity values are -127..127
-        yaw_angular_velocity=20,    # Valid angular velocity values are -127..127
+    await rvr.drive_rc_si_units(
+        linear_velocity=.1,         # 
+        yaw_angular_velocity=20,    # 
         flags=0
     )
 
     # Delay to allow RVR to drive
-    await asyncio.sleep(1)
+    await asyncio.sleep(18)         # Oh look, there'll be 2 seconds of driving to go!
 
     print("sending stop command")
 
-    # Stop driving, with deceleration rate of 2 m/s^2
+    # Stop early, with a custom deceleration rate of 2 m/s^2.
     await rvr.stop_active_controller(2.0)
 
     # Delay to allow RVR to stop
