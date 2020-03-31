@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/12/2019 @ 01:43:14.086610 (UTC)
+# Timestamp:          03/31/2020 @ 20:26:27.211811 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum

@@ -19,12 +19,16 @@ rvr = SpheroRvrAsync(
 # Flag used to wait for move completion
 move_completed=False
 
-async def test_handler(response):
+# Handler for completion of XY position drive moves
+async def on_xy_position_drive_result_notify_handler(response):
     global move_completed
 
     move_completed=True
-    print("Move completed")
+    print('Move completed, response:', response)
 
+
+# This wrapper function implements a simple way to send a drive to position command
+# and then wait for the move to complete
 async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags):
     global move_completed
 
@@ -33,28 +37,36 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags
     # Clear the completion flag
     move_completed=False
 
+    # Send the drive command
     await rvr.drive_to_position_si(
-        yaw_angle=yaw_angle,
+        yaw_angle=yaw_angle,    # 0 degrees is straight ahead, +CCW (Following the right hand rule)
         x=x,
         y=y,
         linear_velocity=linear_velocity,
         flags=flags,
     )
 
+    # Wait to complete the move.  Note: In a real project, a timeout mechanism
+    # should be here to prevent the script from getting caught in an infinite loop
     while (move_completed==False):
         await asyncio.sleep(.5)
+
 
 async def main():
     """ This program has RVR drive in a square using the (x,y) coordinate drive system.
     """
     global move_completed
 
+    # Square parameters
+    side_length = 0.5   # 0.5 m
+    max_velocity = 2    # 2 m/s
+
     await rvr.wake()
 
     # Give RVR time to wake up
     await asyncio.sleep(2)
 
-    # Reset the yaw and locator
+    # Reset the yaw and locator.
     await rvr.reset_yaw()
     await asyncio.sleep(.1)
     await rvr.reset_locator_x_and_y()
@@ -62,34 +74,32 @@ async def main():
 
     print("Registering async")
 
-    #await rvr.enable_motor_fault_notify(is_enabled=True)
-
     # Register for the async on completion of the drive operation
     # await rvr.on_xy_position_drive_result_notify(handler=on_position_drive_done)
     # switched the CID to motor fault as a crazy test
-    await rvr.on_motor_fault_notify(handler=test_handler)
+    await rvr.on_xy_position_drive_result_notify(handler=on_xy_position_drive_result_notify_handler)
 
     await drive_to_position_wait_to_complete(
         yaw_angle=-90,
         x=0,
-        y=0.2,
-        linear_velocity=2,
+        y=side_length,
+        linear_velocity=max_velocity,
         flags=0,
     )
 
     await drive_to_position_wait_to_complete(
         yaw_angle=-180,
-        x=0.2,
-        y=0.2,
-        linear_velocity=2,
+        x=side_length,
+        y=side_length,
+        linear_velocity=max_velocity,
         flags=0,
     )
 
     await drive_to_position_wait_to_complete(
         yaw_angle=90,
-        x=0.2,
+        x=side_length,
         y=0,
-        linear_velocity=2,
+        linear_velocity=max_velocity,
         flags=0,
     )
 
@@ -97,11 +107,11 @@ async def main():
         yaw_angle=0,
         x=0,
         y=0,
-        linear_velocity=2,
+        linear_velocity=max_velocity,
         flags=0,
     )
 
-    await asyncio.sleep(5)
+    await rvr.close()
 
 
 if __name__ == '__main__':

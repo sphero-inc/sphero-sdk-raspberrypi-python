@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          10/12/2019 @ 01:43:14.085581 (UTC)
+# Timestamp:          03/31/2020 @ 20:26:27.174151 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,7 +11,7 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
+def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
@@ -27,10 +27,10 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
                 size=1
             ),
             Parameter( 
-                name='leftSpeed',
+                name='leftDutyCycle',
                 data_type='uint8_t',
                 index=1,
-                value=left_speed,
+                value=left_duty_cycle,
                 size=1
             ),
             Parameter( 
@@ -41,10 +41,10 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
                 size=1
             ),
             Parameter( 
-                name='rightSpeed',
+                name='rightDutyCycle',
                 data_type='uint8_t',
                 index=3,
-                value=right_speed,
+                value=right_duty_cycle,
                 size=1
             ),
         ],
@@ -187,4 +187,313 @@ def get_motor_fault_state(target, timeout):
                 size=1,
             ),
         ]
+    }
+
+
+def drive_tank_si_units(left_velocity, right_velocity, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_tank_si_units,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='leftVelocity',
+                data_type='float',
+                index=0,
+                value=left_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='rightVelocity',
+                data_type='float',
+                index=1,
+                value=right_velocity,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_tank_normalized(left_velocity, right_velocity, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_tank_normalized,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='leftVelocity',
+                data_type='int8_t',
+                index=0,
+                value=left_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='rightVelocity',
+                data_type='int8_t',
+                index=1,
+                value=right_velocity,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_rc_si_units(yaw_angular_velocity, linear_velocity, flags, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_rc_si_units,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngularVelocity',
+                data_type='float',
+                index=0,
+                value=yaw_angular_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='float',
+                index=1,
+                value=linear_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='flags',
+                data_type='uint8_t',
+                index=2,
+                value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_rc_normalized(yaw_angular_velocity, linear_velocity, flags, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_rc_normalized,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngularVelocity',
+                data_type='int8_t',
+                index=0,
+                value=yaw_angular_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='int8_t',
+                index=1,
+                value=linear_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='flags',
+                data_type='uint8_t',
+                index=2,
+                value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_with_yaw_si(yaw_angle, linear_velocity, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_with_yaw_si,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngle',
+                data_type='float',
+                index=0,
+                value=yaw_angle,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='float',
+                index=1,
+                value=linear_velocity,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_with_yaw_normalized,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngle',
+                data_type='int16_t',
+                index=0,
+                value=yaw_angle,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='int8_t',
+                index=1,
+                value=linear_velocity,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_to_position_si,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngle',
+                data_type='float',
+                index=0,
+                value=yaw_angle,
+                size=1
+            ),
+            Parameter( 
+                name='x',
+                data_type='float',
+                index=1,
+                value=x,
+                size=1
+            ),
+            Parameter( 
+                name='y',
+                data_type='float',
+                index=2,
+                value=y,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='float',
+                index=3,
+                value=linear_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='flags',
+                data_type='uint8_t',
+                index=4,
+                value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def drive_to_position_normalized(yaw_angle, x, y, linear_velocity, flags, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.drive_to_position_normalized,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='yawAngle',
+                data_type='int16_t',
+                index=0,
+                value=yaw_angle,
+                size=1
+            ),
+            Parameter( 
+                name='x',
+                data_type='float',
+                index=1,
+                value=x,
+                size=1
+            ),
+            Parameter( 
+                name='y',
+                data_type='float',
+                index=2,
+                value=y,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocity',
+                data_type='int8_t',
+                index=3,
+                value=linear_velocity,
+                size=1
+            ),
+            Parameter( 
+                name='flags',
+                data_type='uint8_t',
+                index=4,
+                value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_xy_position_drive_result_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.xy_position_drive_result_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='success',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def stop_active_controller(deceleration_rate, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.stop_active_controller,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='decelerationRate',
+                data_type='float',
+                index=0,
+                value=deceleration_rate,
+                size=1
+            ),
+        ],
+    }
+
+
+def on_active_controller_stopped_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.active_controller_stopped_notify,
+        'target': target,
+        'timeout': timeout,
     }

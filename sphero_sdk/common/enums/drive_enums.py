@@ -3,14 +3,16 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          10/12/2019 @ 01:43:14.085678 (UTC)
+# Timestamp:          03/31/2020 @ 20:26:27.174710 (UTC)
 
 from enum import IntEnum
 
 
 __all__ = ['RawMotorModesEnum',
            'MotorIndexesEnum',
-           'DriveFlagsBitmask']
+           'DriveFlagsBitmask',
+           'XyPositionDriveFlagsBitmask',
+           'RcDriveFlagsBitmask']
 
 
 class CommandsEnum(IntEnum): 
@@ -22,6 +24,17 @@ class CommandsEnum(IntEnum):
     enable_motor_fault_notify = 0x27
     motor_fault_notify = 0x28
     get_motor_fault_state = 0x29
+    drive_tank_si_units = 0x32
+    drive_tank_normalized = 0x33
+    drive_rc_si_units = 0x34
+    drive_rc_normalized = 0x35
+    drive_with_yaw_si = 0x36
+    drive_with_yaw_normalized = 0x37
+    drive_to_position_si = 0x38
+    drive_to_position_normalized = 0x39
+    xy_position_drive_result_notify = 0x3A
+    stop_active_controller = 0x3E
+    active_controller_stopped_notify = 0x3F
 
 
 class RawMotorModesEnum(IntEnum):
@@ -43,3 +56,14 @@ class DriveFlagsBitmask(IntEnum):
     left_direction = 8
     right_direction = 16
     enable_drift = 32
+
+
+class XyPositionDriveFlagsBitmask(IntEnum):
+    none = 0
+    force_reverse = 1
+    auto_reverse = 2
+
+
+class RcDriveFlagsBitmask(IntEnum):
+    none = 0
+    slew_linear_velocity = 1
