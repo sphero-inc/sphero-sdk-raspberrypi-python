@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          03/31/2020 @ 21:00:11.814538 (UTC)
+# Timestamp:          04/03/2020 @ 19:24:05.533995 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -527,39 +527,6 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
                 size=1
             ),
         ],
-    }
-
-
-def get_motor_temperature(motor_index, target, timeout): 
-    return { 
-        'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_motor_temperature,
-        'seq': SequenceNumberGenerator.get_sequence_number(),
-        'target': target,
-        'timeout': timeout,
-        'inputs': [ 
-            Parameter( 
-                name='motorIndex',
-                data_type='uint8_t',
-                index=0,
-                value=motor_index,
-                size=1
-            ),
-        ],
-        'outputs': [ 
-            Parameter( 
-                name='windingCoilTemperature',
-                data_type='float',
-                index=0,
-                size=1,
-            ),
-            Parameter( 
-                name='caseTemperature',
-                data_type='float',
-                index=1,
-                size=1,
-            ),
-        ]
     }
 
 

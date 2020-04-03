@@ -3,12 +3,13 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          03/31/2020 @ 21:00:11.722651 (UTC)
+# Timestamp:          04/03/2020 @ 19:24:05.492690 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['RawMotorModesEnum',
+__all__ = ['LinearVelocitySlewMethodsEnum',
+           'RawMotorModesEnum',
            'MotorIndexesEnum',
            'DriveFlagsBitmask',
            'XyPositionDriveFlagsBitmask',
@@ -34,8 +35,18 @@ class CommandsEnum(IntEnum):
     drive_to_position_si = 0x38
     drive_to_position_normalized = 0x39
     xy_position_drive_result_notify = 0x3A
-    stop_active_controller = 0x3E
+    set_drive_target_slew_parameters = 0x3C
+    get_drive_target_slew_parameters = 0x3D
+    stop_active_controller_custom_decel = 0x3E
     active_controller_stopped_notify = 0x3F
+    reset_drive_target_slew_parameters = 0x40
+    get_stop_controller_state = 0x41
+    stop_active_controller = 0x42
+
+
+class LinearVelocitySlewMethodsEnum(IntEnum):
+    constant = 0
+    proportional = 1
 
 
 class RawMotorModesEnum(IntEnum):

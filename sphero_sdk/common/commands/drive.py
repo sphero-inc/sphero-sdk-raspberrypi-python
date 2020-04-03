@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          03/31/2020 @ 21:00:11.721412 (UTC)
+# Timestamp:          04/03/2020 @ 19:24:05.492193 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,7 +11,7 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target, timeout): 
+def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
@@ -27,10 +27,10 @@ def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target,
                 size=1
             ),
             Parameter( 
-                name='leftDutyCycle',
+                name='leftSpeed',
                 data_type='uint8_t',
                 index=1,
-                value=left_duty_cycle,
+                value=left_speed,
                 size=1
             ),
             Parameter( 
@@ -41,10 +41,10 @@ def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target,
                 size=1
             ),
             Parameter( 
-                name='rightDutyCycle',
+                name='rightSpeed',
                 data_type='uint8_t',
                 index=3,
-                value=right_duty_cycle,
+                value=right_speed,
                 size=1
             ),
         ],
@@ -490,10 +490,99 @@ def on_xy_position_drive_result_notify(target, timeout):
     }
 
 
-def stop_active_controller(deceleration_rate, target, timeout): 
+def set_drive_target_slew_parameters(a, b, c, linear_acceleration, linear_velocity_slew_method, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
-        'cid': CommandsEnum.stop_active_controller,
+        'cid': CommandsEnum.set_drive_target_slew_parameters,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='a',
+                data_type='float',
+                index=0,
+                value=a,
+                size=1
+            ),
+            Parameter( 
+                name='b',
+                data_type='float',
+                index=1,
+                value=b,
+                size=1
+            ),
+            Parameter( 
+                name='c',
+                data_type='float',
+                index=2,
+                value=c,
+                size=1
+            ),
+            Parameter( 
+                name='linearAcceleration',
+                data_type='float',
+                index=3,
+                value=linear_acceleration,
+                size=1
+            ),
+            Parameter( 
+                name='linearVelocitySlewMethod',
+                data_type='uint8_t',
+                index=4,
+                value=linear_velocity_slew_method,
+                size=1
+            ),
+        ],
+    }
+
+
+def get_drive_target_slew_parameters(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.get_drive_target_slew_parameters,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='a',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='b',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='c',
+                data_type='float',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='linearAcceleration',
+                data_type='float',
+                index=3,
+                size=1,
+            ),
+            Parameter( 
+                name='linearVelocitySlewMethod',
+                data_type='uint8_t',
+                index=4,
+                size=1,
+            ),
+        ]
+    }
+
+
+def stop_active_controller_custom_decel(deceleration_rate, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.stop_active_controller_custom_decel,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -513,6 +602,44 @@ def on_active_controller_stopped_notify(target, timeout):
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.active_controller_stopped_notify,
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def reset_drive_target_slew_parameters(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.reset_drive_target_slew_parameters,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def get_stop_controller_state(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.get_stop_controller_state,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='stopped',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def stop_active_controller(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.stop_active_controller,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
     }
