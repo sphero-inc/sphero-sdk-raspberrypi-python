@@ -18,7 +18,13 @@ rvr = SpheroRvrAsync(
 
 
 async def main():
-    """ This program has RVR drive around in different directions.
+    """ This program has RVR run its motors using the raw_motors command.
+        This command sets a duty cycle for each motor, normalized to the
+        range 0-255.  Setting a non-zero duty cycle does not guarantee
+        a motor has enough torque to start spinning - in many conditions
+        a low duty cycle value will not overcome friction.  In almost all
+        situations, using one of the "drive_..." commands will be preferable
+        as they employ various types of feedback control systems.
     """
 
     await rvr.wake()
@@ -30,52 +36,52 @@ async def main():
 
     await rvr.raw_motors(
         left_mode=RawMotorModesEnum.forward.value,
-        left_duty_cycle=20,  # Valid speed values are 0-255
+        left_speed=128,  # Valid speed values are 0-255
         right_mode=RawMotorModesEnum.forward.value,
-        right_duty_cycle=0  # Valid speed values are 0-255
+        right_speed=0  # Valid speed values are 0-255
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to spin motors
     await asyncio.sleep(1)
 
     await rvr.raw_motors(
         left_mode=RawMotorModesEnum.reverse.value,
-        left_duty_cycle=20,  # Valid speed values are 0-255
+        left_speed=128,  # Valid speed values are 0-255
         right_mode=RawMotorModesEnum.reverse.value,
-        right_duty_cycle=0 # Valid speed values are 0-255
+        right_speed=0 # Valid speed values are 0-255
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to spin motors
     await asyncio.sleep(1)
 
     await rvr.raw_motors(
         left_mode=RawMotorModesEnum.reverse.value,
-        left_duty_cycle=20,  # Valid speed values are 0-255
+        left_speed=128,  # Valid speed values are 0-255
         right_mode=RawMotorModesEnum.forward.value,
-        right_duty_cycle=0  # Valid speed values are 0-255
+        right_speed=0  # Valid speed values are 0-255
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to spin motors
     await asyncio.sleep(1)
 
     await rvr.raw_motors(
         left_mode=RawMotorModesEnum.forward.value,
-        left_duty_cycle=20,  # Valid speed values are 0-255
+        left_speed=128,  # Valid speed values are 0-255
         right_mode=RawMotorModesEnum.forward.value,
-        right_duty_cycle=0  # Valid speed values are 0-255
+        right_speed=0  # Valid speed values are 0-255
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to spin motors
     await asyncio.sleep(1)
 
     await rvr.raw_motors(
         left_mode=RawMotorModesEnum.off.value,
-        left_duty_cycle=20, # Valid speed values are 0-255
+        left_speed=128, # Valid speed values are 0-255
         right_mode=RawMotorModesEnum.off.value,
-        right_duty_cycle=0# Valid speed values are 0-255
+        right_speed=0# Valid speed values are 0-255
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to spin motors
     await asyncio.sleep(1)
 
     await rvr.close()
