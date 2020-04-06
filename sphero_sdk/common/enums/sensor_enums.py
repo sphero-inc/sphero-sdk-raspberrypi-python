@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/12/2019 @ 01:43:14.086683 (UTC)
+# Timestamp:          04/06/2020 @ 19:02:27.178451 (UTC)
 
 from enum import IntEnum
 
@@ -57,6 +57,11 @@ class ThermalProtectionStatusEnum(IntEnum):
     ok = 0
     warn = 1
     critical = 2
+
+class TemperatureSensorsEnum(IntEnum):
+    left_motor_temperature = 4
+    right_motor_temperature = 5
+    nordic_die_temperature = 8
 
 
 class StreamingDataSizesEnum(IntEnum):
