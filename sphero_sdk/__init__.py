@@ -19,6 +19,7 @@ from sphero_sdk.common.enums.power_enums import BatteryVoltageReadingTypesEnum
 from sphero_sdk.common.enums.power_enums import AmplifierIdsEnum
 from sphero_sdk.common.enums.sensor_enums import MotorIndexesEnum as SensorMotorIndexesEnum
 from sphero_sdk.common.enums.sensor_enums import ThermalProtectionStatusEnum
+from sphero_sdk.common.enums.sensor_enums import TemperatureSensorsEnum
 from sphero_sdk.common.enums.sensor_enums import StreamingDataSizesEnum
 from sphero_sdk.common.enums.sensor_enums import GyroMaxFlagsBitmask
 from sphero_sdk.common.enums.sensor_enums import LocatorFlagsBitmask

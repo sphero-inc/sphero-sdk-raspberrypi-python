@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          04/03/2020 @ 19:24:05.533995 (UTC)
+# Timestamp:          04/06/2020 @ 19:02:27.177964 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -527,6 +527,77 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
                 size=1
             ),
         ],
+    }
+
+
+def get_temperature(id0, id1, id2, target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_temperature,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='id0',
+                data_type='uint8_t',
+                index=0,
+                value=id0,
+                size=1
+            ),
+            Parameter( 
+                name='id1',
+                data_type='uint8_t',
+                index=1,
+                value=id1,
+                size=1
+            ),
+            Parameter( 
+                name='id2',
+                data_type='uint8_t',
+                index=2,
+                value=id2,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='id0',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='temp0',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='id1',
+                data_type='uint8_t',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='temp1',
+                data_type='float',
+                index=3,
+                size=1,
+            ),
+            Parameter( 
+                name='id2',
+                data_type='uint8_t',
+                index=4,
+                size=1,
+            ),
+            Parameter( 
+                name='temp2',
+                data_type='float',
+                index=5,
+                size=1,
+            ),
+        ]
     }
 
 
