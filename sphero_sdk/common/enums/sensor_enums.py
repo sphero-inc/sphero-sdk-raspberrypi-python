@@ -8,9 +8,8 @@
 from enum import IntEnum
 
 
-__all__ = ['MotorIndexesEnum',
-           'ThermalProtectionStatusEnum',
-           'StreamingDataSizesEnum',
+__all__ = ['ThermalProtectionStatusEnum',
+           'TemperatureSensorsEnum',
            'GyroMaxFlagsBitmask',
            'LocatorFlagsBitmask',
            'InfraredSensorLocationsBitmask']
@@ -42,7 +41,7 @@ class CommandsEnum(IntEnum):
     streaming_service_data_notify = 0x3D
     enable_robot_infrared_message_notify = 0x3E
     send_infrared_message = 0x3F
-    get_motor_temperature = 0x42
+    get_temperature = 0x4A
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
     motor_thermal_protection_status_notify = 0x4D
@@ -57,6 +56,7 @@ class ThermalProtectionStatusEnum(IntEnum):
     ok = 0
     warn = 1
     critical = 2
+
 
 class TemperatureSensorsEnum(IntEnum):
     left_motor_temperature = 4
