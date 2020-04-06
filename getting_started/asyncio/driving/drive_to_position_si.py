@@ -49,7 +49,7 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags
     # Wait to complete the move.  Note: In a real project, a timeout mechanism
     # should be here to prevent the script from getting caught in an infinite loop
     while (move_completed==False):
-        await asyncio.sleep(.5)
+        await asyncio.sleep(0)
 
 
 async def main():
