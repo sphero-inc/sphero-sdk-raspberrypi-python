@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      82
-# Timestamp:          04/06/2020 @ 19:02:27.238178 (UTC)
+# Timestamp:          04/09/2020 @ 21:22:32.913367 (UTC)
 
 import time
 import logging.config
@@ -359,14 +359,14 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         command_dict = drive.drive_with_heading(speed, heading, flags, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def set_control_system_timeout(self, command_timeout, timeout=None): 
-        """set_control_system_timeout
+    def set_custom_control_system_timeout(self, command_timeout, timeout=None): 
+        """set_custom_control_system_timeout
 
         Args:
             command_timeout (uint16_t): None
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.set_control_system_timeout(command_timeout, target=2, timeout=timeout)
+        command_dict = drive.set_custom_control_system_timeout(command_timeout, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
     def enable_motor_stall_notify(self, is_enabled, timeout=None): 
@@ -461,8 +461,8 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Drive RC-style with linear and angular velocity targets normalized between +/-127
 
         Args:
-            yaw_angular_velocity (int8_t): Yaw angular velocity target normalized to +/-127
-            linear_velocity (int8_t): Linear velocity target normalized to +/-127
+            yaw_angular_velocity (int8_t): Yaw angular velocity target normalized to +/-127. Follows the right-hand rule: CW negative, CCW positive
+            linear_velocity (int8_t): Linear velocity target normalized to +/-127.  Positive is forward, negative is reverse.
             flags (uint8_t): Relevant flags: Use Linear Velocity Slew Limiting
             timeout (float): maximum time to await a response.
         """
@@ -473,8 +473,8 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Drive following a target yaw angle and a target linear velocity using SI units
 
         Args:
-            yaw_angle (float): Yaw angle target
-            linear_velocity (float): Linear velocity target
+            yaw_angle (float): Yaw angle target. Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw
+            linear_velocity (float): Linear velocity target. Positive is forward, negative is backward, +/-127.
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_with_yaw_si(yaw_angle, linear_velocity, target=2, timeout=timeout)
@@ -484,8 +484,8 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Drive following a target yaw angle and a target linear velocity normalized to +/-127
 
         Args:
-            yaw_angle (int16_t): Yaw angle target
-            linear_velocity (int8_t): Linear velocity target
+            yaw_angle (int16_t): Yaw angle target. Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw.  Values wrap internally
+            linear_velocity (int8_t): Linear velocity target normalized to +/-127 for the achievable range of a particular robot model.  127 is full speed forward, -127 is full speed reverse.
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_with_yaw_normalized(yaw_angle, linear_velocity, target=2, timeout=timeout)
@@ -495,11 +495,11 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Drive to an (x,y) coordinate and turn to the specified target yaw angle using SI units
 
         Args:
-            yaw_angle (float): Target yaw angle after arriving at target position
-            x (float): Target Position X coordinate
-            y (float): Target Position Y coordinate
-            linear_velocity (float): Maximum linear velocity
-            flags (uint8_t): Relevant flags: Drive Reverse, Boost, Fast Turn Mode
+            yaw_angle (float): Target yaw angle after arriving at target position.  Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw.  Values wrap internally
+            x (float): Target Position X coordinate in the locator coordinate system.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
+            y (float): Target Position Y coordinate in the locator coordinate system.  The positive Y axis is forward on boot or locator reset
+            linear_velocity (float): Maximum allowable linear velocity in transit to the target position.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
+            flags (uint8_t): Option flags
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target=2, timeout=timeout)
@@ -510,17 +510,17 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             yaw_angle (int16_t): Target yaw angle after arriving at target position
-            x (float): Target Position X coordinate
-            y (float): Target Position Y coordinate
-            linear_velocity (int8_t): Maximum normalized linear velocity
-            flags (uint8_t): Relevant flags: Drive Reverse, Boost, Fast Turn Mode
+            x (float): Target Position X coordinate in the locator coordinate system.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
+            y (float): Target Position Y coordinate in the locator coordinate system.  The positive Y axis is forward on boot or locator reset
+            linear_velocity (int8_t): Maximum normalized linear velocity in transit to the target position, normalized to +/-127.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
+            flags (uint8_t): Option flags
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_to_position_normalized(yaw_angle, x, y, linear_velocity, flags, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
     def on_xy_position_drive_result_notify(self, handler, timeout=None): 
-        """Reached target (x,y) position async
+        """Reached target (x,y) position async, sent by the robot on completion of an (x,y) position drive command, indicating success or failure
 
         Args:
             handler (function): called when response is received, takes form handler(success).
@@ -530,7 +530,12 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         self._register_handler(handler, **command_dict)
 
     def set_drive_target_slew_parameters(self, a, b, c, linear_acceleration, linear_velocity_slew_method, timeout=None): 
-        """Set Drive Target Slew Parameters
+        """Set Drive Target Slew Parameters, 
+Configures a quadratic relationship between the yaw target slew limit in degrees/s and the current linear velocity.
+The parameters a,b,c are quadratic coefficients.
+let y be the yaw target slew limit in deg/s, and let x be the current linear velocity.
+y = ax^2 + bx + c
+linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning of linearAcceleration
 
         Args:
             a (float): `a` coefficient of the quadratic equation
@@ -544,7 +549,12 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         self._dal.send_command(**command_dict)
 
     def get_drive_target_slew_parameters(self, handler, timeout=None): 
-        """Get Drive Target Slew Parameters
+        """Get Drive Target Slew Parameters. 
+Retrieves the parameters for the quadratic relationship between the yaw target slew limit in degrees/s and the current linear velocity.
+The parameters a,b,c are quadratic coefficients.
+let y be the yaw target slew limit in deg/s, and let x be the current linear velocity.
+y = ax^2 + bx + c
+linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning of linearAcceleration
 
         Args:
             handler (function): called when response is received, takes form handler(a, b, c, linearAcceleration, linearVelocitySlewMethod).
@@ -562,7 +572,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         self._dal.send_command(**command_dict)
 
     def stop_active_controller_custom_decel(self, deceleration_rate, timeout=None): 
-        """stop_active_controller_custom_decel
+        """Stops the robot with a custom deceleration rate, which is applied to the motor that is spinning faster when the command was received.  The opposite motor is ramped down at a rate that maintains the initial velocity ratio of the 2 motors.  This will maintain straight/turning behavior during braking
 
         Args:
             deceleration_rate (float): deceleration rate
@@ -580,17 +590,17 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         command_dict = drive.on_active_controller_stopped_notify(target=2, timeout=timeout)
         self._register_handler(handler, **command_dict)
 
-    def reset_drive_target_slew_parameters(self, timeout=None): 
-        """Resets drive target slew parameters to defaults
+    def restore_default_drive_target_slew_parameters(self, timeout=None): 
+        """Restores drive target slew parameters to defaults
 
         Args:
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.reset_drive_target_slew_parameters(target=2, timeout=timeout)
+        command_dict = drive.restore_default_drive_target_slew_parameters(target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
     def get_stop_controller_state(self, handler, timeout=None): 
-        """Get Stop Controller State
+        """Get Stop Controller State.  Use this to poll whether the robot has stopped, while using the stop controller
 
         Args:
             handler (function): called when response is received, takes form handler(stopped).
@@ -604,7 +614,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         self._dal.send_command(**command_dict)
 
     def stop_active_controller(self, timeout=None): 
-        """Brings the drive motors to a stop using the default deceleration rate
+        """Brings the drive motors to a stop using the default deceleration rate, which is applied to the motor that was spinning faster when the command was received.  The opposite motor is ramped down at a rate that maintains the initial velocity ratio of the 2 motors.  This will maintain straight/turning behavior during braking
 
         Args:
             timeout (float): maximum time to await a response.
@@ -886,14 +896,13 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         command_dict = sensor.send_infrared_message(infrared_code, front_strength, left_strength, right_strength, rear_strength, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def get_temperature(self, id0, id1, id2, handler, timeout=None): 
+    def get_temperature(self, id0, id1, handler, timeout=None): 
         """Get temperature reading from a set of sensors. 'Sensors' may be physical, or simulated.
 
         Args:
             id0 (uint8_t): ID of first requested temperature sensor
             id1 (uint8_t): ID of second requested temperature sensor
-            id2 (uint8_t): ID of third requested temperature sensor
-            handler (function): called when response is received, takes form handler(id0, temp0, id1, temp1, id2, temp2).
+            handler (function): called when response is received, takes form handler(id0, temp0, id1, temp1).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -901,10 +910,8 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
             temp0 (float): Temperature of the first requested sensor
             id1 (uint8_t): ID of second requested temperature sensor
             temp1 (float): Temperature of the second requested sensor
-            id2 (uint8_t): ID of third requested temperature sensor
-            temp2 (float): Temperature of the third requested sensor
         """
-        command_dict = sensor.get_temperature(id0, id1, id2, target=2, timeout=timeout)
+        command_dict = sensor.get_temperature(id0, id1, target=2, timeout=timeout)
         self._register_handler(handler, **command_dict)
         self._dal.send_command(**command_dict)
 

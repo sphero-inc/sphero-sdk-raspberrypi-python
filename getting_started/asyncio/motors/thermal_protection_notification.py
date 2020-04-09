@@ -58,8 +58,7 @@ async def main():
             # Query the temperature
             response = await rvr.get_temperature(
                 id0=TemperatureSensorsEnum.left_motor_temperature.value,
-                id1=TemperatureSensorsEnum.right_motor_temperature.value,
-                id2=TemperatureSensorsEnum.left_motor_temperature.value
+                id1=TemperatureSensorsEnum.right_motor_temperature.value
             )
 
             # 2 Decimal places are displayed only to make changes more visible.
