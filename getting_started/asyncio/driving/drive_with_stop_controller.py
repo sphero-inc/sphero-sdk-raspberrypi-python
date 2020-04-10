@@ -135,9 +135,16 @@ async def main():
         deceleration_rate=0.25 # Decelerate both treads toward 0 velocity at 0.25 m/s^2
     )
 
-    # Wait until we receive the notification that the robot has stopped.
-    while (rvr_has_stopped==False):
-        await asyncio.sleep(0)
+    # In addition to the notification, it is also possible to poll whether the robot
+    # has come to a stop.
+    # This time, instead of using the notification to determine that the robot has stopped
+    # we'll poll the stop controller state to decide when to continue
+    rvr_stopped = False
+    while (rvr_stopped==False):
+        response = await rvr.get_stop_controller_state()
+        print(response)
+        rvr_stopped = response['stopped']
+        await asyncio.sleep(0.2)    # Some delay here is required to avoid flooding the UART
 
     rvr_has_stopped = False
 
