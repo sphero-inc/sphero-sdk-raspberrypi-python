@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          04/09/2020 @ 21:22:32.680368 (UTC)
+# Timestamp:          04/10/2020 @ 19:07:32.798816 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -639,6 +639,16 @@ def stop_active_controller(target, timeout):
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.stop_active_controller,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+    }
+
+
+def restore_default_control_system_timeout(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.restore_default_control_system_timeout,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,

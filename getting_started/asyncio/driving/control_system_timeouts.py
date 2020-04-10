@@ -24,7 +24,7 @@ async def stopped_handler():
 
 
 async def main():
-    """ This program has RVR drive around using the normalized RC drive command.
+    """ This program demonstrates the use of control system timeouts.
     """
 
     await rvr.wake()
@@ -35,9 +35,15 @@ async def main():
     # Register the handler for the stopped notification
     await rvr.on_active_controller_stopped_notify(handler=stopped_handler)
 
+    # Reset yaw
     await rvr.reset_yaw()
 
-    print("sending drive command")
+    # Make sure that we're starting with the default timeout (2 seconds). This is 
+    # redundant, unless the timeouts have already been adjusted since boot.
+    await rvr.restore_default_control_system_timeout()
+
+
+    print("Driving forward with the default 2 second timeout")
 
     await rvr.drive_rc_si_units(
         linear_velocity=.3,     # 
@@ -46,43 +52,59 @@ async def main():
     )
 
     # Delay to allow RVR to drive
-    await asyncio.sleep(1)
+    await asyncio.sleep(4)
 
     # The control system timeout can be modified to keep a command running longer
-    # than the default 2 seconds.  This remains in effect until changed back,
+    # or shorter than the default 2 seconds.  This remains in effect until changed back,
     # or until a reboot occurs. Note that this is in milliseconds.
-    await rvr.set_custom_control_system_timeout(command_timeout=20000)
+    await rvr.set_custom_control_system_timeout(command_timeout=4000)
 
+    print("Turning left with timeout=4000 ms")
     # Continue driving forward, while turning left
     await rvr.drive_rc_si_units(
-        linear_velocity=.1,         # 
-        yaw_angular_velocity=20,    # 
+        linear_velocity=.2,
+        yaw_angular_velocity=20,
         flags=0
     )
 
-    # Delay to allow RVR to drive
-    await asyncio.sleep(18)         # Oh look, there'll be 2 seconds of driving to go!
+    await asyncio.sleep(6)
 
-    print("sending stop command")
+    await rvr.set_custom_control_system_timeout(command_timeout=1000)
 
-    # Stop early, with a custom deceleration rate of 2 m/s^2.
-    await rvr.stop_active_controller(2.0)
+    print("Turning right, with timeout=700 ms")
 
-    # Restore the default control system timeout to keep things more normal after this.
+    # Continue driving forward, while turning right
+    await rvr.drive_rc_si_units(
+        linear_velocity=.2,
+        yaw_angular_velocity=-20,
+        flags=0
+    )
+
+    # Delay to allow RVR to drive and come to a stop after the command times out
+    await asyncio.sleep(2)
+
+    # Restore the default timeout (2 seconds)
     await rvr.restore_default_control_system_timeout()
 
-    # Delay to allow RVR to stop
-    await asyncio.sleep(1)
+    print("Driving forward again with default timeout restored")
+
+    await rvr.drive_rc_si_units(
+        linear_velocity=.3,     # 
+        yaw_angular_velocity=0, # 
+        flags=0
+    )
+
+    # Delay to allow RVR to drive and stop on its own when the command times out
+    await asyncio.sleep(4)
 
     await rvr.close()
 
 
 if __name__ == '__main__':
     try:
-        asyncio.ensure_future(
+        loop.run_until_complete(
             main()
         )
-        loop.run_forever()
 
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
