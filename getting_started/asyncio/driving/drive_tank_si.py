@@ -32,17 +32,17 @@ async def main():
 
     # drive forward, 50% speed
     await rvr.drive_tank_si_units(
-        left_velocity=0.75,  # Valid velocity values are [-127..127]
-        right_velocity=0.75  # Valid velocity values are [-127..127]
+        left_velocity=0.75,  # Valid velocity values are [-1.555..1.555]
+        right_velocity=0.75
     )
 
     # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # drive reverse, 50% speed
+    # drive reverse, ~50% speed
     await rvr.drive_tank_si_units(
-        left_velocity=-0.75,  # Valid velocity values are [-127..127]
-        right_velocity=-0.75  # Valid velocity values are [-127..127]
+        left_velocity=-0.75,
+        right_velocity=-0.75
     )
 
     # Delay to allow RVR to drive
@@ -50,8 +50,8 @@ async def main():
 
     # Spin in place slowly
     await rvr.drive_tank_si_units(
-        left_velocity=0.1,  # Valid velocity values are [-127..127]
-        right_velocity=-0.1 # Valid velocity values are [-127..127]
+        left_velocity=0.1,
+        right_velocity=-0.1
     )
 
     # Delay to allow RVR to drive
@@ -59,16 +59,16 @@ async def main():
 
     # Spin in place quickly
     await rvr.drive_tank_si_units(
-        left_velocity=-1.5,  # Valid velocity values are [-127..127]
-        right_velocity=1.5  # Valid velocity values are [-127..127]
+        left_velocity=-1.5, 
+        right_velocity=1.5 
     )
 
     # Delay to allow RVR to drive
     await asyncio.sleep(2)
 
     await rvr.drive_tank_si_units(
-        left_velocity=0,  # Valid velocity values are [-127..127]
-        right_velocity=0  # Valid velocity values are [-127..127]
+        left_velocity=0, 
+        right_velocity=0 
     )
 
     # Delay to allow RVR to drive

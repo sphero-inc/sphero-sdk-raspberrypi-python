@@ -37,13 +37,14 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags
     # Clear the completion flag
     move_completed=False
 
-    # Send the drive command
+    # Send the drive command, passing the wrapper function parameters into the matching 
+    # parameters in rvr.drive_to_position_normalized (which sends the actual drive command)
     await rvr.drive_to_position_si(
-        yaw_angle=yaw_angle,    # 0 degrees is straight ahead, +CCW (Following the right hand rule)
-        x=x,
-        y=y,
-        linear_velocity=linear_velocity,
-        flags=flags,
+        yaw_angle=yaw_angle,              # 0 degrees is straight ahead, +CCW (Following the right hand rule)
+        x=x,                              # Target position X coordinate in meters
+        y=y,                              # Target position Y coordinate in meters
+        linear_velocity=linear_velocity,  # Normalized in the range [0..127]
+        flags=flags,                      # Option flags
     )
 
     # Wait to complete the move.  Note: In a real project, a timeout mechanism

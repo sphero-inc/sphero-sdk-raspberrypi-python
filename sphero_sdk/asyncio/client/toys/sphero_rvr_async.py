@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      83
-# Timestamp:          04/10/2020 @ 19:07:32.866659 (UTC)
+# Timestamp:          05/05/2020 @ 13:56:23.614727 (UTC)
 
 import asyncio
 import logging.config
@@ -417,8 +417,8 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Tank drive with left and right linear velocity targets in m/s
 
         Args:
-            left_velocity (float): left wheel velocity
-            right_velocity (float): right wheel velocity
+            left_velocity (float): left wheel velocity in m/s
+            right_velocity (float): right wheel velocity in m/s
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_tank_si_units(left_velocity, right_velocity, target=2, timeout=timeout)
@@ -439,8 +439,8 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Drive RC-style with linear and angular velocity targets in SI Units
 
         Args:
-            yaw_angular_velocity (float): Yaw angular velocity target
-            linear_velocity (float): Linear velocity target
+            yaw_angular_velocity (float): Yaw angular velocity target in degrees/s, following the right hand rule: positive is CCW viewed from above.
+            linear_velocity (float): Linear velocity target in m/s
             flags (uint8_t): Relevant flags: Use Linear Velocity Slew Limiting
             timeout (float): maximum time to await a response.
         """
@@ -464,7 +464,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
 
         Args:
             yaw_angle (float): Yaw angle target. Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw
-            linear_velocity (float): Linear velocity target. Positive is forward, negative is backward, +/-127.
+            linear_velocity (float): Linear velocity target in m/s. Positive is forward, negative is backward.
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.drive_with_yaw_si(yaw_angle, linear_velocity, target=2, timeout=timeout)
@@ -486,9 +486,9 @@ class SpheroRvrAsync(RvrFwCheckAsync):
 
         Args:
             yaw_angle (float): Target yaw angle after arriving at target position.  Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw.  Values wrap internally
-            x (float): Target Position X coordinate in the locator coordinate system.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
-            y (float): Target Position Y coordinate in the locator coordinate system.  The positive Y axis is forward on boot or locator reset
-            linear_velocity (float): Maximum allowable linear velocity in transit to the target position.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
+            x (float): Target Position X coordinate in the locator coordinate system, in meters.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
+            y (float): Target Position Y coordinate in the locator coordinate system, in meters.  The positive Y axis is forward on boot or locator reset
+            linear_velocity (float): Maximum allowable linear velocity in transit to the target position, in m/s.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
             flags (uint8_t): Option flags
             timeout (float): maximum time to await a response.
         """
@@ -564,7 +564,7 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         """Stops the robot with a custom deceleration rate, which is applied to the motor that is spinning faster when the command was received.  The opposite motor is ramped down at a rate that maintains the initial velocity ratio of the 2 motors.  This will maintain straight/turning behavior during braking
 
         Args:
-            deceleration_rate (float): deceleration rate
+            deceleration_rate (float): deceleration rate in m/s^2
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.stop_active_controller_custom_decel(deceleration_rate, target=2, timeout=timeout)

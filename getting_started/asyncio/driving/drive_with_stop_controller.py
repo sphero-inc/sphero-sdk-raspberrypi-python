@@ -89,8 +89,8 @@ async def main():
 
     print("Driving forward...")
     await rvr.drive_rc_si_units(
-        linear_velocity=1,      #  1 m/s
-        yaw_angular_velocity=0, # 
+        linear_velocity=1,      # Valid velocity values are in the range of [-1.555..1.555] m/s
+        yaw_angular_velocity=0, # RVR will spin at up to 624 degrees/s.  Values outside of [-624..624] will saturate internally.
         flags=0
     )
 
@@ -119,8 +119,8 @@ async def main():
 
     print("Driving forward...")
     await rvr.drive_rc_si_units(
-        linear_velocity=1,      #  1 m/s
-        yaw_angular_velocity=0, # 
+        linear_velocity=1,     
+        yaw_angular_velocity=0,
         flags=0
     )
 
@@ -156,8 +156,8 @@ async def main():
 
     print("Driving forward...")
     await rvr.drive_rc_si_units(
-        linear_velocity=1,      #  1 m/s
-        yaw_angular_velocity=0, # 
+        linear_velocity=1,     
+        yaw_angular_velocity=0,
         flags=0
     )
 

@@ -40,8 +40,8 @@ async def main():
     print("sending drive command")
 
     await rvr.drive_rc_si_units(
-        linear_velocity=.3,     # 
-        yaw_angular_velocity=0, # 
+        linear_velocity=.3,     # Valid velocity values are in the range of [-1.555..1.555] m/s
+        yaw_angular_velocity=0, # RVR will spin at up to 624 degrees/s.  Values outside of [-624..624] will saturate internally.
         flags=0
     )
 
@@ -55,8 +55,8 @@ async def main():
 
     # Continue driving forward, while turning left
     await rvr.drive_rc_si_units(
-        linear_velocity=.1,         # 
-        yaw_angular_velocity=20,    # 
+        linear_velocity=.1,
+        yaw_angular_velocity=20,
         flags=0
     )
 
