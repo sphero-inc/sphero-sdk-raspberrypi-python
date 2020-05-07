@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/05/2020 @ 13:56:23.546297 (UTC)
+# Timestamp:          05/07/2020 @ 14:36:23.196967 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -379,7 +379,7 @@ def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout):
     }
 
 
-def drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target, timeout): 
+def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_to_position_si,
@@ -409,10 +409,10 @@ def drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target, timeou
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linearSpeed',
                 data_type='float',
                 index=3,
-                value=linear_velocity,
+                value=linear_speed,
                 size=1
             ),
             Parameter( 
@@ -426,7 +426,7 @@ def drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target, timeou
     }
 
 
-def drive_to_position_normalized(yaw_angle, x, y, linear_velocity, flags, target, timeout): 
+def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_to_position_normalized,
@@ -456,10 +456,10 @@ def drive_to_position_normalized(yaw_angle, x, y, linear_velocity, flags, target
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linearSpeed',
                 data_type='int8_t',
                 index=3,
-                value=linear_velocity,
+                value=linear_speed,
                 size=1
             ),
             Parameter( 

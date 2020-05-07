@@ -29,7 +29,7 @@ async def on_xy_position_drive_result_notify_handler(response):
 
 # This wrapper function implements a simple way to send a drive to position command
 # and then wait for the move to complete
-async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags):
+async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_speed,flags):
     global move_completed
 
     print("Driving to ({0},{1}) at {2} degrees".format(x,y,yaw_angle))
@@ -43,7 +43,7 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_velocity,flags
         yaw_angle=yaw_angle,             # 0 degrees is straight ahead, +CCW (Following the right hand rule)
         x=x,                             # Target position X coordinate in meters
         y=y,                             # Target position Y coordinate in meters
-        linear_velocity=linear_velocity, # Normalized in the range [0..127]
+        linear_speed=linear_speed,       # Max speed in transit to target.  Normalized in the range [0..127]
         flags=flags,                     # Option flags
     )
 
@@ -60,7 +60,7 @@ async def main():
 
     # Square parameters
     side_length = 0.5  # 0.5 m
-    max_velocity = 64  # 50% of full speed
+    max_speed = 64  # 50% of full speed
 
     await rvr.wake()
 
@@ -82,7 +82,7 @@ async def main():
         yaw_angle=-90,
         x=0,
         y=side_length,
-        linear_velocity=max_velocity,
+        linear_speed=max_speed,
         flags=0,
     )
 
@@ -90,7 +90,7 @@ async def main():
         yaw_angle=-180,
         x=side_length,
         y=side_length,
-        linear_velocity=max_velocity,
+        linear_speed=max_speed,
         flags=0,
     )
 
@@ -98,7 +98,7 @@ async def main():
         yaw_angle=90,
         x=side_length,
         y=0,
-        linear_velocity=max_velocity,
+        linear_speed=max_speed,
         flags=0,
     )
 
@@ -106,7 +106,7 @@ async def main():
         yaw_angle=0,
         x=0,
         y=0,
-        linear_velocity=max_velocity,
+        linear_speed=max_speed,
         flags=0,
     )
 

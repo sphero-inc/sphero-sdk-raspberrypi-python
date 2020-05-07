@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      83
-# Timestamp:          05/05/2020 @ 13:56:23.647939 (UTC)
+# Timestamp:          05/07/2020 @ 14:36:23.299071 (UTC)
 
 import time
 import logging.config
@@ -491,32 +491,32 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         command_dict = drive.drive_with_yaw_normalized(yaw_angle, linear_velocity, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def drive_to_position_si(self, yaw_angle, x, y, linear_velocity, flags, timeout=None): 
+    def drive_to_position_si(self, yaw_angle, x, y, linear_speed, flags, timeout=None): 
         """Drive to an (x,y) coordinate and turn to the specified target yaw angle using SI units
 
         Args:
             yaw_angle (float): Target yaw angle after arriving at target position.  Follows the right-hand rule: CW negative, CCW positive, with 0 straight ahead on boot or resetting yaw.  Values wrap internally
             x (float): Target Position X coordinate in the locator coordinate system, in meters.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
             y (float): Target Position Y coordinate in the locator coordinate system, in meters.  The positive Y axis is forward on boot or locator reset
-            linear_velocity (float): Maximum allowable linear velocity in transit to the target position, in m/s.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
+            linear_speed (float): Maximum allowable linear speed in transit to the target position, in m/s.  Negative values are invalid.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
             flags (uint8_t): Option flags
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.drive_to_position_si(yaw_angle, x, y, linear_velocity, flags, target=2, timeout=timeout)
+        command_dict = drive.drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def drive_to_position_normalized(self, yaw_angle, x, y, linear_velocity, flags, timeout=None): 
+    def drive_to_position_normalized(self, yaw_angle, x, y, linear_speed, flags, timeout=None): 
         """Drive to an (x,y) coordinate at a normalized speed and turn to the specified target yaw angle
 
         Args:
             yaw_angle (int16_t): Target yaw angle after arriving at target position
             x (float): Target Position X coordinate in the locator coordinate system.  The positive X axis is to the right on boot or locator reset (along yaw angle -90 degrees)
             y (float): Target Position Y coordinate in the locator coordinate system.  The positive Y axis is forward on boot or locator reset
-            linear_velocity (int8_t): Maximum normalized linear velocity in transit to the target position, normalized to +/-127.  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
+            linear_speed (int8_t): Maximum normalized linear speed in transit to the target position, normalized to [0..127].  If the distance to target is too short for the robot to accelerate to this velocity, the resulting velocity trajectory will be triangular rather than trapezoidal.
             flags (uint8_t): Option flags
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.drive_to_position_normalized(yaw_angle, x, y, linear_velocity, flags, target=2, timeout=timeout)
+        command_dict = drive.drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
     def on_xy_position_drive_result_notify(self, handler, timeout=None): 
