@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/12/2019 @ 01:43:14.086610 (UTC)
+# Timestamp:          05/07/2020 @ 14:36:23.239852 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -530,33 +530,52 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
     }
 
 
-def get_motor_temperature(motor_index, target, timeout): 
+def get_temperature(id0, id1, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
-        'cid': CommandsEnum.get_motor_temperature,
+        'cid': CommandsEnum.get_temperature,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='motorIndex',
+                name='id0',
                 data_type='uint8_t',
                 index=0,
-                value=motor_index,
+                value=id0,
+                size=1
+            ),
+            Parameter( 
+                name='id1',
+                data_type='uint8_t',
+                index=1,
+                value=id1,
                 size=1
             ),
         ],
         'outputs': [ 
             Parameter( 
-                name='windingCoilTemperature',
-                data_type='float',
+                name='id0',
+                data_type='uint8_t',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='caseTemperature',
+                name='temp0',
                 data_type='float',
                 index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='id1',
+                data_type='uint8_t',
+                index=2,
+                size=1,
+            ),
+            Parameter( 
+                name='temp1',
+                data_type='float',
+                index=3,
                 size=1,
             ),
         ]
