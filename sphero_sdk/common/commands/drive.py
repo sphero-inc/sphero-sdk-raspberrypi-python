@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/07/2020 @ 14:36:23.196967 (UTC)
+# Timestamp:          05/19/2020 @ 15:46:04.398096 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -88,6 +88,32 @@ def drive_with_heading(speed, heading, flags, target, timeout):
                 data_type='uint8_t',
                 index=2,
                 value=flags,
+                size=1
+            ),
+        ],
+    }
+
+
+def set_default_control_system_for_type(control_system_type, controller_id, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.set_default_control_system_for_type,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='controlSystemType',
+                data_type='uint8_t',
+                index=0,
+                value=control_system_type,
+                size=1
+            ),
+            Parameter( 
+                name='controllerId',
+                data_type='uint8_t',
+                index=1,
+                value=controller_id,
                 size=1
             ),
         ],
@@ -652,4 +678,49 @@ def restore_default_control_system_timeout(target, timeout):
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+    }
+
+
+def get_active_control_system_id(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.get_active_control_system_id,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='controllerId',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_default_control_system_for_type(control_system_type, target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.get_default_control_system_for_type,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'inputs': [ 
+            Parameter( 
+                name='controlSystemType',
+                data_type='uint8_t',
+                index=0,
+                value=control_system_type,
+                size=1
+            ),
+        ],
+        'outputs': [ 
+            Parameter( 
+                name='controllerId',
+                data_type='uint8_t',
+                index=0,
+                size=1,
+            ),
+        ]
     }

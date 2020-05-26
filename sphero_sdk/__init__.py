@@ -14,6 +14,8 @@ from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
 from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum as DriveMotorIndexesEnum
 from sphero_sdk.common.enums.drive_enums import DriveFlagsBitmask
 from sphero_sdk.common.enums.drive_enums import XyPositionDriveFlagsBitmask
+from sphero_sdk.common.enums.drive_enums import ControlSystemTypesEnum
+from sphero_sdk.common.enums.drive_enums import ControlSystemIdsEnum
 from sphero_sdk.common.enums.io_enums import SpecdrumsColorPaletteIndiciesEnum
 from sphero_sdk.common.enums.power_enums import BatteryVoltageStatesEnum
 from sphero_sdk.common.enums.power_enums import BatteryVoltageReadingTypesEnum
