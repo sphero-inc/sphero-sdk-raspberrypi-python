@@ -3,12 +3,14 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/07/2020 @ 14:36:23.197505 (UTC)
+# Timestamp:          05/19/2020 @ 15:46:04.398253 (UTC)
 
 from enum import IntEnum
 
 
 __all__ = ['LinearVelocitySlewMethodsEnum',
+           'ControlSystemTypesEnum',
+           'ControlSystemIdsEnum',
            'RawMotorModesEnum',
            'MotorIndexesEnum',
            'DriveFlagsBitmask',
@@ -20,6 +22,7 @@ class CommandsEnum(IntEnum):
     raw_motors = 0x01
     reset_yaw = 0x06
     drive_with_heading = 0x07
+    set_default_control_system_for_type = 0x0E
     set_custom_control_system_timeout = 0x22
     enable_motor_stall_notify = 0x25
     motor_stall_notify = 0x26
@@ -43,11 +46,37 @@ class CommandsEnum(IntEnum):
     get_stop_controller_state = 0x41
     stop_active_controller = 0x42
     restore_default_control_system_timeout = 0x43
+    get_active_control_system_id = 0x44
+    get_default_control_system_for_type = 0x46
 
 
 class LinearVelocitySlewMethodsEnum(IntEnum):
     constant = 0
     proportional = 1
+
+
+class ControlSystemTypesEnum(IntEnum):
+    control_system_type_stop = 0
+    control_system_type_raw_motor = 1
+    control_system_type_tank_drive = 2
+    control_system_type_drive_with_yaw = 3
+    control_system_type_rc_drive = 4
+    control_system_type_xy_position_drive = 5
+    control_system_type_infrared_drive = 6
+    control_system_type_magnetometer_drive = 7
+
+
+class ControlSystemIdsEnum(IntEnum):
+    decelerating_stop = 0
+    raw_motor = 1
+    tank_drive = 2
+    drive_with_yaw_advanced_mode = 3
+    drive_with_yaw_basic_mode = 4
+    rc_drive_rate_mode = 5
+    rc_drive_slew_mode = 6
+    xy_position_drive = 7
+    infrared_follow_and_evade = 8
+    magnetometer_calibration = 9
 
 
 class RawMotorModesEnum(IntEnum):
