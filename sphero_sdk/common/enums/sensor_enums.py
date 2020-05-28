@@ -45,6 +45,7 @@ class CommandsEnum(IntEnum):
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
     motor_thermal_protection_status_notify = 0x4D
+    get_magnetometer_reading = 0x52
 
 
 class MotorIndexesEnum(IntEnum):

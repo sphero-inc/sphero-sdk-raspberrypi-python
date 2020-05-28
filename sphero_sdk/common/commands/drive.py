@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/19/2020 @ 15:46:04.398096 (UTC)
+# Timestamp:          05/28/2020 @ 20:39:41.947829 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum

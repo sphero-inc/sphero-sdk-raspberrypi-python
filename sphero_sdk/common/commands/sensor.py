@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/19/2020 @ 15:46:04.402413 (UTC)
+# Timestamp:          05/28/2020 @ 20:39:42.052566 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -666,6 +666,36 @@ def on_motor_thermal_protection_status_notify(target, timeout):
                 name='rightMotorStatus',
                 data_type='uint8_t',
                 index=3,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_magnetometer_reading(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_magnetometer_reading,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='xAxis',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='yAxis',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='zAxis',
+                data_type='float',
+                index=2,
                 size=1,
             ),
         ]
