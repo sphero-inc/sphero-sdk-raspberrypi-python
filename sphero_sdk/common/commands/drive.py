@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/28/2020 @ 23:45:21.649521 (UTC)
+# Timestamp:          05/29/2020 @ 02:45:40.578415 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -696,6 +696,16 @@ def get_active_control_system_id(target, timeout):
                 size=1,
             ),
         ]
+    }
+
+
+def restore_initial_default_control_systems(target, timeout): 
+    return { 
+        'did': DevicesEnum.drive,
+        'cid': CommandsEnum.restore_initial_default_control_systems,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }
 
 
