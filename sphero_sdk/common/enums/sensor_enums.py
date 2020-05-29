@@ -22,6 +22,7 @@ class CommandsEnum(IntEnum):
     set_locator_flags = 0x17
     get_bot_to_bot_infrared_readings = 0x22
     get_rgbc_sensor_values = 0x23
+    magnetometer_calibrate_to_north = 0x25
     start_robot_to_robot_infrared_broadcasting = 0x27
     start_robot_to_robot_infrared_following = 0x28
     stop_robot_to_robot_infrared_broadcasting = 0x29
@@ -45,6 +46,7 @@ class CommandsEnum(IntEnum):
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
     motor_thermal_protection_status_notify = 0x4D
+    magnetometer_calibration_complete_notify = 0x51
     get_magnetometer_reading = 0x52
     get_encoder_counts = 0x53
     disable_notifications_and_active_commands = 0x54

@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/29/2020 @ 06:27:47.028431 (UTC)
+# Timestamp:          05/29/2020 @ 13:40:32.730398 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -127,6 +127,16 @@ def get_rgbc_sensor_values(target, timeout):
                 size=1,
             ),
         ]
+    }
+
+
+def magnetometer_calibrate_to_north(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_calibrate_to_north,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }
 
 
@@ -666,6 +676,29 @@ def on_motor_thermal_protection_status_notify(target, timeout):
                 name='rightMotorStatus',
                 data_type='uint8_t',
                 index=3,
+                size=1,
+            ),
+        ]
+    }
+
+
+def on_magnetometer_calibration_complete_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_calibration_complete_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='isSuccessful',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='yawNorthDirection',
+                data_type='uint16_t',
+                index=1,
                 size=1,
             ),
         ]

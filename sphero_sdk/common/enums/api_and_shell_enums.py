@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          05/29/2020 @ 06:27:47.087409 (UTC)
+# Timestamp:          05/29/2020 @ 13:40:32.790542 (UTC)
 
 from enum import IntEnum
 
