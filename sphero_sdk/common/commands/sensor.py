@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/28/2020 @ 20:39:42.052566 (UTC)
+# Timestamp:          05/28/2020 @ 23:45:21.755721 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -697,6 +697,24 @@ def get_magnetometer_reading(target, timeout):
                 data_type='float',
                 index=2,
                 size=1,
+            ),
+        ]
+    }
+
+
+def get_encoder_counts(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_encoder_counts,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='encoderCounts',
+                data_type='int32_t',
+                index=0,
+                size=2,
             ),
         ]
     }
