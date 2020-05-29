@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/29/2020 @ 02:45:40.685236 (UTC)
+# Timestamp:          05/29/2020 @ 06:27:47.028431 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -717,4 +717,14 @@ def get_encoder_counts(target, timeout):
                 size=2,
             ),
         ]
+    }
+
+
+def disable_notifications_and_active_commands(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.disable_notifications_and_active_commands,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }

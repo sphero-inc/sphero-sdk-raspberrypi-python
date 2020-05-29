@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          05/29/2020 @ 02:45:40.634305 (UTC)
+# Timestamp:          05/29/2020 @ 06:27:46.977116 (UTC)
 
 from sphero_sdk.common.enums.power_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
