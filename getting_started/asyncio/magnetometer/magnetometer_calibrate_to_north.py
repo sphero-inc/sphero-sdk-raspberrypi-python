@@ -62,8 +62,10 @@ if __name__ == '__main__':
         print('\nProgram terminated with keyboard interrupt.')
 
         loop.run_until_complete(
-            rvr.disable_notifications_and_active_commands(),
-            rvr.close()
+            asyncio.gather(
+                rvr.disable_notifications_and_active_commands(),
+                rvr.close()
+            )
         )
 
     finally:
