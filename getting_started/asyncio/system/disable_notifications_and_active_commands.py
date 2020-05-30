@@ -20,12 +20,13 @@ rvr = SpheroRvrAsync(
 async def imu_handler(imu_data):
     print('IMU data response: ', imu_data)
 
+
 async def color_detected_handler(color_detected_data):
     print('Color detection data response: ', color_detected_data)
 
 
 async def main():
-    """ This program demonstrates how to disable all notifications and active commands
+    """ This program demonstrates how to disable all notifications and active commands.
     """
 
     await rvr.wake()
@@ -33,15 +34,12 @@ async def main():
     # Give RVR time to wake up
     await asyncio.sleep(2)
 
-    print('Initiate streaming...')
+    print('Initiate streaming IMU and color sensor data...')
+    await rvr.enable_color_detection(is_enabled=True)
     await rvr.sensor_control.add_sensor_data_handler(
         service=RvrStreamingServices.imu,
         handler=imu_handler
     )
-    await rvr.sensor_control.start(interval=1000)
-
-    print('Initiate color detection...')
-    await rvr.enable_color_detection(is_enabled=True)
     await rvr.sensor_control.add_sensor_data_handler(
         service=RvrStreamingServices.color_detection,
         handler=color_detected_handler

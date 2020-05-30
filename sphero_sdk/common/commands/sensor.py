@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/29/2020 @ 13:40:32.730398 (UTC)
+# Timestamp:          05/30/2020 @ 00:36:04.837396 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -697,7 +697,7 @@ def on_magnetometer_calibration_complete_notify(target, timeout):
             ),
             Parameter( 
                 name='yawNorthDirection',
-                data_type='uint16_t',
+                data_type='int16_t',
                 index=1,
                 size=1,
             ),
