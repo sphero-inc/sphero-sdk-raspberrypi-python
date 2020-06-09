@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/19/2020 @ 15:46:04.402413 (UTC)
+# Timestamp:          05/30/2020 @ 00:36:04.837396 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -127,6 +127,16 @@ def get_rgbc_sensor_values(target, timeout):
                 size=1,
             ),
         ]
+    }
+
+
+def magnetometer_calibrate_to_north(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_calibrate_to_north,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }
 
 
@@ -669,4 +679,85 @@ def on_motor_thermal_protection_status_notify(target, timeout):
                 size=1,
             ),
         ]
+    }
+
+
+def on_magnetometer_calibration_complete_notify(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.magnetometer_calibration_complete_notify,
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='isSuccessful',
+                data_type='bool',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='yawNorthDirection',
+                data_type='int16_t',
+                index=1,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_magnetometer_reading(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_magnetometer_reading,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='xAxis',
+                data_type='float',
+                index=0,
+                size=1,
+            ),
+            Parameter( 
+                name='yAxis',
+                data_type='float',
+                index=1,
+                size=1,
+            ),
+            Parameter( 
+                name='zAxis',
+                data_type='float',
+                index=2,
+                size=1,
+            ),
+        ]
+    }
+
+
+def get_encoder_counts(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.get_encoder_counts,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
+        'outputs': [ 
+            Parameter( 
+                name='encoderCounts',
+                data_type='int32_t',
+                index=0,
+                size=2,
+            ),
+        ]
+    }
+
+
+def disable_notifications_and_active_commands(target, timeout): 
+    return { 
+        'did': DevicesEnum.sensor,
+        'cid': CommandsEnum.disable_notifications_and_active_commands,
+        'seq': SequenceNumberGenerator.get_sequence_number(),
+        'target': target,
+        'timeout': timeout,
     }

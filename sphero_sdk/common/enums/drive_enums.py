@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/19/2020 @ 15:46:04.398253 (UTC)
+# Timestamp:          05/30/2020 @ 00:36:04.708489 (UTC)
 
 from enum import IntEnum
 
@@ -47,6 +47,7 @@ class CommandsEnum(IntEnum):
     stop_active_controller = 0x42
     restore_default_control_system_timeout = 0x43
     get_active_control_system_id = 0x44
+    restore_initial_default_control_systems = 0x45
     get_default_control_system_for_type = 0x46
 
 

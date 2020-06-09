@@ -106,11 +106,13 @@ async def main():
     # Delay to allow RVR to drive
     await asyncio.sleep(1)
 
-    # Set the default control system for RC and drive some more
-    control_system_type = ControlSystemTypesEnum.control_system_type_rc_drive
-    controller_id = ControlSystemIdsEnum.rc_drive_rate_mode
-    print('Setting default control system for RC drive to {}'.format(controller_id.name))
-    await rvr.set_default_control_system_for_type(control_system_type = control_system_type, controller_id = controller_id)
+    # Stop the robot
+    print('Stopping...')
+    await rvr.stop_active_controller()
+
+    # Restore initial default control systems
+    print('Restore initial default control systems')
+    await rvr.restore_initial_default_control_systems()
 
     print('Driving with RC...')
     await rvr.drive_rc_si_units(linear_velocity=1, yaw_angular_velocity=0, flags=0 )
