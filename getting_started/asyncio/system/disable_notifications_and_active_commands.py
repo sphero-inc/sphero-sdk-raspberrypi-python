@@ -46,7 +46,8 @@ async def main():
     )
     await rvr.sensor_control.start(interval=1000)
 
-    print('Initiate a drive command...')
+    print('Set the control system timeout to 10s and initiate a drive command...')
+    await rvr.set_custom_control_system_timeout(command_timeout=10000)
     await rvr.drive_with_yaw_normalized(
         linear_velocity=32,  # Valid linear_velocity values are in the range [-127..+127]
         yaw_angle=0  # Valid yaw values are traditionally [-179..+180], but will continue wrapping outside of that range
@@ -61,6 +62,9 @@ async def main():
 
     # Delay to allow observation that notifications and active commands have been disabled 
     await asyncio.sleep(5)
+
+    # Restore the default timeout (2 seconds)
+    await rvr.restore_default_control_system_timeout()
 
     await rvr.close()
 
@@ -77,6 +81,8 @@ if __name__ == '__main__':
         loop.run_until_complete(
             asyncio.gather(
                 rvr.disable_notifications_and_active_commands(),
+                # Restore the default timeout (2 seconds)
+                rvr.restore_default_control_system_timeout(),
                 rvr.close()
             )
         )
