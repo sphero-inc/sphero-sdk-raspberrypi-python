@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      92
-# Timestamp:          05/30/2020 @ 00:36:05.011396 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.067059 (UTC)
 
 import time
 import logging.config
@@ -128,7 +128,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Gets the robot's MAC address.
 
         Args:
-            handler (function): called when response is received, takes form handler(macAddress).
+            handler (function): called when response is received, takes form handler(mac_address).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -142,7 +142,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Gets the id number assigned by the company for activation tracking.
 
         Args:
-            handler (function): called when response is received, takes form handler(statsId).
+            handler (function): called when response is received, takes form handler(stats_id).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -185,7 +185,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Returns the time (in milliseconds) that has passed since the latest power cycle started.
 
         Args:
-            handler (function): called when response is received, takes form handler(upTime).
+            handler (function): called when response is received, takes form handler(up_time).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -298,7 +298,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Returns the battery voltage state thresholds and hysteresis value. The hysteresis value is added to the thresholds for rising voltages -- e.g., the voltage must be less than the low threshold to change the state to 'low battery' but it must be greater than (low threshold + hysteresis) to go back to the 'ok battery' state.
 
         Args:
-            handler (function): called when response is received, takes form handler(criticalThreshold, lowThreshold, hysteresis).
+            handler (function): called when response is received, takes form handler(critical_threshold, low_threshold, hysteresis).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -315,7 +315,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             amplifier_id (uint8_t): Motor amplifier id
-            handler (function): called when response is received, takes form handler(amplifierCurrent).
+            handler (function): called when response is received, takes form handler(amplifier_current).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -394,7 +394,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Motor stall protection change notification.
 
         Args:
-            handler (function): called when response is received, takes form handler(motorIndex, isTriggered).
+            handler (function): called when response is received, takes form handler(motor_index, is_triggered).
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.on_motor_stall_notify(target=2, timeout=timeout)
@@ -414,7 +414,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Notification that a motor fault has occurred.
 
         Args:
-            handler (function): called when response is received, takes form handler(isFault).
+            handler (function): called when response is received, takes form handler(is_fault).
             timeout (float): maximum time to await a response.
         """
         command_dict = drive.on_motor_fault_notify(target=2, timeout=timeout)
@@ -424,7 +424,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         """Get the motor fault state.
 
         Args:
-            handler (function): called when response is received, takes form handler(isFault).
+            handler (function): called when response is received, takes form handler(is_fault).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -568,7 +568,7 @@ y = ax^2 + bx + c
 linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning of linearAcceleration
 
         Args:
-            handler (function): called when response is received, takes form handler(a, b, c, linearAcceleration, linearVelocitySlewMethod).
+            handler (function): called when response is received, takes form handler(a, b, c, linear_acceleration, linear_velocity_slew_method).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -646,7 +646,7 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         """Get the ID of the active controller
 
         Args:
-            handler (function): called when response is received, takes form handler(controllerId).
+            handler (function): called when response is received, takes form handler(controller_id).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -670,7 +670,7 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
 
         Args:
             control_system_type (uint8_t): Control system type
-            handler (function): called when response is received, takes form handler(controllerId).
+            handler (function): called when response is received, takes form handler(controller_id).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -724,7 +724,7 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
 Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front right sensor 32'h00ff_0000: back right sensor 32'hff00_0000: back left sensor
 
         Args:
-            handler (function): called when response is received, takes form handler(sensorData).
+            handler (function): called when response is received, takes form handler(sensor_data).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -738,7 +738,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Return raw data being read by RGBC sensor on each sensor channel
 
         Args:
-            handler (function): called when response is received, takes form handler(redChannelValue, greenChannelValue, blueChannelValue, clearChannelValue).
+            handler (function): called when response is received, takes form handler(red_channel_value, green_channel_value, blue_channel_value, clear_channel_value).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -795,7 +795,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Async sent when a registered robot to robot infrared message is received. In response returns the infrared code listened for.
 
         Args:
-            handler (function): called when response is received, takes form handler(infraredCode).
+            handler (function): called when response is received, takes form handler(infrared_code).
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.on_robot_to_robot_infrared_message_received_notify(target=2, timeout=timeout)
@@ -805,7 +805,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Ambient light value is returned; higher = more light!
 
         Args:
-            handler (function): called when response is received, takes form handler(ambientLightValue).
+            handler (function): called when response is received, takes form handler(ambient_light_value).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -860,7 +860,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Notification sent on the interval set by the user in enable_color_detection_notification with information about the color detected.  The color classification ID 0xFF is a special value indicating that the color could not be identified (e.g., because the reading was too dark).  This is expected behavior when the ring is tapped in the air with the sensor facing out.
 
         Args:
-            handler (function): called when response is received, takes form handler(red, green, blue, confidence, colorClassificationId).
+            handler (function): called when response is received, takes form handler(red, green, blue, confidence, color_classification_id).
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.on_color_detection_notify(target=1, timeout=timeout)
@@ -932,7 +932,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Streaming data notification for a client configuration
 
         Args:
-            handler (function): called when response is received, takes form handler(token, sensorData).
+            handler (function): called when response is received, takes form handler(token, sensor_data).
             target (unit8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
@@ -986,7 +986,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Get motor thermal protection status.
 
         Args:
-            handler (function): called when response is received, takes form handler(leftMotorTemperature, leftMotorStatus, rightMotorTemperature, rightMotorStatus).
+            handler (function): called when response is received, takes form handler(left_motor_temperature, left_motor_status, right_motor_temperature, right_motor_status).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -1013,7 +1013,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Motor thermal protection status notification.
 
         Args:
-            handler (function): called when response is received, takes form handler(leftMotorTemperature, leftMotorStatus, rightMotorTemperature, rightMotorStatus).
+            handler (function): called when response is received, takes form handler(left_motor_temperature, left_motor_status, right_motor_temperature, right_motor_status).
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.on_motor_thermal_protection_status_notify(target=2, timeout=timeout)
@@ -1023,7 +1023,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Magnetometer calibration complete notify.
 
         Args:
-            handler (function): called when response is received, takes form handler(isSuccessful, yawNorthDirection).
+            handler (function): called when response is received, takes form handler(is_successful, yaw_north_direction).
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.on_magnetometer_calibration_complete_notify(target=2, timeout=timeout)
@@ -1033,7 +1033,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Get current magnetometer reading.
 
         Args:
-            handler (function): called when response is received, takes form handler(xAxis, yAxis, zAxis).
+            handler (function): called when response is received, takes form handler(x_axis, y_axis, z_axis).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -1049,7 +1049,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Get array of all encoder counts. Returned as left wheel and then right wheel encoder counts.
 
         Args:
-            handler (function): called when response is received, takes form handler(encoderCounts).
+            handler (function): called when response is received, takes form handler(encoder_counts).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -1097,7 +1097,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """The response data will list all assigned color palette slots in the system.
 
         Args:
-            handler (function): called when response is received, takes form handler(rgbIndexBytes).
+            handler (function): called when response is received, takes form handler(rgb_index_bytes).
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -1125,7 +1125,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
             green (uint8_t): Green ('G') value of the color to be matched.
             blue (uint8_t): Blue ('B') value of the color to be matched.
             confidence_threshold (uint8_t): How closely the palette should match the provided color. The confidence threshold is in [0, 255].
-            handler (function): called when response is received, takes form handler(indexConfidenceByte).
+            handler (function): called when response is received, takes form handler(index_confidence_byte).
             timeout (float): maximum time to await a response.
 
         Returns:

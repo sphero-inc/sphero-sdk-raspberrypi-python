@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      92
-# Timestamp:          05/30/2020 @ 00:36:04.915980 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.061974 (UTC)
 
 import asyncio
 import logging.config
@@ -376,7 +376,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Motor stall protection change notification.
 
         Args:
-            handler (function): called asynchronously, takes form handler(motorIndex, isTriggered).
+            handler (function): called asynchronously, takes form handler(motor_index, is_triggered).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
@@ -401,7 +401,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Notification that a motor fault has occurred.
 
         Args:
-            handler (function): called asynchronously, takes form handler(isFault).
+            handler (function): called asynchronously, takes form handler(is_fault).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
@@ -782,7 +782,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Async sent when a registered robot to robot infrared message is received. In response returns the infrared code listened for.
 
         Args:
-            handler (function): called asynchronously, takes form handler(infraredCode).
+            handler (function): called asynchronously, takes form handler(infrared_code).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
@@ -850,7 +850,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Notification sent on the interval set by the user in enable_color_detection_notification with information about the color detected.  The color classification ID 0xFF is a special value indicating that the color could not be identified (e.g., because the reading was too dark).  This is expected behavior when the ring is tapped in the air with the sensor facing out.
 
         Args:
-            handler (function): called asynchronously, takes form handler(red, green, blue, confidence, colorClassificationId).
+            handler (function): called asynchronously, takes form handler(red, green, blue, confidence, color_classification_id).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
@@ -927,7 +927,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Streaming data notification for a client configuration
 
         Args:
-            handler (function): called asynchronously, takes form handler(token, sensorData).
+            handler (function): called asynchronously, takes form handler(token, sensor_data).
             target (unit8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         Returns:
@@ -1003,7 +1003,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Motor thermal protection status notification.
 
         Args:
-            handler (function): called asynchronously, takes form handler(leftMotorTemperature, leftMotorStatus, rightMotorTemperature, rightMotorStatus).
+            handler (function): called asynchronously, takes form handler(left_motor_temperature, left_motor_status, right_motor_temperature, right_motor_status).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
@@ -1018,7 +1018,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Magnetometer calibration complete notify.
 
         Args:
-            handler (function): called asynchronously, takes form handler(isSuccessful, yawNorthDirection).
+            handler (function): called asynchronously, takes form handler(is_successful, yaw_north_direction).
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called
