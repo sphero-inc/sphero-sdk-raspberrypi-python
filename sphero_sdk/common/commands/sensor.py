@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          05/30/2020 @ 00:36:04.837396 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.055992 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -20,7 +20,7 @@ def enable_gyro_max_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -85,7 +85,7 @@ def get_bot_to_bot_infrared_readings(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='sensorData',
+                name='sensor_data',
                 data_type='uint32_t',
                 index=0,
                 size=1,
@@ -103,25 +103,25 @@ def get_rgbc_sensor_values(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='redChannelValue',
+                name='red_channel_value',
                 data_type='uint16_t',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='greenChannelValue',
+                name='green_channel_value',
                 data_type='uint16_t',
                 index=1,
                 size=1,
             ),
             Parameter( 
-                name='blueChannelValue',
+                name='blue_channel_value',
                 data_type='uint16_t',
                 index=2,
                 size=1,
             ),
             Parameter( 
-                name='clearChannelValue',
+                name='clear_channel_value',
                 data_type='uint16_t',
                 index=3,
                 size=1,
@@ -149,14 +149,14 @@ def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, time
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='farCode',
+                name='far_code',
                 data_type='uint8_t',
                 index=0,
                 value=far_code,
                 size=1
             ),
             Parameter( 
-                name='nearCode',
+                name='near_code',
                 data_type='uint8_t',
                 index=1,
                 value=near_code,
@@ -175,14 +175,14 @@ def start_robot_to_robot_infrared_following(far_code, near_code, target, timeout
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='farCode',
+                name='far_code',
                 data_type='uint8_t',
                 index=0,
                 value=far_code,
                 size=1
             ),
             Parameter( 
-                name='nearCode',
+                name='near_code',
                 data_type='uint8_t',
                 index=1,
                 value=near_code,
@@ -210,7 +210,7 @@ def on_robot_to_robot_infrared_message_received_notify(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='infraredCode',
+                name='infrared_code',
                 data_type='uint8_t',
                 index=0,
                 size=1,
@@ -228,7 +228,7 @@ def get_ambient_light_sensor_value(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='ambientLightValue',
+                name='ambient_light_value',
                 data_type='float',
                 index=0,
                 size=1,
@@ -256,14 +256,14 @@ def start_robot_to_robot_infrared_evading(far_code, near_code, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='farCode',
+                name='far_code',
                 data_type='uint8_t',
                 index=0,
                 value=far_code,
                 size=1
             ),
             Parameter( 
-                name='nearCode',
+                name='near_code',
                 data_type='uint8_t',
                 index=1,
                 value=near_code,
@@ -292,7 +292,7 @@ def enable_color_detection_notify(is_enabled, interval, minimum_confidence_thres
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -306,7 +306,7 @@ def enable_color_detection_notify(is_enabled, interval, minimum_confidence_thres
                 size=1
             ),
             Parameter( 
-                name='minimumConfidenceThreshold',
+                name='minimum_confidence_threshold',
                 data_type='uint8_t',
                 index=2,
                 value=minimum_confidence_threshold,
@@ -348,7 +348,7 @@ def on_color_detection_notify(target, timeout):
                 size=1,
             ),
             Parameter( 
-                name='colorClassificationId',
+                name='color_classification_id',
                 data_type='uint8_t',
                 index=4,
                 size=1,
@@ -376,7 +376,7 @@ def enable_color_detection(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -465,7 +465,7 @@ def on_streaming_service_data_notify(target, timeout):
                 size=1,
             ),
             Parameter( 
-                name='sensorData',
+                name='sensor_data',
                 data_type='uint8_t',
                 index=1,
                 size=9999,
@@ -483,7 +483,7 @@ def enable_robot_infrared_message_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -502,35 +502,35 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='infraredCode',
+                name='infrared_code',
                 data_type='uint8_t',
                 index=0,
                 value=infrared_code,
                 size=1
             ),
             Parameter( 
-                name='frontStrength',
+                name='front_strength',
                 data_type='uint8_t',
                 index=1,
                 value=front_strength,
                 size=1
             ),
             Parameter( 
-                name='leftStrength',
+                name='left_strength',
                 data_type='uint8_t',
                 index=2,
                 value=left_strength,
                 size=1
             ),
             Parameter( 
-                name='rightStrength',
+                name='right_strength',
                 data_type='uint8_t',
                 index=3,
                 value=right_strength,
                 size=1
             ),
             Parameter( 
-                name='rearStrength',
+                name='rear_strength',
                 data_type='uint8_t',
                 index=4,
                 value=rear_strength,
@@ -601,25 +601,25 @@ def get_motor_thermal_protection_status(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='leftMotorTemperature',
+                name='left_motor_temperature',
                 data_type='float',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='leftMotorStatus',
+                name='left_motor_status',
                 data_type='uint8_t',
                 index=1,
                 size=1,
             ),
             Parameter( 
-                name='rightMotorTemperature',
+                name='right_motor_temperature',
                 data_type='float',
                 index=2,
                 size=1,
             ),
             Parameter( 
-                name='rightMotorStatus',
+                name='right_motor_status',
                 data_type='uint8_t',
                 index=3,
                 size=1,
@@ -637,7 +637,7 @@ def enable_motor_thermal_protection_status_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -655,25 +655,25 @@ def on_motor_thermal_protection_status_notify(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='leftMotorTemperature',
+                name='left_motor_temperature',
                 data_type='float',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='leftMotorStatus',
+                name='left_motor_status',
                 data_type='uint8_t',
                 index=1,
                 size=1,
             ),
             Parameter( 
-                name='rightMotorTemperature',
+                name='right_motor_temperature',
                 data_type='float',
                 index=2,
                 size=1,
             ),
             Parameter( 
-                name='rightMotorStatus',
+                name='right_motor_status',
                 data_type='uint8_t',
                 index=3,
                 size=1,
@@ -690,13 +690,13 @@ def on_magnetometer_calibration_complete_notify(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='isSuccessful',
+                name='is_successful',
                 data_type='bool',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='yawNorthDirection',
+                name='yaw_north_direction',
                 data_type='int16_t',
                 index=1,
                 size=1,
@@ -714,19 +714,19 @@ def get_magnetometer_reading(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='xAxis',
+                name='x_axis',
                 data_type='float',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='yAxis',
+                name='y_axis',
                 data_type='float',
                 index=1,
                 size=1,
             ),
             Parameter( 
-                name='zAxis',
+                name='z_axis',
                 data_type='float',
                 index=2,
                 size=1,
@@ -744,7 +744,7 @@ def get_encoder_counts(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='encoderCounts',
+                name='encoder_counts',
                 data_type='int32_t',
                 index=0,
                 size=2,

@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import RawMotorModesEnum
 from sphero_sdk import XyPositionDriveFlagsBitmask
 
 
@@ -41,17 +40,17 @@ async def return_to_start():
 
     print("Returning to (0,0,0)")
 
-    # Note: the normalized and SI drive to position commands specify end conditions 
+    # Note: the normalized and SI drive to position commands specify end conditions
     # explicitly, so they are exceptions to the rule and bypass the control system timeout.
     await rvr.drive_to_position_si(
         yaw_angle=0,
         x=0,
         y=0,
-        linear_velocity=.5,
+        linear_speed=.5,
         flags=XyPositionDriveFlagsBitmask.auto_reverse
     )
 
-    while(target_position_reached==False):
+    while not target_position_reached:
         await asyncio.sleep(0)
 
     # Clear the flag
@@ -105,7 +104,7 @@ async def main():
     await rvr.stop_active_controller()
 
     # Wait until we receive the notification that the robot has stopped.
-    while (rvr_has_stopped==False):
+    while not rvr_has_stopped:
         await asyncio.sleep(0)
 
     # Now clear the flag
@@ -119,7 +118,7 @@ async def main():
 
     print("Driving forward...")
     await rvr.drive_rc_si_units(
-        linear_velocity=1,     
+        linear_velocity=1,
         yaw_angular_velocity=0,
         flags=0
     )
@@ -140,7 +139,7 @@ async def main():
     # This time, instead of using the notification to determine that the robot has stopped
     # we'll poll the stop controller state to decide when to continue
     rvr_stopped = False
-    while (rvr_stopped==False):
+    while not rvr_stopped:
         response = await rvr.get_stop_controller_state()
         print(response)
         rvr_stopped = response['stopped']
@@ -156,7 +155,7 @@ async def main():
 
     print("Driving forward...")
     await rvr.drive_rc_si_units(
-        linear_velocity=1,     
+        linear_velocity=1,
         yaw_angular_velocity=0,
         flags=0
     )
@@ -173,7 +172,7 @@ async def main():
     )
 
     # Wait until we receive the notification that the robot has stopped.
-    while (rvr_has_stopped==False):
+    while not rvr_has_stopped:
         await asyncio.sleep(0)
 
     # Politely restore the default timeout (2 seconds)

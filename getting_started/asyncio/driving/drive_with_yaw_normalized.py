@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import DriveFlagsBitmask
 
 
 loop = asyncio.get_event_loop()
@@ -28,10 +27,10 @@ async def main():
         "Road Vehicles - Vehicle dynamics and road-holding ability -- Vocabulary"
 
         Because of this difference between heading and yaw, headings will need to be converted into yaw angles
-        IF you want to switch commands in existing projects.  
+        IF you want to switch commands in existing projects.
 
-        To eliminate the flags field, unsigned scalar speed values have been replaced in newer commands with 
-        signed linear velocity values.  The value is still a single byte, and is now normalized between +/-127 
+        To eliminate the flags field, unsigned scalar speed values have been replaced in newer commands with
+        signed linear velocity values.  The value is still a single byte, and is now normalized between +/-127
         instead of 0-255 (though -128 can be used - it will be clamped to -127).
     """
 

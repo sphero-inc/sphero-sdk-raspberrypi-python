@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import RawMotorModesEnum
 
 
 loop = asyncio.get_event_loop()
@@ -38,7 +37,7 @@ async def main():
     # Reset yaw
     await rvr.reset_yaw()
 
-    # Make sure that we're starting with the default timeout (2 seconds). This is 
+    # Make sure that we're starting with the default timeout (2 seconds). This is
     # redundant, unless the timeouts have already been adjusted since boot.
     await rvr.restore_default_control_system_timeout()
 

@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          05/30/2020 @ 00:36:04.804360 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.050837 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -20,14 +20,14 @@ def set_all_leds(led_group, led_brightness_values, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='ledGroup',
+                name='led_group',
                 data_type='uint32_t',
                 index=0,
                 value=led_group,
                 size=1
             ),
             Parameter( 
-                name='ledBrightnessValues',
+                name='led_brightness_values',
                 data_type='uint8_t',
                 index=1,
                 value=led_brightness_values,
@@ -46,7 +46,7 @@ def get_active_color_palette(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='rgbIndexBytes',
+                name='rgb_index_bytes',
                 data_type='uint8_t',
                 index=0,
                 size=48,
@@ -64,7 +64,7 @@ def set_active_color_palette(rgb_index_bytes, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='rgbIndexBytes',
+                name='rgb_index_bytes',
                 data_type='uint8_t',
                 index=0,
                 value=rgb_index_bytes,
@@ -104,7 +104,7 @@ def get_color_identification_report(red, green, blue, confidence_threshold, targ
                 size=1
             ),
             Parameter( 
-                name='confidenceThreshold',
+                name='confidence_threshold',
                 data_type='uint8_t',
                 index=3,
                 value=confidence_threshold,
@@ -113,7 +113,7 @@ def get_color_identification_report(red, green, blue, confidence_threshold, targ
         ],
         'outputs': [ 
             Parameter( 
-                name='indexConfidenceByte',
+                name='index_confidence_byte',
                 data_type='uint8_t',
                 index=0,
                 size=24,
@@ -131,7 +131,7 @@ def load_color_palette(palette_index, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='paletteIndex',
+                name='palette_index',
                 data_type='uint8_t',
                 index=0,
                 value=palette_index,
@@ -150,7 +150,7 @@ def save_color_palette(palette_index, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='paletteIndex',
+                name='palette_index',
                 data_type='uint8_t',
                 index=0,
                 value=palette_index,

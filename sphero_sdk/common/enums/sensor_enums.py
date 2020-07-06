@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          04/06/2020 @ 19:02:27.178451 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.056077 (UTC)
 
 from enum import IntEnum
 
@@ -51,10 +51,6 @@ class CommandsEnum(IntEnum):
     get_encoder_counts = 0x53
     disable_notifications_and_active_commands = 0x54
 
-class MotorIndexesEnum(IntEnum):
-    left_motor_index = 0
-    right_motor_index = 1
-
 
 class ThermalProtectionStatusEnum(IntEnum):
     ok = 0
@@ -66,12 +62,6 @@ class TemperatureSensorsEnum(IntEnum):
     left_motor_temperature = 4
     right_motor_temperature = 5
     nordic_die_temperature = 8
-
-
-class StreamingDataSizesEnum(IntEnum):
-    eight_bit = 0x00
-    sixteen_bit = 0x01
-    thirty_two_bit = 0x02
 
 
 class GyroMaxFlagsBitmask(IntEnum):

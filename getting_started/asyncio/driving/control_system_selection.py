@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import DriveFlagsBitmask
 from sphero_sdk import ControlSystemTypesEnum
 from sphero_sdk import ControlSystemIdsEnum
 
@@ -59,19 +58,19 @@ async def main():
     control_system_type = ControlSystemTypesEnum.control_system_type_stop
     response = await rvr.get_default_control_system_for_type(control_system_type = control_system_type)
     print(response)
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Default controller for {} is {}'.format(control_system_type.name, controller_id.name))
 
     control_system_type = ControlSystemTypesEnum.control_system_type_rc_drive
     response = await rvr.get_default_control_system_for_type(control_system_type = control_system_type)
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Default controller for {} is {}'.format(control_system_type.name, controller_id.name))
 
 
     # We are currently stopped. Get the currently active control system.
     print('Getting current control system...')
     response = await rvr.get_active_control_system_id()
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Active controller: {}'.format(controller_id.name))
 
 
@@ -79,7 +78,7 @@ async def main():
     print('Driving with RC...')
     await rvr.drive_rc_si_units(linear_velocity=1, yaw_angular_velocity=0, flags=0 )
     response = await rvr.get_active_control_system_id()
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Active controller: {}'.format(controller_id.name))
 
     # Delay to allow RVR to drive
@@ -100,7 +99,7 @@ async def main():
     print('Driving with RC...')
     await rvr.drive_rc_si_units(linear_velocity=1, yaw_angular_velocity=0, flags=0 )
     response = await rvr.get_active_control_system_id()
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Active controller: {}'.format(controller_id.name))
 
     # Delay to allow RVR to drive
@@ -117,7 +116,7 @@ async def main():
     print('Driving with RC...')
     await rvr.drive_rc_si_units(linear_velocity=1, yaw_angular_velocity=0, flags=0 )
     response = await rvr.get_active_control_system_id()
-    controller_id = ControlSystemIdsEnum(response['controllerId'])
+    controller_id = ControlSystemIdsEnum(response['controller_id'])
     print('Active controller: {}'.format(controller_id.name))
 
     # Delay to allow RVR to drive

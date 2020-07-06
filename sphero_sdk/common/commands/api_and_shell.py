@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          05/30/2020 @ 00:36:04.905021 (UTC)
+# Timestamp:          07/01/2020 @ 17:22:40.050176 (UTC)
 
 from sphero_sdk.common.enums.api_and_shell_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
