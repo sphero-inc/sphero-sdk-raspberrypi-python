@@ -3,12 +3,14 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          07/01/2020 @ 17:22:40.050947 (UTC)
+# Timestamp:          07/08/2020 @ 22:29:07.236346 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['SpecdrumsColorPaletteIndiciesEnum']
+__all__ = ['UsbConnectionStatusEnum',
+           'AudioPlaybackModesEnum',
+           'SpecdrumsColorPaletteIndiciesEnum']
 
 
 class CommandsEnum(IntEnum): 
@@ -19,6 +21,19 @@ class CommandsEnum(IntEnum):
     load_color_palette = 0x47
     save_color_palette = 0x48
     release_led_requests = 0x4E
+
+
+class UsbConnectionStatusEnum(IntEnum):
+    unknown = 0
+    connected_but_not_ready = 1
+    connected_and_ready = 2
+    disconnected = 3
+
+
+class AudioPlaybackModesEnum(IntEnum):
+    play_immediately = 0
+    play_only_if_not_playing = 1
+    play_after_current_sound = 2
 
 
 class SpecdrumsColorPaletteIndiciesEnum(IntEnum):

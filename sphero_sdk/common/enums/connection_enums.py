@@ -3,10 +3,24 @@
 # Source File:        0x19-peer_connection.json
 # Device ID:          0x19
 # Device Name:        connection
-# Timestamp:          07/01/2020 @ 17:22:40.060892 (UTC)
+# Timestamp:          07/08/2020 @ 22:29:07.244956 (UTC)
 
 from enum import IntEnum
 
 
+__all__ = ['BleCentralStatesEnum']
+
+
 class CommandsEnum(IntEnum): 
     get_bluetooth_advertising_name = 0x05
+
+
+class BleCentralStatesEnum(IntEnum):
+    not_yet_initialized = 0
+    disconnected = 1
+    scanning = 2
+    connecting = 3
+    reconnecting = 4
+    connected = 5
+    disconnecting = 6
+    configuring = 7

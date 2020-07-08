@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          07/01/2020 @ 17:22:40.052109 (UTC)
+# Timestamp:          07/08/2020 @ 22:29:07.237273 (UTC)
 
 from enum import IntEnum
 

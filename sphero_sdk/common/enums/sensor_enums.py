@@ -3,12 +3,14 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          07/01/2020 @ 17:22:40.056077 (UTC)
+# Timestamp:          07/08/2020 @ 22:29:07.240603 (UTC)
 
 from enum import IntEnum
 
 
-__all__ = ['ThermalProtectionStatusEnum',
+__all__ = ['MotorIndexesEnum',
+           'ThermalProtectionStatusEnum',
+           'StreamingDataSizesEnum',
            'TemperatureSensorsEnum',
            'GyroMaxFlagsBitmask',
            'LocatorFlagsBitmask',
@@ -52,10 +54,21 @@ class CommandsEnum(IntEnum):
     disable_notifications_and_active_commands = 0x54
 
 
+class MotorIndexesEnum(IntEnum):
+    left_motor_index = 0
+    right_motor_index = 1
+
+
 class ThermalProtectionStatusEnum(IntEnum):
     ok = 0
     warn = 1
     critical = 2
+
+
+class StreamingDataSizesEnum(IntEnum):
+    eight_bit = 0x00
+    sixteen_bit = 0x01
+    thirty_two_bit = 0x02
 
 
 class TemperatureSensorsEnum(IntEnum):
