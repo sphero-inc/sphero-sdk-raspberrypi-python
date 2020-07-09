@@ -26,7 +26,9 @@ async def main():
         target=SpheroRvrTargets.primary.value
     )
 
-    await rvr.close()
+    # await rvr.close()
+    while True:
+        await asyncio.sleep(0.01)
 
 
 if __name__ == '__main__':

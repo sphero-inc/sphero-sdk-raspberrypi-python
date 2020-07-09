@@ -45,7 +45,9 @@ class SerialSpheroPort(SpheroPortBase, asyncio.Protocol):
             msg (Message): Instance of Message
 
         """
-        data = msg.serialise()
+        #data = msg.serialise()
+        #print(data)
+        data = b'\x8d\x1E\x01\x10\t\x01\x01\xcb\xd8'
         logger.debug('Writing serial data: [{}]'.format(', '.join('0x{:02x}'.format(x) for x in data)))
         self.__transport.write(data)
 
