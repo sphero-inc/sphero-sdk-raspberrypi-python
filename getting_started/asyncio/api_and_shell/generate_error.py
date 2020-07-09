@@ -21,11 +21,10 @@ async def main():
     """
     """
 
-    error_response = await rvr.generate_api_error(
+    await rvr.generate_api_error(
         error=1,
         target=SpheroRvrTargets.primary.value
     )
-    print('Error response: ', error_response)
 
     await rvr.close()
 
