@@ -3,10 +3,11 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          07/09/2020 @ 00:36:48.477366 (UTC)
+# Timestamp:          07/09/2020 @ 20:14:20.824413 (UTC)
 
 from enum import IntEnum
 
 
 class CommandsEnum(IntEnum): 
     echo = 0x00
+    generate_api_error = 0x09
