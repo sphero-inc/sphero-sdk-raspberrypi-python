@@ -21,10 +21,12 @@ async def main():
     """
     """
 
-    await rvr.generate_api_error(
+    '''await rvr.generate_api_error(
         error=1,
         target=SpheroRvrTargets.primary.value
-    )
+    )'''
+
+    await rvr.get_temperature(0,1)
 
     # await rvr.close()
     while True:
