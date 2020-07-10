@@ -22,7 +22,8 @@ async def main():
     """
     await rvr.generate_api_error(
         error=1,
-        target=SpheroRvrTargets.primary.value
+        target=SpheroRvrTargets.primary.value,
+        request_error=True
     )
 
     while True:
