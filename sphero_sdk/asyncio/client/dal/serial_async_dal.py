@@ -27,7 +27,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
     async def close(self):
         SerialSpheroPort.close(self)
 
-    async def send_command(self, did, cid, seq, target, timeout=None, inputs=[], outputs=[]):
+    async def send_command(self, did, cid, seq, target, timeout=None, request_error=False, inputs=[], outputs=[]):
         """Creates a Message object using the provided parameters and creates response handler that
         if a response is requested.
 
@@ -37,6 +37,7 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
             seq (uint8): Sequence Number
             target (uint8): 1 - Nordic; 2 - ST
             timeout (uint8): Time in seconds to wait for a response, if one is requested. Otherwise, ignored.
+            request_error (bool): Requests an error response regardless even if no output is expected.
             inputs (list(Parameter)): Inputs for command that is being sent
             outputs (list(Parameter)): Expected outputs for command that is being sent
 
@@ -54,27 +55,29 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
 
         logger.debug('Message created: %s', message)
 
-        if len(outputs) > 0:
-            message.requests_response = True
+        message.requests_response = len(outputs) > 0 or request_error
 
         for param in inputs:
             message.pack(param.data_type, param.value)
 
         def response_handler(message):
             response_dictionary = {}
-            for param in sorted(outputs, key=lambda x: x.index):
-                response_dictionary[param.name] = message.unpack(
-                    param.data_type,
-                    count=param.size
-                )
+            if len(outputs) > 0:
+                for param in sorted(outputs, key=lambda x: x.index):
+                    response_dictionary[param.name] = message.unpack(
+                        param.data_type,
+                        count=param.size
+                    )
 
-            logger.debug('Respnose_handler inovked, returning: %s', response_dictionary)
+            debug_str = 'Response_handler invoked for DID: 0x{:2x} CID: 0x{:2x}.'.format(did, cid)
+            return_str = 'Returning: %s'.format(response_dictionary) if len(outputs) > 0 else None
+            logger.debug('{} {}'.format(debug_str, return_str))
 
             return response_dictionary
 
         return await self.handler.send_command(
             message,
-            response_handler=response_handler if len(outputs) > 0 else None,
+            response_handler=response_handler if message.requests_response else None,
             timeout=timeout
         )
 

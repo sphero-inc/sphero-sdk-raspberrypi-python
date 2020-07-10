@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          07/01/2020 @ 17:22:40.050837 (UTC)
+# Timestamp:          07/10/2020 @ 05:06:56.532071 (UTC)
 
 from sphero_sdk.common.enums.io_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,13 +11,14 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def set_all_leds(led_group, led_brightness_values, target, timeout): 
+def set_all_leds(led_group, led_brightness_values, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_all_leds,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='led_group',
@@ -37,13 +38,14 @@ def set_all_leds(led_group, led_brightness_values, target, timeout):
     }
 
 
-def get_active_color_palette(target, timeout): 
+def get_active_color_palette(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.get_active_color_palette,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='rgb_index_bytes',
@@ -55,13 +57,14 @@ def get_active_color_palette(target, timeout):
     }
 
 
-def set_active_color_palette(rgb_index_bytes, target, timeout): 
+def set_active_color_palette(rgb_index_bytes, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.set_active_color_palette,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='rgb_index_bytes',
@@ -74,13 +77,14 @@ def set_active_color_palette(rgb_index_bytes, target, timeout):
     }
 
 
-def get_color_identification_report(red, green, blue, confidence_threshold, target, timeout): 
+def get_color_identification_report(red, green, blue, confidence_threshold, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.get_color_identification_report,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='red',
@@ -122,13 +126,14 @@ def get_color_identification_report(red, green, blue, confidence_threshold, targ
     }
 
 
-def load_color_palette(palette_index, target, timeout): 
+def load_color_palette(palette_index, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.load_color_palette,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='palette_index',
@@ -141,13 +146,14 @@ def load_color_palette(palette_index, target, timeout):
     }
 
 
-def save_color_palette(palette_index, target, timeout): 
+def save_color_palette(palette_index, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.save_color_palette,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='palette_index',
@@ -160,11 +166,12 @@ def save_color_palette(palette_index, target, timeout):
     }
 
 
-def release_led_requests(target, timeout): 
+def release_led_requests(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.io,
         'cid': CommandsEnum.release_led_requests,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }

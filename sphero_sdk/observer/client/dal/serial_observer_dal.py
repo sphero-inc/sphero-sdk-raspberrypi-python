@@ -20,7 +20,7 @@ class SerialObserverDal(SpheroDalBase):
         parser = ObserverParser(dispatcher)
         self._port = SerialObserverPort(parser, port_id, baud)
 
-    def send_command(self, did, cid, seq, target, timeout=None, inputs=[], outputs=[]):
+    def send_command(self, did, cid, seq, target, timeout=None, request_error=False, inputs=[], outputs=[]):
         """Creates a Message object using the provided parameters and sends it to the serial port.
 
         Args:
@@ -29,6 +29,7 @@ class SerialObserverDal(SpheroDalBase):
             seq (uint8): Sequence Number
             target (uint8): 1 - Nordic; 2 - ST
             timeout (uint8): Time in seconds to wait for a response, if one is requested. Otherwise, ignored.
+            request_error (bool): Requests an error response regardless even if no output is expected.
             inputs (list(Parameter)): Inputs for command that is being sent
             outputs (list(Parameter)): Expected outputs for command that is being sent
 
@@ -45,8 +46,7 @@ class SerialObserverDal(SpheroDalBase):
         if seq is not None:
             message.seq = seq
 
-        if len(outputs) > 0:
-            message.requests_response = True
+        message.requests_response = len(outputs) > 0 or request_error
 
         for param in inputs:
             message.pack(param.data_type, param.value)

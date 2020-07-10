@@ -20,24 +20,16 @@ rvr = SpheroRvrAsync(
 async def main():
     """
     """
-
-    '''await rvr.generate_api_error(
+    await rvr.generate_api_error(
         error=1,
         target=SpheroRvrTargets.primary.value
-    )'''
-
-    await rvr.get_temperature(0,1)
-
-    # await rvr.close()
-    while True:
-        await asyncio.sleep(0.01)
+    )
 
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(
-            main()
-        )
+        asyncio.ensure_future(main())
+        loop.run_forever()
 
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')

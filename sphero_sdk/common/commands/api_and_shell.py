@@ -3,7 +3,7 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          07/09/2020 @ 20:14:20.823840 (UTC)
+# Timestamp:          07/10/2020 @ 05:06:56.531486 (UTC)
 
 from sphero_sdk.common.enums.api_and_shell_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,13 +11,14 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def echo(data, target, timeout): 
+def echo(data, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.api_and_shell,
         'cid': CommandsEnum.echo,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='data',
@@ -38,13 +39,14 @@ def echo(data, target, timeout):
     }
 
 
-def generate_api_error(error, target, timeout): 
+def generate_api_error(error, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.api_and_shell,
         'cid': CommandsEnum.generate_api_error,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='error',

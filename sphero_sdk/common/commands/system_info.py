@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          07/01/2020 @ 17:22:40.061032 (UTC)
+# Timestamp:          07/10/2020 @ 05:06:56.541995 (UTC)
 
 from sphero_sdk.common.enums.system_info_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,13 +11,14 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def get_main_application_version(target, timeout): 
+def get_main_application_version(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_main_application_version,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='major',
@@ -41,13 +42,14 @@ def get_main_application_version(target, timeout):
     }
 
 
-def get_bootloader_version(target, timeout): 
+def get_bootloader_version(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_bootloader_version,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='major',
@@ -71,13 +73,14 @@ def get_bootloader_version(target, timeout):
     }
 
 
-def get_board_revision(target, timeout): 
+def get_board_revision(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_board_revision,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='revision',
@@ -89,13 +92,14 @@ def get_board_revision(target, timeout):
     }
 
 
-def get_mac_address(target, timeout): 
+def get_mac_address(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_mac_address,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='mac_address',
@@ -107,13 +111,14 @@ def get_mac_address(target, timeout):
     }
 
 
-def get_stats_id(target, timeout): 
+def get_stats_id(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_stats_id,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='stats_id',
@@ -125,13 +130,14 @@ def get_stats_id(target, timeout):
     }
 
 
-def get_processor_name(target, timeout): 
+def get_processor_name(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_processor_name,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='name',
@@ -143,13 +149,14 @@ def get_processor_name(target, timeout):
     }
 
 
-def get_sku(target, timeout): 
+def get_sku(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_sku,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='sku',
@@ -161,13 +168,14 @@ def get_sku(target, timeout):
     }
 
 
-def get_core_up_time_in_milliseconds(target, timeout): 
+def get_core_up_time_in_milliseconds(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.system_info,
         'cid': CommandsEnum.get_core_up_time_in_milliseconds,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='up_time',

@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          07/01/2020 @ 17:22:40.052007 (UTC)
+# Timestamp:          07/10/2020 @ 05:06:56.533227 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,13 +11,14 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
+def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='left_mode',
@@ -51,23 +52,25 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
     }
 
 
-def reset_yaw(target, timeout): 
+def reset_yaw(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.reset_yaw,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def drive_with_heading(speed, heading, flags, target, timeout): 
+def drive_with_heading(speed, heading, flags, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_with_heading,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='speed',
@@ -94,13 +97,14 @@ def drive_with_heading(speed, heading, flags, target, timeout):
     }
 
 
-def set_default_control_system_for_type(control_system_type, controller_id, target, timeout): 
+def set_default_control_system_for_type(control_system_type, controller_id, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.set_default_control_system_for_type,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='control_system_type',
@@ -120,13 +124,14 @@ def set_default_control_system_for_type(control_system_type, controller_id, targ
     }
 
 
-def set_custom_control_system_timeout(command_timeout, target, timeout): 
+def set_custom_control_system_timeout(command_timeout, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.set_custom_control_system_timeout,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='command_timeout',
@@ -139,13 +144,14 @@ def set_custom_control_system_timeout(command_timeout, target, timeout):
     }
 
 
-def enable_motor_stall_notify(is_enabled, target, timeout): 
+def enable_motor_stall_notify(is_enabled, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.enable_motor_stall_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -158,12 +164,13 @@ def enable_motor_stall_notify(is_enabled, target, timeout):
     }
 
 
-def on_motor_stall_notify(target, timeout): 
+def on_motor_stall_notify(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.motor_stall_notify,
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='motor_index',
@@ -181,13 +188,14 @@ def on_motor_stall_notify(target, timeout):
     }
 
 
-def enable_motor_fault_notify(is_enabled, target, timeout): 
+def enable_motor_fault_notify(is_enabled, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.enable_motor_fault_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -200,12 +208,13 @@ def enable_motor_fault_notify(is_enabled, target, timeout):
     }
 
 
-def on_motor_fault_notify(target, timeout): 
+def on_motor_fault_notify(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.motor_fault_notify,
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='is_fault',
@@ -217,13 +226,14 @@ def on_motor_fault_notify(target, timeout):
     }
 
 
-def get_motor_fault_state(target, timeout): 
+def get_motor_fault_state(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.get_motor_fault_state,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='is_fault',
@@ -235,13 +245,14 @@ def get_motor_fault_state(target, timeout):
     }
 
 
-def drive_tank_si_units(left_velocity, right_velocity, target, timeout): 
+def drive_tank_si_units(left_velocity, right_velocity, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_tank_si_units,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='left_velocity',
@@ -261,13 +272,14 @@ def drive_tank_si_units(left_velocity, right_velocity, target, timeout):
     }
 
 
-def drive_tank_normalized(left_velocity, right_velocity, target, timeout): 
+def drive_tank_normalized(left_velocity, right_velocity, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_tank_normalized,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='left_velocity',
@@ -287,13 +299,14 @@ def drive_tank_normalized(left_velocity, right_velocity, target, timeout):
     }
 
 
-def drive_rc_si_units(yaw_angular_velocity, linear_velocity, flags, target, timeout): 
+def drive_rc_si_units(yaw_angular_velocity, linear_velocity, flags, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_rc_si_units,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angular_velocity',
@@ -320,13 +333,14 @@ def drive_rc_si_units(yaw_angular_velocity, linear_velocity, flags, target, time
     }
 
 
-def drive_rc_normalized(yaw_angular_velocity, linear_velocity, flags, target, timeout): 
+def drive_rc_normalized(yaw_angular_velocity, linear_velocity, flags, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_rc_normalized,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angular_velocity',
@@ -353,13 +367,14 @@ def drive_rc_normalized(yaw_angular_velocity, linear_velocity, flags, target, ti
     }
 
 
-def drive_with_yaw_si(yaw_angle, linear_velocity, target, timeout): 
+def drive_with_yaw_si(yaw_angle, linear_velocity, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_with_yaw_si,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angle',
@@ -379,13 +394,14 @@ def drive_with_yaw_si(yaw_angle, linear_velocity, target, timeout):
     }
 
 
-def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout): 
+def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_with_yaw_normalized,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angle',
@@ -405,13 +421,14 @@ def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout):
     }
 
 
-def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout): 
+def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_to_position_si,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angle',
@@ -452,13 +469,14 @@ def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout):
     }
 
 
-def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, timeout): 
+def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.drive_to_position_normalized,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='yaw_angle',
@@ -499,12 +517,13 @@ def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, t
     }
 
 
-def on_xy_position_drive_result_notify(target, timeout): 
+def on_xy_position_drive_result_notify(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.xy_position_drive_result_notify,
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='success',
@@ -516,13 +535,14 @@ def on_xy_position_drive_result_notify(target, timeout):
     }
 
 
-def set_drive_target_slew_parameters(a, b, c, linear_acceleration, linear_velocity_slew_method, target, timeout): 
+def set_drive_target_slew_parameters(a, b, c, linear_acceleration, linear_velocity_slew_method, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.set_drive_target_slew_parameters,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='a',
@@ -563,13 +583,14 @@ def set_drive_target_slew_parameters(a, b, c, linear_acceleration, linear_veloci
     }
 
 
-def get_drive_target_slew_parameters(target, timeout): 
+def get_drive_target_slew_parameters(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.get_drive_target_slew_parameters,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='a',
@@ -605,13 +626,14 @@ def get_drive_target_slew_parameters(target, timeout):
     }
 
 
-def stop_active_controller_custom_decel(deceleration_rate, target, timeout): 
+def stop_active_controller_custom_decel(deceleration_rate, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.stop_active_controller_custom_decel,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='deceleration_rate',
@@ -624,32 +646,35 @@ def stop_active_controller_custom_decel(deceleration_rate, target, timeout):
     }
 
 
-def on_active_controller_stopped_notify(target, timeout): 
+def on_active_controller_stopped_notify(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.active_controller_stopped_notify,
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def restore_default_drive_target_slew_parameters(target, timeout): 
+def restore_default_drive_target_slew_parameters(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.restore_default_drive_target_slew_parameters,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def get_stop_controller_state(target, timeout): 
+def get_stop_controller_state(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.get_stop_controller_state,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='stopped',
@@ -661,33 +686,36 @@ def get_stop_controller_state(target, timeout):
     }
 
 
-def stop_active_controller(target, timeout): 
+def stop_active_controller(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.stop_active_controller,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def restore_default_control_system_timeout(target, timeout): 
+def restore_default_control_system_timeout(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.restore_default_control_system_timeout,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def get_active_control_system_id(target, timeout): 
+def get_active_control_system_id(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.get_active_control_system_id,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='controller_id',
@@ -699,23 +727,25 @@ def get_active_control_system_id(target, timeout):
     }
 
 
-def restore_initial_default_control_systems(target, timeout): 
+def restore_initial_default_control_systems(target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.restore_initial_default_control_systems,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
     }
 
 
-def get_default_control_system_for_type(control_system_type, target, timeout): 
+def get_default_control_system_for_type(control_system_type, target, timeout, request_error): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.get_default_control_system_for_type,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
+        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='control_system_type',
