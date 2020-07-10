@@ -25,11 +25,15 @@ async def main():
         target=SpheroRvrTargets.primary.value
     )
 
+    while True:
+        asyncio.sleep(0)
+
 
 if __name__ == '__main__':
     try:
-        asyncio.ensure_future(main())
-        loop.run_forever()
+        loop.run_until_complete(
+            main()
+        )
 
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
