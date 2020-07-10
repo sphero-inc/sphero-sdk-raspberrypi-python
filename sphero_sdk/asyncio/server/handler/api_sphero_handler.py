@@ -204,16 +204,16 @@ class Handler(SpheroHandlerBase):
         worker_list.pop(key)
 
     async def _handle_message(self, worker_list, msg, key):
-        logger.debug('Looking up worker for key:{}'.format(key))
+        logger.debug('Looking up worker for key: {}'.format(', '.join('0x{:02x}'.format(x) for x in key)))
         try:
             worker = worker_list[key]
             logger.debug('Response handler for key found, invoking worker.')
             return await worker(msg)
         except KeyError:
-            logger.warning('Response Handler Missing: {}'.format(key))
+            logger.warning('Response Handler Missing: {}'.format(', '.join('0x{:02x}'.format(x) for x in key)))
             pass
         except Exception as e:
-            logger.error('Exception {} in {}'.format(e, key))
+            logger.error('Exception {} in {}'.format(e, ', '.join('0x{:02x}'.format(x) for x in key)))
             pass
 
     async def _handle_command(self, msg):
