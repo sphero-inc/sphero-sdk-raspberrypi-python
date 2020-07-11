@@ -30,7 +30,7 @@ class Message(SpheroMessageBase):
             '0x{:02x}'.format(self._header.cid),
             '0x{:02x}'.format(self._header.seq),
             ','.join('0x{:02x}'.format(x) for x in self._body),
-            self._header.err)
+            '0x{:02x}'.format(self._header.err) if self._header.err is not None else None)
 
     @property
     def is_response(self):
