@@ -42,11 +42,8 @@ class SerialObserverDal(SpheroDalBase):
         message.seq = seq
         message.target = target
         message.is_activity = True
-
-        if seq is not None:
-            message.seq = seq
-
         message.requests_response = len(outputs) > 0 or request_error
+        message.requests_error_response = request_error
 
         for param in inputs:
             message.pack(param.data_type, param.value)

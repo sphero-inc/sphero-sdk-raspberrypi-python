@@ -52,13 +52,13 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
         message.seq = seq
         message.target = target
         message.is_activity = True
-
-        logger.debug('Message created: %s', message)
-
         message.requests_response = len(outputs) > 0 or request_error
+        message.requests_error_response = request_error
 
         for param in inputs:
             message.pack(param.data_type, param.value)
+
+        logger.debug('Message created: %s', message)
 
         def response_handler(message):
             response_dictionary = {}

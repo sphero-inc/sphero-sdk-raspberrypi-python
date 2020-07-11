@@ -24,11 +24,13 @@ class Message(SpheroMessageBase):
         self._body = body if body is not None else bytearray()
 
     def __repr__(self):
-        return '{} {}: DID: {} CID: {} Payload: {} ERR: {}'.format(
-            self._header.packet_type_string, self._header.seq,
-            '0x{:02x}'.format(self._header.did), '0x{:02x}'.format(self._header.cid),
+        return '{} DID: {} CID: {} Sequence Number: {} Payload: {} Error: {}'.format(
+            self._header.packet_type_string,
+            self._header.seq,
+            '0x{:02x}'.format(self._header.did),
+            '0x{:02x}'.format(self._header.cid),
             ','.join('0x{:02x}'.format(x) for x in self._body),
-            self._header.err)
+            '0x{:02x}'.format(self._header.err))
 
     @property
     def is_response(self):
