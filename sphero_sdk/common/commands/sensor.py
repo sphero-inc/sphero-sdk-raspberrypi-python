@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          07/10/2020 @ 05:06:56.536839 (UTC)
+# Timestamp:          07/13/2020 @ 20:24:40.444651 (UTC)
 
 from sphero_sdk.common.enums.sensor_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,14 +11,13 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def enable_gyro_max_notify(is_enabled, target, timeout, request_error): 
+def enable_gyro_max_notify(is_enabled, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_gyro_max_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -31,13 +30,12 @@ def enable_gyro_max_notify(is_enabled, target, timeout, request_error):
     }
 
 
-def on_gyro_max_notify(target, timeout, request_error): 
+def on_gyro_max_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.gyro_max_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='flags',
@@ -49,25 +47,23 @@ def on_gyro_max_notify(target, timeout, request_error):
     }
 
 
-def reset_locator_x_and_y(target, timeout, request_error): 
+def reset_locator_x_and_y(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.reset_locator_x_and_y,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def set_locator_flags(flags, target, timeout, request_error): 
+def set_locator_flags(flags, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.set_locator_flags,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='flags',
@@ -80,14 +76,13 @@ def set_locator_flags(flags, target, timeout, request_error):
     }
 
 
-def get_bot_to_bot_infrared_readings(target, timeout, request_error): 
+def get_bot_to_bot_infrared_readings(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_bot_to_bot_infrared_readings,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='sensor_data',
@@ -99,14 +94,13 @@ def get_bot_to_bot_infrared_readings(target, timeout, request_error):
     }
 
 
-def get_rgbc_sensor_values(target, timeout, request_error): 
+def get_rgbc_sensor_values(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_rgbc_sensor_values,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='red_channel_value',
@@ -136,25 +130,23 @@ def get_rgbc_sensor_values(target, timeout, request_error):
     }
 
 
-def magnetometer_calibrate_to_north(target, timeout, request_error): 
+def magnetometer_calibrate_to_north(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.magnetometer_calibrate_to_north,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, timeout, request_error): 
+def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.start_robot_to_robot_infrared_broadcasting,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='far_code',
@@ -174,14 +166,13 @@ def start_robot_to_robot_infrared_broadcasting(far_code, near_code, target, time
     }
 
 
-def start_robot_to_robot_infrared_following(far_code, near_code, target, timeout, request_error): 
+def start_robot_to_robot_infrared_following(far_code, near_code, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.start_robot_to_robot_infrared_following,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='far_code',
@@ -201,24 +192,22 @@ def start_robot_to_robot_infrared_following(far_code, near_code, target, timeout
     }
 
 
-def stop_robot_to_robot_infrared_broadcasting(target, timeout, request_error): 
+def stop_robot_to_robot_infrared_broadcasting(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.stop_robot_to_robot_infrared_broadcasting,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def on_robot_to_robot_infrared_message_received_notify(target, timeout, request_error): 
+def on_robot_to_robot_infrared_message_received_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.robot_to_robot_infrared_message_received_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='infrared_code',
@@ -230,14 +219,13 @@ def on_robot_to_robot_infrared_message_received_notify(target, timeout, request_
     }
 
 
-def get_ambient_light_sensor_value(target, timeout, request_error): 
+def get_ambient_light_sensor_value(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_ambient_light_sensor_value,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='ambient_light_value',
@@ -249,25 +237,23 @@ def get_ambient_light_sensor_value(target, timeout, request_error):
     }
 
 
-def stop_robot_to_robot_infrared_following(target, timeout, request_error): 
+def stop_robot_to_robot_infrared_following(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.stop_robot_to_robot_infrared_following,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def start_robot_to_robot_infrared_evading(far_code, near_code, target, timeout, request_error): 
+def start_robot_to_robot_infrared_evading(far_code, near_code, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.start_robot_to_robot_infrared_evading,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='far_code',
@@ -287,25 +273,23 @@ def start_robot_to_robot_infrared_evading(far_code, near_code, target, timeout, 
     }
 
 
-def stop_robot_to_robot_infrared_evading(target, timeout, request_error): 
+def stop_robot_to_robot_infrared_evading(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.stop_robot_to_robot_infrared_evading,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def enable_color_detection_notify(is_enabled, interval, minimum_confidence_threshold, target, timeout, request_error): 
+def enable_color_detection_notify(is_enabled, interval, minimum_confidence_threshold, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_color_detection_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -332,13 +316,12 @@ def enable_color_detection_notify(is_enabled, interval, minimum_confidence_thres
     }
 
 
-def on_color_detection_notify(target, timeout, request_error): 
+def on_color_detection_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.color_detection_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='red',
@@ -374,25 +357,23 @@ def on_color_detection_notify(target, timeout, request_error):
     }
 
 
-def get_current_detected_color_reading(target, timeout, request_error): 
+def get_current_detected_color_reading(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_current_detected_color_reading,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def enable_color_detection(is_enabled, target, timeout, request_error): 
+def enable_color_detection(is_enabled, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_color_detection,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -405,14 +386,13 @@ def enable_color_detection(is_enabled, target, timeout, request_error):
     }
 
 
-def configure_streaming_service(token, configuration, target, timeout, request_error): 
+def configure_streaming_service(token, configuration, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.configure_streaming_service,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='token',
@@ -432,14 +412,13 @@ def configure_streaming_service(token, configuration, target, timeout, request_e
     }
 
 
-def start_streaming_service(period, target, timeout, request_error): 
+def start_streaming_service(period, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.start_streaming_service,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='period',
@@ -452,35 +431,32 @@ def start_streaming_service(period, target, timeout, request_error):
     }
 
 
-def stop_streaming_service(target, timeout, request_error): 
+def stop_streaming_service(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.stop_streaming_service,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def clear_streaming_service(target, timeout, request_error): 
+def clear_streaming_service(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.clear_streaming_service,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
 
 
-def on_streaming_service_data_notify(target, timeout, request_error): 
+def on_streaming_service_data_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.streaming_service_data_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='token',
@@ -498,14 +474,13 @@ def on_streaming_service_data_notify(target, timeout, request_error):
     }
 
 
-def enable_robot_infrared_message_notify(is_enabled, target, timeout, request_error): 
+def enable_robot_infrared_message_notify(is_enabled, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_robot_infrared_message_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -518,14 +493,13 @@ def enable_robot_infrared_message_notify(is_enabled, target, timeout, request_er
     }
 
 
-def send_infrared_message(infrared_code, front_strength, left_strength, right_strength, rear_strength, target, timeout, request_error): 
+def send_infrared_message(infrared_code, front_strength, left_strength, right_strength, rear_strength, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.send_infrared_message,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='infrared_code',
@@ -566,14 +540,13 @@ def send_infrared_message(infrared_code, front_strength, left_strength, right_st
     }
 
 
-def get_temperature(id0, id1, target, timeout, request_error): 
+def get_temperature(id0, id1, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_temperature,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='id0',
@@ -619,14 +592,13 @@ def get_temperature(id0, id1, target, timeout, request_error):
     }
 
 
-def get_motor_thermal_protection_status(target, timeout, request_error): 
+def get_motor_thermal_protection_status(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_motor_thermal_protection_status,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='left_motor_temperature',
@@ -656,14 +628,13 @@ def get_motor_thermal_protection_status(target, timeout, request_error):
     }
 
 
-def enable_motor_thermal_protection_status_notify(is_enabled, target, timeout, request_error): 
+def enable_motor_thermal_protection_status_notify(is_enabled, target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.enable_motor_thermal_protection_status_notify,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'inputs': [ 
             Parameter( 
                 name='is_enabled',
@@ -676,13 +647,12 @@ def enable_motor_thermal_protection_status_notify(is_enabled, target, timeout, r
     }
 
 
-def on_motor_thermal_protection_status_notify(target, timeout, request_error): 
+def on_motor_thermal_protection_status_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.motor_thermal_protection_status_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='left_motor_temperature',
@@ -712,13 +682,12 @@ def on_motor_thermal_protection_status_notify(target, timeout, request_error):
     }
 
 
-def on_magnetometer_calibration_complete_notify(target, timeout, request_error): 
+def on_magnetometer_calibration_complete_notify(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.magnetometer_calibration_complete_notify,
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='is_successful',
@@ -736,14 +705,13 @@ def on_magnetometer_calibration_complete_notify(target, timeout, request_error):
     }
 
 
-def get_magnetometer_reading(target, timeout, request_error): 
+def get_magnetometer_reading(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_magnetometer_reading,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='x_axis',
@@ -767,14 +735,13 @@ def get_magnetometer_reading(target, timeout, request_error):
     }
 
 
-def get_encoder_counts(target, timeout, request_error): 
+def get_encoder_counts(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.get_encoder_counts,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
         'outputs': [ 
             Parameter( 
                 name='encoder_counts',
@@ -786,12 +753,11 @@ def get_encoder_counts(target, timeout, request_error):
     }
 
 
-def disable_notifications_and_active_commands(target, timeout, request_error): 
+def disable_notifications_and_active_commands(target, timeout): 
     return { 
         'did': DevicesEnum.sensor,
         'cid': CommandsEnum.disable_notifications_and_active_commands,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
-        'request_error': request_error,
     }
