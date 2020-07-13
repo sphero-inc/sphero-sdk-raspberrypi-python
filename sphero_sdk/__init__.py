@@ -9,6 +9,7 @@ from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrTargets
 from sphero_sdk.common.enums.sphero_rvr_enums import SpheroRvrLedBitmasks
 from sphero_sdk.common.rvr_streaming_services import RvrStreamingServices
 
+from sphero_sdk.common.protocol.api_sphero_protocol import ErrorCode
 
 from sphero_sdk.common.enums.drive_enums import RawMotorModesEnum
 from sphero_sdk.common.enums.drive_enums import MotorIndexesEnum as DriveMotorIndexesEnum
