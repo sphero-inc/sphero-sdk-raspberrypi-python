@@ -22,12 +22,12 @@ async def main():
     """
     await rvr.generate_api_error(
         error=1,
-        target=SpheroRvrTargets.primary.value,
-        request_error=True
+        target=SpheroRvrTargets.secondary.value,
+        request_error=True,
+        timeout=3
     )
 
-    while True:
-        asyncio.sleep(0)
+    await rvr.close()
 
 
 if __name__ == '__main__':

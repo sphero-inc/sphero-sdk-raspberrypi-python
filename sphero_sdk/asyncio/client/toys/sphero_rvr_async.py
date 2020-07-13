@@ -24,7 +24,7 @@ from sphero_sdk import RvrFwCheckAsync
 
 
 class SpheroRvrAsync(RvrFwCheckAsync): 
-    def __init__(self, dal, log_level=LogLevel.Silent): 
+    def __init__(self, dal, log_level=LogLevel.Debug_Verbose): 
         logging.config.dictConfig(logging_config.get_dict(log_level))
         RvrFwCheckAsync.__init__(self)
         self._dal = dal
