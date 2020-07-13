@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      93
-# Timestamp:          07/13/2020 @ 21:11:57.718852 (UTC)
+# Timestamp:          07/13/2020 @ 22:35:05.771344 (UTC)
 
 import time
 import logging.config
@@ -52,6 +52,14 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
     @property 
     def sensor_control(self): 
         return self._sensor_control
+
+    @property 
+    def request_error_responses_only(self): 
+        return self._dal.request_error_responses_only 
+
+    @request_error_responses_only.setter 
+    def request_error_responses_only(self, is_enabled): 
+        self._dal.request_error_responses_only = is_enabled 
 
     def close(self): 
         if len(self._sensor_control.enabled_sensors) > 0: 
