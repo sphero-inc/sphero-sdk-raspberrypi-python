@@ -1,4 +1,5 @@
 import logging
+from sphero_sdk import ErrorCode
 from sphero_sdk.observer.observer_base import Observer
 
 logger = logging.getLogger(__name__)
@@ -16,7 +17,9 @@ class EventDispatcher:
             message (Message): Used to look for registered handlers for this message.
 
         """
-        # TODO AC - Implement error handling
+
+        if message.err is not ErrorCode.success:
+            raise Exception(message.err.name)
 
         if message.is_response:
             key = (message.did, message.cid, message.seq, message.source)

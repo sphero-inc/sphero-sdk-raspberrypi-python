@@ -1,12 +1,14 @@
 import os
 import sys
+import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 from sphero_sdk import SpheroRvrObserver
 from sphero_sdk import SpheroRvrTargets
 from sphero_sdk import ErrorCode
+from sphero_sdk.common.log_level import LogLevel
 
-rvr = SpheroRvrObserver()
+rvr = SpheroRvrObserver(log_level=LogLevel.Debug_Verbose)
 
 
 def main():
@@ -39,14 +41,17 @@ def main():
         rvr.request_error_responses_only = True
 
         rvr.generate_api_error(
-            error=ErrorCode.busy,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
+            error=ErrorCode.bad_cid,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
             target=SpheroRvrTargets.secondary.value,
             timeout=3
         )
+
+        # Sleep for one second such that RVR has time to send data back
+        time.sleep(1)
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
     except Exception:
-        raise
+        print("ERROR ERROR ERROR")
     finally:
         rvr.close()
 

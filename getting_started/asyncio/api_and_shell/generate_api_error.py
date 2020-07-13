@@ -48,7 +48,7 @@ async def main():
     rvr.request_error_responses_only = True
 
     await rvr.generate_api_error(
-        error=ErrorCode.busy,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
+        error=ErrorCode.target_unavailable,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
         target=SpheroRvrTargets.secondary.value,
         timeout=3
     )
