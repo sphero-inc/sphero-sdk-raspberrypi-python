@@ -24,6 +24,9 @@ def main():
 
         rvr.get_encoder_counts(handler=get_encoder_counts_response_handler)
 
+        # Give RVR time to respond
+        time.sleep(1)
+
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
 

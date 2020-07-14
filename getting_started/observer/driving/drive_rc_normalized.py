@@ -38,17 +38,27 @@ def main():
         )
 
         # Delay to allow RVR to drive
-        time.sleep(1)
+        time.sleep(2)
 
         # Continue driving forward, while turning left
         rvr.drive_rc_normalized(
-            linear_velocity=15,         # Valid linear velocity values are -127..127
+            linear_velocity=20,         # Valid linear velocity values are -127..127
             yaw_angular_velocity=20,    # Valid angular velocity values are -127..127
             flags=0
         )
 
-        # Delay to allow RVR to drive
+        # Delay to allow RVR to turn
         time.sleep(1)
+
+        # Drive in new forward direction
+        rvr.drive_rc_normalized(
+            linear_velocity=20,  # Valid linear velocity values are -127..127
+            yaw_angular_velocity=0,  # Valid angular velocity values are -127..127
+            flags=0
+        )
+
+        # Delay to allow RVR to drive
+        time.sleep(2)
 
         print("sending stop command")
 
