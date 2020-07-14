@@ -18,7 +18,7 @@ class EventDispatcher:
 
         """
 
-        if message.err is not ErrorCode.success:
+        if message.err is not None and message.err is not ErrorCode.success:
             raise Exception(message.err.name)
 
         if message.is_response:

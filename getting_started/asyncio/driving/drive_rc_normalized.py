@@ -45,7 +45,7 @@ async def main():
     )
 
     # Delay to allow RVR to drive
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
 
     # Continue driving forward, while turning left
     await rvr.drive_rc_normalized(
@@ -54,8 +54,18 @@ async def main():
         flags=0
     )
 
-    # Delay to allow RVR to drive
+    # Delay to allow RVR to turn
     await asyncio.sleep(1)
+
+    # Drive in new forward direction
+    await rvr.drive_rc_normalized(
+        linear_velocity=20,  # Valid linear velocity values are -127..127
+        yaw_angular_velocity=0,  # Valid angular velocity values are -127..127
+        flags=0
+    )
+
+    # Delay to allow RVR to drive
+    await asyncio.sleep(2)
 
     print("sending stop command")
 
@@ -70,11 +80,10 @@ async def main():
 
 if __name__ == '__main__':
     try:
-        asyncio.ensure_future(
+        loop.run_until_complete(
             main()
         )
-        loop.run_forever()
-
+        
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
 

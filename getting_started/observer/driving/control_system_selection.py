@@ -9,12 +9,13 @@ from sphero_sdk import ControlSystemIdsEnum
 
 rvr = SpheroRvrObserver()
 
+control_system_type = None
 
 def get_default_control_system_response_handler(response):
+    global control_system_type
     print(response)
     controller_id = ControlSystemIdsEnum(response['controller_id'])
-    controller_type = ControlSystemTypesEnum(response['controller_type'])
-    print('Default controller for {} is {}'.format(controller_type.name, controller_id.name))
+    print('Default controller for {} is {}'.format(control_system_type.name, controller_id.name))
 
 
 def get_active_control_system_id_response_handler(response):
@@ -51,6 +52,8 @@ def main():
         stopped, so you must issue a stop command to change.
     """
     try:
+        global control_system_type
+
         rvr.wake()
 
         # Give RVR time to wake up
