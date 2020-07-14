@@ -46,7 +46,9 @@ class SerialObserverDal(SpheroDalBase):
         # Messages that already request a response due to expected outputs don't need this
         # extra flag. They will automatically respond with errors if any are generated.
         # This flag is meant only for commands with no expected output.
-        message.requests_error_response = self.request_error_responses_only if len(outputs) == 0 else False
+
+        # HACK: disabling for now since request_response flag can also respond back with errors.
+        # message.requests_error_response = self.request_error_responses_only if len(outputs) == 0 else False
 
         for param in inputs:
             message.pack(param.data_type, param.value)
