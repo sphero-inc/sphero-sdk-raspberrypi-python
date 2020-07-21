@@ -11,7 +11,7 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
+def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
@@ -27,10 +27,10 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
                 size=1
             ),
             Parameter( 
-                name='left_speed',
+                name='left_duty_cycle',
                 data_type='uint8_t',
                 index=1,
-                value=left_speed,
+                value=left_duty_cycle,
                 size=1
             ),
             Parameter( 
@@ -41,10 +41,10 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
                 size=1
             ),
             Parameter( 
-                name='right_speed',
+                name='right_duty_cycle',
                 data_type='uint8_t',
                 index=3,
-                value=right_speed,
+                value=right_duty_cycle,
                 size=1
             ),
         ],

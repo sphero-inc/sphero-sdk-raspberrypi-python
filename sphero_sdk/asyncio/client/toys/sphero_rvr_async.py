@@ -326,17 +326,17 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         command_dict = power.get_current_sense_amplifier_current(amplifier_id, target=1, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def raw_motors(self, left_mode, left_speed, right_mode, right_speed, timeout=None): 
+    async def raw_motors(self, left_mode, left_duty_cycle, right_mode, right_duty_cycle, timeout=None): 
         """Run left and right motors at a normalized duty cycle between 0 and 255. Set driving mode using flags.
 
         Args:
             left_mode (uint8_t): Drive mode: 0x0-off, 0x1-forward, 0x2-reverse
-            left_speed (uint8_t): Duty cycle normalized to 0-255 (This is not a speed, but can't be renamed yet)
+            left_duty_cycle (uint8_t): Duty cycle normalized to 0-255
             right_mode (uint8_t): Drive mode: 0x0-off, 0x1-forward, 0x2-reverse
-            right_speed (uint8_t): Duty cycle normalized to 0-255 (This is not a speed, but can't be renamed yet)
+            right_duty_cycle (uint8_t): Duty cycle normalized to 0-255
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.raw_motors(left_mode, left_speed, right_mode, right_speed, target=2, timeout=timeout)
+        command_dict = drive.raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
     async def reset_yaw(self, timeout=None): 

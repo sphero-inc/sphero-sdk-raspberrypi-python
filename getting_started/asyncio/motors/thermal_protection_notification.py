@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import RawMotorModesEnum
 from sphero_sdk import TemperatureSensorsEnum
 
 loop = asyncio.get_event_loop()
@@ -45,7 +44,7 @@ async def main():
     while True:
         await rvr.drive_tank_normalized(
             left_velocity=127, # Valid linear velocity values are [-127..127]
-            right_velocity=-127 # Valid speed values are 0-255
+            right_velocity=-127 # Valid linear velocity values are [-127..127]
         )
 
         await asyncio.sleep(1)
