@@ -72,7 +72,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
 
         Args:
             data (list(uint8_t)): Payload data to be echoed as an integer between 0 and 255.
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -86,7 +86,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
 
         Args:
             error (uint8_t): The API error you would like to generate in the response
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = api_and_shell.generate_api_error(error, target=target, timeout=timeout)
@@ -96,7 +96,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Gets the version of the main application.
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -109,7 +109,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Gets the version of the bootloader.
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -158,7 +158,7 @@ class SpheroRvrAsync(RvrFwCheckAsync):
         """Returns the processor name string (as specified to the System Info module). If no name is specified, returns an empty string or no string.
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -905,7 +905,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         Args:
             token (uint8_t): None
             configuration (list(uint8_t)): Array containing the configuration of the client, like the service ID and size.
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.configure_streaming_service(token, configuration, target=target, timeout=timeout)
@@ -916,7 +916,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
 
         Args:
             period (uint16_t): Interval between sensor streaming packets in milliseconds.
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.start_streaming_service(period, target=target, timeout=timeout)
@@ -926,7 +926,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Stops all streaming services for a client
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.stop_streaming_service(target=target, timeout=timeout)
@@ -936,7 +936,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Clears all streaming services for a client
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.clear_streaming_service(target=target, timeout=timeout)
@@ -947,7 +947,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
 
         Args:
             handler (function): called asynchronously, takes form handler(token, sensor_data).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         Returns:
             Task (Future) from which `handler` will be called

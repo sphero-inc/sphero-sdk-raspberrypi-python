@@ -37,7 +37,7 @@ def main():
         print("Driving forward with the default 2 second timeout")
 
         rvr.drive_rc_si_units(
-            linear_velocity=.3,     # Valid velocity values are in the range of [-1.555..1.555] m/s
+            linear_velocity=.3,     # Valid velocity values are in the range of [-2..2] m/s
             yaw_angular_velocity=0, # RVR will spin at up to 624 degrees/s.  Values outside of [-624..624] will saturate internally.
             flags=0
         )

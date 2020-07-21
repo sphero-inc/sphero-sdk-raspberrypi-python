@@ -74,7 +74,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
         Args:
             data (list(uint8_t)): Payload data to be echoed as an integer between 0 and 255.
             handler (function): called when response is received, takes form handler(data).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -89,7 +89,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             error (uint8_t): The API error you would like to generate in the response
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = api_and_shell.generate_api_error(error, target=target, timeout=timeout)
@@ -100,7 +100,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             handler (function): called when response is received, takes form handler(major, minor, revision).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -117,7 +117,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             handler (function): called when response is received, takes form handler(major, minor, revision).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -176,7 +176,7 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
 
         Args:
             handler (function): called when response is received, takes form handler(name).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
 
         Returns:
@@ -910,7 +910,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         Args:
             token (uint8_t): None
             configuration (list(uint8_t)): Array containing the configuration of the client, like the service ID and size.
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.configure_streaming_service(token, configuration, target=target, timeout=timeout)
@@ -921,7 +921,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
 
         Args:
             period (uint16_t): Interval between sensor streaming packets in milliseconds.
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.start_streaming_service(period, target=target, timeout=timeout)
@@ -931,7 +931,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Stops all streaming services for a client
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.stop_streaming_service(target=target, timeout=timeout)
@@ -941,7 +941,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
         """Clears all streaming services for a client
 
         Args:
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.clear_streaming_service(target=target, timeout=timeout)
@@ -952,7 +952,7 @@ Mask description on BOLT: 32'h0000_00ff: front left sensor 32'h0000_ff00: front 
 
         Args:
             handler (function): called when response is received, takes form handler(token, sensor_data).
-            target (unit8_t): 1 or 2.
+            target (uint8_t): 1 or 2.
             timeout (float): maximum time to await a response.
         """
         command_dict = sensor.on_streaming_service_data_notify(target=target, timeout=timeout)
