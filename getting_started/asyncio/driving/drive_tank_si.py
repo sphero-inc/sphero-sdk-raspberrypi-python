@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import DriveFlagsBitmask
 
 
 loop = asyncio.get_event_loop()
@@ -59,16 +58,16 @@ async def main():
 
     # Spin in place quickly
     await rvr.drive_tank_si_units(
-        left_velocity=-1.5, 
-        right_velocity=1.5 
+        left_velocity=-1.5,
+        right_velocity=1.5
     )
 
     # Delay to allow RVR to drive
     await asyncio.sleep(2)
 
     await rvr.drive_tank_si_units(
-        left_velocity=0, 
-        right_velocity=0 
+        left_velocity=0,
+        right_velocity=0
     )
 
     # Delay to allow RVR to drive

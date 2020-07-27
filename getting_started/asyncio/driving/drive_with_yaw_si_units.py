@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import DriveFlagsBitmask
 
 
 loop = asyncio.get_event_loop()
@@ -31,7 +30,7 @@ async def main():
         IF you want to switch commands in existing projects.  In the _si version of this command, yaw_angle
         is a float, allowing for the specification of non-integer yaw targets.
 
-        To eliminate the flags field, unsigned scalar speed values have been replaced in newer commands with 
+        To eliminate the flags field, unsigned scalar speed values have been replaced in newer commands with
         signed linear velocity values.  In the _si versions of drive commands, linear_velocity is a float argument
         in meters per second.
     """

@@ -1,6 +1,9 @@
 import os
 import aiohttp
 import asyncio
+import urllib
+from urllib import request
+from urllib import error
 from datetime import datetime
 from aiohttp import ClientSession
 
@@ -37,6 +40,16 @@ class CmsFwCheckBase:
                 return time_delta.days > 7
 
         except (ValueError, FileNotFoundError) as e:
+            return True
+
+    def _network_available(self):
+        try:
+            urllib.request.urlopen("https://google.com")
+        except urllib.error.URLError:
+            print("No network available")
+            return False
+        else:
+            print("Network available")
             return True
 
     def _check_update_available(self, rvr_version, cms_version):

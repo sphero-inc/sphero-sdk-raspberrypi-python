@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          05/30/2020 @ 00:36:04.707092 (UTC)
+# Timestamp:          07/13/2020 @ 20:24:40.440678 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -11,7 +11,7 @@ from sphero_sdk.common.parameter import Parameter
 from sphero_sdk.common.sequence_number_generator import SequenceNumberGenerator
 
 
-def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout): 
+def raw_motors(left_mode, left_duty_cycle, right_mode, right_duty_cycle, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
         'cid': CommandsEnum.raw_motors,
@@ -20,31 +20,31 @@ def raw_motors(left_mode, left_speed, right_mode, right_speed, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='leftMode',
+                name='left_mode',
                 data_type='uint8_t',
                 index=0,
                 value=left_mode,
                 size=1
             ),
             Parameter( 
-                name='leftSpeed',
+                name='left_duty_cycle',
                 data_type='uint8_t',
                 index=1,
-                value=left_speed,
+                value=left_duty_cycle,
                 size=1
             ),
             Parameter( 
-                name='rightMode',
+                name='right_mode',
                 data_type='uint8_t',
                 index=2,
                 value=right_mode,
                 size=1
             ),
             Parameter( 
-                name='rightSpeed',
+                name='right_duty_cycle',
                 data_type='uint8_t',
                 index=3,
-                value=right_speed,
+                value=right_duty_cycle,
                 size=1
             ),
         ],
@@ -103,14 +103,14 @@ def set_default_control_system_for_type(control_system_type, controller_id, targ
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='controlSystemType',
+                name='control_system_type',
                 data_type='uint8_t',
                 index=0,
                 value=control_system_type,
                 size=1
             ),
             Parameter( 
-                name='controllerId',
+                name='controller_id',
                 data_type='uint8_t',
                 index=1,
                 value=controller_id,
@@ -129,7 +129,7 @@ def set_custom_control_system_timeout(command_timeout, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='commandTimeout',
+                name='command_timeout',
                 data_type='uint16_t',
                 index=0,
                 value=command_timeout,
@@ -148,7 +148,7 @@ def enable_motor_stall_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -166,13 +166,13 @@ def on_motor_stall_notify(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='motorIndex',
+                name='motor_index',
                 data_type='uint8_t',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='isTriggered',
+                name='is_triggered',
                 data_type='bool',
                 index=1,
                 size=1,
@@ -190,7 +190,7 @@ def enable_motor_fault_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -208,7 +208,7 @@ def on_motor_fault_notify(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='isFault',
+                name='is_fault',
                 data_type='bool',
                 index=0,
                 size=1,
@@ -226,7 +226,7 @@ def get_motor_fault_state(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='isFault',
+                name='is_fault',
                 data_type='bool',
                 index=0,
                 size=1,
@@ -244,14 +244,14 @@ def drive_tank_si_units(left_velocity, right_velocity, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='leftVelocity',
+                name='left_velocity',
                 data_type='float',
                 index=0,
                 value=left_velocity,
                 size=1
             ),
             Parameter( 
-                name='rightVelocity',
+                name='right_velocity',
                 data_type='float',
                 index=1,
                 value=right_velocity,
@@ -270,14 +270,14 @@ def drive_tank_normalized(left_velocity, right_velocity, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='leftVelocity',
+                name='left_velocity',
                 data_type='int8_t',
                 index=0,
                 value=left_velocity,
                 size=1
             ),
             Parameter( 
-                name='rightVelocity',
+                name='right_velocity',
                 data_type='int8_t',
                 index=1,
                 value=right_velocity,
@@ -296,14 +296,14 @@ def drive_rc_si_units(yaw_angular_velocity, linear_velocity, flags, target, time
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngularVelocity',
+                name='yaw_angular_velocity',
                 data_type='float',
                 index=0,
                 value=yaw_angular_velocity,
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linear_velocity',
                 data_type='float',
                 index=1,
                 value=linear_velocity,
@@ -329,14 +329,14 @@ def drive_rc_normalized(yaw_angular_velocity, linear_velocity, flags, target, ti
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngularVelocity',
+                name='yaw_angular_velocity',
                 data_type='int8_t',
                 index=0,
                 value=yaw_angular_velocity,
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linear_velocity',
                 data_type='int8_t',
                 index=1,
                 value=linear_velocity,
@@ -362,14 +362,14 @@ def drive_with_yaw_si(yaw_angle, linear_velocity, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngle',
+                name='yaw_angle',
                 data_type='float',
                 index=0,
                 value=yaw_angle,
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linear_velocity',
                 data_type='float',
                 index=1,
                 value=linear_velocity,
@@ -388,14 +388,14 @@ def drive_with_yaw_normalized(yaw_angle, linear_velocity, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngle',
+                name='yaw_angle',
                 data_type='int16_t',
                 index=0,
                 value=yaw_angle,
                 size=1
             ),
             Parameter( 
-                name='linearVelocity',
+                name='linear_velocity',
                 data_type='int8_t',
                 index=1,
                 value=linear_velocity,
@@ -414,7 +414,7 @@ def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngle',
+                name='yaw_angle',
                 data_type='float',
                 index=0,
                 value=yaw_angle,
@@ -435,7 +435,7 @@ def drive_to_position_si(yaw_angle, x, y, linear_speed, flags, target, timeout):
                 size=1
             ),
             Parameter( 
-                name='linearSpeed',
+                name='linear_speed',
                 data_type='float',
                 index=3,
                 value=linear_speed,
@@ -461,7 +461,7 @@ def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, t
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='yawAngle',
+                name='yaw_angle',
                 data_type='int16_t',
                 index=0,
                 value=yaw_angle,
@@ -482,7 +482,7 @@ def drive_to_position_normalized(yaw_angle, x, y, linear_speed, flags, target, t
                 size=1
             ),
             Parameter( 
-                name='linearSpeed',
+                name='linear_speed',
                 data_type='int8_t',
                 index=3,
                 value=linear_speed,
@@ -546,14 +546,14 @@ def set_drive_target_slew_parameters(a, b, c, linear_acceleration, linear_veloci
                 size=1
             ),
             Parameter( 
-                name='linearAcceleration',
+                name='linear_acceleration',
                 data_type='float',
                 index=3,
                 value=linear_acceleration,
                 size=1
             ),
             Parameter( 
-                name='linearVelocitySlewMethod',
+                name='linear_velocity_slew_method',
                 data_type='uint8_t',
                 index=4,
                 value=linear_velocity_slew_method,
@@ -590,13 +590,13 @@ def get_drive_target_slew_parameters(target, timeout):
                 size=1,
             ),
             Parameter( 
-                name='linearAcceleration',
+                name='linear_acceleration',
                 data_type='float',
                 index=3,
                 size=1,
             ),
             Parameter( 
-                name='linearVelocitySlewMethod',
+                name='linear_velocity_slew_method',
                 data_type='uint8_t',
                 index=4,
                 size=1,
@@ -614,7 +614,7 @@ def stop_active_controller_custom_decel(deceleration_rate, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='decelerationRate',
+                name='deceleration_rate',
                 data_type='float',
                 index=0,
                 value=deceleration_rate,
@@ -690,7 +690,7 @@ def get_active_control_system_id(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='controllerId',
+                name='controller_id',
                 data_type='uint8_t',
                 index=0,
                 size=1,
@@ -718,7 +718,7 @@ def get_default_control_system_for_type(control_system_type, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='controlSystemType',
+                name='control_system_type',
                 data_type='uint8_t',
                 index=0,
                 value=control_system_type,
@@ -727,7 +727,7 @@ def get_default_control_system_for_type(control_system_type, target, timeout):
         ],
         'outputs': [ 
             Parameter( 
-                name='controllerId',
+                name='controller_id',
                 data_type='uint8_t',
                 index=0,
                 size=1,

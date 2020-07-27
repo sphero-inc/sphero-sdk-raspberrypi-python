@@ -21,6 +21,10 @@ class RvrFwCheckAsync(CmsFwCheckBase):
         if not self._should_run_fw_check():
             return
 
+        if not self._network_available():
+            self._write_timestamp()
+            return
+
         print('Checking RVR firmware versions...')
 
         rvr_nordic_version = await self.__rvr.get_main_application_version(target=SpheroRvrTargets.primary.value, timeout=3)

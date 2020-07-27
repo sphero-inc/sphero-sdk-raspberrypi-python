@@ -3,7 +3,7 @@
 # Source File:        0x13-power.json
 # Device ID:          0x13
 # Device Name:        power
-# Timestamp:          05/30/2020 @ 00:36:04.771260 (UTC)
+# Timestamp:          07/13/2020 @ 20:24:40.448214 (UTC)
 
 from sphero_sdk.common.enums.power_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -94,7 +94,7 @@ def enable_battery_voltage_state_change_notify(is_enabled, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='isEnabled',
+                name='is_enabled',
                 data_type='bool',
                 index=0,
                 value=is_enabled,
@@ -130,7 +130,7 @@ def get_battery_voltage_in_volts(reading_type, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='readingType',
+                name='reading_type',
                 data_type='uint8_t',
                 index=0,
                 value=reading_type,
@@ -157,13 +157,13 @@ def get_battery_voltage_state_thresholds(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='criticalThreshold',
+                name='critical_threshold',
                 data_type='float',
                 index=0,
                 size=1,
             ),
             Parameter( 
-                name='lowThreshold',
+                name='low_threshold',
                 data_type='float',
                 index=1,
                 size=1,
@@ -187,7 +187,7 @@ def get_current_sense_amplifier_current(amplifier_id, target, timeout):
         'timeout': timeout,
         'inputs': [ 
             Parameter( 
-                name='amplifierId',
+                name='amplifier_id',
                 data_type='uint8_t',
                 index=0,
                 value=amplifier_id,
@@ -196,7 +196,7 @@ def get_current_sense_amplifier_current(amplifier_id, target, timeout):
         ],
         'outputs': [ 
             Parameter( 
-                name='amplifierCurrent',
+                name='amplifier_current',
                 data_type='float',
                 index=0,
                 size=1,

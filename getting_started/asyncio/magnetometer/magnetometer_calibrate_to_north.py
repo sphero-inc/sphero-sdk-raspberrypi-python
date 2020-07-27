@@ -15,19 +15,19 @@ rvr = SpheroRvrAsync(
     )
 )
 
-# Flag used to indicate that calibration is complete 
+# Flag used to indicate that calibration is complete
 calibration_completed = False
 
-# Handler for completion of calibration 
+# Handler for completion of calibration
 async def on_calibration_complete_notify_handler(response):
     global calibration_completed
 
     print('Calibration complete, response:', response)
-    calibration_completed = True 
+    calibration_completed = True
 
 
 async def main():
-    """ This program demonstrates the magnetometer calibration to find north. 
+    """ This program demonstrates the magnetometer calibration to find north.
     """
 
     global calibration_completed
@@ -40,17 +40,17 @@ async def main():
     # Register for the async on completion of calibration
     await rvr.on_magnetometer_calibration_complete_notify(handler=on_calibration_complete_notify_handler)
 
-    # Begin calibration 
+    # Begin calibration
     print('Begin magnetometer calibration to find North...')
     await rvr.magnetometer_calibrate_to_north()
 
     # Wait to complete the calibration.  Note: In a real project, a timeout mechanism
     # should be here to prevent the script from getting caught in an infinite loop
-    while (calibration_completed == False):
+    while not calibration_completed:
         await asyncio.sleep(0)
 
     await rvr.close();
-    
+
 
 if __name__ == '__main__':
     try:

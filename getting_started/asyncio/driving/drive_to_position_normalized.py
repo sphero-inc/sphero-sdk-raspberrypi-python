@@ -5,7 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import RawMotorModesEnum
 
 
 loop = asyncio.get_event_loop()
@@ -17,13 +16,13 @@ rvr = SpheroRvrAsync(
 )
 
 # Flag used to wait for move completion
-move_completed=False
+move_completed = False
 
 # Handler for completion of XY position drive moves
 async def on_xy_position_drive_result_notify_handler(response):
     global move_completed
 
-    move_completed=True
+    move_completed = True
     print('Move completed, response:', response)
 
 
@@ -35,9 +34,9 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_speed,flags):
     print("Driving to ({0},{1}) at {2} degrees".format(x,y,yaw_angle))
 
     # Clear the completion flag
-    move_completed=False
+    move_completed = False
 
-    # Send the drive command, passing the wrapper function parameters into the matching 
+    # Send the drive command, passing the wrapper function parameters into the matching
     # parameters in rvr.drive_to_position_normalized (which sends the actual drive command)
     await rvr.drive_to_position_normalized(
         yaw_angle=yaw_angle,             # 0 degrees is straight ahead, +CCW (Following the right hand rule)
@@ -49,7 +48,7 @@ async def drive_to_position_wait_to_complete(yaw_angle,x,y,linear_speed,flags):
 
     # Wait to complete the move.  Note: In a real project, a timeout mechanism
     # should be here to prevent the script from getting caught in an infinite loop
-    while (move_completed==False):
+    while not move_completed:
         await asyncio.sleep(0)
 
 

@@ -35,9 +35,9 @@ async def main():
     for i in range(2):
         await rvr.raw_motors(
             left_mode=RawMotorModesEnum.forward.value,
-            left_speed=64,  # Valid speed values are 0-255
+            left_duty_cycle=64,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.forward.value,
-            right_speed=64  # Valid speed values are 0-255
+            right_duty_cycle=64  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive

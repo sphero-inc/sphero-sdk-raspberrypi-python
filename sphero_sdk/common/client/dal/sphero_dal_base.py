@@ -3,7 +3,7 @@
 
 class SpheroDalBase:
     def __init__(self):
-        pass
+        self.request_error_responses_only = False
 
     def close(self):
         raise NotImplementedError

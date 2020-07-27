@@ -5,8 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.
 import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
-from sphero_sdk import RawMotorModesEnum
-
 
 loop = asyncio.get_event_loop()
 
@@ -40,7 +38,7 @@ async def main():
     print("sending drive command")
 
     await rvr.drive_rc_si_units(
-        linear_velocity=.3,     # Valid velocity values are in the range of [-1.555..1.555] m/s
+        linear_velocity=.3,     # Valid velocity values are in the range of [-2..2] m/s
         yaw_angular_velocity=0, # RVR will spin at up to 624 degrees/s.  Values outside of [-624..624] will saturate internally.
         flags=0
     )
@@ -79,10 +77,9 @@ async def main():
 
 if __name__ == '__main__':
     try:
-        asyncio.ensure_future(
+        loop.run_until_complete(
             main()
         )
-        loop.run_forever()
 
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
