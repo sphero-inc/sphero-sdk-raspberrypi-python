@@ -1,5 +1,5 @@
 import logging
-from sphero_sdk import ErrorCode
+from sphero_sdk.common.protocol import ErrorCode
 from sphero_sdk.observer.observer_base import Observer
 
 logger = logging.getLogger(__name__)

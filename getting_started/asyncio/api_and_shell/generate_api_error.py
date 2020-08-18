@@ -6,7 +6,7 @@ import asyncio
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 from sphero_sdk import SpheroRvrTargets
-from sphero_sdk import ErrorCode
+from sphero_sdk import ApiResponseCodesEnum
 
 
 loop = asyncio.get_event_loop()
@@ -48,7 +48,7 @@ async def main():
     rvr.request_error_responses_only = True
 
     await rvr.generate_api_error(
-        error=ErrorCode.target_unavailable,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
+        error=ApiResponseCodesEnum.target_unavailable,  # Specify code 0x01 - 0x0A to receive that specific error response from RVR.
         target=SpheroRvrTargets.secondary.value,
         timeout=3
     )
