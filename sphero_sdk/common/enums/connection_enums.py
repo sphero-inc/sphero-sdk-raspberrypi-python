@@ -3,7 +3,7 @@
 # Source File:        0x19-peer_connection.json
 # Device ID:          0x19
 # Device Name:        connection
-# Timestamp:          07/09/2020 @ 00:36:48.487799 (UTC)
+# Timestamp:          08/19/2020 @ 14:35:30.995503 (UTC)
 
 from enum import IntEnum
 

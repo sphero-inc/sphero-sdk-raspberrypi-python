@@ -3,7 +3,7 @@
 # Source File:        0x1A-user_io.json
 # Device ID:          0x1A
 # Device Name:        io
-# Timestamp:          07/09/2020 @ 00:36:48.477691 (UTC)
+# Timestamp:          08/19/2020 @ 14:35:30.998751 (UTC)
 
 from enum import IntEnum
 
