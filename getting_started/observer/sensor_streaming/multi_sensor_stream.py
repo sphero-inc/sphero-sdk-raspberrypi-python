@@ -25,6 +25,9 @@ def accelerometer_handler(accelerometer_data):
 def ambient_light_handler(ambient_light_data):
     print('Ambient light data response: ', ambient_light_data)
 
+def encoder_handler(encoder_data):
+    print('Encoder data response: ', encoder_data)
+
 
 def main():
     """ This program demonstrates how to enable multiple sensors to stream.
@@ -51,6 +54,10 @@ def main():
         rvr.sensor_control.add_sensor_data_handler(
             service=RvrStreamingServices.ambient_light,
             handler=ambient_light_handler
+        )
+        rvr.sensor_control.add_sensor_data_handler(
+            service=RvrStreamingServices.encoders,
+            handler=encoder_handler
         )
 
         rvr.sensor_control.start(interval=250)
