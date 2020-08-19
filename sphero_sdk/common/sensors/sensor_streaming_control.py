@@ -330,6 +330,7 @@ class SensorStreamingControl:
         | 0x0006 | ST (2)             | 2     | Locator            | X, Y                       |
         | 0x0007 | ST (2)             | 2     | Velocity           | X, Y                       |
         | 0x0008 | ST (2)             | 2     | Speed              | Speed                      |
+        | 0x000B | ST (2)             | 2     | Encoders           | Left, Right                |
         -----------------------------------------------------------------------------------------
         | 0x0009 | Nordic (1), ST (2) | 3     | CoreTime           | TimeUpper, TimeLower       |
         -----------------------------------------------------------------------------------------
@@ -478,6 +479,20 @@ class SensorStreamingControl:
             StreamingDataSizesEnum.thirty_two_bit,
             attributes,
             [SpheroRvrTargets.primary.value]
+        )
+        self.__add_service_to_slot(streaming_service, self.slot_token_2)
+
+        # Encoder ticks
+        attributes = [
+            SensorStreamAttribute('LeftTicks', 0, UintBounds.uint_32_max),
+            SensorStreamAttribute('RightTicks', 0, UintBounds.uint_32_max)
+        ]
+        streaming_service = SensorStreamService(
+            0x000B,
+            'Encoders',
+            StreamingDataSizesEnum.thirty_two_bit,
+            attributes,
+            [SpheroRvrTargets.secondary.value]
         )
         self.__add_service_to_slot(streaming_service, self.slot_token_2)
 
