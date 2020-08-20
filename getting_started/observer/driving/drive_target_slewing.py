@@ -1,9 +1,10 @@
 import os
 import sys
+import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
 import asyncio
-from sphero_sdk import SpheroRvrAsync
+from sphero_sdk import SpheroRvrObserver
 from sphero_sdk import SerialAsyncDal
 from sphero_sdk import LinearVelocitySlewMethodsEnum
 
@@ -23,6 +24,8 @@ def on_xy_position_drive_result_notify_handler(response):
     move_completed = True
     print('Move completed, response:', response)
 
+def get_drive_target_slew_parameters_handler(response):
+    print('Drive target slew parameters:', response)
 
 # This wrapper function implements a simple way to return to the start position
 def return_to_start():
@@ -96,7 +99,9 @@ def main():
         rvr.reset_locator_x_and_y();
 
         # Register for the async on completion of xy position drive commands
-        rvr.on_xy_position_drive_result_notify(handler=on_xy_position_drive_result_notify_handler)
+        rvr.on_xy_position_drive_result_notify(
+            handler=on_xy_position_drive_result_notify_handler
+        )
 
         rvr.restore_default_control_system_timeout()
 
@@ -104,8 +109,11 @@ def main():
         # This can be used at any time to restore the default slewing behavior
         rvr.restore_default_drive_target_slew_parameters()
 
+        print('Getting default drive target slew parameters...')
         # Get the default parameters and print them
-        response = rvr.get_drive_target_slew_parameters()
+        response = rvr.get_drive_target_slew_parameters(
+            handler=get_drive_target_slew_parameters_handler
+        )
         print(response)
 
         # Drive with the default slew parameters.
@@ -139,7 +147,7 @@ def main():
         # Drive with the updated parameters
         drive_demo()
 
-   except KeyboardInterrupt:
+    except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
 
     finally:
