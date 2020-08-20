@@ -177,7 +177,7 @@ class SensorStreamingControl:
 
     def _process_streaming_response(self, processor, response):
         response_token_uint8 = response['token']
-        raw_sensor_data = response['sensorData']
+        raw_sensor_data = response['sensor_data']
         raw_start_index = 0
         status_flag = response_token_uint8 & 0xF0  # Check the upper nibble for flag value: 0x0 = OK, 0x1 = Invalid Data
         token_id = response_token_uint8 & 0x0F # Check the lower nibble for token id
