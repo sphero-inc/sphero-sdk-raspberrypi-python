@@ -132,7 +132,7 @@ def main():
         # Control of the motors is handed off to the stop controller,
         # which linearly ramps down the velocity targets of both treads.
         rvr.drive_stop_custom_decel(
-            deceleration_rate=0.25 # Decelerate both treads toward 0 velocity at 0.25 m/s^2
+            deceleration_rate=0.5 # Decelerate both treads toward 0 velocity at 0.5 m/s^2
         )
 
         # In addition to polling to check if the robot has stopped,
