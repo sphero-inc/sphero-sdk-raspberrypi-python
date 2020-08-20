@@ -3,13 +3,9 @@ import sys
 import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-import asyncio
 from sphero_sdk import SpheroRvrObserver
-from sphero_sdk import SerialAsyncDal
 from sphero_sdk import LinearVelocitySlewMethodsEnum
 
-
-loop = asyncio.get_event_loop()
 
 rvr = SpheroRvrObserver()
 
