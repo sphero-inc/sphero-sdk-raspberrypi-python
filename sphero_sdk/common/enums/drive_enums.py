@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          08/19/2020 @ 14:35:30.922554 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:13.860053 (UTC)
 
 from enum import IntEnum
 
@@ -41,7 +41,7 @@ class CommandsEnum(IntEnum):
     set_drive_target_slew_parameters = 0x3C
     get_drive_target_slew_parameters = 0x3D
     drive_stop_custom_decel = 0x3E
-    active_controller_stopped_notify = 0x3F
+    robot_has_stopped_notify = 0x3F
     restore_default_drive_target_slew_parameters = 0x40
     get_stop_controller_state = 0x41
     drive_stop = 0x42

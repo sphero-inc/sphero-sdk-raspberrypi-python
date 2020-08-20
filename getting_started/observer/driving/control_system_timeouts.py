@@ -24,7 +24,7 @@ def main():
         time.sleep(2)
 
         # Register the handler for the stopped notification
-        rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+        rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
         # Reset yaw
         rvr.reset_yaw()

@@ -92,7 +92,7 @@ def main():
 
         # Stop the robot
         print('Stopping...')
-        rvr.stop_active_controller()
+        rvr.drive_stop()
 
         # We don't actually need it to stop, so no delay here.  We just needed the RC drive command to be inactive
 
@@ -113,7 +113,7 @@ def main():
 
         # Stop the robot
         print('Stopping...')
-        rvr.stop_active_controller()
+        rvr.drive_stop()
 
         # Restore initial default control systems
         print('Restore initial default control systems')

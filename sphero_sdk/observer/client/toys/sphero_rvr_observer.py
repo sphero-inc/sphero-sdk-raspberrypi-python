@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      93
-# Timestamp:          08/19/2020 @ 14:35:31.176928 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:14.115142 (UTC)
 
 import time
 import logging.config
@@ -611,13 +611,13 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         command_dict = drive.drive_stop_custom_decel(deceleration_rate, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def on_active_controller_stopped_notify(self, handler, timeout=None): 
-        """Active controller has stopped notification
+    def on_robot_has_stopped_notify(self, handler, timeout=None): 
+        """Robot has stopped notification
 
         Args:
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.on_active_controller_stopped_notify(target=2, timeout=timeout)
+        command_dict = drive.on_robot_has_stopped_notify(target=2, timeout=timeout)
         self._register_handler(handler, **command_dict)
 
     def restore_default_drive_target_slew_parameters(self, timeout=None): 

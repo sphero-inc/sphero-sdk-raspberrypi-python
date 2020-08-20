@@ -32,7 +32,7 @@ async def main():
     await asyncio.sleep(2)
 
     # Register the handler for the stopped notification
-    await rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+    await rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
     # Reset yaw
     await rvr.reset_yaw()

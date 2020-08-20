@@ -31,7 +31,7 @@ async def main():
     await asyncio.sleep(2)
 
     # Register the handler for the stopped notification
-    await rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+    await rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
     await rvr.reset_yaw()
 
@@ -64,7 +64,7 @@ async def main():
     print("sending stop command")
 
     # Stop early, with a custom deceleration rate of 2 m/s^2.
-    await rvr.stop_active_controller(2.0)
+    await rvr.drive_stop(2.0)
 
     # Restore the default control system timeout to keep things more normal after this.
     await rvr.restore_default_control_system_timeout()

@@ -69,7 +69,7 @@ async def main():
     await asyncio.sleep(2)
 
     # Register the handler for the stopped notification
-    await rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+    await rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
     # Register the handler for the xy position drive result notification
     await rvr.on_xy_position_drive_result_notify(
@@ -101,7 +101,7 @@ async def main():
     # This will request a stop with default deceleration.
     # Control of the motors is handed off to the stop controller,
     # which linearly ramps down the velocity targets of both treads.
-    await rvr.stop_active_controller()
+    await rvr.drive_stop()
 
     # Wait until we receive the notification that the robot has stopped.
     while not rvr_has_stopped_from_handler:
@@ -130,7 +130,7 @@ async def main():
     # This will request a stop with slower than normal deceleration.
     # Control of the motors is handed off to the stop controller,
     # which linearly ramps down the velocity targets of both treads.
-    await rvr.stop_active_controller_custom_decel(
+    await rvr.drive_stop_custom_decel(
         deceleration_rate=0.25 # Decelerate both treads toward 0 velocity at 0.25 m/s^2
     )
 
@@ -167,7 +167,7 @@ async def main():
     # This will request a stop with faster than normal deceleration.
     # Control of the motors is handed off to the stop controller,
     # which linearly ramps down the velocity targets of both treads.
-    await rvr.stop_active_controller_custom_decel(
+    await rvr.drive_stop_custom_decel(
         deceleration_rate=10 # Decelerate both treads toward 0 velocity at 10 m/s^2
     )
 

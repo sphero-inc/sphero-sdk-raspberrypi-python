@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      93
-# Timestamp:          08/19/2020 @ 14:35:31.091027 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:14.029949 (UTC)
 
 import asyncio
 import logging.config
@@ -600,8 +600,8 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         command_dict = drive.drive_stop_custom_decel(deceleration_rate, target=2, timeout=timeout)
         return await self._dal.send_command(**command_dict)
 
-    async def on_active_controller_stopped_notify(self, handler=None, timeout=None): 
-        """Active controller has stopped notification
+    async def on_robot_has_stopped_notify(self, handler=None, timeout=None): 
+        """Robot has stopped notification
 
         Args:
             handler (function): called asynchronously, takes form handler().
@@ -609,7 +609,7 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         Returns:
             Task (Future) from which `handler` will be called
         """
-        command_dict = drive.on_active_controller_stopped_notify(target=2, timeout=timeout)
+        command_dict = drive.on_robot_has_stopped_notify(target=2, timeout=timeout)
         command_dict['handler'] = handler
         return asyncio.ensure_future( 
             self._dal.on_command(**command_dict)

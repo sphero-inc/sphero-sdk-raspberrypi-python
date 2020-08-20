@@ -147,6 +147,9 @@ def main():
         # Drive with the updated parameters
         drive_demo()
 
+        # Delay to make sure that any responses came back
+        time.sleep(1)
+
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
 

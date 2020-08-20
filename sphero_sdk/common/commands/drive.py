@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          08/19/2020 @ 14:35:30.921186 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:13.858908 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -624,10 +624,10 @@ def drive_stop_custom_decel(deceleration_rate, target, timeout):
     }
 
 
-def on_active_controller_stopped_notify(target, timeout): 
+def on_robot_has_stopped_notify(target, timeout): 
     return { 
         'did': DevicesEnum.drive,
-        'cid': CommandsEnum.active_controller_stopped_notify,
+        'cid': CommandsEnum.robot_has_stopped_notify,
         'target': target,
         'timeout': timeout,
     }
