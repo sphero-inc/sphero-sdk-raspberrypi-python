@@ -99,7 +99,7 @@ def main():
         # This will request a stop with default deceleration.
         # Control of the motors is handed off to the stop controller,
         # which linearly ramps down the velocity targets of both treads.
-        rvr.stop_active_controller()
+        rvr.drive_stop()
 
         # It's possible to poll whether the robot has come to a stop.
         # We'll poll the stop controller state to decide when to continue.
@@ -131,13 +131,13 @@ def main():
         # This will request a stop with slower than normal deceleration.
         # Control of the motors is handed off to the stop controller,
         # which linearly ramps down the velocity targets of both treads.
-        rvr.stop_active_controller_custom_decel(
-            deceleration_rate=0.25 # Decelerate both treads toward 0 velocity at 0.25 m/s^2
+        rvr.drive_stop_custom_decel(
+            deceleration_rate=0.5 # Decelerate both treads toward 0 velocity at 0.5 m/s^2
         )
 
         # In addition to polling to check if the robot has stopped,
         # We can also register a handler for a notification.
-        rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+        rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
         # Wait until we receive the notification that the robot has stopped.
         while not rvr_has_stopped:
@@ -166,7 +166,7 @@ def main():
         # This will request a stop with faster than normal deceleration.
         # Control of the motors is handed off to the stop controller,
         # which linearly ramps down the velocity targets of both treads.
-        rvr.stop_active_controller_custom_decel(
+        rvr.drive_stop_custom_decel(
             deceleration_rate=10 # Decelerate both treads toward 0 velocity at 10 m/s^2
         )
 

@@ -9,3 +9,4 @@ class RvrStreamingServices:
     velocity = 'Velocity'
     speed = 'Speed'
     core_time = 'CoreTime'
+    encoders = 'Encoders'

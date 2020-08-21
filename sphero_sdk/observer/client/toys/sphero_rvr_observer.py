@@ -3,7 +3,7 @@
 # Toy Name:           Sphero RVR
 # Prefix:             RV
 # Command Count:      93
-# Timestamp:          07/13/2020 @ 22:35:05.771344 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:14.115142 (UTC)
 
 import time
 import logging.config
@@ -601,23 +601,23 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         self._register_handler(handler, **command_dict)
         self._dal.send_command(**command_dict)
 
-    def stop_active_controller_custom_decel(self, deceleration_rate, timeout=None): 
+    def drive_stop_custom_decel(self, deceleration_rate, timeout=None): 
         """Stops the robot with a custom deceleration rate, which is applied to the motor that is spinning faster when the command was received.  The opposite motor is ramped down at a rate that maintains the initial velocity ratio of the 2 motors.  This will maintain straight/turning behavior during braking
 
         Args:
             deceleration_rate (float): deceleration rate in m/s^2
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.stop_active_controller_custom_decel(deceleration_rate, target=2, timeout=timeout)
+        command_dict = drive.drive_stop_custom_decel(deceleration_rate, target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
-    def on_active_controller_stopped_notify(self, handler, timeout=None): 
-        """Active controller has stopped notification
+    def on_robot_has_stopped_notify(self, handler, timeout=None): 
+        """Robot has stopped notification
 
         Args:
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.on_active_controller_stopped_notify(target=2, timeout=timeout)
+        command_dict = drive.on_robot_has_stopped_notify(target=2, timeout=timeout)
         self._register_handler(handler, **command_dict)
 
     def restore_default_drive_target_slew_parameters(self, timeout=None): 
@@ -643,13 +643,13 @@ linearAcceleration is in m/s.  LinearVelocitySlewMethod determines the meaning o
         self._register_handler(handler, **command_dict)
         self._dal.send_command(**command_dict)
 
-    def stop_active_controller(self, timeout=None): 
+    def drive_stop(self, timeout=None): 
         """Brings the drive motors to a stop using the default deceleration rate, which is applied to the motor that was spinning faster when the command was received.  The opposite motor is ramped down at a rate that maintains the initial velocity ratio of the 2 motors.  This will maintain straight/turning behavior during braking
 
         Args:
             timeout (float): maximum time to await a response.
         """
-        command_dict = drive.stop_active_controller(target=2, timeout=timeout)
+        command_dict = drive.drive_stop(target=2, timeout=timeout)
         self._dal.send_command(**command_dict)
 
     def restore_default_control_system_timeout(self, timeout=None): 

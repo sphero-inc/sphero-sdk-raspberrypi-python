@@ -3,7 +3,7 @@
 # Source File:        0x16-driving.json
 # Device ID:          0x16
 # Device Name:        drive
-# Timestamp:          07/13/2020 @ 20:24:40.440678 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:13.858908 (UTC)
 
 from sphero_sdk.common.enums.drive_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -605,10 +605,10 @@ def get_drive_target_slew_parameters(target, timeout):
     }
 
 
-def stop_active_controller_custom_decel(deceleration_rate, target, timeout): 
+def drive_stop_custom_decel(deceleration_rate, target, timeout): 
     return { 
         'did': DevicesEnum.drive,
-        'cid': CommandsEnum.stop_active_controller_custom_decel,
+        'cid': CommandsEnum.drive_stop_custom_decel,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,
@@ -624,10 +624,10 @@ def stop_active_controller_custom_decel(deceleration_rate, target, timeout):
     }
 
 
-def on_active_controller_stopped_notify(target, timeout): 
+def on_robot_has_stopped_notify(target, timeout): 
     return { 
         'did': DevicesEnum.drive,
-        'cid': CommandsEnum.active_controller_stopped_notify,
+        'cid': CommandsEnum.robot_has_stopped_notify,
         'target': target,
         'timeout': timeout,
     }
@@ -661,10 +661,10 @@ def get_stop_controller_state(target, timeout):
     }
 
 
-def stop_active_controller(target, timeout): 
+def drive_stop(target, timeout): 
     return { 
         'did': DevicesEnum.drive,
-        'cid': CommandsEnum.stop_active_controller,
+        'cid': CommandsEnum.drive_stop,
         'seq': SequenceNumberGenerator.get_sequence_number(),
         'target': target,
         'timeout': timeout,

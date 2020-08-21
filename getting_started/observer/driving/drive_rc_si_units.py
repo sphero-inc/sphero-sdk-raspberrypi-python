@@ -25,7 +25,7 @@ def main():
         time.sleep(2)
 
         # Register the handler for the stopped notification
-        rvr.on_active_controller_stopped_notify(handler=stopped_handler)
+        rvr.on_robot_has_stopped_notify(handler=stopped_handler)
 
         rvr.reset_yaw()
 
@@ -58,7 +58,7 @@ def main():
         print("sending stop command")
 
         # Stop early, with a custom deceleration rate of 2 m/s^2.
-        rvr.stop_active_controller(2.0)
+        rvr.drive_stop(2.0)
 
         # Restore the default control system timeout to keep things more normal after this.
         rvr.restore_default_control_system_timeout()
