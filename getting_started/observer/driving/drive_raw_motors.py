@@ -24,9 +24,9 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.forward.value,
-            left_speed=128,  # Valid speed values are 0-255
+            left_duty_cycle=128,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.forward.value,
-            right_speed=128  # Valid speed values are 0-255
+            right_duty_cycle=128  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive
@@ -34,9 +34,9 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.reverse.value,
-            left_speed=64,  # Valid speed values are 0-255
+            left_duty_cycle=64,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.reverse.value,
-            right_speed=64  # Valid speed values are 0-255
+            right_duty_cycle=64  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive
@@ -44,9 +44,9 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.reverse.value,
-            left_speed=128,  # Valid speed values are 0-255
+            left_duty_cycle=128,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.forward.value,
-            right_speed=128  # Valid speed values are 0-255
+            right_duty_cycle=128  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive
@@ -54,9 +54,9 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.forward.value,
-            left_speed=128,  # Valid speed values are 0-255
+            left_duty_cycle=128,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.forward.value,
-            right_speed=128  # Valid speed values are 0-255
+            right_duty_cycle=128  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive
@@ -64,9 +64,9 @@ def main():
 
         rvr.raw_motors(
             left_mode=RawMotorModesEnum.off.value,
-            left_speed=0,  # Valid speed values are 0-255
+            left_duty_cycle=0,  # Valid duty cycle range is 0-255
             right_mode=RawMotorModesEnum.off.value,
-            right_speed=0  # Valid speed values are 0-255
+            right_duty_cycle=0  # Valid duty cycle range is 0-255
         )
 
         # Delay to allow RVR to drive

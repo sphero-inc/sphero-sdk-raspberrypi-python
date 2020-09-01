@@ -51,30 +51,36 @@ class SerialAsyncDal(SpheroDalBase, SerialSpheroPort):
         message.seq = seq
         message.target = target
         message.is_activity = True
+        message.requests_response = len(outputs) > 0 or self.request_error_responses_only
 
-        logger.debug('Message created: %s', message)
-
-        if len(outputs) > 0:
-            message.requests_response = True
+        # Messages that already request a response due to expected outputs don't need this
+        # extra flag. They will automatically respond with errors if any are generated.
+        # This flag is meant only for commands with no expected output.
+        message.requests_error_response = self.request_error_responses_only if len(outputs) == 0 else False
 
         for param in inputs:
             message.pack(param.data_type, param.value)
 
+        logger.debug('Message created: %s', message)
+
         def response_handler(message):
             response_dictionary = {}
-            for param in sorted(outputs, key=lambda x: x.index):
-                response_dictionary[param.name] = message.unpack(
-                    param.data_type,
-                    count=param.size
-                )
+            if len(outputs) > 0:
+                for param in sorted(outputs, key=lambda x: x.index):
+                    response_dictionary[param.name] = message.unpack(
+                        param.data_type,
+                        count=param.size
+                    )
 
-            logger.debug('Respnose_handler inovked, returning: %s', response_dictionary)
+            debug_str = 'Response_handler invoked for DID: 0x{:2x} CID: 0x{:2x}.'.format(did, cid)
+            return_str = 'Returning: %s'.format(response_dictionary) if len(outputs) > 0 else None
+            logger.debug('{} {}'.format(debug_str, return_str))
 
             return response_dictionary
 
         return await self.handler.send_command(
             message,
-            response_handler=response_handler if len(outputs) > 0 else None,
+            response_handler=response_handler if message.requests_response else None,
             timeout=timeout
         )
 

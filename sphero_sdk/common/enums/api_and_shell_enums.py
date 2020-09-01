@@ -3,10 +3,28 @@
 # Source File:        0x10-api_and_shell.json
 # Device ID:          0x10
 # Device Name:        api_and_shell
-# Timestamp:          10/12/2019 @ 01:43:14.084334 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:14.021821 (UTC)
 
 from enum import IntEnum
 
 
+__all__ = ['ApiResponseCodesEnum']
+
+
 class CommandsEnum(IntEnum): 
     echo = 0x00
+    generate_api_error = 0x09
+
+
+class ApiResponseCodesEnum(IntEnum):
+    api_success = 0
+    bad_did = 1
+    bad_cid = 2
+    not_yet_implemented = 3
+    restricted = 4
+    bad_data_length = 5
+    failed = 6
+    bad_data_value = 7
+    busy = 8
+    bad_tid = 9
+    target_unavailable = 10

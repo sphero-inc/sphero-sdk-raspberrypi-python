@@ -3,7 +3,7 @@
 # Source File:        0x11-system_info.json
 # Device ID:          0x11
 # Device Name:        system_info
-# Timestamp:          10/12/2019 @ 01:43:14.091027 (UTC)
+# Timestamp:          08/20/2020 @ 02:17:13.948810 (UTC)
 
 from sphero_sdk.common.enums.system_info_enums import CommandsEnum
 from sphero_sdk.common.devices import DevicesEnum
@@ -98,7 +98,7 @@ def get_mac_address(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='macAddress',
+                name='mac_address',
                 data_type='std::string',
                 index=0,
                 size=1,
@@ -116,7 +116,7 @@ def get_stats_id(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='statsId',
+                name='stats_id',
                 data_type='uint16_t',
                 index=0,
                 size=1,
@@ -170,7 +170,7 @@ def get_core_up_time_in_milliseconds(target, timeout):
         'timeout': timeout,
         'outputs': [ 
             Parameter( 
-                name='upTime',
+                name='up_time',
                 data_type='uint64_t',
                 index=0,
                 size=1,

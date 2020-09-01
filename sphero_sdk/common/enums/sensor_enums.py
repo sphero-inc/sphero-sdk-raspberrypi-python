@@ -3,7 +3,7 @@
 # Source File:        0x18-sensors.json
 # Device ID:          0x18
 # Device Name:        sensor
-# Timestamp:          10/12/2019 @ 01:43:14.086683 (UTC)
+# Timestamp:          07/08/2020 @ 22:29:07.240603 (UTC)
 
 from enum import IntEnum
 
@@ -11,6 +11,7 @@ from enum import IntEnum
 __all__ = ['MotorIndexesEnum',
            'ThermalProtectionStatusEnum',
            'StreamingDataSizesEnum',
+           'TemperatureSensorsEnum',
            'GyroMaxFlagsBitmask',
            'LocatorFlagsBitmask',
            'InfraredSensorLocationsBitmask']
@@ -23,6 +24,7 @@ class CommandsEnum(IntEnum):
     set_locator_flags = 0x17
     get_bot_to_bot_infrared_readings = 0x22
     get_rgbc_sensor_values = 0x23
+    magnetometer_calibrate_to_north = 0x25
     start_robot_to_robot_infrared_broadcasting = 0x27
     start_robot_to_robot_infrared_following = 0x28
     stop_robot_to_robot_infrared_broadcasting = 0x29
@@ -42,10 +44,14 @@ class CommandsEnum(IntEnum):
     streaming_service_data_notify = 0x3D
     enable_robot_infrared_message_notify = 0x3E
     send_infrared_message = 0x3F
-    get_motor_temperature = 0x42
+    get_temperature = 0x4A
     get_motor_thermal_protection_status = 0x4B
     enable_motor_thermal_protection_status_notify = 0x4C
     motor_thermal_protection_status_notify = 0x4D
+    magnetometer_calibration_complete_notify = 0x51
+    get_magnetometer_reading = 0x52
+    get_encoder_counts = 0x53
+    disable_notifications_and_active_commands = 0x54
 
 
 class MotorIndexesEnum(IntEnum):
@@ -63,6 +69,12 @@ class StreamingDataSizesEnum(IntEnum):
     eight_bit = 0x00
     sixteen_bit = 0x01
     thirty_two_bit = 0x02
+
+
+class TemperatureSensorsEnum(IntEnum):
+    left_motor_temperature = 4
+    right_motor_temperature = 5
+    nordic_die_temperature = 8
 
 
 class GyroMaxFlagsBitmask(IntEnum):
