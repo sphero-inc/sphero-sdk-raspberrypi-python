@@ -12,6 +12,8 @@ Visit our [Getting Started](https://sdk.sphero.com/getting_started) to learn mor
 
 Visit our [SDK website](https://sdk.sphero.com) to find more information about RVR, the SDK and the API!
 
+For control system usage details, consult the RVR Control System Manual in the `docs` directory.
+
 ### Where to get help
 
 Visit our [community forum](https://community.sphero.com/c/advanced-programming) to get help, share your project, or help others!
