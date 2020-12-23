@@ -17,7 +17,7 @@ tk-dev \
 libffi-dev \
 liblzma-dev
 
-python -m pip install pipenv
+python3 -m pip install pipenv
 
 printf "PATH=$HOME/.local/bin:$PATH\n" >> ~/.profile
 
