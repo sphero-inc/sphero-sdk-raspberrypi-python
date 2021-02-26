@@ -31,7 +31,7 @@ setup(
          'Operating System :: OS Independent',
      ],
     install_requires=[
-        'aiohttp == 3.5.4',
+        'aiohttp == 3.7.4',
         'requests == 2.21.0',
         'websocket-client == 0.54.0',
         'pyserial == 3.4',
