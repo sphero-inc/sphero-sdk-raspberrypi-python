@@ -34,12 +34,12 @@ if ! which pipenv ; then
     source ~/.profile
 fi
 
-pipenv --python /usr/bin/python3.7
+python3 -m pipenv --python /usr/bin/python3.7
 
 # The cryptography package is a dependency, but for some reason pipenv can't always install it correctly, so we'll use pip instead.  ¯\_(ツ)_/¯
-pipenv run pip install cryptography
+python3 -m pipenv run pip install cryptography
 
-pipenv install
+python3 -m pipenv install
 
 while true; do
     read -ep $'By default, the RVR SDK uses the UART on /dev/ttys0 to communicate with RVR.\nDo you have Serial Port enabled and Serial Shell disabled in Raspberry Pi Configuration?\n(y/n):' yn

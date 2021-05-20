@@ -5,6 +5,9 @@ verify_ssl = true
 
 [dev-packages]
 
+[requires]
+python_version = "3"
+
 [packages]
 aiohttp = "*"
 requests = "*"
