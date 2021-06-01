@@ -5,5 +5,4 @@
 # Install the SDK dependencies
 pip3 install -r requirements.txt
 
-# Provide an opportunity to correct the UART settings if needed.
 ./tools/pi-uart-check.sh
