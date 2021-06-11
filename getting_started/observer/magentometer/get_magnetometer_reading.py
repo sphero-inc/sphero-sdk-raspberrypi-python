@@ -23,6 +23,9 @@ def main():
 
         rvr.get_magnetometer_reading(handler=get_magnetometer_reading_response_handler)
 
+        # Keep the script running briefly so we actually get to report the response.
+        time.sleep(1)
+
     except KeyboardInterrupt:
         print('\nProgram terminated with keyboard interrupt.')
 
