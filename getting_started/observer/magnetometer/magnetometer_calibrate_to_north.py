@@ -56,7 +56,6 @@ def main():
         rvr.drive_with_yaw_normalized(
             yaw_angle=yaw_north, # This is the target yaw angle, which RVR will turn to face.
             linear_velocity=0,   # This is normalized 0-255.  0 will cause RVR to turn in place
-            
         )
 
         # Leave some time for it to complete the move
