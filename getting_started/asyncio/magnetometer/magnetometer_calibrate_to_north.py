@@ -56,10 +56,13 @@ async def main():
     while not calibration_completed:
         await asyncio.sleep(.1)
 
-    print('turning to face north')
+    print('Turning to face north')
 
     # Turn to face north
-    await rvr.drive_with_yaw_normalized(yaw_angle=yaw_north, linear_velocity=0)
+    await rvr.drive_with_yaw_normalized(
+        yaw_angle=yaw_north, 
+        linear_velocity=0
+    )
 
     # Leave some time for it to complete the move
     await asyncio.sleep(2)
@@ -67,8 +70,8 @@ async def main():
     # Reset yaw to zero.  After this, zero heading will be magnetic north
     await rvr.reset_yaw()
 
-    print('turning to face east')
-    
+    print('Turning to face east')
+
     # You can now drive along compass headings as follows (adjust linear velocity to drive forward)
     await rvr.drive_with_heading(
         speed = 0,  # This is normalized 0-255.  0 will cause RVR to turn in place
@@ -76,6 +79,7 @@ async def main():
         flags=0     # Just leave this at zero to drive forward
     )
 
+    # Allow some time for the move to complete before we end our script
     await asyncio.sleep(2)
 
     await rvr.close();
