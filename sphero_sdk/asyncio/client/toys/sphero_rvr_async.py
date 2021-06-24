@@ -63,7 +63,8 @@ class SpheroRvrAsync(RvrFwCheckAsync):
     async def close(self): 
         if len(self._sensor_control.enabled_sensors) > 0: 
             await self._sensor_control.clear()
-            await asyncio.sleep(.2)
+        
+        await asyncio.sleep(.2)
 
         await self._dal.close()
 

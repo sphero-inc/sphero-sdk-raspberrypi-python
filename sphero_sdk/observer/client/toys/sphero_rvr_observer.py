@@ -64,8 +64,8 @@ class SpheroRvrObserver(Observer, RvrFwCheckObserver):
     def close(self): 
         if len(self._sensor_control.enabled_sensors) > 0: 
             self._sensor_control.clear()
-            time.sleep(.2)
-
+        
+        time.sleep(.2)
         self._dal.close()
 
     def echo(self, data, handler, target, timeout=None): 
