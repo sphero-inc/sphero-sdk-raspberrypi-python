@@ -99,4 +99,4 @@ class SpheroRoboService(RoboServiceBase):
         try:
             return [str(self.ports.used)]
         except:
-            raise ErrorReturn(dbus.DBUS.ERROR_FAILED, 'fuck')
+            raise ErrorReturn(dbus.DBUS.ERROR_FAILED, 'DBUS Error Failed')
