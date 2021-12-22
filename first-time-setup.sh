@@ -1,31 +1,12 @@
-sudo apt-get update -y
+#!/bin/bash
 
-sudo apt-get install -y make \
-build-essential \
-llvm \
-libssl-dev \
-bzip2 \
-zlib1g-dev \
-libbz2-dev \
-libreadline6 \
-libreadline-dev \
-libsqlite3-dev \
-libncurses5-dev \
-libncursesw5-dev \
-xz-utils \
-tk-dev \
-libffi-dev \
-liblzma-dev
+# This script guides a user through setting up the Sphero RVR Python SDK.
 
-python -m pip install pipenv
+# Install the SDK dependencies (only for the current user)
+pip3 install --user -r requirements.txt
 
-printf "PATH=$HOME/.local/bin:$PATH\n" >> ~/.profile
+# Reload ~/.profile.  In recent Raspberry Pi OS releases, this automatically includes $HOME/.local/bin in the path once it exists.
+source ~/.profile
 
-while true; do
-    read -p "A restart is required for changes to take effect.  Restart now?" yn
-    case $yn in
-        [Yy]* ) sudo reboot; break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+# Provide an opportunity to correct the UART settings if needed.
+./tools/pi-uart-check.sh
