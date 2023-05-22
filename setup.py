@@ -32,7 +32,7 @@ setup(
      ],
     install_requires=[
         'aiohttp == 3.7.4',
-        'requests == 2.21.0',
+        'requests == 2.31.0',
         'websocket-client == 0.54.0',
         'pyserial == 3.4',
         'pyserial-asyncio == 0.4',
